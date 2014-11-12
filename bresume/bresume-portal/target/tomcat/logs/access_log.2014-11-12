@@ -1,0 +1,10 @@
+0:0:0:0:0:0:0:1 - - [12/Nov/2014:23:50:08 +0800] "GET /portal/login.jsp HTTP/1.1" 200 2200 http-bio-8089-exec-1 4040
+0:0:0:0:0:0:0:1 - - [12/Nov/2014:23:50:08 +0800] "GET /portal/resource/css/bootstrap-responsive.min.css;jsessionid=9D6A5CF310DD00C4DD1B950B6197E6FA HTTP/1.1" 200 16520 http-bio-8089-exec-3 83
+0:0:0:0:0:0:0:1 - - [12/Nov/2014:23:50:08 +0800] "GET /portal/resource/css/bootstrap.min.css;jsessionid=9D6A5CF310DD00C4DD1B950B6197E6FA HTTP/1.1" 200 101265 http-bio-8089-exec-2 135
+0:0:0:0:0:0:0:1 - - [12/Nov/2014:23:50:08 +0800] "GET /portal/resource/css/unicorn.login.css;jsessionid=9D6A5CF310DD00C4DD1B950B6197E6FA HTTP/1.1" 200 1825 http-bio-8089-exec-4 131
+0:0:0:0:0:0:0:1 - - [12/Nov/2014:23:50:08 +0800] "GET /portal/resource/js/jquery.form.js;jsessionid=9D6A5CF310DD00C4DD1B950B6197E6FA HTTP/1.1" 200 41719 http-bio-8089-exec-6 277
+0:0:0:0:0:0:0:1 - - [12/Nov/2014:23:50:08 +0800] "GET /portal/resource/js/jquery.min.js;jsessionid=9D6A5CF310DD00C4DD1B950B6197E6FA HTTP/1.1" 200 94839 http-bio-8089-exec-5 278
+0:0:0:0:0:0:0:1 - - [12/Nov/2014:23:50:09 +0800] "GET /portal/resource/img/glyphicons-halflings.png HTTP/1.1" 200 26301 http-bio-8089-exec-9 50
+0:0:0:0:0:0:0:1 - - [12/Nov/2014:23:50:09 +0800] "GET /favicon.ico HTTP/1.1" 404 - http-bio-8089-exec-9 0
+0:0:0:0:0:0:0:1 - - [12/Nov/2014:23:50:09 +0800] "GET /favicon.ico HTTP/1.1" 404 - http-bio-8089-exec-9 0
+0:0:0:0:0:0:0:1 - - [12/Nov/2014:23:50:19 +0800] "GET /portal/user/login.do;jsessionid=9D6A5CF310DD00C4DD1B950B6197E6FA?loginName=admin&password=admin HTTP/1.1" 404 949 http-bio-8089-exec-9 23
