@@ -44,7 +44,7 @@ import com.bresume.core.common.utils.search.SearchFactory;
  *            主键类型
  */
 @SuppressWarnings("unchecked")
-public class SimpleHibernateDao<T, ID extends Serializable> extends AbstractSessionBaseDao implements IGenericDao<T, ID>
+public abstract class SimpleHibernateDao<T, ID extends Serializable> extends AbstractSessionBaseDao implements IGenericDao<T, ID>
 {
 
 	protected Logger	logger	= LoggerFactory.getLogger(getClass());
