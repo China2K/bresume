@@ -19,7 +19,7 @@ public class Contact extends BaseEntity {
 	private User user;
 	private String name;
 	private String EMAIL;
-	private String mobile;
+	private String cellPhone;
 	private Integer status;
 	private String message;
 	private Date createdTime;
@@ -44,13 +44,13 @@ public class Contact extends BaseEntity {
 		EMAIL = eMAIL;
 	}
 
-	@Column(name ="MOBILE")
-	public String getMobile() {
-		return mobile;
+	@Column(name ="CELL_PHONE")
+	public String getCellPhone() {
+		return cellPhone;
 	}
 
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
+	public void setCellPhone(String cellPhone) {
+		this.cellPhone = cellPhone;
 	}
 
 	@Column(name ="`STATUS`")

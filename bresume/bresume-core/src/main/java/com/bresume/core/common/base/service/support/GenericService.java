@@ -11,11 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.bresume.core.common.base.dao.IGenericDao;
 import com.bresume.core.common.base.service.IGenericService;
 
-public class GenericService<T, ID extends Serializable> implements
+@Transactional
+public abstract  class GenericService<T, ID extends Serializable> implements
 		IGenericService<T, ID> {
-	public  IGenericDao<T, ID> getDao(){
-		return null;
-	}
+	public abstract IGenericDao<T, ID> getDao();
 
 	@Override
 	public long count() {

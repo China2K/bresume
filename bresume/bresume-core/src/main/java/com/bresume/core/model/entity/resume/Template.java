@@ -23,11 +23,15 @@ public class Template extends BaseEntity {
 	private Integer type;
 	private Boolean recommended;
 	private Integer usedCount;
-	private Date createdTime;
 	private Integer status;
 	private String source;
 	private Integer order;
 	private String coverUrl;
+	
+	private Date createdTime;
+	private Date updatedTime;
+	private String createdBy;
+	private String updatedBy;
 
 	@Column(name = "`NAME`")
 	public String getName() {
@@ -92,14 +96,6 @@ public class Template extends BaseEntity {
 		this.usedCount = usedCount;
 	}
 
-	@Column(name = "`CREATED_TIME`")
-	public Date getCreatedTime() {
-		return createdTime;
-	}
-
-	public void setCreatedTime(Date createdTime) {
-		this.createdTime = createdTime;
-	}
 
 	@Column(name = "`STATUS`")
 	public Integer getStatus() {
@@ -136,5 +132,39 @@ public class Template extends BaseEntity {
 	public void setCoverUrl(String coverUrl) {
 		this.coverUrl = coverUrl;
 	}
+	@Column(name = "CREATED_BY")
+	public String getCreatedBy() {
+		return createdBy;
+	}
 
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	@Column(name = "CREATED_TIME")
+	public Date getCreatedTime() {
+		return createdTime;
+	}
+
+	public void setCreatedTime(Date createdTime) {
+		this.createdTime = createdTime;
+	}
+
+	@Column(name = "UPDATED_BY")
+	public String getUpdatedBy() {
+		return updatedBy;
+	}
+
+	public void setUpdatedBy(String updatedBy) {
+		this.updatedBy = updatedBy;
+	}
+
+	@Column(name = "UPDATED_TIME")
+	public Date getUpdatedTime() {
+		return updatedTime;
+	}
+
+	public void setUpdatedTime(Date updatedTime) {
+		this.updatedTime = updatedTime;
+	}
 }

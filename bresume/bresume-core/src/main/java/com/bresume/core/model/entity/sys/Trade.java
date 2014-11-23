@@ -21,10 +21,12 @@ public class Trade extends BaseEntity {
 	private String code;
 	private String description;
 	private String pcode;
+	private String version;
 
 	private Date createdTime;
 	private Date updatedTime;
-	private String version;
+	private String createdBy;
+	private String updatedBy;
 
 	@Column(name = "NAME")
 	public String getName() {
@@ -62,6 +64,15 @@ public class Trade extends BaseEntity {
 		this.pcode = pcode;
 	}
 
+	@Column(name = "CREATED_BY")
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
 	@Column(name = "CREATED_TIME")
 	public Date getCreatedTime() {
 		return createdTime;
@@ -69,6 +80,15 @@ public class Trade extends BaseEntity {
 
 	public void setCreatedTime(Date createdTime) {
 		this.createdTime = createdTime;
+	}
+
+	@Column(name = "UPDATED_BY")
+	public String getUpdatedBy() {
+		return updatedBy;
+	}
+
+	public void setUpdatedBy(String updatedBy) {
+		this.updatedBy = updatedBy;
 	}
 
 	@Column(name = "UPDATED_TIME")

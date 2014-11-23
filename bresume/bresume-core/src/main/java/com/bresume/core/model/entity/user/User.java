@@ -19,14 +19,14 @@ public class User extends BaseEntity {
 	
 	private String userName;
 	private String password;
-	/** 0-企业用户；1-个人用户；2-企业成员 */
+	/** 0-个人用户；1-企业用户；2-企业成员 */
 	private Integer type;
 	private Integer status;
 	private Integer level;
 	/** 0-门户；1-管理平台 */
 	private Integer registerType;
 
-	private String phoneNum;
+	private String cellPhone;
 	private String email;
 	private Boolean isPhoneVerified;
 	private Boolean isEmailVerified;
@@ -90,13 +90,13 @@ public class User extends BaseEntity {
 		this.registerType = registerType;
 	}
 
-	@Column(name = "PHONE_NUM")
-	public String getPhoneNum() {
-		return phoneNum;
+	@Column(name = "CELL_PHONE")
+	public String getCellPhone() {
+		return cellPhone;
 	}
 
-	public void setPhoneNum(String phoneNum) {
-		this.phoneNum = phoneNum;
+	public void setCellPhone(String cellPhone) {
+		this.cellPhone = cellPhone;
 	}
 
 	@Column(name="EMAIL")

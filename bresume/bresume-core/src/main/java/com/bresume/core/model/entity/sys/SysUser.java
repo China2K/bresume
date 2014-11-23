@@ -12,18 +12,18 @@ import com.bresume.core.model.base.BaseEntity;
 @Table(name = "br_sys_user")
 public class SysUser extends BaseEntity {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 8146779019717630117L;
 
 	private String userName;
 	private String password;
+	private String realName;
+	private String sn;
 	private Integer status;
-	private Integer role;
+	private String roleId;
 
-	private String phoneNum;
+	private String cellPhone;
 	private String email;
+	private String desc;
 
 	private String createdBy;
 	private Date createdTime;
@@ -48,13 +48,13 @@ public class SysUser extends BaseEntity {
 		this.password = password;
 	}
 
-	@Column(name = "`ROLE`")
-	public Integer getRole() {
-		return role;
+	@Column(name = "`ROLE_ID`")
+	public String getRoleId() {
+		return roleId;
 	}
 
-	public void setRole(Integer role) {
-		this.role = role;
+	public void setRoleId(String roleId) {
+		this.roleId = roleId;
 	}
 
 	@Column(name = "`STATUS`")
@@ -66,13 +66,13 @@ public class SysUser extends BaseEntity {
 		this.status = status;
 	}
 
-	@Column(name = "PHONE_NUM")
-	public String getPhoneNum() {
-		return phoneNum;
+	@Column(name = "CELL_PHONE")
+	public String getCellPhone() {
+		return cellPhone;
 	}
 
-	public void setPhoneNum(String phoneNum) {
-		this.phoneNum = phoneNum;
+	public void setCellPhone(String cellPhone) {
+		this.cellPhone = cellPhone;
 	}
 
 	@Column(name = "EMAIL")
@@ -82,6 +82,33 @@ public class SysUser extends BaseEntity {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	@Column(name = "REALNAME")
+	public String getRealName() {
+		return realName;
+	}
+
+	public void setRealName(String realName) {
+		this.realName = realName;
+	}
+
+	@Column(name = "SN")
+	public String getSn() {
+		return sn;
+	}
+
+	public void setSn(String sn) {
+		this.sn = sn;
+	}
+
+	@Column(name = "DESC")
+	public String getDesc() {
+		return desc;
+	}
+
+	public void setDesc(String desc) {
+		this.desc = desc;
 	}
 
 	@Column(name = "CREATED_BY")
