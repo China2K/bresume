@@ -16,7 +16,7 @@ public class User extends BaseEntity {
 	 * 
 	 */
 	private static final long serialVersionUID = 8146779019717630117L;
-	
+
 	private String userName;
 	private String password;
 	/** 0-个人用户；1-企业用户；2-企业成员 */
@@ -35,8 +35,11 @@ public class User extends BaseEntity {
 	private Date createdTime;
 	private String updatedBy;
 	private Date updatedTime;
-	   
-	@Column(name ="USERNAME")
+
+	private int pwdErrorTimes;
+	private Date lastPwdErrorTime;
+
+	@Column(name = "USERNAME")
 	public String getUserName() {
 		return userName;
 	}
@@ -45,7 +48,7 @@ public class User extends BaseEntity {
 		this.userName = userName;
 	}
 
-	@Column(name ="PASSWORD")
+	@Column(name = "PASSWORD")
 	public String getPassword() {
 		return password;
 	}
@@ -54,7 +57,7 @@ public class User extends BaseEntity {
 		this.password = password;
 	}
 
-	@Column(name ="`TYPE`")
+	@Column(name = "`TYPE`")
 	public Integer getType() {
 		return type;
 	}
@@ -63,7 +66,7 @@ public class User extends BaseEntity {
 		this.type = type;
 	}
 
-	@Column(name ="`STATUS`")
+	@Column(name = "`STATUS`")
 	public Integer getStatus() {
 		return status;
 	}
@@ -72,7 +75,7 @@ public class User extends BaseEntity {
 		this.status = status;
 	}
 
-	@Column(name ="`LEVEL`")
+	@Column(name = "`LEVEL`")
 	public Integer getLevel() {
 		return level;
 	}
@@ -81,7 +84,7 @@ public class User extends BaseEntity {
 		this.level = level;
 	}
 
-	@Column(name ="`REGISTER_TYPE`")
+	@Column(name = "`REGISTER_TYPE`")
 	public Integer getRegisterType() {
 		return registerType;
 	}
@@ -99,7 +102,7 @@ public class User extends BaseEntity {
 		this.cellPhone = cellPhone;
 	}
 
-	@Column(name="EMAIL")
+	@Column(name = "EMAIL")
 	public String getEmail() {
 		return email;
 	}
@@ -160,6 +163,24 @@ public class User extends BaseEntity {
 
 	public void setUpdatedTime(Date updatedTime) {
 		this.updatedTime = updatedTime;
+	}
+
+	@Column(name = "ERROR_PWD_TIMES")
+	public int getPwdErrorTimes() {
+		return pwdErrorTimes;
+	}
+
+	public void setPwdErrorTimes(int pwdErrorTimes) {
+		this.pwdErrorTimes = pwdErrorTimes;
+	}
+
+	@Column(name = "LAST_PWD_ERROR_TIME")
+	public Date getLastPwdErrorTime() {
+		return lastPwdErrorTime;
+	}
+
+	public void setLastPwdErrorTime(Date lastPwdErrorTime) {
+		this.lastPwdErrorTime = lastPwdErrorTime;
 	}
 
 }

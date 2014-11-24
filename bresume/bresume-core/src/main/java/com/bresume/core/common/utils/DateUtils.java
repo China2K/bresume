@@ -848,7 +848,7 @@ public class DateUtils {
 	 * @return
 	 * @throws
 	 */
-	public static int minusMinuteByNow(Timestamp subtrahendDate)
+	public static int minusMinuteByNow(Date subtrahendDate)
 	{
 		Date nowDate = getCurrentTimestamp();
 
