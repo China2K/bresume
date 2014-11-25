@@ -251,6 +251,8 @@ public class UserServiceImpl extends GenericService<User, String> implements
 			Date now = new Date();
 			user.setStatus(UserStatus.INTITAL.getCode());
 			user.setCreatedTime(now);
+			user.setIsEmailVerified(false);
+			user.setIsPhoneVerified(false);
 		} catch (Exception e)
 		{
 			LogUtils.getInstance().errorServiceSystem(LogUtils.MODULE_PORTAL, "Convert from user to user error", e, user.toString());

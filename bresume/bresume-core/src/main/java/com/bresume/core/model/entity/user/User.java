@@ -38,6 +38,8 @@ public class User extends BaseEntity {
 
 	private int pwdErrorTimes;
 	private Date lastPwdErrorTime;
+	
+	private String nickName;
 
 	@Column(name = "USERNAME")
 	public String getUserName() {
@@ -165,7 +167,7 @@ public class User extends BaseEntity {
 		this.updatedTime = updatedTime;
 	}
 
-	@Column(name = "ERROR_PWD_TIMES")
+	@Column(name = "PWD_ERROR_TIMES")
 	public int getPwdErrorTimes() {
 		return pwdErrorTimes;
 	}
@@ -182,5 +184,22 @@ public class User extends BaseEntity {
 	public void setLastPwdErrorTime(Date lastPwdErrorTime) {
 		this.lastPwdErrorTime = lastPwdErrorTime;
 	}
+
+	/**
+	 * @return the nickName
+	 */
+	@Column(name = "NICK_NAME")
+	public String getNickName() {
+		return nickName;
+	}
+
+	/**
+	 * @param nickName the nickName to set
+	 */
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+	
+	
 
 }

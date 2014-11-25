@@ -1,11 +1,14 @@
 package com.bresume.core.dao.user.impl;
 
+import org.springframework.stereotype.Repository;
+
 import com.bresume.core.common.base.dao.support.SimpleHibernateDao;
 import com.bresume.core.common.constant.enums.UserStatus;
 import com.bresume.core.common.utils.GeneralUtils;
 import com.bresume.core.dao.user.IUserDao;
 import com.bresume.core.model.entity.user.User;
 
+@Repository
 public class UserDaoImpl extends SimpleHibernateDao<User,String> implements IUserDao {
 
 	public void updateStatus(String userName, UserStatus status) {
@@ -37,7 +40,7 @@ public class UserDaoImpl extends SimpleHibernateDao<User,String> implements IUse
 		}
 
 		return !this.find(hql.toString(),
-				UserStatus.DELETED, value).isEmpty();
+				UserStatus.DELETED.getCode(), value).isEmpty();
 	}
 	
 	

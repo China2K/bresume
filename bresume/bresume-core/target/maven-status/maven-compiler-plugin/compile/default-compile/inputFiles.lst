@@ -27,11 +27,13 @@ E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\commo
 E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\common\context\StartupListener.java
 E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\dao\resume\IProjectExperienceDao.java
 E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\common\exception\IErrorCode.java
+E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\common\constant\enums\UserStatus.java
 E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\model\entity\resume\ResumeItemRef.java
 E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\dao\resume\IResumeLogDao.java
 E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\dao\resume\impl\ResumeDaoImpl.java
 E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\model\entity\resume\WorkExperience.java
 E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\common\utils\Collections3.java
+E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\common\constant\enums\RegisterType.java
 E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\common\base\service\support\GenericService.java
 E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\dao\resume\impl\ResumeLogDaoImpl.java
 E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\model\entity\resume\ResumeItem.java
@@ -44,8 +46,9 @@ E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\model
 E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\common\constant\IPortalConstants.java
 E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\common\utils\template\ITemplate.java
 E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\model\entity\resume\JobIntension.java
-E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\common\utils\Exceptions.java
+E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\common\constant\enums\UserType.java
 E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\common\base\service\IGenericService.java
+E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\common\utils\Exceptions.java
 E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\model\entity\user\Contact.java
 E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\model\entity\resume\EduExperience.java
 E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\common\base\dao\AbstractSessionBaseDao.java
@@ -83,6 +86,7 @@ E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\dao\u
 E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\common\utils\search\ExpressionBean.java
 E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\dao\sys\ICityDao.java
 E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\dao\resume\impl\WorkExperienceDaoImpl.java
+E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\dao\user\impl\UserDaoImpl.java
 E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\common\exception\CoreException.java
 E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\service\resume\IResumeService.java
 E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\service\user\IUserService.java
