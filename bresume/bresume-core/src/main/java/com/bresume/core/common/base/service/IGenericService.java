@@ -2,10 +2,13 @@ package com.bresume.core.common.base.service;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+
+import com.bresume.core.common.utils.search.SearchBean;
 
 public interface IGenericService<T, ID extends Serializable> {
 	/**
@@ -97,6 +100,30 @@ public interface IGenericService<T, ID extends Serializable> {
 	 */
 	void delete(T entity);
 
+	/**
+	 * 高级查询取得记录数
+	 * 
+	 * @param
+	 * @return
+	 * @throws
+	 */
+	int count(SearchBean... searchBeans);
+
+	/**
+	 * 分页查询
+	 * 
+	 * @param pageable
+	 * @return
+	 */
+	Page<T> findPage(Pageable pageable, SearchBean... searchBeans);
 	
+	/**
+	 * 查询
+	 * 
+	 * @param sort
+	 * @param SearchBean[]
+	 * @return
+	 */
+	List<T> findAll(Sort sort, SearchBean... searchBeans);
 
 }

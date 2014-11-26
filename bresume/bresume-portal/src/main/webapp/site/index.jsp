@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -68,15 +69,33 @@
                     
                 </ul>
 
-				 <ul class="nav navbar-nav navbar-right">
-                   
-                    <li>
+				 <ul class="nav navbar-nav navbar-right" id="user_links">
+				 <c:choose>
+				 	<c:when test="${sessionScope.loginUser!=null && sessionScope.loginUser.userName!=null}">
+				 	
+				 	 <li>
                         <a id="loginBtn" href="javascript:void(0);">登陆</a>
                     </li>
                     <li>
                         <a id="signupBtn" href="javascript:void(0);">注册</a>
                     </li>
-                   
+				 	
+				 	</c:when>
+				 	<c:otherwise>
+				 	 <li class="dropdown">
+		              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown</a>
+		              <ul class="dropdown-menu" role="menu" style="background: none repeat scroll 0% 0% #3D3F40;">
+		                <li><a href="#">管理我的简历</a></li>
+		                <li><a href="#">账户设置</a></li>
+		                <li><a href="#">查看我的简历</a></li>
+		                <li class="divider"></li>
+		                <li><a href="#">安全退出</a></li>
+		              </ul>
+		            </li>
+				 	
+				 	</c:otherwise>
+				 </c:choose>
+				  
                 </ul>
             </div>
 
@@ -108,38 +127,16 @@
 			</div>
 		</div>
 		<div class="row">
-		  <div class="col-md-3">
-			<div class="ih-item circle effect2 left_to_right"><a href="http://templates.websitetemplatesonline.com/HTML5-Web-Design-Theme/index.html#">
-			<div class="img"><img src="resource/site/About_files/circ_img1.jpg" alt="img"></div>
-			<div class="info">
-			  <h3>template 1</h3>
-			  <p>learn more</p>
-			</div></a></div>
-		  </div>
-		  <div class="col-md-3">
-			<div class="ih-item circle effect2 left_to_right"><a href="http://templates.websitetemplatesonline.com/HTML5-Web-Design-Theme/index.html#">
-			<div class="img"><img src="resource/site/About_files/circ_img2.jpg" alt="img"></div>
-			<div class="info">
-			  <h3>template 2</h3>
-			  <p>learn more</p>
-			</div></a></div>
-		  </div>
-		  <div class="col-md-3">
-			<div class="ih-item circle effect2 left_to_right"><a href="http://templates.websitetemplatesonline.com/HTML5-Web-Design-Theme/index.html#">
-			<div class="img"><img src="resource/site/About_files/circ_img3.jpg" alt="img"></div>
-			<div class="info">
-			  <h3>template 3</h3>
-			  <p>learn more</p>
-			</div></a></div>
-		  </div>
-		  <div class="col-md-3">
-			<div class="ih-item circle effect2 left_to_right"><a href="http://templates.websitetemplatesonline.com/HTML5-Web-Design-Theme/index.html#">
-			<div class="img"><img src="resource/site/About_files/circ_img4.jpg" alt="img"></div>
-			<div class="info">
-			  <h3>template 4</h3>
-			  <p>learn more</p>
-			</div></a></div>
-		  </div>
+			<c:forEach items="${hotTemplates}" var="template">
+				<div class="col-md-3">
+					<div class="ih-item circle effect2 left_to_right"><a href="${template.siteUrl}">
+					<div class="img"><img src="${template.coverUrl}" alt="img"></div>
+					<div class="info">
+					  <h3>${template.name}</h3>
+					  <p>learn more</p>
+					</div></a></div>
+				  </div>
+			</c:forEach>
 		</div>
 	  </div>
     </section>
@@ -154,23 +151,27 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-4 col-sm-6 portfolio-item">
-                    <a href="#portfolioModal1" class="portfolio-link" data-toggle="modal">
-                        <div class="portfolio-hover">
-                            <div class="portfolio-hover-content">
-                                <i class="fa fa-1x">
-								I am more than what you can see!
-								</i>
-                            </div>
-                        </div>
-                        <img src="resource/site/img/portfolio/roundicons.png" class="img-responsive" alt="">
-                    </a>
-                    <div class="portfolio-caption">
-                        <h4>Round Icons</h4>
-                        <p class="text-muted">Graphic Design</p>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 portfolio-item">
+            
+	            <c:forEach items="${hotResumes}" var="resume">
+					<div class="col-md-4 col-sm-6 portfolio-item">
+	                    <a href="#portfolioModal1" class="portfolio-link" data-toggle="modal">
+	                        <div class="portfolio-hover">
+	                            <div class="portfolio-hover-content">
+	                                <i class="fa fa-1x">
+									I am more than what you can see!
+									</i>
+	                            </div>
+	                        </div>
+	                        <img src="${resume.coverUrl}" class="img-responsive" alt="">
+	                    </a>
+	                    <div class="portfolio-caption">
+	                        <h4>${resume.name}</h4>
+	                        <p class="text-muted">${resume.name}</p>
+	                    </div>
+                	</div>
+				</c:forEach>
+                
+                <!-- <div class="col-md-4 col-sm-6 portfolio-item">
                     <a href="#portfolioModal2" class="portfolio-link" data-toggle="modal">
                         <div class="portfolio-hover">
                             <div class="portfolio-hover-content">
@@ -239,7 +240,7 @@
                         <h4>Dreams</h4>
                         <p class="text-muted">Website Design</p>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </section>
@@ -393,7 +394,7 @@
       <script src="resource/site/js/jquery.form.js"></script>
 	<script type="text/javascript">
 
-
+	${sessionScope.loginUser.loginName}
 	</script>
 
 

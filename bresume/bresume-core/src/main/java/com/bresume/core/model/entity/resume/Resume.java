@@ -30,6 +30,14 @@ public class Resume extends BaseEntity {
 	private Date createdTime;
 	private Date updatedTime;
 
+	private String templateSn;
+	private String coverUrl;
+	private Boolean recommended;
+
+	private Integer order;
+
+	private String desc;
+
 	@Column(name = "NAME")
 	public String getName() {
 		return name;
@@ -83,6 +91,51 @@ public class Resume extends BaseEntity {
 
 	public void setUpdatedTime(Date updatedTime) {
 		this.updatedTime = updatedTime;
+	}
+
+	@Column(name = "TEMPLATE_SN")
+	public String getTemplateSn() {
+		return templateSn;
+	}
+
+	public void setTemplateSn(String templateSn) {
+		this.templateSn = templateSn;
+	}
+
+	@Column(name = "COVER_URL")
+	public String getCoverUrl() {
+		return coverUrl;
+	}
+
+	public void setCoverUrl(String coverUrl) {
+		this.coverUrl = coverUrl;
+	}
+
+	@Column(name = "RECOMMENDED")
+	public Boolean getRecommended() {
+		return recommended;
+	}
+
+	public void setRecommended(Boolean recommended) {
+		this.recommended = recommended;
+	}
+
+	@Column(name = "`ORDER`")
+	public Integer getOrder() {
+		return order;
+	}
+
+	public void setOrder(Integer order) {
+		this.order = order;
+	}
+
+	@Column(name = "`DESC`")
+	public String getDesc() {
+		return desc;
+	}
+
+	public void setDesc(String desc) {
+		this.desc = desc;
 	}
 
 }
