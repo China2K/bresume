@@ -62,6 +62,7 @@ E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\commo
 E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\common\log\LogUtils.java
 E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\model\entity\sys\Trade.java
 E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\common\utils\json\JsonNumberValueProcessor.java
+E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\service\user\IContactService.java
 E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\common\exception\PortalErrorCode.java
 E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\common\utils\lock\FileProgrameLock.java
 E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\model\entity\resume\Template.java
@@ -75,6 +76,7 @@ E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\commo
 E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\common\exception\impl\PwdNotCorrectException.java
 E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\common\utils\SqlDateConverter.java
 E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\dao\resume\IJobIntensionDao.java
+E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\common\constant\enums\CommonStatus.java
 E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\common\utils\json\JsonHelper.java
 E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\model\entity\user\User.java
 E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\dao\resume\impl\ResumeItemDaoImpl.java
@@ -82,7 +84,9 @@ E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\commo
 E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\dao\resume\IResumeItemRefDao.java
 E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\common\constant\IConstants.java
 E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\model\entity\resume\PersionalInfo.java
+E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\dao\user\impl\ContactDaoImpl.java
 E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\common\utils\mail\Email.java
+E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\service\user\impl\ContactServiceImpl.java
 E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\common\msg\IMsgCode.java
 E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\dao\sys\impl\ProvinceDaoImpl.java
 E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\common\utils\security\Digests.java
@@ -123,6 +127,7 @@ E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\commo
 E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\dao\sys\impl\CityDaoImpl.java
 E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\common\utils\template\impl\PropertyTemplateImpl.java
 E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\dao\resume\IWorkExperienceDao.java
+E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\common\constant\enums\ContactStatus.java
 E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\dao\sys\IProvinceDao.java
 E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\model\entity\resume\ResumeLog.java
 E:\code\GitHub\bresume\bresume\bresume-core\src\main\java\com\bresume\core\dao\sys\ISysUserDao.java

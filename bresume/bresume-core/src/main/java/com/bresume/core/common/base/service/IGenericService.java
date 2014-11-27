@@ -125,5 +125,10 @@ public interface IGenericService<T, ID extends Serializable> {
 	 * @return
 	 */
 	List<T> findAll(Sort sort, SearchBean... searchBeans);
+	
+	/**
+	 * 按属性查找唯一对象, 匹配方式为相等.
+	 */
+	T findUniqueBy(String propertyName, Object value);
 
 }

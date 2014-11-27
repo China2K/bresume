@@ -94,4 +94,10 @@ public  abstract class GenericService<T, ID extends Serializable> implements
 	public List<T> findAll(Sort sort, SearchBean... searchBeans) {
 		return getDao().findAll(sort, searchBeans);
 	}
+	
+	@Override
+	@Transactional(readOnly=true)
+	public T findUniqueBy(String propertyName, Object value){
+		return getDao().findUniqueBy(propertyName, value);
+	}
 }

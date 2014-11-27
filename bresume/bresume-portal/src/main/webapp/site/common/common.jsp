@@ -1,6 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE HTML>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="/portal/resource/site/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="/portal/resource/site/css/agency.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="/portal/resource/site/font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+ <!-- Custom CSS for template -->
+	<link rel="stylesheet" href="/portal/resource/site/About_files/css/stuck.css">
+	<link rel="stylesheet" href="/portal/resource/site/About_files/css/ihover.css">
+	<link rel="stylesheet" href="/portal/resource/app/css/common.css">
     
     
 <div class="modal fade in" id="login-modal" aria-hidden="false" 

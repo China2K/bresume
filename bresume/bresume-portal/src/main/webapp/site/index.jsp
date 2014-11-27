@@ -13,18 +13,7 @@
 
     <title>bresume - 简历创建</title>
 
-    <!-- Bootstrap Core CSS -->
-    <link href="resource/site/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom CSS -->
-    <link href="resource/site/css/agency.css" rel="stylesheet">
-
-    <!-- Custom Fonts -->
-    <link href="resource/site/font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
- <!-- Custom CSS for template -->
-	<link rel="stylesheet" href="resource/site/About_files/css/stuck.css">
-	<link rel="stylesheet" href="resource/site/About_files/css/ihover.css">
 <style type="text/css">
 
 </style>
@@ -111,7 +100,7 @@
             <div class="intro-text">
                 <div class="intro-lead-in">简历创建从未如此简单！</div>
                 <div class="intro-heading">Bulid Your Resume</div>
-				 <a href="#services" class="page-scroll btn btn-xl">创建简历</a>
+				 <a href="resume/startBulidResume.do" class="page-scroll btn btn-xl">创建简历</a>
                 <a href="#services" class="page-scroll btn btn-xl">了解如何使用</a>
             </div>
         </div>
@@ -170,77 +159,6 @@
 	                    </div>
                 	</div>
 				</c:forEach>
-                
-                <!-- <div class="col-md-4 col-sm-6 portfolio-item">
-                    <a href="#portfolioModal2" class="portfolio-link" data-toggle="modal">
-                        <div class="portfolio-hover">
-                            <div class="portfolio-hover-content">
-                                <i class="fa fa-3x"></i>
-                            </div>
-                        </div>
-                        <img src="resource/site/img/portfolio/startup-framework.png" class="img-responsive" alt="">
-                    </a>
-                    <div class="portfolio-caption">
-                        <h4>Startup Framework</h4>
-                        <p class="text-muted">Website Design</p>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 portfolio-item">
-                    <a href="#portfolioModal3" class="portfolio-link" data-toggle="modal">
-                        <div class="portfolio-hover">
-                            <div class="portfolio-hover-content">
-                                <i class="fa fa-3x"></i>
-                            </div>
-                        </div>
-                        <img src="resource/site/img//portfolio/treehouse.png" class="img-responsive" alt="">
-                    </a>
-                    <div class="portfolio-caption">
-                        <h4>Treehouse</h4>
-                        <p class="text-muted">Website Design</p>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 portfolio-item">
-                    <a href="#portfolioModal4" class="portfolio-link" data-toggle="modal">
-                        <div class="portfolio-hover">
-                            <div class="portfolio-hover-content">
-                                <i class="fa fa-3x"></i>
-                            </div>
-                        </div>
-                        <img src="resource/site/img/portfolio/golden.png" class="img-responsive" alt="">
-                    </a>
-                    <div class="portfolio-caption">
-                        <h4>Golden</h4>
-                        <p class="text-muted">Website Design</p>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 portfolio-item">
-                    <a href="#portfolioModal5" class="portfolio-link" data-toggle="modal">
-                        <div class="portfolio-hover">
-                            <div class="portfolio-hover-content">
-                                <i class="fa fa-3x"></i>
-                            </div>
-                        </div>
-                        <img src="resource/site/img/portfolio/escape.png" class="img-responsive" alt="">
-                    </a>
-                    <div class="portfolio-caption">
-                        <h4>Escape</h4>
-                        <p class="text-muted">Website Design</p>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 portfolio-item">
-                    <a href="#portfolioModal6" class="portfolio-link" data-toggle="modal">
-                        <div class="portfolio-hover">
-                            <div class="portfolio-hover-content">
-                                <i class="fa fa-3x"></i>
-                            </div>
-                        </div>
-                        <img src="resource/site/img/portfolio/dreams.png" class="img-responsive" alt="">
-                    </a>
-                    <div class="portfolio-caption">
-                        <h4>Dreams</h4>
-                        <p class="text-muted">Website Design</p>
-                    </div>
-                </div> -->
             </div>
         </div>
     </section>
@@ -337,29 +255,29 @@
             </div>
             <div class="row">
                 <div class="col-lg-12">
-                    <form name="sentMessage" id="contactForm" novalidate>
+                    <form name="sentMessage" id="contactForm" onsubmit="return false;" action="contact.do">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="姓名 *" id="name" required data-validation-required-message="请填写您的姓名.">
+                                    <input type="text" class="form-control" placeholder="姓名 *" name= "name" id="name" required data-validation-required-message="请填写您的姓名.">
                                 </div>
                                 <div class="form-group">
-                                    <input type="email" class="form-control" placeholder="邮箱 *" id="email" required data-validation-required-message="请填写邮箱地址.">
+                                    <input type="email" class="form-control" placeholder="邮箱 *"name="email" id="email" required data-validation-required-message="请填写邮箱地址.">
                                 </div>
                                 <div class="form-group">
-                                    <input type="tel" class="form-control" placeholder="手机" id="phone" required data-validation-required-message="请填写手机号.">
+                                    <input type="tel" class="form-control" placeholder="手机" id="phone" name="cellPhone" required data-validation-required-message="请填写手机号.">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <textarea class="form-control" placeholder="建议 *" id="message" required data-validation-required-message="请填写您的建议."></textarea>
+                                    <textarea class="form-control" placeholder="建议 *" id="message" name="message" required data-validation-required-message="请填写您的建议."></textarea>
                                    
                                 </div>
                             </div>
                             <div class="clearfix"></div>
                             <div class="col-lg-12 text-center">
                                 <div id="success"></div>
-                                <button type="submit" class="btn btn-xl">发送建议</button>
+                                <button type="button" id="submit_contact" class="btn btn-xl">发送建议</button>
                             </div>
                         </div>
                     </form>
@@ -370,7 +288,7 @@
 
    <%@include file="common/footer.jsp"%>
 
-<div id="backtotop"><div class="bttbg"></div></div>
+	<div id="backtotop"><div class="bttbg"></div></div>
 
 
     <!-- jQuery -->
@@ -393,8 +311,17 @@
      <script src="resource/app/js/common.js"></script>
       <script src="resource/site/js/jquery.form.js"></script>
 	<script type="text/javascript">
+	$("#submit_contact").click(function(){
+		$("#contactForm").ajaxSubmit(
+				function(data) {
+					alert(data.message);
+					$('html, body').animate({
+						scrollTop : 0
+					}, 'slow');
+				}
+			);
+	});
 
-	${sessionScope.loginUser.loginName}
 	</script>
 
 
