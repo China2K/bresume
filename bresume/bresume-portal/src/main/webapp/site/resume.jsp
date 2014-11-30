@@ -127,10 +127,11 @@ transition: .3s cubic-bezier(0.175,0.885,0.32,1.275) all!important;
 			<h4>简历详细信息</h4>
 			<hr />
 			<div class="col-md-3">
-				<ul class="list-group">
-					<span>基本栏目</span>
+				<h5 class="text-center">基本栏目</h5>
+				<ul class="list-group resume-items">
+					
 					<c:forEach items="${allResumeItems }" var="item">
-						<li class="list-group-item"><a class="ajaxPage" href="/portal/resume/resumeItem.do?itemSn=${item.sn}">${item.name }</a> <a
+						<li class="list-group-item ajaxPage" data-href="/portal/resume/resumeItem.do?itemSn=${item.sn}">${item.name } <a
 							class="btn btn-warning btn-sm ladda-button linkbutton addtolibfav"
 							data-style="expand-right" title="" data-libid="38"
 							data-original-title="去除此栏目"><span

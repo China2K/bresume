@@ -6,14 +6,14 @@
 <form class="form-horizontal item-form" role="form" >
 	<div class="row">
 		<div class="form-group col-md-6">
-			<label for="name" class="col-md-3 control-label">姓名</label>
+			<label for="name" class="col-md-3 control-label">时间</label>
 			<div class="col-md-9">
 				<input type="text" class="form-control" id="name"
 					placeholder="请输入您的姓名">
 			</div>
 		</div>
 		<div class="form-group col-md-6">
-			<label for="desc" class="col-md-3 control-label">性别</label>
+			<label for="desc" class="col-md-3 control-label">公司</label>
 			<div class="col-md-9">
 				<input type="text" class="form-control" id="lastname"
 					placeholder="不超过20个字符">
@@ -24,14 +24,14 @@
 
 	<div class="row">
 		<div class="form-group col-md-6">
-			<label for="name" class="col-md-3 control-label">证件类型</label>
+			<label for="name" class="col-md-3 control-label">行业</label>
 			<div class="col-md-9">
 				<input type="text" class="form-control" id="name"
 					placeholder="请输入简历名称">
 			</div>
 		</div>
 		<div class="form-group col-md-6">
-			<label for="desc" class="col-md-3 control-label">证件号码</label>
+			<label for="desc" class="col-md-3 control-label">职位</label>
 			<div class="col-md-9">
 				<input type="text" class="form-control" id="lastname"
 					placeholder="不超过20个字符">
@@ -41,7 +41,7 @@
 
 	<div class="row">
 		<div class="form-group col-md-6">
-			<label for="name" class="col-md-3 control-label">手机号码</label>
+			<label for="name" class="col-md-3 control-label">工作描述</label>
 			<div class="col-md-9">
 				<input type="text" class="form-control" id="name"
 					placeholder="请输入简历名称">
@@ -56,40 +56,6 @@
 		</div>
 	</div>
 
-	<div class="row">
-		<div class="form-group col-md-6">
-			<label for="name" class="col-md-3 control-label">个人主页</label>
-			<div class="col-md-9">
-				<input type="text" class="form-control" id="name"
-					placeholder="请输入简历名称">
-			</div>
-		</div>
-		<div class="form-group col-md-6">
-			<label for="desc" class="col-md-3 control-label">关键字</label>
-			<div class="col-md-9">
-				<input type="text" class="form-control" id="lastname"
-					placeholder="不超过20个字符">
-			</div>
-		</div>
-	</div>
-
-
-	<div class="row">
-		<div class="form-group col-md-6">
-			<label for="name" class="col-md-3 control-label">求职状态</label>
-			<div class="col-md-9">
-				<input type="text" class="form-control" id="name"
-					placeholder="请输入简历名称">
-			</div>
-		</div>
-		<div class="form-group col-md-6">
-			<label for="desc" class="col-md-3 control-label">居住地</label>
-			<div class="col-md-9">
-				<input type="text" class="form-control" id="lastname"
-					placeholder="不超过20个字符">
-			</div>
-		</div>
-	</div>
 	<div class="form-group">
 		<div class="col-md-offset-3 col-md-9">
 			<button type="submit" class="btn btn-default">保存</button>
