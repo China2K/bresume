@@ -46,13 +46,17 @@
 	
 }
 
-media="screen"
-.ladda-button{
--webkit-transition: .3s cubic-bezier(0.175,0.885,0.32,1.275) all!important;
--moz-transition: .3s cubic-bezier(0.175,0.885,0.32,1.275) all!important;
--ms-transition: .3s cubic-bezier(0.175,0.885,0.32,1.275) all!important;
--o-transition: .3s cubic-bezier(0.175,0.885,0.32,1.275) all!important;
-transition: .3s cubic-bezier(0.175,0.885,0.32,1.275) all!important;
+media ="screen"
+.ladda-button {
+	-webkit-transition: .3s cubic-bezier(0.175, 0.885, 0.32, 1.275) all
+		!important;
+	-moz-transition: .3s cubic-bezier(0.175, 0.885, 0.32, 1.275) all
+		!important;
+	-ms-transition: .3s cubic-bezier(0.175, 0.885, 0.32, 1.275) all
+		!important;
+	-o-transition: .3s cubic-bezier(0.175, 0.885, 0.32, 1.275) all
+		!important;
+	transition: .3s cubic-bezier(0.175, 0.885, 0.32, 1.275) all !important;
 }
 </style>
 
@@ -71,8 +75,7 @@ transition: .3s cubic-bezier(0.175,0.885,0.32,1.275) all!important;
 				<div class="box show-item">
 					<div class="box-gray aligncenter">
 						<div class="icon">
-							<a href="${template.siteUrl}"><img
-								src="${template.coverUrl}" /></a>
+							<a href="${template.siteUrl}"><img src="${template.coverUrl}" /></a>
 						</div>
 					</div>
 					<div class="box-bottom">
@@ -128,30 +131,33 @@ transition: .3s cubic-bezier(0.175,0.885,0.32,1.275) all!important;
 			<hr />
 			<div class="col-md-3">
 				<h5 class="text-center">基本栏目</h5>
-				<ul class="list-group resume-items">
-					
+				<ul class="list-group resume-items items-top">
+
 					<c:forEach items="${allResumeItems }" var="item">
-						<li class="list-group-item ajaxPage" data-href="/portal/resume/resumeItem.do?itemSn=${item.sn}">${item.name } <a
+						<li class="list-group-item ajaxPage"
+							data-href="/portal/resume/resumeItem.do?itemSn=${item.sn}">${item.name
+							} <a
 							class="btn btn-warning btn-sm ladda-button linkbutton addtolibfav"
 							data-style="expand-right" title="" data-libid="38"
 							data-original-title="去除此栏目"><span
-								class="glyphicon glyphicon-minus"></span></a></li>
-					
+								class="glyphicon glyphicon-minus"></span></a>
+						</li>
+
 					</c:forEach>
-					
-					<span>附加栏目</span>
-					<hr/>
-					
-					<li class="list-group-item">Cras justo odio <a
+				</ul>
+				<span>附加栏目</span>
+				<hr />
+				<ul class="list-group resume-items items-down">
+				
+					<li class="list-group-item ajaxPage">Cras justo odio <a
 						class="btn btn-warning btn-sm ladda-button linkbutton addtolibfav"
 						data-style="expand-right" title="" data-libid="38"
 						data-original-title="添加此栏目"><span
-							class="glyphicon glyphicon-plus"></span></a></li>
-					<li class="list-group-item">Dapibus ac facilisis in</li>
+							class="glyphicon glyphicon-plus"></span></a>
+					</li>
 				</ul>
 			</div>
-			<div class="col-md-9 item-form-container">
-			</div>
+			<div class="col-md-9 item-form-container"></div>
 		</div>
 	</div>
 
@@ -166,15 +172,29 @@ transition: .3s cubic-bezier(0.175,0.885,0.32,1.275) all!important;
 
 	<!-- Bootstrap Core JavaScript -->
 	<script src="/portal/resource/site/js/bootstrap.min.js"></script>
-	
+
 	<script src="/portal/resource/app/js/common.js"></script>
 
 
 
 
 	<script type="text/javascript">
+		$(".resume-items li a.linkbutton").click(function(event) {
+			if($(this).children("span").hasClass("glyphicon-minus")){
+				
+				$(".items-down").append($(this).parent());
+				$(this).children("span").removeClass("glyphicon-minus");
+				$(this).children("span").addClass("glyphicon-plus");
+			}else{
+				$(".items-top").append($(this).parent());
+				$(this).children("span").removeClass("glyphicon-plus");
+				$(this).children("span").addClass("glyphicon-minus");
+			}
+			event.stopPropagation();
+			
+		});
 
-
+		
 	</script>
 
 
