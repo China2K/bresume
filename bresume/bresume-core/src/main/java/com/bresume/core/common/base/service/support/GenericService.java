@@ -68,6 +68,7 @@ public  abstract class GenericService<T, ID extends Serializable> implements
 	}
 
 	@Override
+	@Transactional
 	public ID save(T entity) {
 		return getDao().save(entity);
 	}

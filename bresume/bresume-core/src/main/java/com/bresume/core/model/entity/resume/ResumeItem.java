@@ -17,7 +17,17 @@ public class ResumeItem extends BaseEntity {
 	private String sn;
 	private String desc;
 	private Integer order;
+	private Boolean isDefault;
 	private Date createdTime;
+
+	@Column(name = "`IS_DEFAULT`")
+	public Boolean getIsDefault() {
+		return isDefault;
+	}
+
+	public void setIsDefault(Boolean isDefault) {
+		this.isDefault = isDefault;
+	}
 
 	@Column(name = "`NAME`")
 	public String getName() {

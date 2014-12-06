@@ -3,13 +3,17 @@ package com.bresume.core.model.entity.resume;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import com.bresume.core.model.base.BaseEntity;
 import com.bresume.core.model.entity.user.User;
 
+@Entity
+@Table(name = "br_resume_log")
 public class ResumeLog extends BaseEntity {
 
 	/**

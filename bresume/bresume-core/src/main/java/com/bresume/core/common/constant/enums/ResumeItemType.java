@@ -5,23 +5,52 @@
  * Date:2014-11-26下午10:20:15 
  * Copyright (c) 2014, bresume.com All Rights Reserved. 
  * 
-*/  
-  
-package com.bresume.core.common.constant.enums;  
-/** 
- * ClassName:CommonStatus
- * Description:   TODO ADD REASON.
- * Date:     2014-11-26 下午10:20:15
- * @author   Administrator 
-     
+ */
+
+package com.bresume.core.common.constant.enums;
+
+import com.bresume.core.model.entity.resume.EduExperience;
+import com.bresume.core.model.entity.resume.JobIntension;
+import com.bresume.core.model.entity.resume.PersionalInfo;
+import com.bresume.core.model.entity.resume.ProjectExperience;
+import com.bresume.core.model.entity.resume.Skill;
+import com.bresume.core.model.entity.resume.WorkExperience;
+
+/**
+ * ClassName:CommonStatus Description: TODO ADD REASON. Date: 2014-11-26
+ * 下午10:20:15
+ * 
+ * @author Administrator
  */
 public enum ResumeItemType {
-	EDU_EXPERIENCE("ITEM-0001"), JON_INTENSION("ITEM-0002"), PERSIONAL_INFO("ITEM-0003"), PROJECT_EXPERIENCE("ITEM-0004"),
-	WORK_EXPERIENCE("ITEM-0005"),SKILL("ITEM-0006");
+	EDU_EXPERIENCE("eduExperience", "ITEM-0001", EduExperience.class,
+			"eduExperience.jsp"), JOB_INTENSION("jobIntension", "ITEM-0002",
+			JobIntension.class, "jobIntension.jsp"), PERSIONAL_INFO(
+			"persionalInfo", "ITEM-0003", PersionalInfo.class,
+			"persionalInfo.jsp"), PROJECT_EXPERIENCE("projectExperience",
+			"ITEM-0004", ProjectExperience.class, "projectExperience.jsp"), WORK_EXPERIENCE(
+			"workExperience", "ITEM-0005", WorkExperience.class,
+			"workExperience.jsp"), SKILL("skill", "ITEM-0006", Skill.class,
+			"skill.jsp");
+	private String name;
 	private String sn;
+	private Class<?> clazz;
+	private String page;
 
-	ResumeItemType(String sn) {
+	ResumeItemType(String name, String sn, Class<?> clazz, String page) {
+		this.name = name;
 		this.sn = sn;
+		this.clazz = clazz;
+		this.page = page;
+
+	}
+
+	public static ResumeItemType fromSn(String sn) {
+		for (ResumeItemType rit : ResumeItemType.values()) {
+			if (rit.getSn().equalsIgnoreCase(sn))
+				return rit;
+		}
+		return null;
 	}
 
 	public String getSn() {
@@ -32,5 +61,28 @@ public enum ResumeItemType {
 		this.sn = sn;
 	}
 
+	public Class<?> getClazz() {
+		return clazz;
+	}
+
+	public void setClazz(Class<?> clazz) {
+		this.clazz = clazz;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getPage() {
+		return page;
+	}
+
+	public void setPage(String page) {
+		this.page = page;
+	}
+
 }
-  

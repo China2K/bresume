@@ -3,12 +3,15 @@ package com.bresume.core.model.entity.resume;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import com.bresume.core.model.base.BaseEntity;
-
+@Entity
+@Table(name = "br_job_intension")
 public class JobIntension extends BaseEntity {
 
 	/**

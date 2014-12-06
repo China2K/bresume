@@ -13,6 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.servlet.mvc.SimpleFormController;
 
 import com.bresume.core.common.exception.CoreException;
 import com.bresume.core.common.msg.MsgDescription;
@@ -25,7 +26,7 @@ import com.bresume.core.common.utils.search.SearchBean;
  * Controller基类，所有的Controller必须要继承此类
  * 
  */
-public class BaseController {
+public class BaseController extends SimpleFormController {
 	protected Logger LOGGER = Logger.getLogger(this.getClass());
 
 	public static final String DEFAULT_JSON_DATA = "data";

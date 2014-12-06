@@ -3,12 +3,18 @@ package com.bresume.core.model.entity.resume;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.bresume.core.model.base.BaseEntity;
 
+@Entity
+@Table(name = "br_edu_experience")
 public class EduExperience extends BaseEntity {
 
 	/**
@@ -17,14 +23,15 @@ public class EduExperience extends BaseEntity {
 	private static final long serialVersionUID = 1L;
 	
 	private Resume resume;
+	//@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date startDate;
+	//@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date endDate;
 	private String schoolName;
 	private String majorName;
 	private Integer degree;
 	private Integer order;
 	private String desc;
-	
 	private Date createdTime;
 	private Date updatedTime;
 
@@ -83,7 +90,7 @@ public class EduExperience extends BaseEntity {
 		this.degree = degree;
 	}
 
-	@Column(name = "ORDER")
+	@Column(name = "`ORDER`")
 	public Integer getOrder() {
 		return order;
 	}
@@ -92,7 +99,7 @@ public class EduExperience extends BaseEntity {
 		this.order = order;
 	}
 
-	@Column(name = "DESC")
+	@Column(name = "`DESC`")
 	public String getDesc() {
 		return desc;
 	}

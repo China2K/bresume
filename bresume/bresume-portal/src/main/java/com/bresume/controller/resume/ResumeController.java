@@ -1,5 +1,6 @@
 package com.bresume.controller.resume;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bresume.core.common.base.controller.BaseController;
 import com.bresume.core.common.constant.enums.CommonStatus;
+import com.bresume.core.common.constant.enums.ResumeItemType;
+import com.bresume.core.common.utils.CommonUtils;
 import com.bresume.core.common.utils.search.SearchBean;
 import com.bresume.core.model.entity.resume.Resume;
 import com.bresume.core.model.entity.resume.ResumeItem;
@@ -58,32 +61,69 @@ public class ResumeController extends BaseController {
 
 		Pageable pageable = new PageRequest(page, limit, new Sort(
 				Direction.ASC, "order"));
-		SearchBean[] sbs = new SearchBean[2];
-		sbs[0] = new SearchBean("status", CommonStatus.ACTIVE.getCode() + "",
-				"=");
-		Page<Resume> result = resumeService.findPage(pageable, sbs);
+		Page<Resume> result = resumeService.findPage(pageable, new SearchBean(
+				"status", CommonStatus.ACTIVE.getCode() + "", "="));
 
 		model.addAttribute("resumes", result.getContent());
 
 		return "site/resumes.jsp";
 	}
 
-	@RequestMapping("/bulidResume.do")
+	@RequestMapping("/buildResume.do")
 	public String bulidResume(HttpServletRequest request,
-			@RequestParam(value = "templateSn", required = true) String sn,
+			@RequestParam(value = "id", required = false) String id,
+			@RequestParam(value = "template", required = false) String sn,
 			Model model) {
+		System.out.println(id);
+		/*
+		 * if(CommonUtils.isNotEmpty("id")){ //编辑 Resume resume=
+		 * resumeService.findOne(id); //TODO }
+		 */
 
 		Template template = templateService.findUniqueBy("sn", sn);
-		
 
-		List<ResumeItem> allResumeItems = resumeItemService.findAll(new Sort(
-				Direction.ASC, "order"), new SearchBean("status",
-				CommonStatus.ACTIVE.getCode() + "", "="));
-		
+		List<ResumeItem> allResumeItems = (List<ResumeItem>) resumeItemService
+				.findAll(new Sort(Direction.ASC, "order"));
+
 		model.addAttribute("template", template);
 		model.addAttribute("allResumeItems", allResumeItems);
 
 		return "site/resume.jsp";
+	}
+
+	@RequestMapping("/resumeItem.do")
+	public String reusmeItem(HttpServletRequest request,
+			@RequestParam(value = "id", required = false) String id,
+			@RequestParam(value = "itemSn", required = true) String sn,
+			Model model) {
+		ResumeItemType resumeItem = ResumeItemType.fromSn(sn);
+		if (CommonUtils.isNotEmpty(id) && CommonUtils.isNotEmpty(sn)) {
+			List objItems = resumeItemService.findResumeItem(resumeItem, id);
+		}
+		try {
+			Class clazz = resumeItem.getClazz();
+			Object obj = clazz.newInstance();
+
+			Field field;
+			try {
+				field = clazz.getDeclaredField("resume");
+				field.setAccessible(true);
+				field.set(obj, new Resume());
+				field.setAccessible(false);
+			} catch (NoSuchFieldException e) {
+				e.printStackTrace();
+			} catch (SecurityException e) {
+				e.printStackTrace();
+			}
+
+			model.addAttribute(resumeItem.getName(), obj);
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+
+		return "site/item/" + ResumeItemType.fromSn(sn).getPage();
 	}
 
 }
