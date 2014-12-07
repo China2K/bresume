@@ -33,15 +33,19 @@
 				<c:forEach items="${templates}" var="template">
 					<div class="col-md-3">
 						<div class="ih-item circle effect2 left_to_right">
-							<a href="/portal/resume/buildResume.do?template=${template.sn}">
+							<a href="/portal/resume/buildResume.do?template=${template.sn}" class="acover">
 								<div class="img">
 									<img src="${template.coverUrl}" alt="img">
 								</div>
 								<div class="info">
 									<h3>${template.name}</h3>
-									<p><button onclick="location.href=/portal/resume/buildResume.do?template='${template.sn}'" value="就选它了"/></p>
+									<p><</p>
 								</div>
 							</a>
+						</div>
+						
+						<div>
+						<a href="" class="btn btn-default btn btn-primary btn-lg btn-block">查看详细</a>
 						</div>
 					</div>
 				</c:forEach>

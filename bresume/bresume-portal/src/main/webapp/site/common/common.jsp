@@ -50,7 +50,7 @@
 							<div class="form-group">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-key"></i></span><input
-										class="form-control" id="user_password" name="user[password]"
+										class="form-control" id="user_password" name="password"
 										placeholder="密码" required="required" type="password"><input
 										id="redirect_from" name="redirect_from" type="hidden">
 								</div>
@@ -161,11 +161,12 @@
 
 	<script type="text/javascript">
 		function login(){
-			alert(2);
 				$("#login_form").ajaxSubmit(
 					function(data) {
 						if (data.success) {
 							alert("1");
+							$("#login-modal").hide();
+							
 						}else{
 							alert(data.message);
 						}
@@ -184,5 +185,10 @@
 					}
 				);
 		}
+
+
+		function reloadUserLinks(){
+			
+			}
 
 	</script>

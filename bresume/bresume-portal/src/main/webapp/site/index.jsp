@@ -51,12 +51,6 @@
 					<c:choose>
 						<c:when
 							test="${sessionScope.loginUser!=null && sessionScope.loginUser.userName!=null}">
-
-							<li><a id="loginBtn" href="javascript:void(0);">登陆</a></li>
-							<li><a id="signupBtn" href="javascript:void(0);">注册</a></li>
-
-						</c:when>
-						<c:otherwise>
 							<li class="dropdown"><a href="#" class="dropdown-toggle"
 								data-toggle="dropdown">Dropdown</a>
 								<ul class="dropdown-menu" role="menu"
@@ -68,6 +62,12 @@
 									<li><a href="#">安全退出</a></li>
 								</ul></li>
 
+							
+
+						</c:when>
+						<c:otherwise>
+							<li><a id="loginBtn" href="javascript:void(0);">登陆</a></li>
+							<li><a id="signupBtn" href="javascript:void(0);">注册</a></li>
 						</c:otherwise>
 					</c:choose>
 
@@ -86,7 +86,7 @@
 			<div class="intro-text">
 				<div class="intro-lead-in">简历创建从未如此简单！</div>
 				<div class="intro-heading">Build Your Resume</div>
-				<a href="resume/startBulidResume.do" class="page-scroll btn btn-xl">创建简历</a>
+				<a href="resume/buildResume.do" class="page-scroll btn btn-xl">创建简历</a>
 				<a href="#services" class="page-scroll btn btn-xl">了解如何使用</a>
 			</div>
 		</div>
