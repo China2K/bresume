@@ -4,89 +4,100 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE HTML>
 
-<link href="/portal/resource/site/css/bootstrap.min.css"
-	rel="stylesheet" media="screen">
-<link href="/portal/resource/app/css/common.css" rel="stylesheet">
 <link
 	href="/portal/resource/site/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css"
 	rel="stylesheet" media="screen">
 
-<s:form class="form-horizontal item-form" id="eduForm" method="post" action="/portal/edu/save.do" onsubmit="return false;" commandName="eduExperience">
-	<s:hidden path="resume.id"/>
-	<fieldset>
-		<div class="row form-group">
+<c:forEach items="${items}" var="eduExperience" varStatus="status">
+	<s:form class="form-horizontal item-form" id="eduForm_${status.index}" method="post"
+		action="/portal/edu/save.do" onsubmit="return false;"
+		modelAttribute="eduExperience">
+		<s:hidden path="resume.id" />
+		<fieldset>
+			<div class="row form-group">
 
-			<label for="desc" class="col-md-3 control-label">时间</label>
-			<div class="input-group date form_date col-md-3 f-left" data-date=""
-				data-date-format="dd MM yyyy" data-link-field="date_start"
-				data-link-format="yyyy-mm-dd">
-				<input class="form-control" size="16" type="text" value="" readonly>
-				<span class="input-group-addon"><span
-					class="glyphicon glyphicon-calendar"></span></span>
+				<label for="desc" class="col-md-3 control-label">时间</label>
+				<div class="input-group date form_date col-md-3 f-left" data-date=""
+					data-date-format="dd MM yyyy" data-link-field="date_start"
+					data-link-format="yyyy-mm-dd">
+					<input class="form-control" size="16" type="text" value="" readonly>
+					<span class="input-group-addon"><span
+						class="glyphicon glyphicon-calendar"></span></span>
+				</div>
+				<s:hidden id="date_start" path="startDate" />
+				<div class="col-md-1 text-center f-left">&nbsp;-&nbsp;</div>
+				<div class="input-group date form_date col-md-3 f-left" data-date=""
+					data-date-format="dd MM yyyy" data-link-field="date_end"
+					data-link-format="yyyy-mm-dd">
+					<input class="form-control" size="16" type="text" value="" readonly>
+					<span class="input-group-addon"><span
+						class="glyphicon glyphicon-calendar"></span></span>
+				</div>
+
+				<s:hidden id="date_end" path="endDate" />
 			</div>
-			<s:hidden id="date_start" path="startDate" />
-			<div class="col-md-1 text-center f-left">&nbsp;-&nbsp;</div>
-			<div class="input-group date form_date col-md-3 f-left" data-date=""
-				data-date-format="dd MM yyyy" data-link-field="date_end"
-				data-link-format="yyyy-mm-dd">
-				<input class="form-control" size="16" type="text" value="" readonly>
-				<span class="input-group-addon"><span
-					class="glyphicon glyphicon-calendar"></span></span>
+			<div class="row form-group">
+
+				<label for="desc" class="col-md-3 control-label">学校</label>
+				<div class="col-md-9">
+					<s:input path="schoolName" id="schoolName" class="form-control"
+						placeholder="不超过20个字符" />
+				</div>
+
 			</div>
+			<div class="row form-group">
 
-			<s:hidden id="date_end" path="endDate" />
-		</div>
-		<div class="row form-group">
+				<label for="desc" class="col-md-3 control-label">专业</label>
+				<div class="col-md-9">
+					<s:input path="majorName" id="majorName" class="form-control"
+						placeholder="不超过20个字符" />
+				</div>
 
-			<label for="desc" class="col-md-3 control-label">学校</label>
-			<div class="col-md-9">
-				<s:input path="schoolName" id="schoolName" class="form-control"
-					placeholder="不超过20个字符" />
 			</div>
+			<div class="row form-group">
 
-		</div>
-		<div class="row form-group">
+				<label for="desc" class="col-md-3 control-label">学历</label>
+				<div class="col-md-9">
+					<s:select path="degree" class="form-control" id="degree">
+						<s:option value="1">专科</s:option>
+						<s:option value="2">本科</s:option>
+						<s:option value="3">硕士</s:option>
+						<s:option value="4">博士</s:option>
+					</s:select>
 
-			<label for="desc" class="col-md-3 control-label">专业</label>
-			<div class="col-md-9">
-				<s:input path="majorName" id="majorName" class="form-control"
-					placeholder="不超过20个字符" />
-			</div>
+				</div>
 
-		</div>
-		<div class="row form-group">
-
-			<label for="desc" class="col-md-3 control-label">学历</label>
-			<div class="col-md-9">
-			<s:select path="degree" class="form-control" id="degree" >
-				<s:option value="1">专科</s:option>
-				<s:option value="2">本科</s:option>
-				<s:option value="3">硕士</s:option>
-				<s:option value="4">博士</s:option>
-			</s:select>
-				
-			</div>
-
-		</div>
-
-		<div class="row form-group">
-
-			<label for="desc" class="col-md-3 control-label">描述</label>
-			<div class="col-md-9">
-				<s:textarea path="desc" id="desc" class="form-control"
-					placeholder="不超过500个字符" />
 			</div>
 
-		</div>
+			<div class="row form-group">
 
+				<label for="desc" class="col-md-3 control-label">描述</label>
+				<div class="col-md-9">
+					<s:textarea path="desc" id="desc" class="form-control"
+						placeholder="不超过500个字符" />
+				</div>
 
-		<div class="row form-group">
-			<div class="col-md-offset-3 col-md-9">
-				<s:button class="btn btn-default" onclick="submitEdu();">保存</s:button>
 			</div>
-		</div>
-	</fieldset>
-</s:form>
+
+
+			<div class="row form-group">
+				<div class="col-md-offset-3 col-md-9">
+					<s:button class="btn btn-default" onclick="submitEdu();">保存</s:button>
+				</div>
+			</div>
+		</fieldset>
+	</s:form>
+	<hr align="center" width="90%" style="border: 2px dotted #fff" />
+</c:forEach>
+
+
+<div class="row">
+	<a class="btn btn-warning btn-sm ladda-button linkbutton pull-right"
+		data-style="expand-right" title="" data-libid="38"
+		data-original-title="添加此栏目"><span class="glyphicon glyphicon-plus"></span></a>
+</div>
+
+
 
 <script type="text/javascript" src="/portal/resource/site/js/jquery.js"
 	charset="UTF-8"></script>
@@ -116,16 +127,11 @@
 		pageType : 'child'
 	});
 
-
-	function submitEdu(){
-			$("#eduForm").ajaxSubmit(
-				function(data) {
-					if (data.success) {
-						alert(1);
-					}
-				}
-			);
+	function submitEdu() {
+		$("#eduForm").ajaxSubmit(function(data) {
+			if (data.success) {
+				alert(1);
+			}
+		});
 	}
-
-	
 </script>

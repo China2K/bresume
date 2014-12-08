@@ -17,6 +17,7 @@
 	rel="stylesheet" media="screen">
 
 <style type="text/css">
+/*resume build page*/
 /*for step processing*/
 .resume_step {
 	display: none;
@@ -236,20 +237,20 @@ media     ="screen    " .ladda-button {
 
 				<s:form class="form-horizontal" action="/portal/resume/save.do" id="resumeForm"
 				onsubmit="return false;" commandName="resume">
-					<s:hidden path="id"/>
+					<s:hidden path="id" id="resumeId"/>
 					<s:hidden path="templateSn" id="templateSn"/>
 					<div class="col-md-9">
 						<div class="form-group">
 							<label for="name" class="col-md-3 control-label">简历名称</label>
 							<div class="col-md-9">
-								<s:input class="form-control" id="name" path="name"
+								<s:input class="form-control validate[required,maxSize[50]]" id="name" path="name"
 									placeholder="请输入简历名称"/>
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="desc" class="col-md-3 control-label">一句话简介</label>
 							<div class="col-md-9">
-								<s:input class="form-control" id="desc" path="desc"
+								<s:input class="form-control validate[required,maxSize[100]]" id="desc" path="desc"
 									placeholder="请输入简历名称"/>
 							</div>
 						</div>
@@ -355,6 +356,12 @@ media     ="screen    " .ladda-button {
 	<!-- Custom Theme JavaScript -->
 	<script src="/portal/resource/site/js/agency.js"></script>
 	<script src="/portal/resource/app/js/common.js"></script>
+	
+	
+	 <!-- jQuery-Validation-Engine -->
+    <link rel="stylesheet" href="<c:url value ='/resource/site/jQuery-Validation-Engine/css/validationEngine.jquery.css'/>">
+    <script src="<c:url value ='/resource/site/jQuery-Validation-Engine/js/jquery.validationEngine-zh_CN.js'/>"></script>
+    <script src="<c:url value ='/resource/site/jQuery-Validation-Engine/js/jquery.validationEngine.min.js'/>"></script>
 
 	<script type="text/javascript">
 		$('.form_date').datetimepicker({
@@ -379,6 +386,7 @@ media     ="screen    " .ladda-button {
 		}
 
 		var currentStep;
+		var resumeStep=2;
 		var iniStep='${step}';
 		if (iniStep != null && iniStep != "") {
 			goStep(iniStep*1);
@@ -396,6 +404,14 @@ media     ="screen    " .ladda-button {
 				return;
 			}
 
+			step=step*1;
+			if(step>resumeStep){
+					if($("#resumeId").val()==null||$("#resumeId").val()==''){
+						alert("请先完成前两步");
+						return false;
+					}
+				}
+
 			var contentId = "#resume_step_" + step;
 			var barId = "#progress_bar_" + step;
 
@@ -406,7 +422,7 @@ media     ="screen    " .ladda-button {
 			$(contentId).css("display", "block");
 
 			$("#step-header h3").text($(barId + " span").text());
-			currentStep = step*1;
+			currentStep = step;
 		}
 
 		$("#last-step").click(function() {
@@ -432,6 +448,10 @@ media     ="screen    " .ladda-button {
 
 
 		function submitResume(){
+
+		 if(!$("#resumeForm").validationEngine("validate")){
+				return false;
+			}
 			$("#resumeForm").ajaxSubmit(
 					function(data) {
 						if (data.success) {
@@ -445,6 +465,13 @@ media     ="screen    " .ladda-button {
 
 			}
 
+
+
+		//jquery validation
+		 $("#resumeForm").validationEngine();
+
+
+		
 		
 	</script>
 
