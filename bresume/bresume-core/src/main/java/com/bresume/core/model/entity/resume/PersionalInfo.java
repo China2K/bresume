@@ -4,6 +4,9 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.bresume.core.model.base.BaseEntity;
@@ -16,6 +19,8 @@ public class PersionalInfo extends BaseEntity {
 	 * 
 	 */
 	private static final long serialVersionUID = -8773318282373963247L;
+	
+	private Resume resume;
 
 	private String name;
 	private Integer sex;
@@ -24,7 +29,7 @@ public class PersionalInfo extends BaseEntity {
 	private Integer experienceYear;
 	private Integer credentialsType;
 	private String credentialsNumber;
-	private String mobilephone;
+	private String cellPhone;
 	private String email;
 	private Integer jobStatus;
 	private Integer salary;
@@ -34,11 +39,24 @@ public class PersionalInfo extends BaseEntity {
 	private String provinceCode;
 	private String cityCode;
 	private String areaCode;
+	
+	private String siteUrl;
 
 	private String createdBy;
 	private Date createdTime;
 	private String updatedBy;
 	private Date updatedTime;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "RESUME_ID")
+	public Resume getResume() {
+		return resume;
+	}
+
+	public void setResume(Resume resume) {
+		this.resume = resume;
+	}
+
 
 	@Column(name = "NAME")
 	public String getName() {
@@ -103,13 +121,13 @@ public class PersionalInfo extends BaseEntity {
 		this.credentialsNumber = credentialsNumber;
 	}
 
-	@Column(name = "MOBILEPHONE")
-	public String getMobilephone() {
-		return mobilephone;
+	@Column(name = "CELL_PHONE")
+	public String getCellPhone() {
+		return cellPhone;
 	}
 
-	public void setMobilephone(String mobilephone) {
-		this.mobilephone = mobilephone;
+	public void setCellPhone(String cellPhone) {
+		this.cellPhone = cellPhone;
 	}
 
 	@Column(name = "EMAIL")
@@ -220,4 +238,15 @@ public class PersionalInfo extends BaseEntity {
 		this.updatedTime = updatedTime;
 	}
 
+	@Column(name = "SITE_URL")
+	public String getSiteUrl() {
+		return siteUrl;
+	}
+
+	public void setSiteUrl(String siteUrl) {
+		this.siteUrl = siteUrl;
+	}
+
+	
+	
 }

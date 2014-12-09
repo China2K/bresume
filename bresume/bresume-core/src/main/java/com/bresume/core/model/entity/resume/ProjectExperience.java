@@ -3,12 +3,15 @@ package com.bresume.core.model.entity.resume;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import com.bresume.core.model.base.BaseEntity;
-
+@Entity
+@Table(name = "br_project_experience")
 public class ProjectExperience extends BaseEntity {
 
 	/**
@@ -56,8 +59,8 @@ public class ProjectExperience extends BaseEntity {
 		this.endDate = endDate;
 	}
 
-	@Column(name = "Project_name")
-	public String getProjectlName() {
+	@Column(name = "PROJECT_NAME")
+	public String getProjectName() {
 		return projectName;
 	}
 
