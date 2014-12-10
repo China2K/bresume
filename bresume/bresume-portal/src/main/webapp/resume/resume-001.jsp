@@ -36,7 +36,7 @@
 			<header id="header">
 				<div id="logo">
 					<h2>孙大圣</h2>
-					<h4>公务员 / 齐天大圣</h4>
+					<h4>降魔师 / 齐天大圣</h4>
 				</div>
 			</header>
 			<!-- Header End -->
@@ -66,8 +66,8 @@
 								</div>
 								<div class="info">
 									<h2>孙悟空</h2>
-									<h4>公务员 / 齐天大圣</h4>
-									<p>我是一个公务员。。。。。</p>
+									<h4>降魔师 / 齐天大圣</h4>
+									<p>我是一个降魔师。。。。。</p>
 								</div>
 							</div>
 							<div class="g1">

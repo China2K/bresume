@@ -297,7 +297,9 @@ media     ="screen    " .ladda-button {
 					</li>
 				</ul>
 			</div>
-			<div class="col-md-9 item-form-container"></div>
+			<div class="col-md-9 item-form-container">
+			
+			</div>
 		</div>
 	</div>
 

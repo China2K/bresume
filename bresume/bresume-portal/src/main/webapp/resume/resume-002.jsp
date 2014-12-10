@@ -82,7 +82,7 @@
 
 			<aside class="bottom">
 				<p>
-					我是一个公务员。。。。。 <br>
+					我是一个降魔师。。。。。 <br>
 
 				</p>
 				<span>Web design by [bresume.com]</span>

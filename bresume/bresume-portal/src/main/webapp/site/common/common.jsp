@@ -36,7 +36,7 @@
 				<div class="tab-content">
 					<div class="tab-pane active" id="email_sign_in_tab">
 						<form accept-charset="UTF-8"
-						action="user/login.do" onsubmit="return false;"
+						action="<c:url value='/user/login.do'/>" onsubmit="return false;"
 							class="simple_form new_user" data-remote="true" id="login_form"
 							method="post">
 							<div style="display: none">
@@ -168,7 +168,7 @@
 					function(data) {
 						if (data.success) {
 							$("#login-modal").hide();
-							
+							location.reload();
 						}else{
 							alert(data.message);
 						}

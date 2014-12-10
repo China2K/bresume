@@ -2,101 +2,60 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE HTML>
+<style type="text/css">
+.item-bar {
+	background-color: #eee;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	height: 35px;
+	line-height: 35px;
+	cursor: pointer;
+	text-align: center;
+	cursor: pointer;
+}
+
+.item-bar div {
+	height: 35px;
+	line-height: 35px;
+}
+
+.item-bar:hover {
+	background-color: #F5F5F5;
+}
+</style>
+
+
 
 <link
 	href="/portal/resource/site/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css"
 	rel="stylesheet" media="screen">
 
-<c:forEach items="${items}" var="eduExperience" varStatus="status">
-	<s:form class="form-horizontal item-form" id="eduForm_${status.index}" method="post"
-		action="/portal/edu/save.do" onsubmit="return false;"
-		modelAttribute="eduExperience">
-		<s:hidden path="resume.id" />
-		<fieldset>
-			<div class="row form-group">
+<div id="eduContiner" class="item-form" style="">
+	<c:forEach items="${items}" var="eduExperience" varStatus="status">
 
-				<label for="desc" class="col-md-3 control-label">时间</label>
-				<div class="input-group date form_date col-md-3 f-left" data-date=""
-					data-date-format="dd MM yyyy" data-link-field="date_start"
-					data-link-format="yyyy-mm-dd">
-					<input class="form-control" size="16" type="text" value="" readonly>
-					<span class="input-group-addon"><span
-						class="glyphicon glyphicon-calendar"></span></span>
-				</div>
-				<s:hidden id="date_start" path="startDate" />
-				<div class="col-md-1 text-center f-left">&nbsp;-&nbsp;</div>
-				<div class="input-group date form_date col-md-3 f-left" data-date=""
-					data-date-format="dd MM yyyy" data-link-field="date_end"
-					data-link-format="yyyy-mm-dd">
-					<input class="form-control" size="16" type="text" value="" readonly>
-					<span class="input-group-addon"><span
-						class="glyphicon glyphicon-calendar"></span></span>
-				</div>
-
-				<s:hidden id="date_end" path="endDate" />
+		<div class="item-bar row text-center" data-value="${eduExperience.id}"
+			id="item-bar_${eduExperience.id}">
+			<div class="col-md-5">
+				<span class=""><fmt:formatDate
+						value="${eduExperience.startDate}" pattern="yyyy-MM-dd" /> --<fmt:formatDate
+						value="${eduExperience.endDate}" pattern="yyyy-MM-dd" /></span> <span>${eduExperience.schoolName}</span>
 			</div>
-			<div class="row form-group">
-
-				<label for="desc" class="col-md-3 control-label">学校</label>
-				<div class="col-md-9">
-					<s:input path="schoolName" id="schoolName" class="form-control"
-						placeholder="不超过20个字符" />
-				</div>
-
+			<div class="col-md-offset-4 col-md-3">
+				<a class="btn" href="#">删除</a>
 			</div>
-			<div class="row form-group">
+		</div>
 
-				<label for="desc" class="col-md-3 control-label">专业</label>
-				<div class="col-md-9">
-					<s:input path="majorName" id="majorName" class="form-control"
-						placeholder="不超过20个字符" />
-				</div>
+	</c:forEach>
 
-			</div>
-			<div class="row form-group">
-
-				<label for="desc" class="col-md-3 control-label">学历</label>
-				<div class="col-md-9">
-					<s:select path="degree" class="form-control" id="degree">
-						<s:option value="1">专科</s:option>
-						<s:option value="2">本科</s:option>
-						<s:option value="3">硕士</s:option>
-						<s:option value="4">博士</s:option>
-					</s:select>
-
-				</div>
-
-			</div>
-
-			<div class="row form-group">
-
-				<label for="desc" class="col-md-3 control-label">描述</label>
-				<div class="col-md-9">
-					<s:textarea path="desc" id="desc" class="form-control"
-						placeholder="不超过500个字符" />
-				</div>
-
-			</div>
-
-
-			<div class="row form-group">
-				<div class="col-md-offset-3 col-md-9">
-					<s:button class="btn btn-default" onclick="submitEdu();">保存</s:button>
-				</div>
-			</div>
-		</fieldset>
-	</s:form>
-	<hr align="center" width="90%" style="border: 2px dotted #fff" />
-</c:forEach>
-
+</div>
 
 <div class="row">
 	<a class="btn btn-warning btn-sm ladda-button linkbutton pull-right"
-		data-style="expand-right" title="" data-libid="38"
+		data-style="expand-right" title="" data-libid="38" id="edu_add"
 		data-original-title="添加此栏目"><span class="glyphicon glyphicon-plus"></span></a>
 </div>
-
 
 
 <script type="text/javascript" src="/portal/resource/site/js/jquery.js"
@@ -134,4 +93,82 @@
 			}
 		});
 	}
+
+	function load_new_form(id, key) {
+
+		var url = "/portal/edu/load.do";
+		if (id != "undenfined" && id != null & id != "") {
+			url += "?id=" + id;
+		}
+		addItem2Container(url, $("#eduContiner"), key);
+
+	}
+
+	$("#edu_add").click(function() {
+		load_new_form();
+	});
+
+	$(".item-bar").click(function() {
+		var id = $(this).attr("data-value");
+
+		var obj = document.getElementById("form_item_" + id);
+		console.log(obj);
+		if (obj) {
+			$("#form_item_" + id).show();
+		} else {
+			load_new_form(id, id);
+		}
+
+		$(this).hide();
+	});
+
+	function delete_item(id) {
+
+		if (id.length == 32) {
+			real_id=id;
+		}else{
+			real_id=$("#eduForm_"+id+" .input-id").val();
+		}
+		if (real_id&&real_id.length==32) {
+			//已经持久化
+			var params = {
+				"id" : real_id
+			};
+			$.ajax({
+				type : "POST",
+				url : "<c:url value ='/edu/delete.do'/>",
+				async : false,
+				data : params,
+				success : function(data) {
+					if (data.success) {
+					}
+				}
+			});
+
+		}
+
+		$("#item-bar_" + id).remove();
+
+		$("#form_item_" + id).remove();
+
+	}
+
+	function hide_item(id) {
+		$("#form_item_" + id).hide();
+		$("#item-bar_" + id).show();
+	}
+
+	function submit_form(id){
+		$("#eduForm_"+id).ajaxSubmit(
+				function(data) {
+					if (data.success) {
+						$("#eduForm_"+id+" .input-id").val(data.id);
+					}else{
+						alert(data.message);
+					}
+				}
+			);
+	}
+
+	
 </script>

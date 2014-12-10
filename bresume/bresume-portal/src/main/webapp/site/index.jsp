@@ -52,7 +52,7 @@
 						<c:when
 							test="${sessionScope.loginUser!=null && sessionScope.loginUser.userName!=null}">
 							<li class="dropdown"><a href="#" class="dropdown-toggle"
-								data-toggle="dropdown">Dropdown</a>
+								data-toggle="dropdown">${sessionScope.loginUser.userName}</a>
 								<ul class="dropdown-menu" role="menu"
 									style="background: none repeat scroll 0% 0% #3D3F40;">
 									<li><a href="/portal/resume/mine.do">管理我的简历</a></li>
