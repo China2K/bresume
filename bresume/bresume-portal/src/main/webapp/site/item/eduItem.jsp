@@ -10,23 +10,23 @@
 	<s:form class="form-horizontal" id="eduForm_$$$$" method="post"
 		action="/portal/edu/save.do" onsubmit="return false;"
 		modelAttribute="eduExperience">
-		<s:hidden path="resume.id" />
+		<s:hidden path="resume.id"  class="input-resumeId"/>
 		<s:hidden path="id" class="input-id"/>
 		<div class="row form-group">
 
 			<label for="desc" class="col-md-3 control-label">时间</label>
 			<div class="input-group date form_date col-md-3 f-left" data-date=""
-				data-date-format="dd MM yyyy" data-link-field="date_start"
+				data-date-format="dd MM yyyy" data-link-field="date_start_$$$$"
 				data-link-format="yyyy-mm-dd">
 				<input class="form-control" size="16" type="text"
 					value="<fmt:formatDate value='${eduExperience.startDate}' pattern='yyyy-MM-dd' />"
 					readonly> <span class="input-group-addon"><span
 					class="glyphicon glyphicon-calendar"></span></span>
 			</div>
-			<s:hidden id="date_start" path="startDate" />
+			<s:hidden id="date_start_$$$$" path="startDate" />
 			<div class="col-md-1 text-center f-left">&nbsp;-&nbsp;</div>
 			<div class="input-group date form_date col-md-3 f-left" data-date=""
-				data-date-format="dd MM yyyy" data-link-field="date_end"
+				data-date-format="dd MM yyyy" data-link-field="date_end_$$$$"
 				data-link-format="yyyy-mm-dd">
 				<input class="form-control" size="16" type="text"
 					value="<fmt:formatDate value='${eduExperience.endDate}' pattern='yyyy-MM-dd' />"
@@ -34,7 +34,7 @@
 					class="glyphicon glyphicon-calendar"></span></span>
 			</div>
 
-			<s:hidden id="date_end" path="endDate" />
+			<s:hidden id="date_end_$$$$" path="endDate" />
 		</div>
 		<div class="row form-group">
 

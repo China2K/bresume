@@ -12,8 +12,7 @@
 	height: 35px;
 	line-height: 35px;
 	cursor: pointer;
-	text-align: center;
-	cursor: pointer;
+	margin-bottom: 20px;
 }
 
 .item-bar div {
@@ -35,16 +34,18 @@
 <div id="eduContiner" class="item-form" style="">
 	<c:forEach items="${items}" var="eduExperience" varStatus="status">
 
-		<div class="item-bar row text-center" data-value="${eduExperience.id}"
-			id="item-bar_${eduExperience.id}">
+		<div class="item-bar row" data-value="${eduExperience.id}"
+			id="item-bar_${eduExperience.id}" onclick="load_detail('${eduExperience.id}');">
 			<div class="col-md-5">
-				<span class=""><fmt:formatDate
-						value="${eduExperience.startDate}" pattern="yyyy-MM-dd" /> --<fmt:formatDate
-						value="${eduExperience.endDate}" pattern="yyyy-MM-dd" /></span> <span>${eduExperience.schoolName}</span>
+				<span class="time"><fmt:formatDate
+						value="${eduExperience.startDate}" pattern="yyyy-MM-dd" /> -- <fmt:formatDate
+						value="${eduExperience.endDate}" pattern="yyyy-MM-dd" /></span> <span
+					class="school">${eduExperience.schoolName}</span>
 			</div>
 			<div class="col-md-offset-4 col-md-3">
-				<a class="btn" href="#">删除</a>
+				<a class="btn" href="javascript:delete_item('${eduExperience.id}');">删除</a>
 			</div>
+			
 		</div>
 
 	</c:forEach>
@@ -83,16 +84,10 @@
 		startView : 2,
 		minView : 2,
 		forceParse : 0,
-		pageType : 'child'
+		pageType : 'child',
 	});
 
-	function submitEdu() {
-		$("#eduForm").ajaxSubmit(function(data) {
-			if (data.success) {
-				alert(1);
-			}
-		});
-	}
+	var resumeId = '${resumeId}';
 
 	function load_new_form(id, key) {
 
@@ -102,34 +97,57 @@
 		}
 		addItem2Container(url, $("#eduContiner"), key);
 
+		var temp = $("#eduForm_" + key + " .input-id").val();
+
+		if (temp == null || temp == "") {
+			$("#eduForm_" + key + " .input-resumeId").val(resumeId);
+		}
+
 	}
 
-	$("#edu_add").click(function() {
-		load_new_form();
-	});
+	$("#edu_add")
+			.click(
+					function() {
+						var key = randomString(8);
 
-	$(".item-bar").click(function() {
-		var id = $(this).attr("data-value");
+						var htm = '<div hidden="hidden" onclick="load_detail(\'' + key + '\');" class="item-bar row" hide data-value="'+key+'"'+
+		'id="item-bar_'+key+'"><div class="col-md-5"><span class="time">'
+								+ '</span> <span class="school"></span> </div> '
+								+ '<div class="col-md-offset-4 col-md-3"> '
+								+ '<a class="btn" href="javascript:delete_item(\'' + key + '\');">删除</a> </div> </div>';
 
-		var obj = document.getElementById("form_item_" + id);
+						$("#eduContiner").append(htm);
+
+						load_new_form(null, key);
+					});
+
+	
+	function load_detail(key){
+
+		var obj = document.getElementById("form_item_" + key);
 		console.log(obj);
 		if (obj) {
-			$("#form_item_" + id).show();
+			$("#form_item_" + key).show();
 		} else {
-			load_new_form(id, id);
+			if(key.length==32){
+				load_new_form(key, key);
+			}else{
+				load_new_form(null, key);
+			}
+			
 		}
 
-		$(this).hide();
-	});
+		$("#item-bar_"+key).hide();
+	}
 
-	function delete_item(id) {
-
-		if (id.length == 32) {
-			real_id=id;
-		}else{
-			real_id=$("#eduForm_"+id+" .input-id").val();
+	function delete_item(key) {
+		var real_id;
+		if (key.length == 32) {
+			real_id = key;
+		} else {
+			real_id = $("#eduForm_" + key + " .input-id").val();
 		}
-		if (real_id&&real_id.length==32) {
+		if (real_id && real_id.length == 32) {
 			//已经持久化
 			var params = {
 				"id" : real_id
@@ -147,27 +165,34 @@
 
 		}
 
-		$("#item-bar_" + id).remove();
+		$("#item-bar_" + key).remove();
 
-		$("#form_item_" + id).remove();
+		$("#form_item_" + key).remove();
 
 	}
 
-	function hide_item(id) {
-		$("#form_item_" + id).hide();
-		$("#item-bar_" + id).show();
+	function hide_item(key) {
+		//TODO
+		
+		var date_start=$("#form_item_" + key+" #date_start_"+ key).val();
+		var date_end=$("#form_item_" + key+" #date_end_"+ key).val();
+		var schoolName=$("#form_item_" + key+" #schoolName").val();
+		
+		$("#item-bar_" + key +" .time").html(date_start+" -- "+date_end);
+		$("#item-bar_" + key +" .school").html(schoolName);
+		$("#form_item_" + key).hide();
+		$("#item-bar_" + key).show();
 	}
 
-	function submit_form(id){
-		$("#eduForm_"+id).ajaxSubmit(
-				function(data) {
-					if (data.success) {
-						$("#eduForm_"+id+" .input-id").val(data.id);
-					}else{
-						alert(data.message);
-					}
-				}
-			);
+	function submit_form(key) {
+		$("#eduForm_" + key).ajaxSubmit(function(data) {
+			if (data.success) {
+				$("#eduForm_" + key + " .input-id").val(data.id);
+				alert("保存成功！");
+			} else {
+				alert(data.message);
+			}
+		});
 	}
 
 	

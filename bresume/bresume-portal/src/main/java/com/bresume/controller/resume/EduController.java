@@ -39,15 +39,6 @@ public class EduController extends BaseController {
 	@Resource
 	private IEduService eduService;
 
-	@InitBinder
-	protected void initBinder(HttpServletRequest request,
-			ServletRequestDataBinder binder) throws Exception {
-		DateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
-		CustomDateEditor dateEditor = new CustomDateEditor(fmt, true);
-		binder.registerCustomEditor(Date.class, dateEditor);
-		super.initBinder(request, binder);
-	}
-
 	@RequestMapping("/save.do")
 	public @ResponseBody
 	JSONObject reusmeItem(HttpServletRequest request,
@@ -56,10 +47,16 @@ public class EduController extends BaseController {
 				&& CommonUtils.isNotEmpty(eduExperience.getId())) {
 			// TODO update
 			EduExperience oldEdu = eduService.findOne(eduExperience.getId());
+			oldEdu.setDegree(eduExperience.getDegree());
+			oldEdu.setSchoolName(eduExperience.getSchoolName());
+			oldEdu.setMajorName(eduExperience.getMajorName());
+			oldEdu.setDesc(eduExperience.getDesc());
+			oldEdu.setStartDate(eduExperience.getStartDate());
+			oldEdu.setEndDate(eduExperience.getEndDate());
+			oldEdu.setUpdatedTime(new Date());
+			eduService.update(oldEdu);
 		} else {
-			// TODO add
 			eduExperience.setCreatedTime(new Date());
-			eduExperience.setResume(null);
 			eduService.save(eduExperience);
 		}
 
@@ -79,19 +76,33 @@ public class EduController extends BaseController {
 
 	@RequestMapping("/load.do")
 	public String load(HttpServletRequest request,
-			@RequestParam(value = "id", required = false) String id, Model model) {
-		EduExperience edu=null;
-		if(CommonUtils.isNotEmpty(id)){
-			edu= eduService.findOne(id);
-			if(edu!=null){
+			@RequestParam(value = "id", required = false) String id, 
+			@RequestParam(value = "resumeId", required = false) String resumeId, 
+			
+			Model model) {
+		EduExperience edu = null;
+		if (CommonUtils.isNotEmpty(id)) {
+			edu = eduService.findOne(id);
+			if (edu != null) {
 				model.addAttribute("eduExperience", edu);
 			}
 		}
-		if(edu==null){
-			model.addAttribute("eduExperience", new EduExperience() );
+		if (edu == null) {
+			model.addAttribute("eduExperience", new EduExperience());
 		}
-		
+
 		return "site/item/eduItem.jsp";
+	}
+	
+	
+	
+	@RequestMapping("/delete.do")
+	public @ResponseBody
+	JSONObject delete(HttpServletRequest request,
+			@RequestParam(value = "id", required = true) String id, 
+			Model model) {
+		eduService.delete(id);
+		return this.toJSONResult(true, "删除成功");
 	}
 
 	/*

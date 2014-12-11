@@ -126,11 +126,12 @@ public class ResumeController extends BaseController {
 
 	@RequestMapping("/resumeItem.do")
 	public String reusmeItem(HttpServletRequest request,
-			@RequestParam(value = "id", required = false) String resumeId,
+			@RequestParam(value = "id", required = true) String resumeId,
 			@RequestParam(value = "itemSn", required = true) String sn,
 			Model model) {
 		ResumeItemType resumeItem = ResumeItemType.fromSn(sn);
 		List objItems=null;
+		model.addAttribute("resumeId",resumeId);
 		if (CommonUtils.isNotEmpty(resumeId) && CommonUtils.isNotEmpty(sn)) {
 			objItems = resumeItemService.findResumeItem(resumeItem, resumeId);
 		}
@@ -197,7 +198,7 @@ public class ResumeController extends BaseController {
 			resumeService.save(resume);
 		}
 		
-		return this.toJSONResult(true,"保存成功");
+		return this.toJSONResult(true,"保存成功",resume.getId());
 	}
 
 }
