@@ -18,6 +18,14 @@
 	<link rel="stylesheet" href="/portal/resource/site/About_files/css/stuck.css">
 	<link rel="stylesheet" href="/portal/resource/site/About_files/css/ihover.css">
 	<link rel="stylesheet" href="/portal/resource/app/css/common.css">
+	
+	<!-- jQuery-Validation-Engine -->
+	<link rel="stylesheet"
+		href="<c:url value ='/resource/site/jQuery-Validation-Engine/css/validationEngine.jquery.css'/>">
+	<script
+		src="<c:url value ='/resource/site/jQuery-Validation-Engine/js/jquery.validationEngine-zh_CN.js'/>"></script>
+	<script
+		src="<c:url value ='/resource/site/jQuery-Validation-Engine/js/jquery.validationEngine.min.js'/>"></script>
     
     
 <div class="modal fade in" id="login-modal" aria-hidden="false" 

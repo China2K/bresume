@@ -122,7 +122,7 @@
 	
 }
 
-media     ="screen    " .ladda-button {
+media        ="screen       " .ladda-button {
 	-webkit-transition: .3s cubic-bezier(0.175, 0.885, 0.32, 1.275) all
 		!important;
 	-moz-transition: .3s cubic-bezier(0.175, 0.885, 0.32, 1.275) all
@@ -197,7 +197,8 @@ media     ="screen    " .ladda-button {
 			<c:forEach items="${templates}" var="template">
 				<div class="col-md-3">
 					<div class="ih-item circle effect2 left_to_right">
-						<a href="javascript:chooseTemplate('${template.sn}','${template.siteUrl}','${template.coverUrl}')"
+						<a
+							href="javascript:chooseTemplate('${template.sn}','${template.siteUrl}','${template.coverUrl}')"
 							class="acover">
 							<div class="img">
 								<img src="${template.coverUrl}" alt="img">
@@ -224,7 +225,8 @@ media     ="screen    " .ladda-button {
 				<div class="box show-item">
 					<div class="box-gray aligncenter">
 						<div class="icon">
-							<a href="${template.siteUrl}" id="template-select"><img src="${template.coverUrl}" /></a>
+							<a href="${template.siteUrl}" id="template-select"><img
+								src="${template.coverUrl}" /></a>
 						</div>
 					</div>
 					<div class="box-bottom">
@@ -235,30 +237,31 @@ media     ="screen    " .ladda-button {
 
 			<div class="col-md-9 box-gray aligncenter div-center" style="">
 
-				<s:form class="form-horizontal" action="/portal/resume/save.do" id="resumeForm"
-				onsubmit="return false;" commandName="resume">
-					<s:hidden path="id" id="resumeId"/>
-					<s:hidden path="templateSn" id="templateSn"/>
+				<s:form class="form-horizontal" action="/portal/resume/save.do"
+					id="resumeForm" onsubmit="return false;" commandName="resume">
+					<s:hidden path="id" id="resumeId" />
+					<s:hidden path="templateSn" id="templateSn" />
 					<div class="col-md-9">
 						<div class="form-group">
 							<label for="name" class="col-md-3 control-label">简历名称</label>
 							<div class="col-md-9">
-								<s:input class="form-control validate[required,maxSize[50]]" id="name" path="name"
-									placeholder="请输入简历名称"/>
+								<s:input class="form-control validate[required,maxSize[50]]"
+									id="name" path="name" placeholder="请输入简历名称" />
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="desc" class="col-md-3 control-label">一句话简介</label>
 							<div class="col-md-9">
-								<s:input class="form-control validate[required,maxSize[100]]" id="desc" path="desc"
-									placeholder="请输入简历名称"/>
+								<s:input class="form-control validate[required,maxSize[100]]"
+									id="desc" path="desc" placeholder="请输入简历名称" />
 							</div>
 						</div>
 					</div>
 					<div class="col-md-3">
 						<div class="form-group">
 							<div class="col-md-offset-3 col-md-9">
-								<button type="submit" class="btn btn-default" onclick="submitResume();">保存</button>
+								<button type="submit" class="btn btn-default"
+									onclick="submitResume();">保存</button>
 							</div>
 						</div>
 					</div>
@@ -297,9 +300,7 @@ media     ="screen    " .ladda-button {
 					</li>
 				</ul>
 			</div>
-			<div class="col-md-9 item-form-container">
-			
-			</div>
+			<div class="col-md-9 item-form-container"></div>
 		</div>
 	</div>
 
@@ -358,12 +359,9 @@ media     ="screen    " .ladda-button {
 	<!-- Custom Theme JavaScript -->
 	<script src="/portal/resource/site/js/agency.js"></script>
 	<script src="/portal/resource/app/js/common.js"></script>
+
+
 	
-	
-	 <!-- jQuery-Validation-Engine -->
-    <link rel="stylesheet" href="<c:url value ='/resource/site/jQuery-Validation-Engine/css/validationEngine.jquery.css'/>">
-    <script src="<c:url value ='/resource/site/jQuery-Validation-Engine/js/jquery.validationEngine-zh_CN.js'/>"></script>
-    <script src="<c:url value ='/resource/site/jQuery-Validation-Engine/js/jquery.validationEngine.min.js'/>"></script>
 
 	<script type="text/javascript">
 		$('.form_date').datetimepicker({
@@ -457,6 +455,10 @@ media     ="screen    " .ladda-button {
 			$("#resumeForm").ajaxSubmit(
 					function(data) {
 						if (data.success) {
+							if($("#resumeId")==null||$("#resumeId")==""){
+								$("#resumeId").val(data.id);
+							}
+							
 							alert("保存成功");
 							goStep(3);
 						}else{
