@@ -9,12 +9,12 @@
 
 package com.bresume.core.common.constant.enums;
 
-import com.bresume.core.model.entity.resume.EduExperience;
-import com.bresume.core.model.entity.resume.JobIntension;
-import com.bresume.core.model.entity.resume.PersionalInfo;
-import com.bresume.core.model.entity.resume.ProjectExperience;
-import com.bresume.core.model.entity.resume.Skill;
-import com.bresume.core.model.entity.resume.WorkExperience;
+import com.bresume.core.model.entity.resume.item.EduExperience;
+import com.bresume.core.model.entity.resume.item.JobIntension;
+import com.bresume.core.model.entity.resume.item.PersionalInfo;
+import com.bresume.core.model.entity.resume.item.ProjectExperience;
+import com.bresume.core.model.entity.resume.item.Skill;
+import com.bresume.core.model.entity.resume.item.WorkExperience;
 
 /**
  * ClassName:CommonStatus Description: TODO ADD REASON. Date: 2014-11-26

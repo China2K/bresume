@@ -2,6 +2,10 @@ package com.bresume.core.model.entity.resume;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import com.bresume.core.model.base.BaseEntity;
@@ -15,6 +19,8 @@ public class ResumeItemRef extends BaseEntity {
 	private ResumeItem resumeItem;
 	private Integer order;
 
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name = "RESUME_ID")
 	public Resume getResume() {
 		return resume;
 	}
@@ -23,6 +29,8 @@ public class ResumeItemRef extends BaseEntity {
 		this.resume = resume;
 	}
 
+	@ManyToOne(fetch=FetchType.LAZY)
+	@PrimaryKeyJoinColumn(name="ITEM_SN",referencedColumnName="sn")
 	public ResumeItem getResumeItem() {
 		return resumeItem;
 	}
@@ -39,5 +47,15 @@ public class ResumeItemRef extends BaseEntity {
 	public void setOrder(Integer order) {
 		this.order = order;
 	}
+	
+	
+//	@ManyToMany(targetEntity = ProductInstance.class, fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
+//	@Fetch(FetchMode.SUBSELECT) 
+//	@JoinTable(
+//		name = "v_app_product_instance_rls", 
+//		joinColumns = { @JoinColumn(name = "APP_ID") }, 
+//		inverseJoinColumns = { @JoinColumn(name = "PROD_INST_ID") }
+//	)
+//	@Filter(condition="USER_ID=:userId and (status='0' or status ='1')", name="applicationOrderedFilter")
 
 }

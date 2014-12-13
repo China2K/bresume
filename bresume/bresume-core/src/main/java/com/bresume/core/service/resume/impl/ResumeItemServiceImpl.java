@@ -29,7 +29,7 @@ public class ResumeItemServiceImpl extends GenericService<ResumeItem, String>
 	}
 
 	@Override
-	public List findResumeItem(ResumeItemType rit, String resumeId) {
+	public  List<?> findResumeItem(ResumeItemType rit, String resumeId) {
 		return resumeItemDao
 				.findResumeItem(rit.getClazz(),
 						new SearchBean[] { new SearchBean("resume.id",

@@ -39,6 +39,8 @@ public class BaseController extends SimpleFormController {
 	public static final String DEFAULT_JSON_MESSAGE = "message";
 
 	public static final String DEFAULT_JSON_SUCCESS = "success";
+	
+	public static final String DEFAULT_JSON_ID = "id";
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
@@ -72,6 +74,18 @@ public class BaseController extends SimpleFormController {
 		return result;
 	}
 
+	protected JSONObject toJSONResult(boolean success, String message, String id) {
+		JSONObject result = new JSONObject();
+		result.put(DEFAULT_JSON_SUCCESS, success);
+		if (CommonUtils.isNotEmpty(message)) {
+			result.put(DEFAULT_JSON_MESSAGE, message);
+		}
+		if (CommonUtils.isNotEmpty(id)) {
+			result.put(DEFAULT_JSON_ID, id);
+		}
+		return result;
+	}
+
 	protected JSONObject toJSONResult(boolean success) {
 		JSONObject result = new JSONObject();
 		result.put(DEFAULT_JSON_SUCCESS, success);
@@ -84,7 +98,7 @@ public class BaseController extends SimpleFormController {
 		result.put(DEFAULT_JSON_DATA, data);
 		return result;
 	}
-	
+
 	protected String toJSONResult(Object data) {
 		return JsonHelper.toJSONString(data);
 	}
@@ -133,10 +147,10 @@ public class BaseController extends SimpleFormController {
 		return list.toArray(new SearchBean[] {});
 	}
 
-
-	protected User getCurrentLoginUser(){
-		Object obj = SessionContextHolder.getSession().getAttribute(IPortalConstants.SESSION_KEY_LOGIN_USER);
-		if(obj==null)
+	protected User getCurrentLoginUser() {
+		Object obj = SessionContextHolder.getSession().getAttribute(
+				IPortalConstants.SESSION_KEY_LOGIN_USER);
+		if (obj == null)
 			return null;
 		return User.class.cast(obj);
 	}
