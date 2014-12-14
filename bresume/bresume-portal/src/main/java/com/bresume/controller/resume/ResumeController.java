@@ -171,7 +171,7 @@ public class ResumeController extends BaseController {
 			}
 		}
 
-		return "site/item/" + ResumeItemType.fromSn(sn).getPage();
+		return "site/module/" + ResumeItemType.fromSn(sn).getPage();
 	}
 
 	@RequestMapping("/save.do")
