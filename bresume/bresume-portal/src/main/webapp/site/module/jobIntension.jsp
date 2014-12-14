@@ -4,7 +4,10 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE HTML>
 
-<s:form class="form-horizontal item-form" action="/portal/edu/save.do" onsubmit="return false;" commandName="jobIntension">
+<s:form class="form-horizontal item-form" action="/portal/jobi/save.do"
+	onsubmit="return false;" commandName="jobIntension" id="form_jobinten">
+	<s:hidden path="id" id="form_jobinten_id" />
+	<s:hidden path="resume.id" id="form_jobinten_resumeId" />
 	<div class="row">
 		<div class="form-group col-md-6">
 			<label for="jobType" class="col-md-3 control-label">工作类型</label>
@@ -20,7 +23,9 @@
 		<div class="form-group col-md-6">
 			<label for="address" class="col-md-3 control-label">地区</label>
 			<div class="col-md-9">
-				<s:input path="address" class="form-control validate[required,maxSize[50]]" placeholder="多个请以','隔开" />
+				<s:input path="address"
+					class="form-control validate[required,maxSize[50]]"
+					placeholder="多个请以,隔开" />
 			</div>
 		</div>
 
@@ -28,10 +33,12 @@
 
 	<div class="row">
 		<div class="form-group col-md-6">
-			<label for="tradeCode" class="col-md-3 control-label">行业</label>
+			<label for="trade" class="col-md-3 control-label">行业</label>
 			<div class="col-md-9">
-				<s:input path="tradeCode" class="form-control validate[required,maxSize[50]]" placeholder="多个请以','隔开" />
-				<!-- <s:select path="tradeCode" class="form-control" id="tradeCode">
+				<s:input path="trade"
+					class="form-control validate[required,maxSize[50]]"
+					placeholder="多个请以,隔开" />
+				<!-- <s:select path="trade" class="form-control" id="trade">
 					<s:option value="1">金融</s:option>
 					<s:option value="2">IT</s:option>
 					<s:option value="3">服务</s:option>
@@ -41,7 +48,8 @@
 		<div class="form-group col-md-6">
 			<label for="profession" class="col-md-3 control-label">职能</label>
 			<div class="col-md-9">
-				<s:input path="profession" class="form-control" id="profession"
+				<s:input path="profession"
+					class="form-control validate[required,maxSize[50]]" id="profession"
 					placeholder="不超过20个字符" />
 			</div>
 		</div>
@@ -71,19 +79,51 @@
 	</div>
 
 	<div class="row">
-		<div class="form-group col-md-6">
-			<label for="selfEvaluation" class="col-md-3 control-label">自我评价</label>
-			<div class="col-md-9">
-				<s:textarea path="selfEvaluation" class="form-control"
-					id="selfEvaluation" placeholder="请输入个人简介" />
-			</div>
+		<label for="selfEvaluation" class="col-md-2 control-label">自我评价</label>
+
+		<div class="col-md-9">
+			<s:textarea path="selfEvaluation"
+				class="form-control validate[required,maxSize[500]]"
+				id="selfEvaluation" placeholder="请输入个人简介" />
 		</div>
 	</div>
 
 
 	<div class="form-group">
 		<div class="col-md-offset-3 col-md-9">
-			<button type="submit" class="btn btn-default">保存</button>
+			<button type="submit" class="btn btn-default" id="subJobBtn">保存</button>
 		</div>
 	</div>
 </s:form>
+
+<script type="text/javascript" src="/portal/resource/site/js/jquery.js"
+	charset="UTF-8"></script>
+
+<script type="text/javascript"
+	src="/portal/resource/site/js/jquery.form.js" charset="UTF-8"></script>
+<!-- jQuery-Validation-Engine -->
+<link rel="stylesheet"
+	href="<c:url value ='/resource/site/jQuery-Validation-Engine/css/validationEngine.jquery.css'/>">
+<script
+	src="<c:url value ='/resource/site/jQuery-Validation-Engine/js/jquery.validationEngine-zh_CN.js'/>"></script>
+<script
+	src="<c:url value ='/resource/site/jQuery-Validation-Engine/js/jquery.validationEngine.min.js'/>"></script>
+
+<script type="text/javascript">
+	$("#form_jobinten").validationEngine();
+
+	$("#subJobBtn").click(function() {
+		if (!$("#form_jobinten").validationEngine("validate")) {
+			return false;
+		}
+		$("#form_jobinten").ajaxSubmit(function(data) {
+			if (data.success) {
+				$("#form_jobinten_id").val(data.id);
+				alert("保存成功！");
+			} else {
+				alert(data.message);
+			}
+		});
+
+	});
+</script>

@@ -203,11 +203,11 @@ public class PersionalInfo extends BaseEntity {
 		this.areaCode = areaCode;
 	}
 
+	@Column(name = "CREATED_BY")
 	public String getCreatedBy() {
 		return createdBy;
 	}
 
-	@Column(name = "CREATED_BY")
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
 	}

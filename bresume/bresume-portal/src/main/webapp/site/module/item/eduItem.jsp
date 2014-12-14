@@ -40,7 +40,7 @@
 
 			<label for="desc" class="col-md-3 control-label">学校</label>
 			<div class="col-md-9">
-				<s:input path="schoolName" id="schoolName" class="form-control validate[required]"
+				<s:input path="schoolName" id="schoolName" class="form-control validate[required,maxSize[50]]"
 					placeholder="不超过20个字符" />
 			</div>
 
