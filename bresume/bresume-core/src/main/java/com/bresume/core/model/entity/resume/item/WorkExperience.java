@@ -25,7 +25,7 @@ public class WorkExperience extends BaseEntity {
 	private Date startDate;
 	private Date endDate;
 	private String companyName;
-	private String manuName;
+	private String tradeName;
 	private Integer degree;
 	private String department;
 	private String position;
@@ -73,13 +73,13 @@ public class WorkExperience extends BaseEntity {
 		this.companyName = companyName;
 	}
 
-	@Column(name = "MANU_NAME")
-	public String getManuName() {
-		return manuName;
+	@Column(name = "TRADE_NAME")
+	public String getTradeName() {
+		return tradeName;
 	}
 
-	public void setManuName(String manuName) {
-		this.manuName = manuName;
+	public void setTradeName(String tradeName) {
+		this.tradeName = tradeName;
 	}
 
 	@Column(name = "DEPARTMENT")

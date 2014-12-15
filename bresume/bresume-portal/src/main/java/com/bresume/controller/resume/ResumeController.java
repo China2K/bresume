@@ -97,8 +97,8 @@ public class ResumeController extends BaseController {
 		Resume resume = null;
 		int step=1;
 
-		if (CommonUtils.isNotEmpty(id)) { // 编辑 Resume resume=
-			resume = resumeService.findOne(id); // TODO
+		if (CommonUtils.isNotEmpty(id)) {
+			resume = resumeService.findOne(id);
 			sn=resume.getTemplateSn();
 			step=3;
 		} else {
@@ -130,7 +130,7 @@ public class ResumeController extends BaseController {
 			@RequestParam(value = "itemSn", required = true) String sn,
 			Model model) {
 		ResumeItemType resumeItem = ResumeItemType.fromSn(sn);
-		List objItems=null;
+		List<?> objItems=null;
 		model.addAttribute("resumeId",resumeId);
 		if (CommonUtils.isNotEmpty(resumeId) && CommonUtils.isNotEmpty(sn)) {
 			objItems = resumeItemService.findResumeItem(resumeItem, resumeId);
@@ -143,7 +143,7 @@ public class ResumeController extends BaseController {
 			
 		}else{
 			try {
-				Class clazz = resumeItem.getClazz();
+				Class<?> clazz = resumeItem.getClazz();
 				Object obj = clazz.newInstance();
 
 				Field field;
