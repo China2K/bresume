@@ -1,4 +1,11 @@
 
+String.prototype.replaceAll = function(regStr, replacement, ignoreCase) {  
+    if (!RegExp.prototype.isPrototypeOf(regStr)) {  
+        return this.replace(new RegExp(regStr, (ignoreCase ? "gi": "g")), replacement);  
+    } else {  
+        return this.replace(regStr, replacement);  
+    }  
+}  
 
 function replaceAll(data, substr, replacement) {
 	while (data.indexOf(substr) >= 0) {
@@ -157,7 +164,7 @@ var addItem2Container = function(url, _mainContent, key) {
 		},
 		success : function(data) {
 
-			data = replaceAll(data, "$$$$", key);
+			data = data.replaceAll("@@@@", key,true);
 			_mainContent.append(data);
 			//内容较长的话，高度重新设置，让浏览器重新绘制。否则会出现滚动条
 			_mainContent.css("height", "100%");
