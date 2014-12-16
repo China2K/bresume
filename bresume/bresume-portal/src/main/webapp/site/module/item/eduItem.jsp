@@ -6,8 +6,8 @@
 <!DOCTYPE HTML>
 
 <div class="edu_form_item"
-	style="background-color: #E5E5E5; width: 90%;" id="form_item_$$$$">
-	<s:form class="form-horizontal edu-form" id="eduForm_$$$$" method="post"
+	style="background-color: #E5E5E5; width: 90%;" id="form_item_@@@@">
+	<s:form class="form-horizontal edu-form" id="eduForm_@@@@" method="post"
 		action="/portal/edu/save.do" onsubmit="return false;"
 		modelAttribute="eduExperience">
 		<s:hidden path="resume.id"  class="input-resumeId"/>
@@ -16,17 +16,17 @@
 
 			<label for="desc" class="col-md-3 control-label">时间</label>
 			<div class="input-group date form_date col-md-3 f-left" data-date=""
-				data-date-format="dd MM yyyy" data-link-field="date_start_$$$$"
+				data-date-format="dd MM yyyy" data-link-field="date_start_@@@@"
 				data-link-format="yyyy-mm-dd">
 				<input class="form-control validate[required]" size="16" type="text"
 					value="<fmt:formatDate value='${eduExperience.startDate}' pattern='yyyy-MM-dd' />"
 					readonly> <span class="input-group-addon"><span
 					class="glyphicon glyphicon-calendar"></span></span>
 			</div>
-			<s:hidden id="date_start_$$$$" path="startDate" />
+			<s:hidden id="date_start_@@@@" path="startDate" />
 			<div class="col-md-1 text-center f-left">&nbsp;-&nbsp;</div>
 			<div class="input-group date form_date col-md-3 f-left" data-date=""
-				data-date-format="dd MM yyyy" data-link-field="date_end_$$$$"
+				data-date-format="dd MM yyyy" data-link-field="date_end_@@@@"
 				data-link-format="yyyy-mm-dd">
 				<input class="form-control validate[required]" size="16" type="text"
 					value="<fmt:formatDate value='${eduExperience.endDate}' pattern='yyyy-MM-dd' />"
@@ -34,7 +34,7 @@
 					class="glyphicon glyphicon-calendar"></span></span>
 			</div>
 
-			<s:hidden id="date_end_$$$$" path="endDate" />
+			<s:hidden id="date_end_@@@@" path="endDate" />
 		</div>
 		<div class="row form-group">
 
@@ -82,11 +82,11 @@
 
 		<div class="row form-group">
 			<div class="col-md-offset-8 col-md-4">
-				<s:button class="btn btn-default" onclick="submit_form('$$$$');">保存</s:button>
+				<s:button class="btn btn-default" onclick="submit_form('@@@@');">保存</s:button>
 
 
-				<button class="btn btn-default" onclick="delete_item('$$$$')">删除</button>
-				<button class="btn btn-default" onclick="hide_item('$$$$')">隐藏</button>
+				<button class="btn btn-default" onclick="delete_item('@@@@')">删除</button>
+				<button class="btn btn-default" onclick="hide_item('@@@@')">隐藏</button>
 			</div>
 		</div>
 	</s:form>
