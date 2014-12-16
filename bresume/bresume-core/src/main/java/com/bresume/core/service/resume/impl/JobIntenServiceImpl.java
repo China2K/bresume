@@ -24,7 +24,7 @@ import com.bresume.core.service.resume.IJobIntenService;
  * ClassName:JobIntenServiceImpl Description: TODO ADD REASON. Date: 2014-12-13
  * 下午9:50:15
  * 
- * @author Administrator
+ * @author 2k
  */
 @Service
 @Transactional

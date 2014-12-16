@@ -24,7 +24,7 @@ import com.bresume.core.service.resume.IResumeLogService;
  * ClassName:ResumeLogServiceImpl Description: TODO ADD REASON. Date: 2014-12-13
  * 下午10:11:13
  * 
- * @author Administrator
+ * @author 2k
  */
 @Service
 @Transactional

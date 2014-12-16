@@ -24,7 +24,7 @@ import com.bresume.core.service.resume.IProjectExperienceService;
  * ClassName:ProjectExperienceServiceImpl Description: TODO ADD REASON. Date:
  * 2014-12-13 下午10:08:52
  * 
- * @author Administrator
+ * @author 2k
  */
 @Service
 @Transactional

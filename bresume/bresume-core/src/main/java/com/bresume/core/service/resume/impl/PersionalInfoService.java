@@ -9,6 +9,8 @@
 
 package com.bresume.core.service.resume.impl;
 
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,13 +24,14 @@ import com.bresume.core.service.resume.IPersionalInfoService;
  * ClassName:PersionalInfoService Description: TODO ADD REASON. Date: 2014-12-13
  * 下午9:57:41
  * 
- * @author Administrator
+ * @author 2k
  */
 @Service
 @Transactional
 public class PersionalInfoService extends GenericService<PersionalInfo, String>
 		implements IPersionalInfoService {
 
+	@Resource
 	private IPersionalInfoDao persionalInfoDao;
 
 	@Override

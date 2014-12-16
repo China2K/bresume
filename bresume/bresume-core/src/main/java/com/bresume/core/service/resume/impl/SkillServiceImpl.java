@@ -24,7 +24,7 @@ import com.bresume.core.service.resume.ISkillService;
  * ClassName:SkillServiceImpl Description: TODO ADD REASON. Date: 2014-12-13
  * 下午10:15:49
  * 
- * @author Administrator
+ * @author 2k
  */
 @Service
 @Transactional

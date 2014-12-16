@@ -20,7 +20,7 @@ import com.bresume.core.model.entity.resume.item.WorkExperience;
  * ClassName:CommonStatus Description: TODO ADD REASON. Date: 2014-11-26
  * 下午10:20:15
  * 
- * @author Administrator
+ * @author 2k
  */
 public enum ResumeItemType {
 	EDU_EXPERIENCE("eduExperience", "ITEM-0001", EduExperience.class,
