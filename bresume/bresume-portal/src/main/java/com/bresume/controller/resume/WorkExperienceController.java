@@ -44,7 +44,7 @@ public class WorkExperienceController extends BaseController {
 			uptWE.setDepartment(workExperience.getDepartment());
 			uptWE.setDesc(workExperience.getDesc());
 			uptWE.setEndDate(workExperience.getEndDate());
-			uptWE.settTradeName(workExperience.getTradeName());
+			uptWE.setTradeName(workExperience.getTradeName());
 			uptWE.setPosition(workExperience.getPosition());
 			uptWE.setStartDate(workExperience.getStartDate());
 			uptWE.setUpdatedTime(new Date());

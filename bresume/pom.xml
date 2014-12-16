@@ -14,8 +14,6 @@
 		<module>bresume-admin</module>
 	</modules>
 
-
-
 	
 	<properties>
 		<!--set Encoding-->
@@ -31,9 +29,8 @@
 	
 		<mysql.version>5.1.31</mysql.version>
 		<spring.version>3.2.9.RELEASE</spring.version>
-		<hibernate.version>4.3.0.Final</hibernate.version>
-		<lucene.version>4.8.0</lucene.version>
-		
+		<hibernate.version>4.2.14.Final</hibernate.version>
+		<jta.version>1.1</jta.version>
 	</properties>
 
 	<build>
@@ -47,8 +44,8 @@
 					<server>tomcat7</server>
 					<port>${tomcat.port}</port>
 					<path>/${tomcat.contextroot}</path>
-					<staticContextPath>/upload</staticContextPath>
-    				<staticContextDocbase>D:/upload</staticContextDocbase>
+					<!-- <staticContextPath>/upload</staticContextPath>
+    				<staticContextDocbase>D:/upload</staticContextDocbase> -->
 				</configuration>
 			</plugin>
 			

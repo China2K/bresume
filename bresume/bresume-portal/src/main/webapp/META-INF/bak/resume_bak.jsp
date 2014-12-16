@@ -70,9 +70,9 @@ media ="screen"
 
 
 </head>
-<%@include file="common/common.jsp"%>
+<%-- <%@include file="common/common.jsp"%> --%>
 <body id="page-top" class="index">
-	<%@include file="common/header.jsp"%>
+	<%-- <%@include file="common/header.jsp"%> --%>
 
 	<div class="container wrap">
 
@@ -170,7 +170,7 @@ media ="screen"
 	</div>
 
 
-	<%@include file="common/footer.jsp"%>
+	<%-- <%@include file="common/footer.jsp"%> --%>
 	<div id="backtotop">
 		<div class="bttbg"></div>
 	</div>
