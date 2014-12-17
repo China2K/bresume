@@ -81,7 +81,7 @@ public class ProjectExperienceController extends BaseController {
 			model.addAttribute("projectExperience", new ProjectExperience());
 		}
 
-		return "site/module/persionalInfo.jsp";
+		return "site/module/item/projectItem.jsp";
 	}
 	
 	

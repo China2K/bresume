@@ -100,7 +100,7 @@ public class WorkExperience extends BaseEntity {
 		this.position = position;
 	}
 
-	@Column(name = "DEGREE")
+	@Column(name = "`DEGREE`")
 	public Integer getDegree() {
 		return degree;
 	}
@@ -109,7 +109,7 @@ public class WorkExperience extends BaseEntity {
 		this.degree = degree;
 	}
 
-	@Column(name = "ORDER")
+	@Column(name = "`ORDER`")
 	public Integer getOrder() {
 		return order;
 	}
@@ -118,7 +118,7 @@ public class WorkExperience extends BaseEntity {
 		this.order = order;
 	}
 
-	@Column(name = "DESC")
+	@Column(name = "`DESC`")
 	public String getDesc() {
 		return desc;
 	}

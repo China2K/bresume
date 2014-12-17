@@ -84,7 +84,7 @@ public class WorkExperienceController extends BaseController {
 			model.addAttribute("workExperience", new WorkExperience());
 		}
 
-		return "site/module/persionalInfo.jsp";
+		return "site/module/item/weItem.jsp";
 	}
 	
 	

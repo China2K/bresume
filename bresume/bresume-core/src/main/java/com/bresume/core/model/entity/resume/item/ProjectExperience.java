@@ -87,7 +87,7 @@ public class ProjectExperience extends BaseEntity {
 		this.respDesc = respDesc;
 	}
 	
-	@Column(name = "ORDER")
+	@Column(name = "`ORDER`")
 	public Integer getOrder() {
 		return order;
 	}

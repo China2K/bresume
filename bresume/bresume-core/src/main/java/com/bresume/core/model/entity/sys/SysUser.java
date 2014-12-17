@@ -102,7 +102,7 @@ public class SysUser extends BaseEntity {
 		this.sn = sn;
 	}
 
-	@Column(name = "DESC")
+	@Column(name = "`DESC`")
 	public String getDesc() {
 		return desc;
 	}

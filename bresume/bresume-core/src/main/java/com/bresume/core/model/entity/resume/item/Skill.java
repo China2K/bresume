@@ -84,7 +84,7 @@ public class Skill extends BaseEntity {
 		this.order = order;
 	}
 
-	@Column(name = "DESC")
+	@Column(name = "`DESC`")
 	public String getDesc() {
 		return desc;
 	}
