@@ -3,20 +3,23 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE HTML>
 
-<form class="form-horizontal item-form" action="/portal/edu/save.do"
+<form class="form-horizontal item-form" action="/portal/skill/save.do" id="skills_form" method="post"
 	onsubmit="return false;">
-	<c:forEach items="items" var="skill" step="index">
-		<div class="row">
+	
+	<input type="hidden" name="resumeId" id="form_skill_resumeId" />
+	<c:forEach items="items" var="skill" varStatus="status">
+		<input type="hidden" name="items[${status.index}].id" id="form_skill_id_${status.index}" />
+		<div class="row item-skill" id="item_${status.index}">
 			<div class="form-group col-md-4">
 				<label for="name" class="col-md-3 control-label">技能</label>
 				<div class="col-md-9">
-					<input name="items[index].name" class="form-control" />
+					<input name="items[${status.index}].name" class="form-control" />
 				</div>
 			</div>
 			<div class="form-group col-md-4">
 				<label for="desc" class="col-md-5 control-label">使用时间</label>
 				<div class="col-md-7">
-					<input name="items[index].masterTime" class="form-control"
+					<input name="items[${status.index}].masterTime" class="form-control"
 						style="width:65px;display:inline-block;" />
 					月
 				</div>
@@ -24,7 +27,7 @@
 			<div class="form-group col-md-4">
 				<label for="desc" class="col-md-5 control-label">掌握程度</label>
 				<div class="col-md-7">
-					<select name="items[index].level" class="form-control">
+					<select name="items[${status.index}].level" class="form-control">
 						<option value="1">无</option>
 						<option value="2">了解</option>
 						<option value="3">一般</option>
@@ -39,10 +42,58 @@
 
 	</c:forEach>
 
+	<div class="row">
+		<a class="btn btn-warning btn-sm ladda-button linkbutton pull-right"
+			data-style="expand-right" title="" data-libid="38" id="skill_add"
+			data-original-title="添加此栏目"><span class="glyphicon glyphicon-plus"></span></a>
+	</div>
 
 	<div class="form-group">
-		<div class=col-md-offset-11col-md-9">
-			<button type="submit" class="btn btn-default">保存</button>
+		<div class="col-md-offset-11col-md-9">
+			<button type="submit" class="btn btn-default" id="sub_skill_btn">保存</button>
 		</div>
 	</div>
 </form>
+
+
+<script type="text/javascript" src="/portal/resource/site/js/jquery.js"
+	charset="UTF-8"></script>
+
+<script type="text/javascript"
+	src="/portal/resource/site/js/jquery.form.js" charset="UTF-8"></script>
+<!-- jQuery-Validation-Engine -->
+<link rel="stylesheet"
+	href="<c:url value ='/resource/site/jQuery-Validation-Engine/css/validationEngine.jquery.css'/>">
+<script
+	src="<c:url value ='/resource/site/jQuery-Validation-Engine/js/jquery.validationEngine-zh_CN.js'/>"></script>
+<script
+	src="<c:url value ='/resource/site/jQuery-Validation-Engine/js/jquery.validationEngine.min.js'/>"></script>
+
+<script type="text/javascript">
+	$("#skills_form").validationEngine();
+
+	$("#sub_skill_btn").click(function() {
+		if (!$("#skills_form").validationEngine("validate")) {
+			return false;
+		}
+		$("#skills_form").ajaxSubmit(function(data) {
+			if (data.success) {
+				alert("保存成功！");
+				subUrl("/portal/resume/resumeItem.do?itemSn=ITEM-0006");
+			} else {
+				alert(data.message);
+			}
+		});
+
+	});
+	
+	
+	
+	$("#skill_add").click(function() {
+				var new_item=$("#skills_form .item-skill").last();
+				console.log(new_item);
+				alert(new_item);
+			});
+	
+	
+</script>

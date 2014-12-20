@@ -8,6 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.bresume.core.model.base.BaseEntity;
 import com.bresume.core.model.entity.resume.Resume;
@@ -25,6 +26,8 @@ public class Skill extends BaseEntity {
 	private String TimeUnitCode;
 	private Integer order;
 	private String desc;
+	
+	private Integer status;
 
 	private Date createdTime;
 	private Date updatedTime;
@@ -110,5 +113,17 @@ public class Skill extends BaseEntity {
 	public void setUpdatedTime(Date updatedTime) {
 		this.updatedTime = updatedTime;
 	}
+
+	
+	@Transient
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+	
+	
 
 }

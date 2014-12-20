@@ -48,10 +48,18 @@ function randomString(len) {
 	return pwd;
 }
 
+
+//主要内容部分，要来局部刷新不同模块的主要部分
+var _mainContent = $("div.item-form-container");
+
 /*for inside url forward*/
 var subUrl = function(url) {
-	//主要内容部分，要来局部刷新不同模块的主要部分
-	var _mainContent = $("div.item-form-container");
+	var resumeId = $("#resumeForm #resumeId").val();
+	if (resumeId == null || resumeId == '') {
+		alert("请先完成前两步！");
+		goStep(1);
+	}
+	url = url + "&id=" + resumeId;
 	$.ajax({
 		type : "GET",
 		url : url,
@@ -66,16 +74,22 @@ var subUrl = function(url) {
 			}
 		},
 		success : function(data) {
-			_mainContent.html(data);
+			//会寻找返回的HTML中是否 存在fullpage:true的注释，如果存在则整张页面改变（body里面内容替换为响应返回的html）
+			//不想整张页面变化，则不需要别的操作
+			if (data.indexOf("<!--fullpage:true-->") >= 0) {
+				//整个页面改变
+				$("body").html(data);
+			} else {
+				//局部页面填充，改变 class=mainCont的内部
+				_mainContent.html(data);
+				//改变点击样式 TODO
 
-			//内容较长的话，高度重新设置，让浏览器重新绘制。否则会出现滚动条
-			_mainContent.css("height", "100%");
+			}
 		}
 	});
 };
 
-//主要内容部分，要来局部刷新不同模块的主要部分
-var _mainContent = $("div.item-form-container");
+
 //菜单 点击后， 局部刷新 主要内容部分 _mainContent
 
 $(".resume-items li.ajaxPage").click(function(event) {
