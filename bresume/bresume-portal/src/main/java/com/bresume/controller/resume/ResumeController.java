@@ -170,7 +170,7 @@ public class ResumeController extends BaseController {
 				
 			}
 		}
-
+		model.addAttribute("resumeId", resumeId);
 		return "site/module/" + ResumeItemType.fromSn(sn).getPage();
 	}
 
