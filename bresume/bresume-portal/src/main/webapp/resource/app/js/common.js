@@ -92,7 +92,12 @@ var subUrl = function(url) {
 
 //菜单 点击后， 局部刷新 主要内容部分 _mainContent
 
-$(".items-top li.ajaxPage").click(function(event) {
+$("li.ajaxPage").click(function(event) {
+	//console.log($(this).children("a"));
+	var isextra= $(this).children("a").children("span").hasClass("glyphicon-plus");
+	if(isextra===true){
+		return ;
+	}
 	var a = $(this);
 	//取消 默认的点击事件 否则跳转页面
 	event.preventDefault();

@@ -365,7 +365,6 @@ media        ="screen       " .ladda-button {
 	function item_bar_add(itemSn){
 		var resumeID=$("#resumeId").val();
 		var url="<c:url value ='/resume/addItem.do'/>";
-		alert(url+resumeID+itemSn);
 		var data={resumeId:resumeID,itemSn:itemSn}
 		$.ajax({
 			type : "post",
@@ -416,7 +415,6 @@ media        ="screen       " .ladda-button {
 		function submitEdu() {
 			$("#eduForm").ajaxSubmit(function(data) {
 				if (data.success) {
-					alert(1);
 				}
 			});
 		}
