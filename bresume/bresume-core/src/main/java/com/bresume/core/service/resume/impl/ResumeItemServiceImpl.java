@@ -4,14 +4,18 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bresume.core.common.base.dao.IGenericDao;
 import com.bresume.core.common.base.service.support.GenericService;
 import com.bresume.core.common.constant.enums.ResumeItemType;
+import com.bresume.core.common.utils.CommonUtils;
 import com.bresume.core.common.utils.search.SearchBean;
 import com.bresume.core.dao.resume.IResumeItemDao;
+import com.bresume.core.dao.resume.IResumeItemRefDao;
 import com.bresume.core.model.entity.resume.ResumeItem;
 import com.bresume.core.service.resume.IResumeItemService;
 
@@ -23,17 +27,38 @@ public class ResumeItemServiceImpl extends GenericService<ResumeItem, String>
 	@Resource
 	private IResumeItemDao resumeItemDao;
 
+	@Resource
+	private IResumeItemRefDao resumeItemRefDao;
+
 	@Override
 	public IGenericDao<ResumeItem, String> getDao() {
 		return resumeItemDao;
 	}
 
 	@Override
-	public  List<?> findResumeItem(ResumeItemType rit, String resumeId) {
+	public List<?> findResumeItem(ResumeItemType rit, String resumeId) {
 		return resumeItemDao
 				.findResumeItem(rit.getClazz(),
 						new SearchBean[] { new SearchBean("resume.id",
 								resumeId, "=") }, null);
+	}
+
+	@Override
+	public List<ResumeItem> findDefaultItems(String resumeId) {
+		if (CommonUtils.isNotEmpty(resumeId)) {
+			return resumeItemDao.findResumeItems(resumeId);
+		}
+		return resumeItemDao.findAll(new Sort(Direction.ASC, "order"),
+				new SearchBean("isDefault", "true", "="));
+	}
+
+	@Override
+	public List<ResumeItem> findExtraItems(String resumeId) {
+		List<ResumeItem> all=resumeItemDao.findAll(new Sort(Direction.ASC, "order"));
+		
+		List<ResumeItem> defaultItems=findDefaultItems(resumeId);
+		all.removeAll(defaultItems);
+		return all;
 	}
 
 }

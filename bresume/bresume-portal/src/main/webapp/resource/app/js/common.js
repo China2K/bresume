@@ -92,12 +92,12 @@ var subUrl = function(url) {
 
 //菜单 点击后， 局部刷新 主要内容部分 _mainContent
 
-$(".resume-items li.ajaxPage").click(function(event) {
+$(".items-top li.ajaxPage").click(function(event) {
 	var a = $(this);
 	//取消 默认的点击事件 否则跳转页面
 	event.preventDefault();
-
-	var url = a.attr("data-href");
+	var url= "/portal/resume/resumeItem.do?itemSn=";
+	url = url + a.attr("data-href");
 	var resumeId = $("#resumeForm #resumeId").val();
 	if (resumeId == null || resumeId == '') {
 		alert("请先完成前两步！");

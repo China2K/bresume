@@ -276,9 +276,9 @@ media        ="screen       " .ladda-button {
 				<h5 class="text-center">基本栏目</h5>
 				<ul class="list-group resume-items items-top">
 
-					<c:forEach items="${allResumeItems }" var="item">
+					<c:forEach items="${defaultItems }" var="item">
 						<li class="list-group-item ajaxPage"
-							data-href="/portal/resume/resumeItem.do?itemSn=${item.sn}">${item.name
+							data-href="${item.sn}">${item.name
 							} <a
 							class="btn btn-warning btn-sm ladda-button linkbutton addtolibfav"
 							data-style="expand-right" title="" data-libid="38"
@@ -291,13 +291,15 @@ media        ="screen       " .ladda-button {
 				<span>附加栏目</span>
 				<hr />
 				<ul class="list-group resume-items items-down">
-
-					<li class="list-group-item ajaxPage">Cras justo odio <a
+					<c:forEach items="${extraItems}" var="item">
+					<li class="list-group-item ajaxPage" data-href="${item.sn}">${item.name
+							} <a
 						class="btn btn-warning btn-sm ladda-button linkbutton addtolibfav"
 						data-style="expand-right" title="" data-libid="38"
 						data-original-title="添加此栏目"><span
 							class="glyphicon glyphicon-plus"></span></a>
 					</li>
+					</c:forEach>
 				</ul>
 			</div>
 			<div class="col-md-9 item-form-container"></div>
@@ -311,33 +313,7 @@ media        ="screen       " .ladda-button {
 	</div>
 
 
-	<script src="/portal/resource/site/js/jquery.js"></script>
-
-	<!-- Bootstrap Core JavaScript -->
-	<script src="/portal/resource/site/js/bootstrap.min.js"></script>
-
-	<script src="/portal/resource/app/js/common.js"></script>
-
-
-
-
-	<script type="text/javascript">
-		$(".resume-items li a.linkbutton").click(function(event) {
-			if ($(this).children("span").hasClass("glyphicon-minus")) {
-
-				$(".items-down").append($(this).parent());
-				$(this).children("span").removeClass("glyphicon-minus");
-				$(this).children("span").addClass("glyphicon-plus");
-			} else {
-				$(".items-top").append($(this).parent());
-				$(this).children("span").removeClass("glyphicon-plus");
-				$(this).children("span").addClass("glyphicon-minus");
-			}
-			event.stopPropagation();
-
-		});
-	</script>
-
+	
 	<script type="text/javascript" src="/portal/resource/site/js/jquery.js"
 		charset="UTF-8"></script>
 
@@ -362,8 +338,68 @@ media        ="screen       " .ladda-button {
 
 
 	
+<script type="text/javascript">
+	//item add & remove
+		$(".resume-items li a.linkbutton").click(function(event) {
+			
+			var sn=$(this).parent().attr("data-href");
+			
+			if ($(this).children("span").hasClass("glyphicon-minus")) {
 
-	<script type="text/javascript">
+				$(".items-down").append($(this).parent());
+				$(this).children("span").removeClass("glyphicon-minus");
+				$(this).children("span").addClass("glyphicon-plus");
+				
+				item_bar_remove(sn);
+			} else {
+				$(".items-top").append($(this).parent());
+				$(this).children("span").removeClass("glyphicon-plus");
+				$(this).children("span").addClass("glyphicon-minus");
+				
+				item_bar_add(sn);
+			}
+			event.stopPropagation();
+
+		});
+	
+	function item_bar_add(itemSn){
+		var resumeID=$("#resumeId").val();
+		var url="<c:url value ='/resume/addItem.do'/>";
+		alert(url+resumeID+itemSn);
+		var data={resumeId:resumeID,itemSn:itemSn}
+		$.ajax({
+			type : "post",
+			url : url,
+			data:data,
+			async : false,
+			cache : false,
+			dataType : "json",
+			error : function(request) {
+			},
+			success : function(data) {
+				}
+			});
+		
+	}
+	
+	function item_bar_remove(itemSn){
+		var resumeID=$("#resumeId").val();
+		var url="<c:url value ='/resume/removeItem.do'/>";
+		var data={resumeId:resumeID,itemSn:itemSn}
+		$.ajax({
+			type : "post",
+			url : url,
+			data:data,
+			async : false,
+			cache : false,
+			dataType : "json",
+			error : function(request) {
+			},
+			success : function(data) {
+				}
+			});
+	}
+//*********************************************8
 		$('.form_date').datetimepicker({
 			language : 'zh-CN',
 			format : "yyyy-mm-dd",
@@ -400,7 +436,7 @@ media        ="screen       " .ladda-button {
 				step = 1;
 			}
 
-			if (currentStep == step || currentStep < 1|| currentStep > 3) {
+			if (currentStep == step || (currentStep < 1)||(currentStep > 3)) {
 				return;
 			}
 

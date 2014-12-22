@@ -1,6 +1,7 @@
 package com.bresume.core.model.entity.resume;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,7 +34,7 @@ public class Resume extends BaseEntity {
 	private String templateSn;
 	private String coverUrl;
 	private Boolean recommended;
-
+	
 	private Integer order;
 
 	private String desc;

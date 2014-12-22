@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import com.bresume.core.model.base.BaseEntity;
@@ -16,7 +15,7 @@ public class ResumeItemRef extends BaseEntity {
 
 	private static final long serialVersionUID = 1832428897252111730L;
 	private Resume resume;
-	private ResumeItem resumeItem;
+	private String itemSn;
 	private Integer order;
 
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -29,16 +28,21 @@ public class ResumeItemRef extends BaseEntity {
 		this.resume = resume;
 	}
 
-	@ManyToOne(fetch=FetchType.LAZY)
-	@PrimaryKeyJoinColumn(name="ITEM_SN",referencedColumnName="sn")
-	public ResumeItem getResumeItem() {
-		return resumeItem;
+	//@ManyToOne(fetch=FetchType.LAZY)
+	//@PrimaryKeyJoinColumn(name="ITEM_SN",referencedColumnName="sn")
+	//@JoinColumn(name="ITEM_SN",referencedColumnName="SN")
+	
+	@Column(name="ITEM_SN")
+	public String getItemSn() {
+		return itemSn;
 	}
 
-	public void setResumeItem(ResumeItem resumeItem) {
-		this.resumeItem = resumeItem;
+	public void setItemSn(String itemSn) {
+		this.itemSn = itemSn;
 	}
 
+
+	
 	@Column(name = "`ORDER`")
 	public Integer getOrder() {
 		return order;

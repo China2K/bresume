@@ -2,6 +2,7 @@ package com.bresume.core.dao.resume.impl;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.springframework.stereotype.Repository;
@@ -26,6 +27,14 @@ public class ResumeItemDaoImpl extends SimpleHibernateDao<ResumeItem, String>
 		}
 
 		return findByCriteria(criteria);
+	}
+	
+	@Override
+	public List<ResumeItem> findResumeItems(String resumeId) {
+		String hql="from ResumeItem ri where ri.sn in(select ref.itemSn from ResumeItemRef ref where ref.resume.id=?)";
+		Query query = getSession().createQuery(hql);
+		query.setString(0, resumeId);
+		return query.list();
 	}
 
 }

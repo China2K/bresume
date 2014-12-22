@@ -11,4 +11,6 @@ import com.bresume.core.model.entity.resume.ResumeItem;
 public interface IResumeItemDao extends IGenericDao<ResumeItem, String> {
 
 	List<?> findResumeItem(Class<?> entity, SearchBean[] searchBean, Order order);
+
+	public List<ResumeItem> findResumeItems(String resumeId);
 }

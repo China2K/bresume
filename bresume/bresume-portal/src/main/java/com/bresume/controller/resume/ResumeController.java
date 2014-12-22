@@ -28,8 +28,10 @@ import com.bresume.core.common.utils.CommonUtils;
 import com.bresume.core.common.utils.search.SearchBean;
 import com.bresume.core.model.entity.resume.Resume;
 import com.bresume.core.model.entity.resume.ResumeItem;
+import com.bresume.core.model.entity.resume.ResumeItemRef;
 import com.bresume.core.model.entity.resume.Template;
 import com.bresume.core.model.entity.user.User;
+import com.bresume.core.service.resume.IResumeItemRefService;
 import com.bresume.core.service.resume.IResumeItemService;
 import com.bresume.core.service.resume.IResumeService;
 import com.bresume.core.service.resume.ITemplateService;
@@ -45,6 +47,9 @@ public class ResumeController extends BaseController {
 
 	@Resource
 	private IResumeItemService resumeItemService;
+	
+	@Resource
+	private IResumeItemRefService resumeItemRefService;
 	
 	
 	@RequestMapping("/mine.do")
@@ -107,11 +112,15 @@ public class ResumeController extends BaseController {
 
 		Template template = templateService.findUniqueBy("sn", sn);
 
-		List<ResumeItem> allResumeItems = (List<ResumeItem>) resumeItemService
-				.findAll(new Sort(Direction.ASC, "order"));
+		/*List<ResumeItem> allResumeItems = (List<ResumeItem>) resumeItemService
+				.findAll(new Sort(Direction.ASC, "order"));*/
+		List<ResumeItem> defaultItems=resumeItemService.findDefaultItems(id);
+		List<ResumeItem> extraItems=resumeItemService.findExtraItems(id);
+		model.addAttribute("defaultItems", defaultItems);
+		model.addAttribute("extraItems", extraItems);
 
 		model.addAttribute("template", template);
-		model.addAttribute("allResumeItems", allResumeItems);
+		
 
 		Pageable page = new PageRequest(0, 10, new Sort(Direction.ASC, "order"));
 		Page<Template> result = templateService.findPage(page, new SearchBean(
@@ -196,9 +205,54 @@ public class ResumeController extends BaseController {
 			resume.setIsPublic(false);
 			resume.setUser(loginUser);
 			resumeService.save(resume);
+			
+			//创建简历模快
+			List<ResumeItem> items=resumeItemService.findAll(null, new SearchBean("isDefault", "true", "="));
+			for(ResumeItem item:items){
+				ResumeItemRef ref=new ResumeItemRef();
+				ref.setResume(resume);
+				ref.setItemSn(item.getSn());
+				resumeItemRefService.save(ref);
+			}
 		}
 		
 		return this.toJSONResult(true,"保存成功",resume.getId());
+	}
+	
+	
+	@RequestMapping("/removeItem.do")
+	public @ResponseBody
+	JSONObject removeItem(HttpServletRequest request,
+			@RequestParam(value = "itemSn", required = true) String sn,
+			@RequestParam(value="resumeId",required=true) String resumeId) {
+		User loginUser=getCurrentLoginUser();
+		ResumeItemRef ref = resumeItemRefService.findByResumeAndSn(resumeId, sn);
+		if(ref.getResume().getUser().getId().equalsIgnoreCase(loginUser.getId())){
+			resumeItemRefService.delete(ref);
+		}
+		return this.toJSONResult(true,"保存成功");
+	}
+	
+	
+	@RequestMapping("/addItem.do")
+	public @ResponseBody
+	JSONObject addItem(HttpServletRequest request,
+			@RequestParam(value = "itemSn", required = true) String sn,
+			@RequestParam(value="resumeId",required=true) String resumeId) {
+		List<ResumeItemRef> list = resumeItemRefService.findAll(null, new SearchBean("resume.id", resumeId, "="),new SearchBean("itemSn", sn, "="));
+		if(list!=null&&list.size()>0){
+			return this.toJSONResult(true,"保存成功");
+		}
+		Resume resume=resumeService.findOne(resumeId);
+		ResumeItem item=resumeItemService.findUniqueBy("sn", sn);
+		if(resume==null||item==null){
+			return this.toJSONResult(false,"保存失败");
+		}
+		ResumeItemRef ref=new ResumeItemRef();
+		ref.setResume(resume);
+		ref.setItemSn(item.getSn());
+		resumeItemRefService.save(ref);
+		return this.toJSONResult(true,"保存成功");
 	}
 
 }

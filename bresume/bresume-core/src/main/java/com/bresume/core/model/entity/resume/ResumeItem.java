@@ -18,7 +18,18 @@ public class ResumeItem extends BaseEntity {
 	private String desc;
 	private Integer order;
 	private Boolean isDefault;
+	private Boolean required;
 	private Date createdTime;
+	
+	
+	@Column(name = "`REQUIRED`")
+	public Boolean getRequired() {
+		return required;
+	}
+
+	public void setRequired(Boolean required) {
+		this.required = required;
+	}
 
 	@Column(name = "`IS_DEFAULT`")
 	public Boolean getIsDefault() {
