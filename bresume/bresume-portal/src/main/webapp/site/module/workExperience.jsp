@@ -83,7 +83,7 @@
 
 	function load_new_form(id, key) {
 
-		var url = "/portal/we/load.do";
+		var url = "/portal/we/load";
 		if (id != "undenfined" && id != null & id != "") {
 			url += "?id=" + id;
 		}
@@ -147,7 +147,7 @@
 			};
 			$.ajax({
 				type : "POST",
-				url : "<c:url value ='/we/delete.do'/>",
+				url : "<c:url value ='/we/delete'/>",
 				async : false,
 				data : params,
 				success : function(data) {

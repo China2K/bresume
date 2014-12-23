@@ -31,7 +31,7 @@ public class JobIntenController extends BaseController {
 	@Resource
 	private IResumeService resumeService;
 
-	@RequestMapping("/save.do")
+	@RequestMapping("/save")
 	public @ResponseBody
 	JSONObject save(HttpServletRequest request,
 			@ModelAttribute JobIntension jobIntension) {
@@ -64,7 +64,7 @@ public class JobIntenController extends BaseController {
 		return this.toJSONResult(true, "保存成功", jobIntension.getId());
 	}
 
-	@RequestMapping("/load.do")
+	@RequestMapping("/load")
 	public String load(
 			HttpServletRequest request,
 			@RequestParam(value = "id", required = false) String id,
@@ -84,7 +84,7 @@ public class JobIntenController extends BaseController {
 		return "site/module/jobIntension.jsp";
 	}
 
-	@RequestMapping("/delete.do")
+	@RequestMapping("/delete")
 	public @ResponseBody
 	JSONObject delete(HttpServletRequest request,
 			@RequestParam(value = "id", required = true) String id, Model model) {

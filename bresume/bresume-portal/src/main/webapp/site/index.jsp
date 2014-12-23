@@ -55,7 +55,7 @@
 								data-toggle="dropdown">${sessionScope.loginUser.userName}</a>
 								<ul class="dropdown-menu" role="menu"
 									style="background: none repeat scroll 0% 0% #3D3F40;">
-									<li><a href="/portal/resume/mine.do">管理我的简历</a></li>
+									<li><a href="/portal/resume/mine">管理我的简历</a></li>
 									<li><a href="#">账户设置</a></li>
 									<li><a href="#">查看我的简历</a></li>
 									<li class="divider"></li>
@@ -86,7 +86,7 @@
 			<div class="intro-text">
 				<div class="intro-lead-in">简历创建从未如此简单！</div>
 				<div class="intro-heading">Build Your Resume</div>
-				<a href="resume/buildResume.do" class="page-scroll btn btn-xl">创建简历</a>
+				<a href="resume/buildResume" class="page-scroll btn btn-xl">创建简历</a>
 				<a href="#services" class="page-scroll btn btn-xl">了解如何使用</a>
 			</div>
 		</div>
@@ -250,7 +250,7 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<form name="sentMessage" id="contactForm" onsubmit="return false;"
-						action="contact.do">
+						action="contact">
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">

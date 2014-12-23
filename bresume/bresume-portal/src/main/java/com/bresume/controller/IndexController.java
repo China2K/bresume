@@ -35,7 +35,7 @@ public class IndexController extends BaseController {
 	@Resource
 	private IContactService constactService;
 
-	@RequestMapping("/index.do")
+	@RequestMapping("/index")
 	public String index(HttpServletRequest request, Model model) {
 
 		List<Template> hotTemplates = templateService.findHostTemplates();
@@ -47,7 +47,7 @@ public class IndexController extends BaseController {
 		return "/site/index.jsp";
 	}
 
-	@RequestMapping("/contact.do")
+	@RequestMapping("/contact")
 	public @ResponseBody
 	JSONObject contact(HttpServletRequest request, 
 			@RequestParam(value="email",required=true) String email,
@@ -65,5 +65,7 @@ public class IndexController extends BaseController {
 		constactService.save(contact);
 		return this.toJSONResult(true, "感谢您的宝贵意见,我会最快时间阅读并给您回复!");
 	}
+	
+	
 
 }

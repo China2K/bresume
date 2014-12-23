@@ -211,7 +211,7 @@
 		}
 
 		function edit_resume(id) {
-			location.href="/portal/resume/buildResume.do?id="+id;
+			location.href="/portal/resume/buildResume?id="+id;
 		}
 
 		function delete_resume(id) {

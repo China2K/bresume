@@ -13,7 +13,7 @@
 				<span class="sr-only">B Resume</span> <span class="icon-bar"></span>
 				<span class="icon-bar"></span> <span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand page-scroll" href="/portal/index.do">B
+			<a class="navbar-brand page-scroll" href="/portal/index">B
 				Resume</a>
 		</div>
 
@@ -22,8 +22,8 @@
 			id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
 				<li class="hidden"><a href="#page-top"></a></li>
-				<li><a href="/portal/templates.do">简历模板</a></li>
-				<li><a href="/portal/resume/resumes.do">热门简历</a></li>
+				<li><a href="/portal/templates">简历模板</a></li>
+				<li><a href="/portal/resume/resumes">热门简历</a></li>
 				<li><a href="#">关于我们</a></li>
 				<li><a href="#">提供建议</a></li>
 

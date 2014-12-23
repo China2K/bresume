@@ -11,4 +11,7 @@ public interface IConstants {
 	// url starts with http or https
 	public static final String HTTP_HTTPS_REG = "^(http|https)://.+"; 
 	
+	
+	public static final String DEFAULT_TEMPLATE="001";
+	
 }

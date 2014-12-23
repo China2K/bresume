@@ -1,6 +1,7 @@
 package com.bresume.controller.resume;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -17,11 +18,14 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bresume.core.common.base.controller.BaseController;
+import com.bresume.core.common.constant.IConstants;
 import com.bresume.core.common.constant.enums.CommonStatus;
 import com.bresume.core.common.constant.enums.ResumeItemType;
 import com.bresume.core.common.utils.CommonUtils;
@@ -52,7 +56,7 @@ public class ResumeController extends BaseController {
 	private IResumeItemRefService resumeItemRefService;
 	
 	
-	@RequestMapping("/mine.do")
+	@RequestMapping("/mine")
 	public String mine(HttpServletRequest request, Model model) {
 		User loginUser=getCurrentLoginUser();
 		
@@ -64,9 +68,8 @@ public class ResumeController extends BaseController {
 	}
 
 
-	@RequestMapping("/startBulidResume.do")
+	@RequestMapping("/startBulidResume")
 	public String contact(HttpServletRequest request, Model model) {
-
 		Pageable page = new PageRequest(0, 10, new Sort(Direction.ASC, "order"));
 		Page<Template> result = templateService.findPage(page, new SearchBean(
 				"status", CommonStatus.ACTIVE.getCode() + "", "="));
@@ -76,7 +79,7 @@ public class ResumeController extends BaseController {
 		return "site/templates.jsp";
 	}
 
-	@RequestMapping("/resumes.do")
+	@RequestMapping("/resumes")
 	public String listResume(
 			HttpServletRequest request,
 			@RequestParam(value = "page", required = false, defaultValue = "0") int page,
@@ -93,7 +96,7 @@ public class ResumeController extends BaseController {
 		return "site/resumes.jsp";
 	}
 
-	@RequestMapping("/buildResume.do")
+	@RequestMapping("/buildResume")
 	public String bulidResume(HttpServletRequest request,
 			@RequestParam(value = "id", required = false) String id,
 			@RequestParam(value = "template", required = false) String sn,
@@ -133,7 +136,7 @@ public class ResumeController extends BaseController {
 		return "site/resume.jsp";
 	}
 
-	@RequestMapping("/resumeItem.do")
+	@RequestMapping("/resumeItem")
 	public String reusmeItem(HttpServletRequest request,
 			@RequestParam(value = "id", required = true) String resumeId,
 			@RequestParam(value = "itemSn", required = true) String sn,
@@ -183,7 +186,7 @@ public class ResumeController extends BaseController {
 		return "site/module/" + ResumeItemType.fromSn(sn).getPage();
 	}
 
-	@RequestMapping("/save.do")
+	@RequestMapping("/save")
 	public @ResponseBody
 	JSONObject save(HttpServletRequest request,
 			@ModelAttribute Resume resume) {
@@ -220,7 +223,7 @@ public class ResumeController extends BaseController {
 	}
 	
 	
-	@RequestMapping("/removeItem.do")
+	@RequestMapping("/removeItem")
 	public @ResponseBody
 	JSONObject removeItem(HttpServletRequest request,
 			@RequestParam(value = "itemSn", required = true) String sn,
@@ -234,7 +237,7 @@ public class ResumeController extends BaseController {
 	}
 	
 	
-	@RequestMapping("/addItem.do")
+	@RequestMapping("/addItem")
 	public @ResponseBody
 	JSONObject addItem(HttpServletRequest request,
 			@RequestParam(value = "itemSn", required = true) String sn,
@@ -253,6 +256,54 @@ public class ResumeController extends BaseController {
 		ref.setItemSn(item.getSn());
 		resumeItemRefService.save(ref);
 		return this.toJSONResult(true,"保存成功");
+	}
+	
+	@RequestMapping(value="/{resumeName}",method=RequestMethod.GET)
+	public String view(@PathVariable String resumeName,  Model model) {
+		
+		Resume resume=resumeService.findUniqueBy("name", resumeName);
+		if(resume==null){
+			return "404";
+		}
+		String resumeId=resume.getId();
+		
+		String templatesn = resume.getTemplateSn();
+		if(CommonUtils.isEmpty(templatesn)){
+			templatesn=IConstants.DEFAULT_TEMPLATE;
+		}
+		
+//		Template template = templateService.findUniqueBy("sn", templatesn);
+		String page="resume-"+templatesn;
+		
+		List<ResumeItemRef> refs = resume.getRefs();
+		for(ResumeItemRef ref:refs){
+			String sn=ref.getItemSn();
+			ResumeItemType resumeItem = ResumeItemType.fromSn(sn);
+			List<?> objItems=null;
+			objItems = resumeItemService.findResumeItem(resumeItem, resumeId);
+			int type = resumeItem.getType();
+			if(type==1){
+				model.addAttribute(resumeItem.getName()+"s", CommonUtils.isEmpty(objItems)?new ArrayList():objItems);
+			}else{
+				if(CommonUtils.isNotEmpty(objItems)){
+					model.addAttribute(resumeItem.getName(), objItems.get(0));
+				}else{
+					Class<?> clazz = resumeItem.getClazz();
+					Object obj;
+					try {
+						obj = clazz.newInstance();
+						model.addAttribute(resumeItem.getName(), obj);
+					} catch (InstantiationException e) {
+						e.printStackTrace();
+					} catch (IllegalAccessException e) {
+						e.printStackTrace();
+					}
+					
+				}
+			}
+			
+		}
+		return "resume/"+page;
 	}
 
 }

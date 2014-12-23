@@ -44,7 +44,7 @@
 				<div class="tab-content">
 					<div class="tab-pane active" id="email_sign_in_tab">
 						<form accept-charset="UTF-8"
-						action="<c:url value='/user/login.do'/>" onsubmit="return false;"
+						action="<c:url value='/user/login'/>" onsubmit="return false;"
 							class="simple_form new_user" data-remote="true" id="login_form"
 							method="post">
 							<div style="display: none">
@@ -95,7 +95,7 @@
 						</form>
 					</div>
 					<div class="tab-pane" id="email_sign_up_tab">
-						<form accept-charset="UTF-8" onsubmit="return false;" action="user/register.do"
+						<form accept-charset="UTF-8" onsubmit="return false;" action="user/register"
 							class="simple_form new_user" data-remote="true" id="register_form"
 							method="post">
 							<div style="display: none">

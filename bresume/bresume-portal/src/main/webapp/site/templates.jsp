@@ -33,7 +33,7 @@
 				<c:forEach items="${templates}" var="template">
 					<div class="col-md-3">
 						<div class="ih-item circle effect2 left_to_right">
-							<a href="/portal/resume/buildResume.do?template=${template.sn}" class="acover">
+							<a href="/portal/resume/buildResume?template=${template.sn}" class="acover">
 								<div class="img">
 									<img src="${template.coverUrl}" alt="img">
 								</div>

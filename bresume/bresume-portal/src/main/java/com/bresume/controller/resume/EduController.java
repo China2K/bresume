@@ -34,7 +34,7 @@ public class EduController extends BaseController {
 	@Resource
 	private IEduService eduService;
 
-	@RequestMapping("/save.do")
+	@RequestMapping("/save")
 	public @ResponseBody
 	JSONObject reusmeItem(HttpServletRequest request,
 			@ModelAttribute EduExperience eduExperience) {
@@ -58,7 +58,7 @@ public class EduController extends BaseController {
 		return this.toJSONResult(true, "保存成功");
 	}
 
-	@RequestMapping("/test.do")
+	@RequestMapping("/test")
 	public String test(HttpServletRequest request, Model model) {
 		EduExperience eduExperience = new EduExperience();
 
@@ -69,7 +69,7 @@ public class EduController extends BaseController {
 		return "site/module/eduExperience.jsp";
 	}
 
-	@RequestMapping("/load.do")
+	@RequestMapping("/load")
 	public String load(HttpServletRequest request,
 			@RequestParam(value = "id", required = false) String id, 
 			@RequestParam(value = "resumeId", required = false) String resumeId, 
@@ -91,7 +91,7 @@ public class EduController extends BaseController {
 	
 	
 	
-	@RequestMapping("/delete.do")
+	@RequestMapping("/delete")
 	public @ResponseBody
 	JSONObject delete(HttpServletRequest request,
 			@RequestParam(value = "id", required = true) String id, 
@@ -101,7 +101,7 @@ public class EduController extends BaseController {
 	}
 
 	/*
-	 * @RequestMapping("/save.do") public void testsave(HttpServletRequest
+	 * @RequestMapping("/save") public void testsave(HttpServletRequest
 	 * request,
 	 * 
 	 * @ModelAttribute EduExperience eduExperience) {

@@ -1,6 +1,6 @@
 <c:forEach items="${items}" var="eduExperience" varStatus="status">
 		<form class="form-horizontal item-form" id="eduForm_${status.index}"
-			method="post" action="/portal/edu/save.do" onsubmit="return false;">
+			method="post" action="/portal/edu/save" onsubmit="return false;">
 			<input type="hidden" name="resume.id"
 				value="${eduExperience.resume.id}">
 			<fieldset>

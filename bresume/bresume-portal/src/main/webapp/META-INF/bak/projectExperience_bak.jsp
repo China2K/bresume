@@ -11,7 +11,7 @@
 	href="/portal/resource/site/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css"
 	rel="stylesheet" media="screen">
 
-<s:form class="form-horizontal item-form" action="/portal/edu/save.do" onsubmit="return false;" commandName="projectExperience" >
+<s:form class="form-horizontal item-form" action="/portal/edu/save" onsubmit="return false;" commandName="projectExperience" >
 	<div class="row form-group">
 	
 		<label for="desc" class="col-md-3 control-label">项目名称</label>

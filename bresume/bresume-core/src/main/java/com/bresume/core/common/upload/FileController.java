@@ -19,7 +19,7 @@ public class FileController {
 
 	private static UploadConfig UPLOAD_CONFIG = FileUploadHandler.UPLOAD_CONFIG;
 
-	@RequestMapping("/img.do")
+	@RequestMapping("/img")
 	public void getImg(HttpServletRequest request, HttpServletResponse response) {
 		String imgId = request.getParameter(UPLOAD_CONFIG.getDownloadParamName());
 		if (UPLOAD_CONFIG != null) {
@@ -62,7 +62,7 @@ public class FileController {
 		}
 	}
 
-	@RequestMapping("/file.do")
+	@RequestMapping("/file")
 	public void getFile(HttpServletRequest request,
 			HttpServletResponse response, @PathVariable String filpath) {
 		String filepath = request.getParameter("p");

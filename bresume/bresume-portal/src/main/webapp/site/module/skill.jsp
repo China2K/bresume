@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE HTML>
 
-<form class="form-horizontal item-form" action="/portal/skill/save.do" id="skills_form" method="post"
+<form class="form-horizontal item-form" action="/portal/skill/save" id="skills_form" method="post"
 	onsubmit="return false;">
 	
 	<input type="hidden" name="resumeId" id="form_skill_resumeId" value="${resumeId}"/>
@@ -114,7 +114,7 @@
 		$("#skills_form").ajaxSubmit(function(data) {
 			if (data.success) {
 				alert("保存成功！");
-				subUrl("/portal/resume/resumeItem.do?itemSn=ITEM-0006");
+				subUrl("/portal/resume/resumeItem?itemSn=ITEM-0006");
 			} else {
 				alert(data.message);
 			}

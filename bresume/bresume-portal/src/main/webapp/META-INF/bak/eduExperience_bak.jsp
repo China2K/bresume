@@ -10,7 +10,7 @@
 
 <c:forEach items="${items}" var="eduExperience" varStatus="status">
 	<s:form class="form-horizontal item-form" id="eduForm_${status.index}" method="post"
-		action="/portal/edu/save.do" onsubmit="return false;"
+		action="/portal/edu/save" onsubmit="return false;"
 		modelAttribute="eduExperience">
 		<s:hidden path="resume.id" />
 		<fieldset>

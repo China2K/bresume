@@ -143,7 +143,7 @@ media ="screen"
 
 					<c:forEach items="${allResumeItems }" var="item">
 						<li class="list-group-item ajaxPage"
-							data-href="/portal/resume/resumeItem.do?itemSn=${item.sn}">${item.name
+							data-href="/portal/resume/resumeItem?itemSn=${item.sn}">${item.name
 							} <a
 							class="btn btn-warning btn-sm ladda-button linkbutton addtolibfav"
 							data-style="expand-right" title="" data-libid="38"

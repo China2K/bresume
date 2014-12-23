@@ -26,7 +26,7 @@ public class TemplateController extends BaseController {
 	@Resource
 	private ITemplateService templateService;
 
-	@RequestMapping("/templates.do")
+	@RequestMapping("/templates")
 	public String contact(HttpServletRequest request, Model model) {
 
 		Pageable page = new PageRequest(0, 10, new Sort(Direction.ASC, "order"));

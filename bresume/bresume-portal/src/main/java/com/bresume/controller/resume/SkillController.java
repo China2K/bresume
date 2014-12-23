@@ -33,7 +33,7 @@ public class SkillController extends BaseController {
 	@Resource
 	private IResumeService resumeService;
 
-	@RequestMapping("/save.do")
+	@RequestMapping("/save")
 	public @ResponseBody
 	JSONObject save(HttpServletRequest request,SkillModel skillModel,String resumeId) {
 		if(CommonUtils.isEmpty(resumeId)){
@@ -74,7 +74,7 @@ public class SkillController extends BaseController {
 		return this.toJSONResult(true, "保存成功");
 	}
 
-	@RequestMapping("/load.do")
+	@RequestMapping("/load")
 	public String load(
 			HttpServletRequest request,
 			@RequestParam(value = "id", required = false) String id,
@@ -83,7 +83,7 @@ public class SkillController extends BaseController {
 		return "site/module/jobIntension.jsp";
 	}
 
-	@RequestMapping("/delete.do")
+	@RequestMapping("/delete")
 	public @ResponseBody
 	JSONObject delete(HttpServletRequest request,
 			@RequestParam(value = "id", required = true) String id, Model model) {

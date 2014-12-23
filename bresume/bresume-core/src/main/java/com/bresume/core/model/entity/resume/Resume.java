@@ -3,11 +3,13 @@ package com.bresume.core.model.entity.resume;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.bresume.core.model.base.BaseEntity;
@@ -38,6 +40,8 @@ public class Resume extends BaseEntity {
 	private Integer order;
 
 	private String desc;
+	
+	private List<ResumeItemRef> refs;
 
 	@Column(name = "NAME")
 	public String getName() {
@@ -139,4 +143,13 @@ public class Resume extends BaseEntity {
 		this.desc = desc;
 	}
 
+	
+	@OneToMany(cascade = CascadeType.ALL,fetch=FetchType.LAZY,mappedBy="resume")
+	public List<ResumeItemRef> getRefs() {
+		return refs;
+	}
+
+	public void setRefs(List<ResumeItemRef> refs) {
+		this.refs = refs;
+	}
 }

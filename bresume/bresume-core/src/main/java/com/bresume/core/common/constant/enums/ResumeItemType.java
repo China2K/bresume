@@ -24,20 +24,23 @@ import com.bresume.core.model.entity.resume.item.WorkExperience;
  */
 public enum ResumeItemType {
 	EDU_EXPERIENCE("eduExperience", "ITEM-0001", EduExperience.class,
-			"eduExperience.jsp"), JOB_INTENSION("jobIntension", "ITEM-0002",
-			JobIntension.class, "jobIntension.jsp"), PERSIONAL_INFO(
+			"eduExperience.jsp", 1), JOB_INTENSION("jobIntension", "ITEM-0002",
+			JobIntension.class, "jobIntension.jsp", 0), PERSIONAL_INFO(
 			"persionalInfo", "ITEM-0003", PersionalInfo.class,
-			"persionalInfo.jsp"), PROJECT_EXPERIENCE("projectExperience",
-			"ITEM-0004", ProjectExperience.class, "projectExperience.jsp"), WORK_EXPERIENCE(
+			"persionalInfo.jsp", 0), PROJECT_EXPERIENCE("projectExperience",
+			"ITEM-0004", ProjectExperience.class, "projectExperience.jsp", 1), WORK_EXPERIENCE(
 			"workExperience", "ITEM-0005", WorkExperience.class,
-			"workExperience.jsp"), SKILL("skill", "ITEM-0006", Skill.class,
-			"skill.jsp");
+			"workExperience.jsp", 1), SKILL("skill", "ITEM-0006", Skill.class,
+			"skill.jsp", 1);
 	private String name;
 	private String sn;
 	private Class<?> clazz;
 	private String page;
 
-	ResumeItemType(String name, String sn, Class<?> clazz, String page) {
+	/** 0:单个的;1:多个的 */
+	private int type;
+
+	ResumeItemType(String name, String sn, Class<?> clazz, String page, int type) {
 		this.name = name;
 		this.sn = sn;
 		this.clazz = clazz;
@@ -83,6 +86,14 @@ public enum ResumeItemType {
 
 	public void setPage(String page) {
 		this.page = page;
+	}
+
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
 	}
 
 }

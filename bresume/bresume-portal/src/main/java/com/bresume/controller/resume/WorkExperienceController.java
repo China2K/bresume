@@ -31,7 +31,7 @@ public class WorkExperienceController extends BaseController {
 	@Resource
 	private IWorkExperienceService workExperienceService;
 
-	@RequestMapping("/save.do")
+	@RequestMapping("/save")
 	public @ResponseBody
 	JSONObject reusmeItem(HttpServletRequest request,
 			@ModelAttribute WorkExperience workExperience) {
@@ -67,7 +67,7 @@ public class WorkExperienceController extends BaseController {
 	}
 
 
-	@RequestMapping("/load.do")
+	@RequestMapping("/load")
 	public String load(HttpServletRequest request,
 			@RequestParam(value = "id", required = false) String id, 
 			@RequestParam(value = "resumeId", required = false) String resumeId, 
@@ -89,7 +89,7 @@ public class WorkExperienceController extends BaseController {
 	
 	
 	
-	@RequestMapping("/delete.do")
+	@RequestMapping("/delete")
 	public @ResponseBody
 	JSONObject delete(HttpServletRequest request,
 			@RequestParam(value = "id", required = true) String id, 

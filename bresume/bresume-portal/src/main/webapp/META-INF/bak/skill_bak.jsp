@@ -4,7 +4,7 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE HTML>
 
-<s:form class="form-horizontal item-form" action="/portal/edu/save.do" onsubmit="return false;" commandName="skill" >
+<s:form class="form-horizontal item-form" action="/portal/edu/save" onsubmit="return false;" commandName="skill" >
 	<div class="row">
 		<div class="form-group col-md-4">
 			<label for="name" class="col-md-3 control-label">技能</label>

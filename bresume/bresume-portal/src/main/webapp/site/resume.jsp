@@ -237,7 +237,7 @@ media        ="screen       " .ladda-button {
 
 			<div class="col-md-9 box-gray aligncenter div-center" style="">
 
-				<s:form class="form-horizontal" action="/portal/resume/save.do"
+				<s:form class="form-horizontal" action="/portal/resume/save"
 					id="resumeForm" onsubmit="return false;" commandName="resume">
 					<s:hidden path="id" id="resumeId" />
 					<s:hidden path="templateSn" id="templateSn" />
@@ -338,6 +338,15 @@ media        ="screen       " .ladda-button {
 
 
 	
+	
+	<!-- jQuery-Validation-Engine -->
+	<link rel="stylesheet"
+	href="<c:url value ='/resource/site/jQuery-Validation-Engine/css/validationEngine.jquery.css'/>">
+<script
+	src="<c:url value ='/resource/site/jQuery-Validation-Engine/js/jquery.validationEngine-zh_CN.js'/>"></script>
+<script
+	src="<c:url value ='/resource/site/jQuery-Validation-Engine/js/jquery.validationEngine.min.js'/>"></script>
+	
 <script type="text/javascript">
 	//item add & remove
 		$(".resume-items li a.linkbutton").click(function(event) {
@@ -364,7 +373,7 @@ media        ="screen       " .ladda-button {
 	
 	function item_bar_add(itemSn){
 		var resumeID=$("#resumeId").val();
-		var url="<c:url value ='/resume/addItem.do'/>";
+		var url="<c:url value ='/resume/addItem'/>";
 		var data={resumeId:resumeID,itemSn:itemSn}
 		$.ajax({
 			type : "post",
@@ -383,7 +392,7 @@ media        ="screen       " .ladda-button {
 	
 	function item_bar_remove(itemSn){
 		var resumeID=$("#resumeId").val();
-		var url="<c:url value ='/resume/removeItem.do'/>";
+		var url="<c:url value ='/resume/removeItem'/>";
 		var data={resumeId:resumeID,itemSn:itemSn}
 		$.ajax({
 			type : "post",
@@ -489,7 +498,7 @@ media        ="screen       " .ladda-button {
 			$("#resumeForm").ajaxSubmit(
 					function(data) {
 						if (data.success) {
-							if($("#resumeId")==null||$("#resumeId")==""){
+							if($("#resumeId").val()==null||$("#resumeId").val()==""){
 								$("#resumeId").val(data.id);
 							}
 							

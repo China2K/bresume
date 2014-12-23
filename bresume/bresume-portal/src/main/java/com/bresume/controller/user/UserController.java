@@ -47,7 +47,7 @@ public class UserController extends BaseController {
 	private JavaMailSender mailSender;
 
 
-	@RequestMapping("/register.do")
+	@RequestMapping("/register")
 	public @ResponseBody
 	JSONObject register(
 			@RequestParam(value = "userName", required = true) String userName,
@@ -99,7 +99,7 @@ public class UserController extends BaseController {
 	}
 
 	
-	@RequestMapping("/login.do")
+	@RequestMapping("/login")
 	public @ResponseBody
 	JSONObject login(@RequestParam(value = "email", required = true) String loginName,
 			@RequestParam(value = "password", required = true) String password, 
@@ -127,7 +127,7 @@ public class UserController extends BaseController {
 		}
 	}
 
-	@RequestMapping("/logout.do")
+	@RequestMapping("/logout")
 	public @ResponseBody
 	JSONObject logout(String loginName, ModelMap model,
 			HttpServletResponse response) {
@@ -137,7 +137,7 @@ public class UserController extends BaseController {
 	}
 
 	
-	@RequestMapping("/verified.do")
+	@RequestMapping("/verified")
 	public String active(@RequestParam(value = "user", required = true) String userName,
 			@RequestParam(value = "code", required = true) String code) {
 		UserVerified uv = verifiedService.findOne(userName, code);
@@ -162,7 +162,7 @@ public class UserController extends BaseController {
 	 * @return
 	 * @throws CoreException
 	 *//*
-	@RequestMapping(value = "/update.do")
+	@RequestMapping(value = "/update")
 	@ResponseBody
 	public JSONObject update(@RequestBody user user) {
 		try {
@@ -173,7 +173,7 @@ public class UserController extends BaseController {
 		}
 	}
 
-	@RequestMapping(value = "/changePwd.do")
+	@RequestMapping(value = "/changePwd")
 	@ResponseBody
 	public JSONObject changePwd(String oldPwd, String newPwd,
 			HttpServletRequest request, HttpServletResponse response) {
@@ -200,12 +200,12 @@ public class UserController extends BaseController {
 		}
 	}*/
 	
-	/*@RequestMapping("/myInfo.do")
+	/*@RequestMapping("/myInfo")
 	public String myInfo() {
 		return "/mcenter/myInfo.jsp";
 	}
 
-	@RequestMapping("/find.do")
+	@RequestMapping("/find")
 	public @ResponseBody
 	String find(@RequestParam("loginName") String loginName)
 			throws CoreException {
@@ -213,7 +213,7 @@ public class UserController extends BaseController {
 		return this.toStringResultFromJson(true, user);
 	}
 
-	@RequestMapping("/loadSelf.do")
+	@RequestMapping("/loadSelf")
 	public @ResponseBody
 	JSONObject loadSelf() throws CoreException {
 		user user = (user) SessionContextHolder
@@ -222,7 +222,7 @@ public class UserController extends BaseController {
 		return this.toJSONResult(true, user);
 	}
 
-	@RequestMapping("/updateSelf.do")
+	@RequestMapping("/updateSelf")
 	public @ResponseBody
 	JSONObject updateSelf(@ModelAttribute user user,
 			HttpServletRequest request, HttpServletResponse response) {
@@ -256,7 +256,7 @@ public class UserController extends BaseController {
 	
 	/*
 
-	@RequestMapping("/updatePassword.do")
+	@RequestMapping("/updatePassword")
 	public @ResponseBody
 	JSONObject updatePassword(String loginName, String oldPassword,
 			String newPassword) {
