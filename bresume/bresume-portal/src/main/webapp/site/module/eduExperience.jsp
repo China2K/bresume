@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%> 
 <!DOCTYPE HTML>
 <style type="text/css">
 
@@ -78,7 +79,11 @@
 		forceParse : 0,
 		pageType : 'child',
 	});
-
+	var size='${fn:length(items)}'*1;
+	if(size<1){
+		var key = randomString(8);
+		load_new_form(null, key);
+	}
 	var resumeId = '${resumeId}';
 
 	function load_new_form(id, key) {
