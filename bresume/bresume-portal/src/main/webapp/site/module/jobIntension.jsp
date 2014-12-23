@@ -96,19 +96,6 @@
 	</div>
 </s:form>
 
-<script type="text/javascript" src="/portal/resource/site/js/jquery.js"
-	charset="UTF-8"></script>
-
-<script type="text/javascript"
-	src="/portal/resource/site/js/jquery.form.js" charset="UTF-8"></script>
-<!-- jQuery-Validation-Engine -->
-<link rel="stylesheet"
-	href="<c:url value ='/resource/site/jQuery-Validation-Engine/css/validationEngine.jquery.css'/>">
-<script
-	src="<c:url value ='/resource/site/jQuery-Validation-Engine/js/jquery.validationEngine-zh_CN.js'/>"></script>
-<script
-	src="<c:url value ='/resource/site/jQuery-Validation-Engine/js/jquery.validationEngine.min.js'/>"></script>
-
 <script type="text/javascript">
 	$("#form_jobinten").validationEngine();
 

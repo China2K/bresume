@@ -9,130 +9,21 @@
 <title>bresume - 简历创建</title>
 
 
-<link href="/portal/resource/site/css/bootstrap.min.css"
+<c:url value ='/resource/app/js/common.js'/>
+
+<link href="<c:url value ='/resource/site/css/bootstrap.min.css'/>"
 	rel="stylesheet" media="screen">
-<link href="/portal/resource/app/css/common.css" rel="stylesheet">
+<link href="<c:url value ='/resource/app/css/common.css'/>" rel="stylesheet">
 <link
-	href="/portal/resource/site/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css"
+	href="<c:url value ='/resource/site/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css'/>"
 	rel="stylesheet" media="screen">
+
+<!-- jQuery-Validation-Engine -->
+<link rel="stylesheet"
+	href="<c:url value ='/resource/site/jQuery-Validation-Engine/css/validationEngine.jquery.css'/>">
 
 <style type="text/css">
-/*resume build page*/
-/*for step processing*/
-.resume_step {
-	display: none;
-}
 
-.progress_bar {
-	font-family: 'Futura Today', Helvetica, Arial, "Lucida Grande",
-		sans-serif;
-	font-size: 18px;
-	height: 45px;
-	line-height: 45px;
-	margin: 0 0 10px;
-	overflow: hidden;
-	padding: 0;
-}
-
-#progress_bar_1,#progress_bar_2 {
-	border-right: 1px dashed #fff;
-}
-
-.progress_bar-normal {
-	background-color: #e5e5e5;
-	color: #ccc;
-	text-align: center;
-	cursor: pointer;
-	height: 45px;
-	line-height: 45px;
-}
-
-.progress_bar-normal:hover {
-	color: #fff;
-}
-
-.progress_bar-active {
-	cursor: auto;
-	color: #fff;
-	font-size: 22px;
-}
-
-/*for % processing*/
-#step-control {
-	font-family: 'Futura Today', Helvetica, Arial, "Lucida Grande",
-		sans-serif;
-	font-size: 18px;
-	height: 45px;
-	line-height: 45px;
-}
-
-#step-control div {
-	cursor: pointer;
-}
-
-#progress-bar-div {
-	line-height: 45px;
-	margin-top: 13px;
-}
-
-#last-step {
-	background-color: #e5e5e5;
-	color: #ccc;
-}
-
-#next-step {
-	background-color: #fec503;
-	color: #fff;
-}
-
-/* box */
-.box-bottom {
-	width: 180px;
-	background: #fec503;
-	text-align: center;
-}
-
-.show-item {
-	
-}
-
-.show-item img {
-	width: 180px;
-	height: 180px;
-	border: 1px solid #ddd;
-}
-
-.box-bottom a {
-	width: 180px;
-	line-height: 35px;
-	font-family: "Roboto Slab", "Helvetica Neue", Helvetica, Arial,
-		sans-serif;
-	font-size: 14px;
-	color: white;
-	font-weight: 700;
-	text-align: center;
-}
-
-.box-bottom a:hover {
-	color: #eee;
-	text-decoration: none;
-}
-
-.div-center {
-	
-}
-
-media        ="screen       " .ladda-button {
-	-webkit-transition: .3s cubic-bezier(0.175, 0.885, 0.32, 1.275) all
-		!important;
-	-moz-transition: .3s cubic-bezier(0.175, 0.885, 0.32, 1.275) all
-		!important;
-	-ms-transition: .3s cubic-bezier(0.175, 0.885, 0.32, 1.275) all
-		!important;
-	-o-transition: .3s cubic-bezier(0.175, 0.885, 0.32, 1.275) all
-		!important;
-	transition: .3s cubic-bezier(0.175, 0.885, 0.32, 1.275) all !important;
-}
 </style>
 
 
@@ -277,9 +168,9 @@ media        ="screen       " .ladda-button {
 				<ul class="list-group resume-items items-top">
 
 					<c:forEach items="${defaultItems }" var="item">
-						<li class="list-group-item ajaxPage"
-							data-href="${item.sn}">${item.name
-							} <a
+						<li class="list-group-item ajaxPage" data-href="${item.sn}">${item.name
+							}
+							<a
 							class="btn btn-warning btn-sm ladda-button linkbutton addtolibfav"
 							data-style="expand-right" title="" data-libid="38"
 							data-original-title="去除此栏目"><span
@@ -292,13 +183,14 @@ media        ="screen       " .ladda-button {
 				<hr />
 				<ul class="list-group resume-items items-down">
 					<c:forEach items="${extraItems}" var="item">
-					<li class="list-group-item ajaxPage" data-href="${item.sn}">${item.name
-							} <a
-						class="btn btn-warning btn-sm ladda-button linkbutton addtolibfav"
-						data-style="expand-right" title="" data-libid="38"
-						data-original-title="添加此栏目"><span
-							class="glyphicon glyphicon-plus"></span></a>
-					</li>
+						<li class="list-group-item ajaxPage" data-href="${item.sn}">${item.name
+							}
+							<a
+							class="btn btn-warning btn-sm ladda-button linkbutton addtolibfav"
+							data-style="expand-right" title="" data-libid="38"
+							data-original-title="添加此栏目"><span
+								class="glyphicon glyphicon-plus"></span></a>
+						</li>
 					</c:forEach>
 				</ul>
 			</div>
@@ -313,101 +205,106 @@ media        ="screen       " .ladda-button {
 	</div>
 
 
-	
-	<script type="text/javascript" src="/portal/resource/site/js/jquery.js"
+
+	<script type="text/javascript" src="<c:url value ='/resource/site/js/jquery.js'/>"
 		charset="UTF-8"></script>
 
 	<script type="text/javascript"
-		src="/portal/resource/site/js/jquery.form.js" charset="UTF-8"></script>
+		src="<c:url value ='/resource/site/js/jquery.form.js'/>" charset="UTF-8"></script>
 	<script type="text/javascript"
-		src="/portal/resource/site/js/bootstrap.min.js"></script>
+		src="<c:url value ='/resource/site/js/bootstrap.min.js'/>"></script>
 	<script type="text/javascript"
-		src="/portal/resource/site/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"
+		src="<c:url value ='/resource/site/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js'/>"
 		charset="UTF-8"></script>
 	<script type="text/javascript"
-		src="/portal/resource/site/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"
+		src="<c:url value ='/resource/site/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js'/>"
 		charset="UTF-8"></script>
 
 
 	<!-- Plugin JavaScript -->
-	<script src="/portal/resource/site/js/jquery.easing.min.js"></script>
+	<script src="<c:url value ='/resource/site/js/jquery.easing.min.js'/>"></script>
 
 	<!-- Custom Theme JavaScript -->
-	<script src="/portal/resource/site/js/agency.js"></script>
-	<script src="/portal/resource/app/js/common.js"></script>
+	<script src="<c:url value ='/resource/site/js/agency.js'/>"></script>
+
+	<script src="<c:url value ='/resource/app/js/common.js'/>"></script>
 
 
-	
-	
 	<!-- jQuery-Validation-Engine -->
-	<link rel="stylesheet"
-	href="<c:url value ='/resource/site/jQuery-Validation-Engine/css/validationEngine.jquery.css'/>">
-<script
-	src="<c:url value ='/resource/site/jQuery-Validation-Engine/js/jquery.validationEngine-zh_CN.js'/>"></script>
-<script
-	src="<c:url value ='/resource/site/jQuery-Validation-Engine/js/jquery.validationEngine.min.js'/>"></script>
-	
-<script type="text/javascript">
-	//item add & remove
+	<script
+		src="<c:url value ='/resource/site/jQuery-Validation-Engine/js/jquery.validationEngine-zh_CN.js'/>"></script>
+	<script
+		src="<c:url value ='/resource/site/jQuery-Validation-Engine/js/jquery.validationEngine.min.js'/>"></script>
+
+
+
+	<script type="text/javascript">
+		//item add & remove
 		$(".resume-items li a.linkbutton").click(function(event) {
-			
-			var sn=$(this).parent().attr("data-href");
-			
+
+			var sn = $(this).parent().attr("data-href");
+
 			if ($(this).children("span").hasClass("glyphicon-minus")) {
 
 				$(".items-down").append($(this).parent());
 				$(this).children("span").removeClass("glyphicon-minus");
 				$(this).children("span").addClass("glyphicon-plus");
-				
+
 				item_bar_remove(sn);
 			} else {
 				$(".items-top").append($(this).parent());
 				$(this).children("span").removeClass("glyphicon-plus");
 				$(this).children("span").addClass("glyphicon-minus");
-				
+
 				item_bar_add(sn);
 			}
 			event.stopPropagation();
 
 		});
-	
-	function item_bar_add(itemSn){
-		var resumeID=$("#resumeId").val();
-		var url="<c:url value ='/resume/addItem'/>";
-		var data={resumeId:resumeID,itemSn:itemSn}
-		$.ajax({
-			type : "post",
-			url : url,
-			data:data,
-			async : false,
-			cache : false,
-			dataType : "json",
-			error : function(request) {
-			},
-			success : function(data) {
+
+		function item_bar_add(itemSn) {
+			var resumeID = $("#resumeId").val();
+			var url = "<c:url value ='/resume/addItem'/>";
+			var data = {
+				resumeId : resumeID,
+				itemSn : itemSn
+			}
+			$.ajax({
+				type : "post",
+				url : url,
+				data : data,
+				async : false,
+				cache : false,
+				dataType : "json",
+				error : function(request) {
+				},
+				success : function(data) {
 				}
 			});
-		
-	}
-	
-	function item_bar_remove(itemSn){
-		var resumeID=$("#resumeId").val();
-		var url="<c:url value ='/resume/removeItem'/>";
-		var data={resumeId:resumeID,itemSn:itemSn}
-		$.ajax({
-			type : "post",
-			url : url,
-			data:data,
-			async : false,
-			cache : false,
-			dataType : "json",
-			error : function(request) {
-			},
-			success : function(data) {
+
+		}
+
+		function item_bar_remove(itemSn) {
+			var resumeID = $("#resumeId").val();
+			var url = "<c:url value ='/resume/removeItem'/>";
+			var data = {
+				resumeId : resumeID,
+				itemSn : itemSn
+			}
+			$.ajax({
+				type : "post",
+				url : url,
+				data : data,
+				async : false,
+				cache : false,
+				dataType : "json",
+				error : function(request) {
+				},
+				success : function(data) {
 				}
 			});
-	}
-//*********************************************8
+		}
+		//*********************************************8
 		$('.form_date').datetimepicker({
 			language : 'zh-CN',
 			format : "yyyy-mm-dd",
@@ -429,10 +326,10 @@ media        ="screen       " .ladda-button {
 		}
 
 		var currentStep;
-		var resumeStep=2;
-		var iniStep='${step}';
+		var resumeStep = 2;
+		var iniStep = '${step}';
 		if (iniStep != null && iniStep != "") {
-			goStep(iniStep*1);
+			goStep(iniStep * 1);
 		} else {
 			goStep(1);
 		}
@@ -443,17 +340,17 @@ media        ="screen       " .ladda-button {
 				step = 1;
 			}
 
-			if (currentStep == step || (currentStep < 1)||(currentStep > 3)) {
+			if (currentStep == step || (currentStep < 1) || (currentStep > 3)) {
 				return;
 			}
 
-			step=step*1;
-			if(step>resumeStep){
-					if($("#resumeId").val()==null||$("#resumeId").val()==''){
-						alert("请先完成前两步");
-						return false;
-					}
+			step = step * 1;
+			if (step > resumeStep) {
+				if ($("#resumeId").val() == null || $("#resumeId").val() == '') {
+					alert("请先完成前两步");
+					return false;
 				}
+			}
 
 			var contentId = "#resume_step_" + step;
 			var barId = "#progress_bar_" + step;
@@ -472,54 +369,47 @@ media        ="screen       " .ladda-button {
 			if (currentStep == 1) {
 				return;
 			}
-			goStep(currentStep-1);
+			goStep(currentStep - 1);
 		});
 
 		$("#next-step").click(function() {
 			if (currentStep == 3) {
 				return;
 			}
-			goStep(currentStep+1);
+			goStep(currentStep + 1);
 		});
 
-		function chooseTemplate(sn,siteUrl,coverUrl){
-			$("#resume_step_2 #template-select").attr("href",siteUrl);
-			$("#resume_step_2 #template-select img").attr("src",coverUrl);
+		function chooseTemplate(sn, siteUrl, coverUrl) {
+			$("#resume_step_2 #template-select").attr("href", siteUrl);
+			$("#resume_step_2 #template-select img").attr("src", coverUrl);
 			$("#resume_step_2 #templateSn").val(sn);
 			goStep(2);
-			}
+		}
 
+		function submitResume() {
 
-		function submitResume(){
-
-		 if(!$("#resumeForm").validationEngine("validate")){
+			if (!$("#resumeForm").validationEngine("validate")) {
 				return false;
 			}
 			$("#resumeForm").ajaxSubmit(
 					function(data) {
 						if (data.success) {
-							if($("#resumeId").val()==null||$("#resumeId").val()==""){
+							if ($("#resumeId").val() == null
+									|| $("#resumeId").val() == "") {
 								$("#resumeId").val(data.id);
 							}
-							
+
 							alert("保存成功");
 							goStep(3);
-						}else{
+						} else {
 							alert(data.message);
 						}
-					}
-				);
+					});
 
-			}
-
-
+		}
 
 		//jquery validation
-		 $("#resumeForm").validationEngine();
-
-
-		
-		
+		$("#resumeForm").validationEngine();
 	</script>
 
 </body>

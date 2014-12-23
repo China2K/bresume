@@ -3,15 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%> 
 <!DOCTYPE HTML>
 <style type="text/css">
 
 </style>
-
-
-<link
-	href="/portal/resource/site/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css"
-	rel="stylesheet" media="screen">
 
 <div id="projectContiner" class="item-form" style="">
 	<c:forEach items="${items}" var="projectExperience" varStatus="status">
@@ -42,29 +38,6 @@
 </div>
 
 
-<script type="text/javascript" src="/portal/resource/site/js/jquery.js"
-	charset="UTF-8"></script>
-
-<script type="text/javascript"
-	src="/portal/resource/site/js/jquery.form.js" charset="UTF-8"></script>
-<script type="text/javascript"
-	src="/portal/resource/site/js/bootstrap.min.js"></script>
-<script type="text/javascript"
-	src="/portal/resource/site/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"
-	charset="UTF-8"></script>
-<script type="text/javascript"
-	src="/portal/resource/site/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"
-	charset="UTF-8"></script>
-
-
-<!-- jQuery-Validation-Engine -->
-<link rel="stylesheet"
-	href="<c:url value ='/resource/site/jQuery-Validation-Engine/css/validationEngine.jquery.css'/>">
-<script
-	src="<c:url value ='/resource/site/jQuery-Validation-Engine/js/jquery.validationEngine-zh_CN.js'/>"></script>
-<script
-	src="<c:url value ='/resource/site/jQuery-Validation-Engine/js/jquery.validationEngine.min.js'/>"></script>
-
 <script type="text/javascript">
 	$('.form_date').datetimepicker({
 		language : 'zh-CN',
@@ -80,6 +53,12 @@
 	});
 
 	var resumeId = '${resumeId}';
+	
+	var size='${fn:length(items)}'*1;
+	if(size<1){
+		var key = randomString(8);
+		load_new_form(null, key);
+	}
 
 	function load_new_form(id, key) {
 
