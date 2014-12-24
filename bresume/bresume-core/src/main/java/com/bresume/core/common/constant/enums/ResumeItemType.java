@@ -45,6 +45,7 @@ public enum ResumeItemType {
 		this.sn = sn;
 		this.clazz = clazz;
 		this.page = page;
+		this.type = type;
 
 	}
 
