@@ -17,7 +17,7 @@
 	<!--默认的注解映射的支持 -->
 	<mvc:annotation-driven />
 	<context:component-scan base-package="com.bresume" />
-	
+	<!--css,js路径-->
 	<mvc:resources mapping="/resource/**" location="/resource/" /> 
 	
 	<!--加载配置文件-->
