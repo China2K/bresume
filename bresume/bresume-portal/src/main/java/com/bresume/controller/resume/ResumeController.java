@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -265,6 +266,9 @@ public class ResumeController extends BaseController {
 		if(resume==null){
 			return "404";
 		}
+		
+		model.addAttribute("resume", resume);
+		
 		String resumeId=resume.getId();
 		
 		String templatesn = resume.getTemplateSn();
@@ -302,6 +306,11 @@ public class ResumeController extends BaseController {
 				}
 			}
 			
+		}
+		
+		Map<String,Object> map = model.asMap();
+		for(String key:map.keySet()){
+			System.out.println(key+":"+map.get(key));
 		}
 		return "resume/"+page;
 	}

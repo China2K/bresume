@@ -27,6 +27,7 @@ public class ProjectExperience extends BaseEntity {
 	private String projectDesc;
 	private String respDesc;
 	private Integer order;
+	private String siteUrl;
 	private Date createdTime;
 	private Date updatedTime;
 	
@@ -114,4 +115,14 @@ public class ProjectExperience extends BaseEntity {
 		this.updatedTime = updatedTime;
 	}
 
+	
+	@Column(name = "SITE_URL")
+	public String getSiteUrl() {
+		return siteUrl;
+	}
+
+	public void setSiteUrl(String siteUrl) {
+		this.siteUrl = siteUrl;
+	}
+	
 }
