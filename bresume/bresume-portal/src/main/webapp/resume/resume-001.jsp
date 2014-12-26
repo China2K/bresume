@@ -1,4 +1,8 @@
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
@@ -35,8 +39,8 @@
 			<!-- Header Start -->
 			<header id="header">
 				<div id="logo">
-					<h2>孙大圣</h2>
-					<h4>降魔师 / 齐天大圣</h4>
+					<h2>${persionalInfo.name}</h2>
+					<h4>${jobIntension.trade}/${jobIntension.profession}</h4>
 				</div>
 			</header>
 			<!-- Header End -->
@@ -65,9 +69,9 @@
 										alt="孙悟空">
 								</div>
 								<div class="info">
-									<h2>孙悟空</h2>
-									<h4>降魔师 / 齐天大圣</h4>
-									<p>我是一个降魔师。。。。。</p>
+									<h2>${persionalInfo.name}</h2>
+									<h4>${jobIntension.trade}/${jobIntension.profession}</h4>
+									<p>${jobIntension.selfEvaluation}</p>
 								</div>
 							</div>
 							<div class="g1">
@@ -89,7 +93,7 @@
 										<i class="icon-envelope"></i>
 										<div class="item-data">
 											<h3>
-												<a href="mailto:service@bresume.com">xxx@xxx.com</a>
+												<a href="mailto:${persionalInfo.email}">${persionalInfo.email}</a>
 											</h3>
 											<p>Email Address</p>
 										</div>
@@ -100,7 +104,7 @@
 										<i class="icon-weibo"></i>
 										<div class="item-data">
 											<h3>
-												<a href="http://www.weibo.com/swk">孙悟空</a>
+												<a href="http://www.weibo.com/swk">${persionalInfo.name}</a>
 											</h3>
 											<p>微博</p>
 										</div>
@@ -117,41 +121,27 @@
 							<div class="g2">
 								<h3>Work Experience</h3>
 								<ul class="no-list work">
-									<li>
-										<h5>美猴王</h5> <span class="label label-info">公元前555年---公元前255年</span>
-										<p>称美猴王。享乐天真，何期有三五百载。</p>
-									</li>
-									<li>
-										<h5>弼马温</h5> <span class="label label-info">公元前235年---公元前220年</span>
-										<p>一受招安，授天界弼马温之职，掌管御马监</p>
-									</li>
-									<li>
-										<h5>齐天大圣</h5> <span class="label label-info">前220年---前40年</span>
-										<p>二受招安，授天界齐天大圣之职，兼管皇家蟠桃园。 因偷桃盗丹，扰乱蟠桃会，二闹天宫，三犯天条，被捕入狱，受酷刑。
-											因狂吃金丹，修练铜头铁身不坏之躯。任职期间兼修园艺之果树栽培，以蟠桃为主。</p>
-									</li>
-									<li>
-										<h5>五指山修行</h5> <span class="label label-danger">9年---639年</span>
-										<p>被押两界山（五行山）　服刑（刑期未定）</p>
-									</li>
-									
-									<li>
-										<h5>西天取经</h5> <span class="label label-danger">639年—653年</span>
-										<p>被西天极乐世界如来佛授斗战胜佛　大职正果</p>
-									</li>
+									<c:forEach items="${workExperiences}" var="workExperience">
 										<li>
-										<h5>西天取经</h5> <span class="label label-danger">653年</span>
-										<p>被西天极乐世界如来佛授斗战胜佛　大职正果</p>
-									</li>
+											<h5>${workExperience.companyName}-
+												${workExperience.position}</h5> <span class="label label-info">${workExperience.startDate}--${workExperience.endDate}</span>
+											<p>${workExperience.desc}</p>
+										</li>
+									</c:forEach>
 								</ul>
 								<h3>教育经历</h3>
 								<ul class="no-list work">
-									<li>
-										<h5>猴王初成</h5> <span class="label label-success">公元前245---公元前235年</span>
-										<p>
-											西牛贺洲灵台方寸山斜月三星洞学院就读，师从菩提祖师，本、硕、博联读，获学士、硕士、博士学位。就读期间学得地煞七十二变和筋斗云。
-											学成海归，灭混世魔王，重振花果山；龙宫取宝，获如意金箍棒；梦探地狱，强消死籍。</p>
-									</li>
+
+									<c:forEach items="${eduExperiences}" var="eduExperience">
+										<li>
+											<h5>${eduExperience.schoolName}-
+												${eduExperience.majorName}</h5> <span class="label label-success">${eduExperience.startDate}
+												- ${eduExperience.endDate}</span>
+											<p>${eduExperience.desc}</p>
+										</li>
+									</c:forEach>
+
+
 
 								</ul>
 							</div>
@@ -159,7 +149,14 @@
 								<div class="sidebar">
 									<h3>技能</h3>
 									<h5>Software</h5>
-									<div class="meter emerald">
+
+									<c:forEach items="${skills}" var="skill">
+										<div class="meter emerald">
+											<span style="width: ${skill.level}%"><span>${skill.name}</span></span>
+										</div>
+									</c:forEach>
+
+									<!-- <div class="meter emerald">
 										<span style="width: 95%"><span>棍术</span></span>
 									</div>
 									<div class="meter carrot">
@@ -196,7 +193,7 @@
 									</div>
 									<div class="meter carrot">
 										<span style="width: 80%"><span>灵魂出窍</span></span>
-									</div>
+									</div> -->
 								</div>
 							</div>
 						</section>
@@ -207,57 +204,62 @@
 						<section class="clearfix">
 							<div class="g1">
 								<div class="image">
-									<img src="../resource/templates/template-bresume-001/images/1.jpg" width="310px;" height="260px;" alt="">
+									<img
+										src="../resource/templates/template-bresume-001/images/1.jpg"
+										width="310px;" height="260px;" alt="">
 									<div class="image-overlay">
-										<div class="image-link">
-										</div>
+										<div class="image-link"></div>
 									</div>
 								</div>
 							</div>
 							<div class="g1">
 								<div class="image">
-									<img src="../resource/templates/template-bresume-001/images/2.jpg" width="310px;" height="260px;" alt="">
+									<img
+										src="../resource/templates/template-bresume-001/images/2.jpg"
+										width="310px;" height="260px;" alt="">
 									<div class="image-overlay">
-										<div class="image-link">
-										</div>
+										<div class="image-link"></div>
 									</div>
 								</div>
 							</div>
 							<div class="g1">
 								<div class="image">
-									<img src="../resource/templates/template-bresume-001/images/3.jpg" width="310px;" height="260px;"alt="">
+									<img
+										src="../resource/templates/template-bresume-001/images/3.jpg"
+										width="310px;" height="260px;" alt="">
 									<div class="image-overlay">
-										<div class="image-link">
-										</div>
+										<div class="image-link"></div>
 									</div>
 								</div>
 							</div>
 							<div class="break"></div>
 							<div class="g1">
 								<div class="image">
-									<img src="../resource/templates/template-bresume-001/images/4.jpg" width="310px;" height="260px;" alt="">
+									<img
+										src="../resource/templates/template-bresume-001/images/4.jpg"
+										width="310px;" height="260px;" alt="">
 									<div class="image-overlay">
-										<div class="image-link">
-										</div>
+										<div class="image-link"></div>
 									</div>
 								</div>
 							</div>
 							<div class="g1">
 								<div class="image">
-									<img src="../resource/templates/template-bresume-001/images/5.jpg" width="310px;" height="260px;" alt="">
+									<img
+										src="../resource/templates/template-bresume-001/images/5.jpg"
+										width="310px;" height="260px;" alt="">
 									<div class="image-overlay">
-										<div class="image-link">
-										</div>
+										<div class="image-link"></div>
 									</div>
 								</div>
 							</div>
 							<div class="g1">
 								<div class="image">
-									<img src="../resource/templates/template-bresume-001/images/6.jpg" width="310px;" height="260px;" alt="">
+									<img
+										src="../resource/templates/template-bresume-001/images/6.jpg"
+										width="310px;" height="260px;" alt="">
 									<div class="image-overlay">
-										<div class="image-link">
-											
-										</div>
+										<div class="image-link"></div>
 									</div>
 								</div>
 							</div>
@@ -275,7 +277,7 @@
 									</div>
 									<div class="sny-icon-content">
 										<h4>地址</h4>
-										<p>花果山，水帘洞</p>
+										<p>${persionalInfo.address}花果山，水帘洞</p>
 									</div>
 								</div>
 							</div>
@@ -286,9 +288,7 @@
 									</div>
 									<div class="sny-icon-content">
 										<h4>电话</h4>
-										<p>
-											999-9999-999
-										</p>
+										<p>${persionalInfo.cellPhone }</p>
 									</div>
 								</div>
 							</div>
@@ -299,7 +299,7 @@
 									</div>
 									<div class="sny-icon-content">
 										<h4>主页</h4>
-										<p>http://www.sunwukong.com/</p>
+										<p>${persionalInfo.siteUrl }</p>
 									</div>
 								</div>
 							</div>
@@ -313,8 +313,7 @@
 			<!-- End Tab Container -->
 			<footer>
 				<p>
-					<a href="http://www.bresume.com"
-						title="查看更多">bresume.com</a>
+					<a href="http://www.bresume.com" title="查看更多">bresume.com</a>
 				</p>
 			</footer>
 		</div>

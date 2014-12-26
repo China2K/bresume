@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!doctype html>
 <html lang="en">
 <head>
@@ -101,15 +102,15 @@
 						<ul class="line">
 							<li>姓名：${persionalInfo.name}</li>
 							<li>性别：${persionalInfo.sex}</li>
-							<li>籍贯：${persionalInfo.address}</li>
+							<li>地址：${persionalInfo.address}</li>
 							<li>出生日期：${persionalInfo.birthday}</li>
 						</ul>
 					</section>
 					<section>
 						<ul class="line">
-							<li>毕业院校：${persionalInfo.schoolName}</li>
-							<li>学历：博士</li>
-							<li>专业：仙术</li>
+							<li>毕业院校：${eduExperience.schoolName}</li>
+							<li>学历：${eduExperience.degree}</li>
+							<li>专业：${eduExperience.majorName}</li>
 						</ul>
 					</section>
 				</article>
@@ -179,7 +180,7 @@
 					<section>
 						<h2>教育经历</h2>
 						<ul class="line">
-							<c:forEach items="${eduExperienced}" var="eduExperience">
+							<c:forEach items="${eduExperiences}" var="eduExperience">
 								<li>
 									<p>时间：${eduExperience.startDate} - ${eduExperience.endDate}</p>
 									<p>学校：${eduExperience.schoolName}</p>
@@ -202,10 +203,10 @@
 					<section>
 						<ul class="line">
 						
-							<c:forEach items="${eduExperiences}" var="eduExperience">
+							<c:forEach items="${workExperiences}" var="workExperience">
 								<li>
-									<h2>${eduExperience.companyName} - ${eduExperience.position} (${eduExperience.startDate}--${eduExperience.endDate})</h2>
-									<p class="">${eduExperience.desc}</p>
+									<h2>${workExperience.companyName} - ${workExperience.position} (${workExperience.startDate}--${workExperience.endDate})</h2>
+									<p class="">${workExperience.desc}</p>
 								</li>
 							</c:forEach>
 						</ul>

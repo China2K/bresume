@@ -277,7 +277,7 @@ public class ResumeController extends BaseController {
 		}
 		
 //		Template template = templateService.findUniqueBy("sn", templatesn);
-		String page="resume-"+templatesn;
+		String page="resume/resume-"+templatesn+".jsp";
 		
 		List<ResumeItemRef> refs = resume.getRefs();
 		for(ResumeItemRef ref:refs){
@@ -312,7 +312,7 @@ public class ResumeController extends BaseController {
 		for(String key:map.keySet()){
 			System.out.println(key+":"+map.get(key));
 		}
-		return "resume/"+page;
+		return page;
 	}
 
 }
