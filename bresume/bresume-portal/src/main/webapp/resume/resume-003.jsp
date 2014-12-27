@@ -1,4 +1,8 @@
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -78,8 +82,8 @@
 		<div class="container">
 			<div class="row centered">
 				<div class="col-lg-12">
-					<h1>孙悟空</h1>
-					<h3>降魔师 | service@bresume.com</h3>
+					<h1>${persionalInfo.name}<</h1>
+					<h3>${jobIntension.trade}-${jobIntension.profession}</h3>
 				</div>
 				<!--/.col-lg-12 -->
 			</div>
@@ -99,7 +103,7 @@
 					<h5>自我评价</h5>
 				</div>
 				<div class="col-lg-6">
-					<p>我是一个降魔师，牛x的降魔师</p>
+					<p>${jobIntension.selfEvaluation}</p>
 				</div>
 				<!-- <div class="col-lg-3">
 					<p><a href="#"><i class="icon-file"></i></a> <sm>DOWNLOAD PDF</sm></p>
@@ -116,7 +120,30 @@
 	<section id="resume" name="resume"></section>
 	<!--EDUCATION DESCRIPTION -->
 	<div class="container desc">
-		<div class="row">
+		<c:forEach items="${eduExperiences}" var="eduExperience">
+			<div class="row">
+
+				<div class="col-lg-2 col-lg-offset-1">
+					<h5>${eduExperience.schoolName}-${eduExperience.majorName}</h5>
+				</div>
+				<div class="col-lg-6">
+					<p>
+						<t>${eduExperience.degree}</t>
+						<br /> ${eduExperience.desc}<br /> <i>10年课程</i>
+					</p>
+				</div>
+				<div class="col-lg-3">
+					<p>
+						<sm>${eduExperience.startDate} - ${eduExperience.endDate}</sm>
+						<br />
+					</p>
+				</div>
+
+
+
+			</div>
+		</c:forEach>
+		<!-- <div class="row">
 
 			<div class="col-lg-2 col-lg-offset-1">
 				<h5>教育经历</h5>
@@ -136,7 +163,7 @@
 
 
 
-		</div>
+		</div> -->
 		<!--/.row -->
 		<br>
 		<hr>
@@ -151,100 +178,23 @@
 			<div class="col-lg-2 col-lg-offset-1">
 				<h5>工作经历</h5>
 			</div>
+			<c:forEach items="${workExperiences}" var="workExperience">
+				<div class="col-lg-6">
+					<p>
+						<t>${workExperience.companyName}- ${workExperience.position}</t>
+						<br />
+					</p>
+					<p>
+						<more>${workExperience.desc}</more>
+					</p>
+				</div>
+				<div class="col-lg-3">
+					<p>
+						<sm>${workExperience.startDate}--${workExperience.endDate}</sm>
+					</p>
+				</div>
+			</c:forEach>
 
-			<div class="col-lg-6">
-				<p>
-					<t>美猴王</t>
-					<br />
-				</p>
-				<p>
-					<more>称美猴王。享乐天真，何期有三五百载.</more>
-				</p>
-			</div>
-			<div class="col-lg-3">
-				<p>
-					<sm>公元前555年---公元前255年</sm>
-				</p>
-			</div>
-
-			<div class="col-lg-6 col-lg-offset-3">
-				<p>
-					<t>弼马温</t>
-					<br />
-				</p>
-				<p>
-					<more>一受招安，授天界弼马温之职，掌管御马监</more>
-				</p>
-			</div>
-			<div class="col-lg-3">
-				<p>
-					<sm>公元前235年---公元前220年</sm>
-				</p>
-			</div>
-
-
-			<div class="col-lg-6 col-lg-offset-3">
-				<p>
-					<t>齐天大圣</t>
-					<br />
-				</p>
-				<p>
-					<more>二受招安，授天界齐天大圣之职，兼管皇家蟠桃园。
-					因偷桃盗丹，扰乱蟠桃会，二闹天宫，三犯天条，被捕入狱，受酷刑。
-					因狂吃金丹，修练铜头铁身不坏之躯。任职期间兼修园艺之果树栽培，以蟠桃为主。</more>
-				</p>
-			</div>
-			<div class="col-lg-3">
-				<p>
-					<sm>前220年---前40年</sm>
-				</p>
-			</div>
-
-
-			<div class="col-lg-6 col-lg-offset-3">
-				<p>
-					<t>五指山修行</t>
-					<br />
-				</p>
-				<p>
-					<more>被押两界山（五行山） 服刑</more>
-				</p>
-			</div>
-			<div class="col-lg-3">
-				<p>
-					<sm>9年---639年</sm>
-				</p>
-			</div>
-
-			<div class="col-lg-6 col-lg-offset-3">
-				<p>
-					<t>西天取经</t>
-					<br />
-				</p>
-				<p>
-					<more> 赴西天取经 唐僧大徒弟 主要从事保镖工作</more>
-				</p>
-			</div>
-			<div class="col-lg-3">
-				<p>
-					<sm>639年—653年</sm>
-				</p>
-			</div>
-
-			<div class="col-lg-6 col-lg-offset-3">
-				<p>
-					<t>斗战胜佛</t>
-					<br />
-				</p>
-				<p>
-					<more>被西天极乐世界如来佛授斗战胜佛 大职正果</more>
-				</p>
-			</div>
-			<div class="col-lg-3">
-				<p>
-					<sm>653年</sm>
-				</p>
-			</div>
 
 		</div>
 		<!--/.row -->
@@ -262,8 +212,8 @@
 			</div>
 			<div class="col-lg-6">
 				<p>
-					<t>降魔师</t>
-					<br /> 大护法 <br />
+					<t>${jobIntension.trade}</t>
+					<br /> ${jobIntension.profession}<br />
 				</p>
 			</div>
 			<div class="col-lg-3">
@@ -300,59 +250,76 @@
 				<div class="col-lg-2 col-lg-offset-1">
 					<h5>技能</h5>
 				</div>
-				<div class="col-lg-3 centered">
+
+				<c:forEach items="${skills}" var="skill">
+					<div class="col-lg-3 centered">
+						<canvas id="javascript" height="130" width="130"></canvas>
+						<p>${skill.name}</p>
+						<br>
+						<script>
+							var doughnutData = [ {
+								value : '${skill.level}',
+								color : "#1abc9c"
+							}, {
+								value : '${100-skill.level}',
+								color : "#ecf0f1"
+							} ];
+							var myDoughnut = new Chart(document.getElementById(
+									"javascript").getContext("2d"))
+									.Doughnut(doughnutData);
+						</script>
+					</div>
+				</c:forEach>
+				<%-- <div class="col-lg-3 centered">
 					<canvas id="javascript" height="130" width="130"></canvas>
 					<p>棍术</p>
 					<br>
 					<script>
-							var doughnutData = [
-									{
-										value: 70,
-										color:"#1abc9c"
-									},
-									{
-										value : 30,
-										color : "#ecf0f1"
-									}
-								];
-								var myDoughnut = new Chart(document.getElementById("javascript").getContext("2d")).Doughnut(doughnutData);
-						</script>
+						var doughnutData = [ {
+							value : 70,
+							color : "#1abc9c"
+						}, {
+							value : 30,
+							color : "#ecf0f1"
+						} ];
+						var myDoughnut = new Chart(document.getElementById(
+								"javascript").getContext("2d"))
+								.Doughnut(doughnutData);
+					</script>
 				</div>
 				<div class="col-lg-3 centered">
 					<canvas id="bootstrap" height="130" width="130"></canvas>
 					<p>筋斗云</p>
 					<br>
 					<script>
-							var doughnutData = [
-									{
-										value: 90,
-										color:"#1abc9c"
-									},
-									{
-										value : 10,
-										color : "#ecf0f1"
-									}
-								];
-								var myDoughnut = new Chart(document.getElementById("bootstrap").getContext("2d")).Doughnut(doughnutData);
-						</script>
+						var doughnutData = [ {
+							value : 90,
+							color : "#1abc9c"
+						}, {
+							value : 10,
+							color : "#ecf0f1"
+						} ];
+						var myDoughnut = new Chart(document.getElementById(
+								"bootstrap").getContext("2d"))
+								.Doughnut(doughnutData);
+					</script>
 				</div>
 				<div class="col-lg-3 centered">
 					<canvas id="wordpress" height="130" width="130"></canvas>
 					<p>72般变化</p>
 					<br>
 					<script>
-							var doughnutData = [
-									{
-										value: 65,
-										color:"#1abc9c"
-									},
-									{
-										value : 35,
-										color : "#ecf0f1"
-									}
-								];
-								var myDoughnut = new Chart(document.getElementById("wordpress").getContext("2d")).Doughnut(doughnutData);
-						</script>
+						var doughnutData = [ {
+							value : 65,
+							color : "#1abc9c"
+						}, {
+							value : 35,
+							color : "#ecf0f1"
+						} ];
+						var myDoughnut = new Chart(document.getElementById(
+								"wordpress").getContext("2d"))
+								.Doughnut(doughnutData);
+					</script>
 				</div>
 
 				<div class="col-lg-3 col-lg-offset-3 centered">
@@ -360,56 +327,53 @@
 					<p>搬救兵</p>
 					<br>
 					<script>
-							var doughnutData = [
-									{
-										value: 80,
-										color:"#1abc9c"
-									},
-									{
-										value : 20,
-										color : "#ecf0f1"
-									}
-								];
-								var myDoughnut = new Chart(document.getElementById("html").getContext("2d")).Doughnut(doughnutData);
-						</script>
+						var doughnutData = [ {
+							value : 80,
+							color : "#1abc9c"
+						}, {
+							value : 20,
+							color : "#ecf0f1"
+						} ];
+						var myDoughnut = new Chart(document.getElementById(
+								"html").getContext("2d"))
+								.Doughnut(doughnutData);
+					</script>
 				</div>
 				<div class="col-lg-3 centered">
 					<canvas id="photoshop" height="130" width="130"></canvas>
 					<p>金刚不坏</p>
 					<br>
 					<script>
-							var doughnutData = [
-									{
-										value: 70,
-										color:"#1abc9c"
-									},
-									{
-										value : 30,
-										color : "#ecf0f1"
-									}
-								];
-								var myDoughnut = new Chart(document.getElementById("photoshop").getContext("2d")).Doughnut(doughnutData);
-						</script>
+						var doughnutData = [ {
+							value : 70,
+							color : "#1abc9c"
+						}, {
+							value : 30,
+							color : "#ecf0f1"
+						} ];
+						var myDoughnut = new Chart(document.getElementById(
+								"photoshop").getContext("2d"))
+								.Doughnut(doughnutData);
+					</script>
 				</div>
 				<div class="col-lg-3 centered">
 					<canvas id="illustrator" height="130" width="130"></canvas>
 					<p>火眼金睛</p>
 					<br>
 					<script>
-							var doughnutData = [
-									{
-										value: 50,
-										color:"#1abc9c"
-									},
-									{
-										value : 50,
-										color : "#ecf0f1"
-									}
-								];
-								var myDoughnut = new Chart(document.getElementById("illustrator").getContext("2d")).Doughnut(doughnutData);
-						</script>
+						var doughnutData = [ {
+							value : 50,
+							color : "#1abc9c"
+						}, {
+							value : 50,
+							color : "#ecf0f1"
+						} ];
+						var myDoughnut = new Chart(document.getElementById(
+								"illustrator").getContext("2d"))
+								.Doughnut(doughnutData);
+					</script>
 				</div>
-
+ --%>
 			</div>
 			<!--/.row -->
 			<br>
@@ -427,11 +391,26 @@
 			<div class="col-lg-2 col-lg-offset-1">
 				<h5>作品展现</h5>
 			</div>
-			<div class="col-lg-6">
+			<c:forEach items="${projectExperiences}" var="project">
+				<div class="col-lg-6">
+					<p>
+						<img class="img-responsive"
+							src="${project.siteUrl}" alt="">
+					</p>
+				</div>
+				<div class="col-lg-3">
+					<p>${project.projectName}</p>
+					<p>
+						<more>${project.projectDesc}<br />
+						<br />
+						<sm> <i class="icon-tag"></i> ${project.respDesc}</sm></more>
+					</p>
+				</div>
+			</c:forEach>
+			<!-- <div class="col-lg-6">
 				<p>
 					<img class="img-responsive"
-						src="../resource/templates/template-bresume-003/img/3.jpg"
-						alt="">
+						src="../resource/templates/template-bresume-003/img/3.jpg" alt="">
 				</p>
 			</div>
 			<div class="col-lg-3">
@@ -446,8 +425,7 @@
 			<div class="col-lg-6 col-lg-offset-3">
 				<p>
 					<img class="img-responsive"
-						src="../resource/templates/template-bresume-003/img/4.jpg"
-						alt="">
+						src="../resource/templates/template-bresume-003/img/4.jpg" alt="">
 				</p>
 			</div>
 			<div class="col-lg-3">
@@ -462,8 +440,7 @@
 			<div class="col-lg-6 col-lg-offset-3">
 				<p>
 					<img class="img-responsive"
-						src="../resource/templates/template-bresume-003/img/5.jpg"
-						alt="">
+						src="../resource/templates/template-bresume-003/img/5.jpg" alt="">
 				</p>
 			</div>
 			<div class="col-lg-3">
@@ -473,7 +450,7 @@
 					<br />
 					<sm> <i class="icon-tag"></i>任性</sm></more>
 				</p>
-			</div>
+			</div> -->
 
 		</div>
 		<!--/.row -->
@@ -495,7 +472,7 @@
 				<div class="col-lg-6">
 					<p>
 						<t>邮件</t>
-						<br />service@bresume.com <br />
+						<br />${persionalInfo.email}<br />
 					</p>
 					<p>
 						<t>地址</t>
@@ -503,7 +480,7 @@
 					</p>
 					<p>
 						<t>电话</t>
-						<br /> 999-9999-999 <br />
+						<br />${persionalInfo.cellPhone } <br />
 					</p>
 				</div>
 				<div class="col-lg-3">
@@ -511,7 +488,7 @@
 						<sm>主页</sm>
 					</p>
 					<p>
-						<a href="http://www.bresume.com"><i class="icon-dribbble">ww.bresume.com</i></a> 
+						<a href="${persionalInfo.siteUrl } "><i class="icon-dribbble">${persionalInfo.siteUrl }</i></a>
 
 					</p>
 				</div>
