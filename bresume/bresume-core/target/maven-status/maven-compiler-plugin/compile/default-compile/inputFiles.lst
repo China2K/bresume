@@ -34,6 +34,7 @@ E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume
 E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\common\utils\lock\FileProgrameLock.java
 E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\common\base\dao\support\SimpleHibernateDao.java
 E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\dao\resume\impl\ProjectExperienceDaoImpl.java
+E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\service\resume\impl\ResumeItemRefServiceImpl.java
 E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\dao\resume\IResumeItemDao.java
 E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\common\base\service\IGenericService.java
 E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\dao\sys\impl\ProvinceDaoImpl.java
@@ -45,10 +46,9 @@ E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume
 E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\common\base\dao\IGenericDao.java
 E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\model\entity\resume\item\JobIntension.java
 E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\service\resume\impl\ResumeServiceImpl.java
-E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\common\utils\search\SearchFactory.java
 E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\common\utils\SqlDateConverter.java
+E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\common\utils\search\SearchFactory.java
 E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\dao\resume\impl\ResumeDaoImpl.java
-E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\common\upload\FileController.java
 E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\dao\resume\IResumeDao.java
 E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\service\resume\IResumeItemService.java
 E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\dao\sys\ISysUserDao.java
@@ -125,6 +125,7 @@ E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume
 E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\common\utils\template\ITemplate.java
 E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\service\resume\impl\JobIntenServiceImpl.java
 E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\common\utils\TicketUtils.java
+E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\service\resume\IResumeItemRefService.java
 E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\dao\sys\impl\AreaDaoImpl.java
 E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\common\utils\Encodes.java
 E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\common\utils\PropertiesLoader.java

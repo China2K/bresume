@@ -12,6 +12,7 @@
 		<module>bresume-core</module>
 		<module>bresume-portal</module>
 		<module>bresume-admin</module>
+		<module>bresume-static</module>
 	</modules>
 
 	
