@@ -6,6 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta Access-Control-Allow-Headers=" Content-Type, Content-Range, Content-Disposition, Content-Description">
 
 <title>bresume - 简历创建</title>
 
@@ -26,6 +27,9 @@
 	href="/portal/resource/site/About_files/css/stuck.css">
 <link rel="stylesheet"
 	href="/portal/resource/site/About_files/css/ihover.css">
+
+<link rel="stylesheet"
+	href="<c:url value ='/resource/plugin/jQuery-File-Upload/css/jquery.fileupload.css'/>">
 <style type="text/css">
 /*my resume page*/
 .action-button {
@@ -94,13 +98,20 @@
 
 					<div class="col-md-3"
 						style="background-color: #f9845b; height: 250px;">
-						<a href="" class="">
+						<!-- <a href="" class=""> -->
 							<div class="portfolio-hover">
 								<div class="portfolio-hover-content">
-									<i class="fa fa-1x">重新上传图片</i>
+									<div class="">
+									    <span class="btn btn-success fileinput-button">
+									        <i class="glyphicon glyphicon-plus"></i>
+									        <span class="fa fa-1x">重新上传图片</span>
+									        <input id="fileupload" type="file"/>
+									    </span>
+								    </div>
 								</div>
-							</div> <img src="${resume.coverUrl}" class="img-responsive" alt="">
-						</a>
+							</div> <img src="${resume.coverUrl}" id="resumeCoverImg" class="img-responsive" alt="">
+							<input type="hidden" value="${resume.coverUrl}" id="resumeCoverUrl"/>
+						<!-- </a> -->
 					</div>
 
 					<div class="col-md-6"
@@ -112,8 +123,8 @@
 							</h4>
 						</div>
 						<div class="row text-left">
-							<span class="glyphicon glyphicon-stats"> ${resume.name}&nbsp;|&nbsp;
-								${resume.name}</span>
+							<span class="glyphicon glyphicon-stats">
+								${resume.name}&nbsp;|&nbsp; ${resume.name}</span>
 						</div>
 						<div class="row text-left">
 							<span class="glyphicon glyphicon-time"
@@ -139,7 +150,8 @@
 						style="background-color: #3079ab; height: 250px;">
 						<div class="col-md-6"
 							style="height: 125px; border-right: 1px dashed #eeeeee; border-bottom: 1px dashed #eeeeee;">
-							<div class="center-block action-button text-center" onclick="view_resume('${resume.id}');">
+							<div class="center-block action-button text-center"
+								onclick="view_resume('${resume.id}');">
 								<div class="action-icon">
 									<span class="text-center glyphicon glyphicon-zoom-in"></span>
 								</div>
@@ -148,7 +160,8 @@
 						</div>
 						<div class="col-md-6"
 							style="height: 125px; border-bottom: 1px dashed #eeeeee;">
-							<div class="center-block action-button text-center"  onclick="edit_resume('${resume.id}');">
+							<div class="center-block action-button text-center"
+								onclick="edit_resume('${resume.id}');">
 								<div class="action-icon">
 									<span class="text-center glyphicon glyphicon-edit"></span>
 								</div>
@@ -157,7 +170,8 @@
 						</div>
 						<div class="col-md-6"
 							style="height: 125px; border-right: 1px dashed #eeeeee;">
-							<div class="center-block action-button text-center" onclick="delete_resume('${resume.id}');">
+							<div class="center-block action-button text-center"
+								onclick="delete_resume('${resume.id}');">
 								<div class="action-icon">
 									<span class="text-center glyphicon glyphicon-trash"></span>
 								</div>
@@ -165,7 +179,8 @@
 							</div>
 						</div>
 						<div class="col-md-6" style="height: 125px;">
-							<div class="center-block action-button text-center" onclick="download_resume('${resume.id}');">
+							<div class="center-block action-button text-center"
+								onclick="download_resume('${resume.id}');">
 								<div class="action-icon">
 									<span class="text-center glyphicon glyphicon-download-alt"></span>
 								</div>
@@ -205,13 +220,34 @@
 
 	<!-- Custom Theme JavaScript -->
 	<script src="/portal/resource/site/js/agency.js"></script>
+
+
+
+	<!-- jquery file upload -->
+	<script
+		src=" <c:url value ='/resource/plugin/jQuery-File-Upload/js/vendor/jquery.ui.widget.js'/>"></script>
+	<script
+		src=" <c:url value ='/resource/plugin/jQuery-File-Upload/js/jquery.iframe-transport.js'/>"></script>
+	<script
+		src=" <c:url value ='/resource/plugin/jQuery-File-Upload/js/jquery.fileupload.js'/>"></script>
+	<script
+		src=" <c:url value ='/resource/plugin/jQuery-File-Upload/js/jquery.fileupload-process.js'/>"></script>
+	<script
+		src="<c:url value ='/resource/plugin/jQuery-File-Upload/js/jquery.fileupload-validate.js'/>"></script>
+	
+	<%@ include  file='/site/common/uploadAndPreviewImg.jsp' %>
 	<script type="text/javascript">
+	
+	 // 上传图片,图片预览,记录图片的url
+		initUploadAndPreview($('#fileupload'), $("#resumeCoverUrl"),
+			$("#resumeCoverImg"));
+	 
 		function view_resume(id) {
-			
+
 		}
 
 		function edit_resume(id) {
-			location.href="/portal/resume/buildResume?id="+id;
+			location.href = "/portal/resume/buildResume?id=" + id;
 		}
 
 		function delete_resume(id) {

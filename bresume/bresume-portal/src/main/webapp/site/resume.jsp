@@ -15,12 +15,12 @@
 	rel="stylesheet" media="screen">
 <link href="<c:url value ='/resource/app/css/common.css'/>" rel="stylesheet">
 <link
-	href="<c:url value ='/resource/site/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css'/>"
+	href="<c:url value ='/resource/plugin/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css'/>"
 	rel="stylesheet" media="screen">
 
 <!-- jQuery-Validation-Engine -->
 <link rel="stylesheet"
-	href="<c:url value ='/resource/site/jQuery-Validation-Engine/css/validationEngine.jquery.css'/>">
+	href="<c:url value ='/resource/plugin/jQuery-Validation-Engine/css/validationEngine.jquery.css'/>">
 
 <style type="text/css">
 
@@ -214,10 +214,10 @@
 	<script type="text/javascript"
 		src="<c:url value ='/resource/site/js/bootstrap.min.js'/>"></script>
 	<script type="text/javascript"
-		src="<c:url value ='/resource/site/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js'/>"
+		src="<c:url value ='/resource/plugin/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js'/>"
 		charset="UTF-8"></script>
 	<script type="text/javascript"
-		src="<c:url value ='/resource/site/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js'/>"
+		src="<c:url value ='/resource/plugin/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js'/>"
 		charset="UTF-8"></script>
 
 
@@ -232,9 +232,9 @@
 
 	<!-- jQuery-Validation-Engine -->
 	<script
-		src="<c:url value ='/resource/site/jQuery-Validation-Engine/js/jquery.validationEngine-zh_CN.js'/>"></script>
+		src="<c:url value ='/resource/plugin/jQuery-Validation-Engine/js/jquery.validationEngine-zh_CN.js'/>"></script>
 	<script
-		src="<c:url value ='/resource/site/jQuery-Validation-Engine/js/jquery.validationEngine.min.js'/>"></script>
+		src="<c:url value ='/resource/plugin/jQuery-Validation-Engine/js/jquery.validationEngine.min.js'/>"></script>
 
 
 

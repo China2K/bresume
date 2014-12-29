@@ -11,7 +11,7 @@
 
 
 <link
-	href="/portal/resource/site/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css"
+	href="/portal/resource/plugin/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css"
 	rel="stylesheet" media="screen">
 
 <div id="workContiner" class="item-form" style="">

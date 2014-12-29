@@ -25,7 +25,6 @@
 		<property name="locations">
 			<list>
 				<value>classpath*:jdbc.properties</value>
-				<value>classpath:mail.properties</value>
 			</list>
 		</property>
 	</bean>
@@ -93,18 +92,4 @@
 		<property name="order" value="1" />
 	</bean>
 	
-	<!--①邮件服务器-->
-	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-		<property name="protocol" value="${mail.protocol}"/>
-		<property name="host" value="${mail.host}"/>
-		<property name="port" value="${mail.port}" />
-		<property name="username" value="${mail.username}"/>
-		<property name="password" value="${mail.password}"/>
-		<property name="javaMailProperties">
-			<props>
-				<prop key="mail.smtp.auth">true</prop>
-				<prop key="mail.smtp.starttls.enable">true</prop>
-			</props>
-		</property>
-	</bean>
 </beans>

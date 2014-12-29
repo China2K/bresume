@@ -5,7 +5,7 @@
 <!DOCTYPE HTML>
 
 <link
-	href="/portal/resource/site/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css"
+	href="/portal/resource/plugin/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css"
 	rel="stylesheet" media="screen">
 
 <c:forEach items="${items}" var="eduExperience" varStatus="status">
@@ -107,10 +107,10 @@
 <script type="text/javascript"
 	src="/portal/resource/site/js/bootstrap.min.js"></script>
 <script type="text/javascript"
-	src="/portal/resource/site/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"
+	src="/portal/resource/plugin/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"
 	charset="UTF-8"></script>
 <script type="text/javascript"
-	src="/portal/resource/site/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"
+	src="/portal/resource/plugin/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"
 	charset="UTF-8"></script>
 
 <script type="text/javascript">
