@@ -34,6 +34,7 @@ E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume
 E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\common\utils\lock\FileProgrameLock.java
 E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\common\base\dao\support\SimpleHibernateDao.java
 E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\dao\resume\impl\ProjectExperienceDaoImpl.java
+E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\service\sys\IFileService.java
 E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\service\resume\impl\ResumeItemRefServiceImpl.java
 E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\dao\resume\IResumeItemDao.java
 E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\common\base\service\IGenericService.java
@@ -65,6 +66,7 @@ E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume
 E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\common\utils\Exceptions.java
 E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\common\base\sys\SpringDispatcherEnhancer.java
 E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\model\entity\user\Contact.java
+E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\dao\sys\impl\SysFileImpl.java
 E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\common\utils\SqlTimestampConverter.java
 E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\common\utils\lock\Lock.java
 E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\dao\user\IUserDao.java
@@ -78,6 +80,7 @@ E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume
 E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\dao\resume\impl\ResumeLogDaoImpl.java
 E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\common\exception\impl\PwdNotCorrectException.java
 E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\service\resume\ISkillService.java
+E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\dao\sys\ISysFileDao.java
 E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\model\entity\sys\Notification.java
 E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\dao\user\IUserVerifiedDao.java
 E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\service\resume\IProjectExperienceService.java
@@ -141,7 +144,9 @@ E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume
 E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\model\entity\resume\item\Skill.java
 E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\common\constant\enums\CommonStatus.java
 E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\common\utils\mail\Email.java
+E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\model\entity\sys\SysFile.java
 E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\service\resume\impl\ResumeLogServiceImpl.java
+E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\service\sys\impl\FileServiceImpl.java
 E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\common\upload\UploadConfig.java
 E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\common\constant\IConstants.java
 E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\dao\sys\ICityDao.java

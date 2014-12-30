@@ -232,8 +232,9 @@
 		src=" <c:url value ='/resource/plugin/jQuery-File-Upload/js/jquery.fileupload.js'/>"></script>
 	<script
 		src=" <c:url value ='/resource/plugin/jQuery-File-Upload/js/jquery.fileupload-process.js'/>"></script>
-	<script
-		src="<c:url value ='/resource/plugin/jQuery-File-Upload/js/jquery.fileupload-validate.js'/>"></script>
+	<script src="<c:url value ='/resource/plugin/jQuery-File-Upload/js/jquery.fileupload-validate.js'/>"></script>
+	<script src="<c:url value ='/resource/plugin/jQuery-File-Upload/js/cors/jquery.postmessage-transport.js'/>"></script>
+	<script src="<c:url value ='/resource/plugin/jQuery-File-Upload/js/cors/jquery.xdr-transport.js'/>"></script>
 	
 	<%@ include  file='/site/common/uploadAndPreviewImg.jsp' %>
 	<script type="text/javascript">

@@ -4,6 +4,7 @@ com\bresume\core\common\utils\Encodes.class
 com\bresume\core\service\user\IUserVerifiedService.class
 com\bresume\core\common\utils\search\SearchBean.class
 com\bresume\core\dao\resume\IEduExperienceDao.class
+com\bresume\core\service\sys\impl\FileServiceImpl.class
 com\bresume\core\common\log\LogUtils.class
 com\bresume\core\dao\resume\IPersionalInfoDao.class
 com\bresume\core\service\resume\ISkillService.class
@@ -17,6 +18,7 @@ com\bresume\core\model\entity\sys\SysUser.class
 com\bresume\core\common\utils\json\JsonHelper$1.class
 com\bresume\core\dao\sys\impl\AreaDaoImpl.class
 com\bresume\core\common\utils\TicketUtils.class
+com\bresume\core\dao\sys\impl\SysFileImpl.class
 com\bresume\core\service\resume\impl\ResumeItemServiceImpl.class
 com\bresume\core\common\utils\security\Cryptos.class
 com\bresume\core\common\constant\enums\UserType.class
@@ -35,6 +37,7 @@ com\bresume\core\common\upload\FileUploadHandler.class
 com\bresume\core\service\resume\IResumeLogService.class
 com\bresume\core\common\utils\Exceptions.class
 com\bresume\core\dao\resume\ITemplateDao.class
+com\bresume\core\service\sys\IFileService.class
 com\bresume\core\model\entity\sys\Notification$Type.class
 com\bresume\core\model\entity\sys\Area.class
 com\bresume\core\common\utils\json\JsonValueProcessorImpl.class
@@ -51,6 +54,7 @@ com\bresume\core\common\constant\enums\ResumeItemType.class
 com\bresume\core\dao\sys\ITradeDao.class
 com\bresume\core\model\entity\sys\SysNoticeTemplate.class
 com\bresume\core\model\entity\resume\item\JobIntension.class
+com\bresume\core\model\entity\sys\SysFile.class
 com\bresume\core\dao\sys\ICityDao.class
 com\bresume\core\dao\resume\ISkillDao.class
 com\bresume\core\common\utils\CommonUtils.class
@@ -118,6 +122,7 @@ com\bresume\core\model\entity\sys\Province.class
 com\bresume\core\common\constant\enums\UserStatus.class
 com\bresume\core\common\base\dao\support\SimpleHibernateDao.class
 com\bresume\core\service\resume\IResumeService.class
+com\bresume\core\dao\sys\ISysFileDao.class
 com\bresume\core\service\resume\impl\JobIntenServiceImpl.class
 com\bresume\core\common\base\SimplePage.class
 com\bresume\core\common\constant\IPortalConstants.class

@@ -25,6 +25,7 @@
 		<bresume-core.version>1.0.1-SNAPSHOT</bresume-core.version>
 		<bresume-portal.version>1.0.1-SNAPSHOT</bresume-portal.version>
 		<bresume-admin.version>1.0.1-SNAPSHOT</bresume-admin.version>
+		<bresume-static.version>1.0.1-SNAPSHOT</bresume-static.version>
 	
 		<!-- 3rd Party -->
 	
