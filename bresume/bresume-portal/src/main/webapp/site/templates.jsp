@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <title>bresume - 简历创建</title>
-
+ 
 
 <style type="text/css">
 </style>
