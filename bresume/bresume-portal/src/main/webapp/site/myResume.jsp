@@ -104,7 +104,6 @@
 									<div class="">
 									    <span class="btn btn-success fileinput-button">
 									        <i class="glyphicon glyphicon-plus"></i>
-									        <span class="fa fa-1x">重新上传图片</span>
 									        <input id="fileupload" type="file"/>
 									    </span>
 								    </div>
@@ -223,25 +222,15 @@
 
 
 
-	<!-- jquery file upload -->
-	<script
-		src=" <c:url value ='/resource/plugin/jQuery-File-Upload/js/vendor/jquery.ui.widget.js'/>"></script>
-	<script
-		src=" <c:url value ='/resource/plugin/jQuery-File-Upload/js/jquery.iframe-transport.js'/>"></script>
-	<script
-		src=" <c:url value ='/resource/plugin/jQuery-File-Upload/js/jquery.fileupload.js'/>"></script>
-	<script
-		src=" <c:url value ='/resource/plugin/jQuery-File-Upload/js/jquery.fileupload-process.js'/>"></script>
-	<script src="<c:url value ='/resource/plugin/jQuery-File-Upload/js/jquery.fileupload-validate.js'/>"></script>
-	<script src="<c:url value ='/resource/plugin/jQuery-File-Upload/js/cors/jquery.postmessage-transport.js'/>"></script>
-	<script src="<c:url value ='/resource/plugin/jQuery-File-Upload/js/cors/jquery.xdr-transport.js'/>"></script>
 	
-	<%@ include  file='/site/common/uploadAndPreviewImg.jsp' %>
+	
+	<script src="<c:url value ='/resource/plugin/uploadify/jquery.uploadify.js'/>"></script>
+	
 	<script type="text/javascript">
 	
 	 // 上传图片,图片预览,记录图片的url
-		initUploadAndPreview($('#fileupload'), $("#resumeCoverUrl"),
-			$("#resumeCoverImg"));
+	/* 	initUploadAndPreview($('#fileupload'), $("#resumeCoverUrl"),
+			$("#resumeCoverImg")); */
 	 
 		function view_resume(id) {
 
@@ -258,6 +247,35 @@
 		function download_resume(id) {
 
 		}
+		
+		var uploadUrl="http://localhost:8081/static/upload/uploadImg";
+		$("#fileupload").uploadify({
+            'uploader': uploadUrl,
+            'swf': '<c:url value ="/resource/plugin/uploadify/uploadify.swf"/>',
+            'cancelImage': '<c:url value ="/resource/plugin/uploadify/cancel.png"/>',
+            'queueID': 'imgFile',
+            'fileObjName'   : 'imgFile',  
+            'auto': true,
+            'multi': true,
+            'buttonText': '文件上传',
+            'formData': { 'ASPSESSID': 'a', 'AUTHID': 'aa' },
+           /*  'onSelect': function (file) {
+                $('#uploadify').uploadifySettings('formData', { 'ASPSESSID': ASPSESSID, 'AUTHID': auth });
+            }, */
+            /* 'onComplete': function (file, data, response) {
+            },
+
+            'onQueueComplete': function () {
+                alert("上传完成！");
+                $('#fileQueue').attr('style', 'visibility :hidden');
+            },
+            'onSelectError': function (file, errorCode, errorMsg) {
+                $('#fileQueue').attr('style', 'visibility :hidden');
+            },
+            'onUploadStart': function (file) {
+                $('#fileQueue').attr('style', 'top:200px;left:400px;width:400px;height :400px;visibility :visible');
+            } */
+        });
 	</script>
 
 

@@ -38,7 +38,7 @@ public class UploadController {
 	@RequestMapping("/uploadImg")
 	public @ResponseBody String uploadMaterialImg(
 			HttpServletRequest req,HttpServletResponse resp,
-//			@RequestParam(value = "imgFile",required= false) MultipartFile multipartFile,
+			@RequestParam(value = "imgFile", required= false) MultipartFile imgFile,
 			@RequestParam(value = "source", required= false,defaultValue = "unknown") String source,
 			@RequestParam(value = "user", required= false,defaultValue = "system") String user
 
@@ -47,7 +47,8 @@ public class UploadController {
 		if (!ServletFileUpload.isMultipartContent(req)) {
 			return filePath;
 		}
-
+		Object obj = req.getAttribute("imgFile");
+		System.out.println(obj);
 		String fileName = null;
 		DiskFileItemFactory factory = new DiskFileItemFactory();
 		factory.setSizeThreshold(4096);
