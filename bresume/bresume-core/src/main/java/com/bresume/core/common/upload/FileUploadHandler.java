@@ -3,10 +3,17 @@ package com.bresume.core.common.upload;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 
+import com.bresume.core.common.upload.UploadConfig.FileSource;
+import com.bresume.core.common.upload.UploadConfig.FileType;
+import com.bresume.core.common.utils.CommonUtils;
 import com.bresume.core.common.utils.FileUploadUtils;
 
 public class FileUploadHandler {
@@ -32,29 +39,42 @@ public class FileUploadHandler {
 			UPLOAD_CONFIG = new UploadConfig();
 			try {
 				uploadConf.load(is);
-				UPLOAD_CONFIG.setImgStorageType(uploadConf
-						.getProperty("img.storage.type"));
-				UPLOAD_CONFIG.setImgStorageDir(uploadConf
-						.getProperty("img.storage.dir"));
-				UPLOAD_CONFIG.setImgVirtualDir(uploadConf
-						.getProperty("img.virtual.dir"));
-				UPLOAD_CONFIG.setImgStorageTable(uploadConf
-						.getProperty("img.storage.table"));
-				UPLOAD_CONFIG.setFileStorageType(uploadConf
-						.getProperty("file.storage.type"));
-				UPLOAD_CONFIG.setFileStorageDir(uploadConf
-						.getProperty("file.storage.dir"));
-				UPLOAD_CONFIG.setFileVirtualDir(uploadConf
-						.getProperty("file.virtual.dir"));
+
+				UPLOAD_CONFIG.setRootFileDir(uploadConf
+						.getProperty("root.file.dir"));
+				UPLOAD_CONFIG.setAdminFileDir(uploadConf
+						.getProperty("admin.file.dir"));
 				UPLOAD_CONFIG.setDownloadParamName(uploadConf
 						.getProperty("download.param.name"));
-				UPLOAD_CONFIG.setPicUrlPrefix(uploadConf
-						.getProperty("pic.url.prefix"));
+				UPLOAD_CONFIG.setPortalFileDir(uploadConf
+						.getProperty("portal.file.dir"));
+				UPLOAD_CONFIG.setStaticUrlPrefix(uploadConf
+						.getProperty("static.url.prefix"));
+				UPLOAD_CONFIG.setSystemFileDir(uploadConf
+						.getProperty("system.file.dir"));
+
+				String types = uploadConf.getProperty("image.type");
+				UPLOAD_CONFIG.setImageTypes(Arrays.asList(types.split(",")));
+
 			} catch (Exception e) {
 				logger.error(e.getMessage(), e);
 				e.printStackTrace();
 			}
 		}
+	}
+
+	private static String getDir(Map<String, String> map, String dir) {
+		if (CommonUtils.isEmpty(map) || CommonUtils.isEmpty(dir)
+				|| dir.indexOf("{") < 0) {
+			return dir;
+		}
+		// 遍历Map中的所有Key，将得到的value值替换模板字符串中的变量值
+		Set<String> keys = map.keySet();
+		for (Iterator<String> it = keys.iterator(); it.hasNext();) {
+			String key = it.next();
+			dir = dir.replace("{" + key + "}", map.get(key));
+		}
+		return dir;
 	}
 
 	/**
@@ -64,116 +84,56 @@ public class FileUploadHandler {
 	 *            if null,is default dir else storage.dir+dir
 	 * @return
 	 */
-	public static String uploadImg(byte[] img, String dir) {
+	public static String uploadFile(byte[] file, FileSource source,
+			String suffix, FileType type, Map<String, String> params) {
 		if (uploadEnable) {
-			StringBuilder imgId = new StringBuilder();
-			if (FileUploadUtils.validate_Image(img)) {
-				if ("disk".equalsIgnoreCase(UPLOAD_CONFIG.getImgStorageType())) {
-					String imgRootDir = UPLOAD_CONFIG.getImgStorageDir();
-					if (dir != null) {
-						dir = dir.startsWith("/") ? dir : "/" + dir;
-						dir = dir.endsWith("/") ? dir : dir + "/";
-					} else {
-						dir = "/";
-					}
-					String finalDir = imgRootDir + dir;
-					File imgFileDir = new File(finalDir);
-					if (!imgFileDir.exists()) {
-						imgFileDir.mkdirs();
-					}
-					imgId.append(dir);
-					imgId.append(System.currentTimeMillis());
-					imgId.append("_");
-					imgId.append(getIndex());
-					imgId.append(".img");
-					File imgFile = new File(imgRootDir + imgId.toString());
-					try {
-						FileOutputStream fos = new FileOutputStream(imgFile);
-						fos.write(img);
-						fos.close();
-					} catch (Exception e) {
-						e.printStackTrace();
-						logger.error(e.getMessage(), e);
-					}
+			StringBuilder fileID = new StringBuilder();
 
-				} else if ("hbase".equalsIgnoreCase(UPLOAD_CONFIG
-						.getImgStorageType())) {
-					// to do something
-				} else {
-					try {
-						throw new Exception(
-								"unknown img.upload.type only  'hbase','disk' available,'nfs' belong 'disk'!");
-					} catch (Exception e) {
-						logger.error(e.getMessage(), e);
-						e.printStackTrace();
-					}
-				}
-			} else {
-				try {
-					throw new Exception("File doing uploading is not a Image!");
-				} catch (Exception e) {
-					logger.error(e.getMessage(), e);
-					e.printStackTrace();
-				}
-			}
-			return imgId.toString();
-		} else {
-			try {
-				throw new Exception(
-						"can't find upload.properties ,  upload is not enable!");
-			} catch (Exception e) {
-				logger.error(e.getMessage(), e);
-				e.printStackTrace();
-			}
-		}
-		return null;
-	}
+			boolean qualified = false;
 
-	public static String uploadFile(byte[] file, String dir, String fileName)
-			throws Exception {
-		if (uploadEnable) {
-			StringBuilder filepath = new StringBuilder();
-			if ("disk".equalsIgnoreCase(UPLOAD_CONFIG.getFileStorageType())) {
-				String fileRootDir = UPLOAD_CONFIG.getFileStorageDir();
-				if (dir != null) {
-					dir = dir.startsWith("/") ? dir : "/" + dir;
-					dir = dir.endsWith("/") ? dir : dir + "/";
-				} else {
-					dir = "/";
-				}
+			switch (type) {
+			case IMAGE:
+				qualified = vaildate_image(file, suffix);
+			case NOMAL_FILE:
+				qualified = true;// TODO 暂无
+			case UNKNOWN:
+				qualified = true;// TODO 暂无
+			}
+			if (qualified) {
+				String fileRootDir = UPLOAD_CONFIG.getRootFileDir();
+
+				String dir = UPLOAD_CONFIG.getFileDir(source);
+				dir = getDir(params, fileRootDir);
 				String finalDir = fileRootDir + dir;
-				File imgFileDir = new File(finalDir);
-				if (!imgFileDir.exists()) {
-					imgFileDir.mkdirs();
+				File finalFileDir = new File(finalDir);
+				if (!finalFileDir.exists()) {
+					finalFileDir.mkdirs();
 				}
-				filepath.append(dir);
-				if (!fileName.contains("/")) {
-					filepath.append(fileName);
-				} else {
-					throw new Exception("Invalid fileName,can't contains '/' !");
+				fileID.append(System.currentTimeMillis());
+				fileID.append("_");
+				fileID.append(getIndex());
+				if (CommonUtils.isNotEmpty(suffix)) {
+					fileID.append("." + suffix);
 				}
-				File upload_file = new File(fileRootDir + filepath.toString());
+				File imgFile = new File(finalDir + fileID.toString());
 				try {
-					FileOutputStream fos = new FileOutputStream(upload_file);
+					FileOutputStream fos = new FileOutputStream(imgFile);
 					fos.write(file);
 					fos.close();
 				} catch (Exception e) {
 					e.printStackTrace();
 					logger.error(e.getMessage(), e);
 				}
-			} else if ("hdfs".equalsIgnoreCase(UPLOAD_CONFIG
-					.getFileStorageType())) {
-				// to do something
+				return dir + fileID.toString();
 			} else {
 				try {
-					throw new Exception(
-							"unknown file.upload.type only  'hdfs','disk' available,'nfs' belong 'disk'!");
+					throw new Exception("File doing uploading is wrong !"
+							+ type + "验证失败");
 				} catch (Exception e) {
 					logger.error(e.getMessage(), e);
 					e.printStackTrace();
 				}
 			}
-			return filepath.toString();
 		} else {
 			try {
 				throw new Exception(
@@ -200,5 +160,13 @@ public class FileUploadHandler {
 
 	public static boolean isUploadEnabled() {
 		return uploadEnable;
+	}
+
+	private static boolean vaildate_image(byte[] img, String suffix) {
+		if (CommonUtils.isNotEmpty(suffix)
+				&& UPLOAD_CONFIG.getImageTypes().contains(suffix)) {
+			return FileUploadUtils.validate_Image(img);
+		}
+		return false;
 	}
 }

@@ -1,30 +1,58 @@
 package com.bresume.core.common.upload;
 
+import java.util.List;
+
 public class UploadConfig {
+	private String rootFileDir;
 
-	private String imgStorageType;
+	private String portalFileDir;
+	private String adminFileDir;
+	private String systemFileDir;
 
-	private String imgStorageDir;
-	private String imgStorageTable;
+	private List<String> imageTypes;
 
-	private String imgVirtualDir;
-
-	private String fileStorageType;
-
-	private String fileStorageDir;
-
-	private String fileVirtualDir;
-	
 	private String downloadParamName;
+
+	private String staticUrlPrefix;
 	
-	private String picUrlPrefix;
-	
-	public String getPicUrlPrefix() {
-		return picUrlPrefix;
+	public String getRootFileDir() {
+		return rootFileDir;
 	}
 
-	public void setPicUrlPrefix(String picUrlPrefix) {
-		this.picUrlPrefix = picUrlPrefix;
+	public void setRootFileDir(String rootFileDir) {
+		this.rootFileDir = rootFileDir;
+	}
+
+	public String getPortalFileDir() {
+		return portalFileDir;
+	}
+
+	public void setPortalFileDir(String portalFileDir) {
+		this.portalFileDir = portalFileDir;
+	}
+
+	public String getAdminFileDir() {
+		return adminFileDir;
+	}
+
+	public void setAdminFileDir(String adminFileDir) {
+		this.adminFileDir = adminFileDir;
+	}
+
+	public String getSystemFileDir() {
+		return systemFileDir;
+	}
+
+	public void setSystemFileDir(String systemFileDir) {
+		this.systemFileDir = systemFileDir;
+	}
+
+	public List<String> getImageTypes() {
+		return imageTypes;
+	}
+
+	public void setImageTypes(List<String> imageTypes) {
+		this.imageTypes = imageTypes;
 	}
 
 	public String getDownloadParamName() {
@@ -35,61 +63,50 @@ public class UploadConfig {
 		this.downloadParamName = downloadParamName;
 	}
 
-	public String getImgStorageType() {
-		return imgStorageType;
+	public String getStaticUrlPrefix() {
+		return staticUrlPrefix;
 	}
 
-	public void setImgStorageType(String imgStorageType) {
-		this.imgStorageType = imgStorageType;
+	public void setStaticUrlPrefix(String staticUrlPrefix) {
+		this.staticUrlPrefix = staticUrlPrefix;
 	}
 
-	public String getImgStorageDir() {
-		return imgStorageDir;
+	public String getFileDir(FileSource fs) {
+
+		switch (fs) {
+		case SYSTEM:
+			return systemFileDir;
+		case ADMIN:
+			return adminFileDir;
+		case PORTAL:
+			return portalFileDir;
+
+		default:
+			break;
+		}
+		return staticUrlPrefix;
 	}
 
-	public void setImgStorageDir(String imgStorageDir) {
-		this.imgStorageDir = imgStorageDir;
-	}
+	public enum FileSource {
+		SYSTEM("system"), ADMIN("admin"), PORTAL("portal");
+		private String source;
 
-	public String getImgStorageTable() {
-		return imgStorageTable;
-	}
+		FileSource(String source) {
+			this.source = source;
+		}
 
-	public void setImgStorageTable(String imgStorageTable) {
-		this.imgStorageTable = imgStorageTable;
-	}
+		public String getSource() {
+			return source;
+		}
 
-	public String getImgVirtualDir() {
-		return imgVirtualDir;
-	}
+		public void setSource(String source) {
+			this.source = source;
+		}
 
-	public void setImgVirtualDir(String imgVirtualDir) {
-		this.imgVirtualDir = imgVirtualDir;
-	}
-
-	public String getFileStorageType() {
-		return fileStorageType;
-	}
-
-	public void setFileStorageType(String fileStorageType) {
-		this.fileStorageType = fileStorageType;
-	}
-
-	public String getFileStorageDir() {
-		return fileStorageDir;
-	}
-
-	public void setFileStorageDir(String fileStorageDir) {
-		this.fileStorageDir = fileStorageDir;
-	}
-
-	public String getFileVirtualDir() {
-		return fileVirtualDir;
-	}
-
-	public void setFileVirtualDir(String fileVirtualDir) {
-		this.fileVirtualDir = fileVirtualDir;
 	}
 	
-	
+	public enum FileType {
+		IMAGE,NOMAL_FILE,UNKNOWN;
+	}
+
 }

@@ -4,8 +4,8 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.bresume.upload.FileUploadHandler;
-import com.bresume.upload.UploadConfig;
+import com.bresume.core.common.upload.FileUploadHandler;
+import com.bresume.core.common.upload.UploadConfig;
 
 @Controller
 @RequestMapping("/file")

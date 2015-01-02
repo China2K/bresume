@@ -47,11 +47,11 @@ public class SpringDispatcherEnhancer extends DispatcherServlet {
 				LOGGER.error(e.getMessage(), e);
 				e.printStackTrace();
 			}
-			imageUrlPrefix = FileUploadHandler.UPLOAD_CONFIG.getPicUrlPrefix()
+/*			imageUrlPrefix = FileUploadHandler.UPLOAD_CONFIG.getPicUrlPrefix()
 					+ FileUploadHandler.UPLOAD_CONFIG.getImgVirtualDir() + "?"
 					+ FileUploadHandler.UPLOAD_CONFIG.getDownloadParamName()
 					+ "=";
-		}
+*/		}
 	}
 
 	@SuppressWarnings("unchecked")
