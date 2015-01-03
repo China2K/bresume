@@ -88,25 +88,33 @@ public class UploadConfig {
 	}
 
 	public enum FileSource {
-		SYSTEM("system"), ADMIN("admin"), PORTAL("portal");
-		private String source;
-
-		FileSource(String source) {
-			this.source = source;
-		}
-
-		public String getSource() {
-			return source;
-		}
-
-		public void setSource(String source) {
-			this.source = source;
-		}
-
+		SYSTEM, ADMIN, PORTAL;
 	}
 	
 	public enum FileType {
-		IMAGE,NOMAL_FILE,UNKNOWN;
+		IMAGE(1),VOICE(2),VIDEO(3),NOMAL_FILE(4),UNKNOWN(0);
+		
+		private int code;
+		private FileType(int code) {
+			this.code = code;
+		}
+		
+		public FileType fromCode(int code){
+			 for (FileType filetype : FileType.values()) {
+		            if (filetype.getCode() == code)
+		                return filetype;
+		        }
+		        return FileType.UNKNOWN;
+		}
+
+		public int getCode() {
+			return code;
+		}
+
+		public void setCode(int code) {
+			this.code = code;
+		}
+		
 	}
 
 }

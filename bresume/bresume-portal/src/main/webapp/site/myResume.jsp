@@ -6,7 +6,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta Access-Control-Allow-Headers=" Content-Type, Content-Range, Content-Disposition, Content-Description">
+<meta
+	Access-Control-Allow-Headers=" Content-Type, Content-Range, Content-Disposition, Content-Description">
 
 <title>bresume - 简历创建</title>
 
@@ -70,6 +71,13 @@
 .action-button span {
 	opacity: 1;
 }
+
+/*  #fileupload {
+	filter: alpha(opacity = 0); -moz-opacity : 0;
+	-khtml-opacity: 0;
+	opacity: 0;
+	-moz-opacity: 0;
+}  */
 </style>
 
 
@@ -96,21 +104,23 @@
 				</div>
 				<div class="row resumeRow">
 
-					<div class="col-md-3"
+					<div class="col-md-3" id="portfolio"
 						style="background-color: #f9845b; height: 250px;">
-						<!-- <a href="" class=""> -->
-							<div class="portfolio-hover">
-								<div class="portfolio-hover-content">
-									<div class="">
-									    <span class="btn btn-success fileinput-button">
-									        <i class="glyphicon glyphicon-plus"></i>
-									        <input id="fileupload" type="file"/>
-									    </span>
-								    </div>
-								</div>
-							</div> <img src="${resume.coverUrl}" id="resumeCoverImg" class="img-responsive" alt="">
-							<input type="hidden" value="${resume.coverUrl}" id="resumeCoverUrl"/>
-						<!-- </a> -->
+
+
+						<div class="portfolio-item">
+							<div  class="portfolio-link" onclick="reUpload()"
+								data-toggle="modal">
+								<div class="portfolio-hover">
+									<div class="portfolio-hover-content">
+										<span class="fa fa-1x">
+										<input id="fileupload" type="file"/>
+										</span>
+									</div>
+								</div> <img src="${resume.coverUrl}" id="resumeCoverImg" class="img-responsive" alt="">
+							</div><input type="hidden"
+								value="${resume.coverUrl}" id="resumeCoverUrl" />
+						</div>
 					</div>
 
 					<div class="col-md-6"
@@ -149,7 +159,7 @@
 						style="background-color: #3079ab; height: 250px;">
 						<div class="col-md-6"
 							style="height: 125px; border-right: 1px dashed #eeeeee; border-bottom: 1px dashed #eeeeee;">
-							<div class="center-block action-button text-center"
+							<div class="center-block action-button text-center" id="view_btn"
 								onclick="view_resume('${resume.id}');">
 								<div class="action-icon">
 									<span class="text-center glyphicon glyphicon-zoom-in"></span>
@@ -208,8 +218,7 @@
 	<script src="/portal/resource/site/js/bootstrap.min.js"></script>
 
 	<!-- Plugin JavaScript -->
-	<script
-		src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+	<script src="/portal/resource/site/js/jquery.easing.min.js"></script>
 	<script src="/portal/resource/site/js/classie.js"></script>
 	<script src="/portal/resource/site/js/cbpAnimatedHeader.js"></script>
 
@@ -222,18 +231,18 @@
 
 
 
-	
-	
-	<script src="<c:url value ='/resource/plugin/uploadify/jquery.uploadify.js'/>"></script>
-	
-	<script type="text/javascript">
-	
-	 // 上传图片,图片预览,记录图片的url
-	/* 	initUploadAndPreview($('#fileupload'), $("#resumeCoverUrl"),
-			$("#resumeCoverImg")); */
-	 
-		function view_resume(id) {
 
+
+	<script
+		src="<c:url value ='/resource/plugin/uploadify/jquery.uploadify.js'/>"></script>
+
+	<script type="text/javascript">
+		// 上传图片,图片预览,记录图片的url
+		/* 	initUploadAndPreview($('#fileupload'), $("#resumeCoverUrl"),
+				$("#resumeCoverImg")); */
+
+		function view_resume(id) {
+			alert("check");
 		}
 
 		function edit_resume(id) {
@@ -247,35 +256,45 @@
 		function download_resume(id) {
 
 		}
-		
-		var uploadUrl="http://localhost:8081/static/upload/uploadImg";
-		$("#fileupload").uploadify({
-            'uploader': uploadUrl,
-            'swf': '<c:url value ="/resource/plugin/uploadify/uploadify.swf"/>',
-            'cancelImage': '<c:url value ="/resource/plugin/uploadify/cancel.png"/>',
-            'queueID': 'imgFile',
-            'fileObjName'   : 'imgFile',  
-            'auto': true,
-            'multi': true,
-            'buttonText': '文件上传',
-            'formData': { 'ASPSESSID': 'a', 'AUTHID': 'aa' },
-           /*  'onSelect': function (file) {
-                $('#uploadify').uploadifySettings('formData', { 'ASPSESSID': ASPSESSID, 'AUTHID': auth });
-            }, */
-            /* 'onComplete': function (file, data, response) {
-            },
-
-            'onQueueComplete': function () {
-                alert("上传完成！");
-                $('#fileQueue').attr('style', 'visibility :hidden');
-            },
-            'onSelectError': function (file, errorCode, errorMsg) {
-                $('#fileQueue').attr('style', 'visibility :hidden');
-            },
-            'onUploadStart': function (file) {
-                $('#fileQueue').attr('style', 'top:200px;left:400px;width:400px;height :400px;visibility :visible');
-            } */
-        });
+		var uploadUrl = "http://localhost:8081/static/upload/uploadImg";
+		$("#fileupload")
+				.uploadify(
+						{
+							'uploader' : uploadUrl,
+							'swf' : '<c:url value ="/resource/plugin/uploadify/uploadify.swf"/>',
+							'cancelImage' : '<c:url value ="/resource/plugin/uploadify/cancel.png"/>',
+							'queueID' : 'imgFile',
+							'fileObjName' : 'imgFile',
+							'auto' : true,
+							'multi' : false,
+							'buttonText' : '重新上传',
+							'formData' : {
+								'user' : 'test',
+								'source' : 'PORTAL'
+							},
+						/*  'onSelect': function (file) {
+						     $('#uploadify').uploadifySettings('formData', { 'ASPSESSID': ASPSESSID, 'AUTHID': auth });
+						 }, */
+						 'onUploadSuccess': function (file, data, response) {
+							 data  = JSON.parse(data); 
+							 var res=data.success;
+							if(res===true){
+								$("#resumeCoverUrl").val(data.message);
+								$("#resumeCoverImg").attr("src","http://localhost:8081/static"+data.message);
+							}
+						},
+						/*
+						'onQueueComplete': function () {
+						    alert("上传完成！");
+						    $('#fileQueue').attr('style', 'visibility :hidden');
+						},
+						'onSelectError': function (file, errorCode, errorMsg) {
+						    $('#fileQueue').attr('style', 'visibility :hidden');
+						},
+						'onUploadStart': function (file) {
+						    $('#fileQueue').attr('style', 'top:200px;left:400px;width:400px;height :400px;visibility :visible');
+						} */
+						});
 	</script>
 
 

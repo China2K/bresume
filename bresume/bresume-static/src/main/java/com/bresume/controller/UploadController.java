@@ -1,9 +1,13 @@
 package com.bresume.controller;
 
-import java.io.File;
+import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.annotation.Resource;
+
+import net.sf.json.JSONObject;
 
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.log4j.Logger;
@@ -13,12 +17,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.bresume.core.common.base.controller.BaseController;
+import com.bresume.core.common.upload.FileUploadHandler;
+import com.bresume.core.common.upload.UploadConfig.FileSource;
+import com.bresume.core.common.upload.UploadConfig.FileType;
 import com.bresume.core.model.entity.sys.SysFile;
 import com.bresume.core.service.sys.IFileService;
 
 @Controller
 @RequestMapping("/upload")
-public class UploadController {
+public class UploadController extends BaseController{
 
 	private static final Logger logger = Logger.getLogger(UploadController.class);
 	
@@ -31,7 +39,7 @@ public class UploadController {
 	 * 
 	 * */
 	@RequestMapping("/uploadImg")
-	public @ResponseBody String uploadMaterialImg(
+	public @ResponseBody JSONObject uploadMaterialImg (
 			@RequestParam(value = "imgFile", required= false) MultipartFile imgFile,
 			@RequestParam(value = "source", required= false,defaultValue = "unknown") String source,
 			@RequestParam(value = "user", required= false,defaultValue = "system") String user
@@ -39,11 +47,23 @@ public class UploadController {
 	) throws FileUploadException {
 		
 		logger.info("user:"+user+"上传文件，开始...");
-		File file= new File("");
-		System.out.println(imgFile.getName());
 		System.out.println(imgFile.getOriginalFilename());
-		System.out.println(imgFile.getContentType());
-		return null;
+		int index=imgFile.getOriginalFilename().lastIndexOf(".");
+		String suffix=null;
+		if(index>-1){
+			suffix=imgFile.getOriginalFilename().substring(index+1);
+		}
+		Map<String,String> params = new HashMap<String, String>();
+		params.put("user",user);
+		
+		String new_img_url=null;
+		try {
+			new_img_url = FileUploadHandler.uploadFile(imgFile.getBytes(), FileSource.valueOf(source.toUpperCase()), suffix, FileType.valueOf("IMAGE"), params);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		this.saveFile(imgFile, user, new_img_url);
+		return toJSONResult(true, new_img_url);
 	}
 	
 	@RequestMapping("/uploadFile")
@@ -66,14 +86,16 @@ public class UploadController {
 		new Thread(new Runnable() {
 			public void run() {
 				SysFile file=new SysFile();
-				file.setFileName(multipartFile.getOriginalFilename());
+				file.setFileName(dbURL.substring(dbURL.lastIndexOf("/")+1));
 				file.setCreatedBy(user);
 				file.setCreatedTime(new Date());
 				file.setFileSize(multipartFile.getSize());
-				file.setFileType(multipartFile.getContentType());
+				file.setFileType(FileType.IMAGE.getCode());
 				file.setFileUrl(dbURL);
-				file.setUploadName(multipartFile.getName());
+				file.setUploadName(multipartFile.getOriginalFilename());
+				fileService.save(file);
 			}
 		}).start();
 	}
+	
 }

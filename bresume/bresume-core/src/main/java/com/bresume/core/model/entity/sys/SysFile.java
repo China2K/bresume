@@ -17,7 +17,7 @@ import com.bresume.core.model.base.BaseEntity;
 @Table(name = "br_sys_file")
 public class SysFile extends BaseEntity {
 	// 文件类型：1-图片；2-语音；3-视频
-	private String fileType;
+	private Integer fileType;
 	// 文件存储URL
 	private String fileUrl;
 	private Long fileSize;
@@ -32,11 +32,11 @@ public class SysFile extends BaseEntity {
 	private Date createdTime;
 
 	@Column(name = "FILE_TYPE")
-	public String getFileType() {
+	public Integer getFileType() {
 		return fileType;
 	}
 
-	public void setFileType(String fileType) {
+	public void setFileType(Integer fileType) {
 		this.fileType = fileType;
 	}
 

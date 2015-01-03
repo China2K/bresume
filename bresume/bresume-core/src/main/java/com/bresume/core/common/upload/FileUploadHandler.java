@@ -103,7 +103,7 @@ public class FileUploadHandler {
 				String fileRootDir = UPLOAD_CONFIG.getRootFileDir();
 
 				String dir = UPLOAD_CONFIG.getFileDir(source);
-				dir = getDir(params, fileRootDir);
+				dir = getDir(params, dir);
 				String finalDir = fileRootDir + dir;
 				File finalFileDir = new File(finalDir);
 				if (!finalFileDir.exists()) {
@@ -164,7 +164,7 @@ public class FileUploadHandler {
 
 	private static boolean vaildate_image(byte[] img, String suffix) {
 		if (CommonUtils.isNotEmpty(suffix)
-				&& UPLOAD_CONFIG.getImageTypes().contains(suffix)) {
+				&& UPLOAD_CONFIG.getImageTypes().contains(suffix.toLowerCase())) {
 			return FileUploadUtils.validate_Image(img);
 		}
 		return false;
