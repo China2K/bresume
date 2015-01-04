@@ -105,7 +105,7 @@
 				<div class="row resumeRow">
 
 					<div class="col-md-3" id="portfolio"
-						style="background-color: #f9845b; height: 250px;">
+						style=" height: 250px;">
 
 
 						<div class="portfolio-item">
