@@ -19,6 +19,9 @@
 	<link rel="stylesheet" href="/portal/resource/site/About_files/css/ihover.css">
 	<link rel="stylesheet" href="/portal/resource/app/css/common.css">
 	
+	<script type="text/javascript" src="<c:url value ='/resource/site/js/jquery.js'/>"
+		charset="UTF-8"></script>
+		
 	<!-- jQuery-Validation-Engine -->
 	<link rel="stylesheet"
 		href="<c:url value ='/resource/plugin/jQuery-Validation-Engine/css/validationEngine.jquery.css'/>">
@@ -101,17 +104,17 @@
 							<div style="display: none">
 								<input name="utf8" type="hidden" value="✓">
 							</div>
-							<div class="form-group name_group">
+							<%-- <div class="form-group name_group">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-user"></i></span><input
 										class="form-control" id="user_name" name="userName"
 										placeholder="用户名" required="required" type="text" value="">
 								</div>
-							</div>
+							</div> --%>
 							<div class="form-group email_group">
 								<div class="input-group">
 									<span class="input-group-addon"><i
-										class="fa fa-envelope"></i></span><input class="form-control"
+										class="fa fa-envelope"></i></span><input class="form-control validate[required,custom[email]]"
 										id="user_email" name="email" placeholder="邮箱地址"
 										required="required" type="email">
 								</div>
@@ -119,7 +122,7 @@
 							<div class="form-group password_group">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-key"></i></span><input
-										class="form-control" id="user_password" name="password"
+										class="form-control validate[required]" id="user_password" name="password"
 										placeholder="密码" required="required" type="password">
 								</div>
 							</div>
@@ -183,8 +186,13 @@
 					}
 				);
 		}
-
+		
+		$("#register_form").validationEngine();
+		
 		function register(){
+				if (!$("#register_form").validationEngine("validate")) {
+					return false;
+				}
 				$("#register_form").ajaxSubmit(
 					function(data) {
 						if (data.success) {

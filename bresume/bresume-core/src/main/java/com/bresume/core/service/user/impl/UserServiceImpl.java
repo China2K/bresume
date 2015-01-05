@@ -221,13 +221,13 @@ public class UserServiceImpl extends GenericService<User, String> implements
 			throw new PortalException(PortalErrorCode.USER_EMAIL_EXIST_ERROR, "Check user info error,email exists!");
 		}
 
-		// 判断手机号码是否重复
+/*		// 判断手机号码是否重复
 		if (userDao.isNoDeleteExist("cellPhone", user.getCellPhone(), user.getId()))
 		{
 
 			LogUtils.getInstance().errorSystem(LogUtils.MODULE_PORTAL, "Check user info error,phone exists!", user.getUserName());
 			throw new PortalException(PortalErrorCode.USER_MOBILE_PHONE_EXIST_ERROR, "Check user info error,phone exists!");
-		}
+		}*/
 	}
 
 	/**

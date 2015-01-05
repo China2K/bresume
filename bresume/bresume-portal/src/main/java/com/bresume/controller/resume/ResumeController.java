@@ -80,22 +80,6 @@ public class ResumeController extends BaseController {
 		return "site/templates.jsp";
 	}
 
-	@RequestMapping("/resumes")
-	public String listResume(
-			HttpServletRequest request,
-			@RequestParam(value = "page", required = false, defaultValue = "0") int page,
-			@RequestParam(value = "limit", required = false, defaultValue = "10") int limit,
-			Model model) {
-
-		Pageable pageable = new PageRequest(page, limit, new Sort(
-				Direction.ASC, "order"));
-		Page<Resume> result = resumeService.findPage(pageable, new SearchBean(
-				"status", CommonStatus.ACTIVE.getCode() + "", "="));
-
-		model.addAttribute("resumes", result.getContent());
-
-		return "site/resumes.jsp";
-	}
 
 	@RequestMapping("/buildResume")
 	public String bulidResume(HttpServletRequest request,

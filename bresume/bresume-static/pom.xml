@@ -34,14 +34,14 @@
 			<plugin>
 				<groupId>org.apache.tomcat.maven</groupId>
 				<artifactId>tomcat7-maven-plugin</artifactId>
-				<version>2.0</version>
+				<version>2.2</version>
 				<configuration>
 					<path>/static</path>
 					<uriEncoding>utf-8</uriEncoding>
 					<ajpPort>8011</ajpPort>
 					<port>8081</port>
-					<staticContextPath>/file</staticContextPath>
-					<staticContextDocbase>E:/tmp/static/file</staticContextDocbase>
+					<!-- <staticContextPath>/upload</staticContextPath>
+					<staticContextDocbase>E:/tmp/static/file</staticContextDocbase> -->
 				</configuration>
 			</plugin>
 		</plugins>

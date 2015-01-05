@@ -57,9 +57,8 @@
 									style="background: none repeat scroll 0% 0% #3D3F40;">
 									<li><a href="/portal/resume/mine">管理我的简历</a></li>
 									<li><a href="#">账户设置</a></li>
-									<li><a href="#">查看我的简历</a></li>
 									<li class="divider"></li>
-									<li><a href="#">安全退出</a></li>
+									<li><a href="/portal/user/logout">安全退出</a></li>
 								</ul></li>
 
 							
@@ -315,6 +314,15 @@
 	<script src="resource/site/js/agency.js"></script>
 	<script src="resource/app/js/common.js"></script>
 	<script src="resource/site/js/jquery.form.js"></script>
+		<!-- jQuery-Validation-Engine -->
+	<link rel="stylesheet"
+		href="<c:url value ='/resource/plugin/jQuery-Validation-Engine/css/validationEngine.jquery.css'/>">
+	<script
+		src="<c:url value ='/resource/plugin/jQuery-Validation-Engine/js/jquery.validationEngine-zh_CN.js'/>"></script>
+	<script
+		src="<c:url value ='/resource/plugin/jQuery-Validation-Engine/js/jquery.validationEngine.min.js'/>"></script>
+    
+   
 	<script type="text/javascript">
 	$("#submit_contact").click(function(){
 		$("#contactForm").ajaxSubmit(

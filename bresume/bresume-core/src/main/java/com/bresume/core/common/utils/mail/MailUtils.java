@@ -212,7 +212,7 @@ public class MailUtils {
 		Set<String> keys = map.keySet();
 		for (Iterator<String> it = keys.iterator(); it.hasNext();) {
 			String key = it.next();
-			htmlText = htmlText.replace("${" + key + "}", (String) map.get(key));
+			htmlText = htmlText.replaceAll("${" + key + "}", (String) map.get(key));
 		}
 		return htmlText;
 	}

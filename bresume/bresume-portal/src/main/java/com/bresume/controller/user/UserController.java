@@ -50,12 +50,12 @@ public class UserController extends BaseController {
 	@RequestMapping("/register")
 	public @ResponseBody
 	JSONObject register(
-			@RequestParam(value = "userName", required = true) String userName,
+			/*@RequestParam(value = "userName", required = true) String userName,*/
 			@RequestParam(value = "email", required = true) String email,
 			@RequestParam(value = "password", required = true) String password, 
 			HttpServletResponse response, HttpServletRequest request) {
 		User user=new User();
-		user.setUserName(userName);
+		user.setUserName(email);
 		user.setPassword(password);
 		user.setEmail(email);
 
@@ -69,7 +69,7 @@ public class UserController extends BaseController {
 			verifiedService.save(uv);
 			// 发送注册成功的邮件
 			if (CommonUtils.isNotEmpty(user.getEmail())) {
-				sendRegisterMail(user);
+				sendRegisterMail(user,uv.getCode());
 			}
 
 			return this.toJSONResult(true);
@@ -78,7 +78,7 @@ public class UserController extends BaseController {
 		}
 	}
 
-	private void sendRegisterMail(User user) {
+	private void sendRegisterMail(User user,String code) {
 		PropertiesLoader loader = new PropertiesLoader("mail.properties");
 
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -88,9 +88,10 @@ public class UserController extends BaseController {
 		
 		email.setSubject(loader.getProperty("mail.register.success.subject"));
 		// 从模板生成
-		HashMap<String, Object> map2 = new HashMap<String, Object>();
-		map2.put("userName", user.getUserName());
-		email.setContent(MailUtils.getMailText(map2,
+		HashMap<String, Object> param = new HashMap<String, Object>();
+		param.put("userName", user.getUserName());
+		param.put("code", code);
+		email.setContent(MailUtils.getMailText(param,
 				loader.getProperty("mail.register.success.content")));
 
 		map.put("email", email);
@@ -128,12 +129,11 @@ public class UserController extends BaseController {
 	}
 
 	@RequestMapping("/logout")
-	public @ResponseBody
-	JSONObject logout(String loginName, ModelMap model,
+	public String logout(String loginName, ModelMap model,
 			HttpServletResponse response) {
 		// 删除session
-		model.remove(IPortalConstants.SESSION_KEY_LOGIN_USER);
-		return this.toJSONResult(true);
+		SessionContextHolder.getSession().removeAttribute(IPortalConstants.SESSION_KEY_LOGIN_USER);
+		return "redirect:/index";
 	}
 
 	
@@ -141,7 +141,7 @@ public class UserController extends BaseController {
 	public String active(@RequestParam(value = "user", required = true) String userName,
 			@RequestParam(value = "code", required = true) String code) {
 		UserVerified uv = verifiedService.findOne(userName, code);
-		if(uv!=null){
+		if(uv!=null&&uv.getCreatedTime()==null){
 			try {
 				userService.active(userName);
 				uv.setVerifiedTime(new Date());
@@ -149,9 +149,22 @@ public class UserController extends BaseController {
 			} catch (CoreException e) {
 				LOGGER.error(e.getErrorMsg());
 			}
+			
+			// 记录session
+			Object obj = SessionContextHolder.getSession().getAttribute(IPortalConstants.SESSION_KEY_LOGIN_USER);
+			if(obj==null){
+				try {
+					User loginUser = userService.find(userName);
+					SessionContextHolder.getSession().setAttribute(
+							IPortalConstants.SESSION_KEY_LOGIN_USER, loginUser);
+				} catch (CoreException e) {
+					e.printStackTrace();
+				}
+				
+			}
 		}
-		//TODO 记录session登陆
-		return "/site/index.jsp";
+		
+		return "redirect:/index";
 	}
 
 	/*
