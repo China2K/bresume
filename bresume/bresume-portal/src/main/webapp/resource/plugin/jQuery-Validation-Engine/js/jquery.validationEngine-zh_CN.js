@@ -115,10 +115,10 @@
 					"regex":/^[0-9a-zA-Z]+$/,
 					"alertText":"* 只能填写数字与英文字母"
 				},
-				//add by gavin 2014-08-19 :可以为“数字/字母/中划线/下划线”组成
+			
 				"userNameRegx":{
-					"regex":/^[0-9a-zA-Z\_\-]+$/,
-					"alertText":"* 只能填写数字/字母/中划线/下划线"
+					"regex":/^[0-9a-zA-Z\_\u4E00-\u9FA5]+$/,
+					"alertText":"* 只能填写数字/字母/汉字/下划线"
 				},
 				//end
 				//tls warning:homegrown not fielded 

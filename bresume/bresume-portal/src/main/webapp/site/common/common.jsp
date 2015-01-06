@@ -57,8 +57,8 @@
 								<div class="input-group">
 									<span class="input-group-addon"><i
 										class="fa fa-envelope"></i></span><input autofocus="autofocus"
-										class="form-control" id="user_email" name="email"
-										placeholder="邮箱地址" required="required" type="email">
+										class="form-control" name="loginName"
+										placeholder="邮箱地址/用户名" required="required">
 								</div>
 							</div>
 							<div class="form-group">
@@ -104,13 +104,13 @@
 							<div style="display: none">
 								<input name="utf8" type="hidden" value="✓">
 							</div>
-							<%-- <div class="form-group name_group">
+							 <div class="form-group name_group">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-user"></i></span><input
-										class="form-control" id="user_name" name="userName"
+										class="form-control validate[required,maxSize[20],custom[userNameRegx]]" id="user_name" name="userName"
 										placeholder="用户名" required="required" type="text" value="">
 								</div>
-							</div> --%>
+							</div>
 							<div class="form-group email_group">
 								<div class="input-group">
 									<span class="input-group-addon"><i

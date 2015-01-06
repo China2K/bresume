@@ -14,7 +14,7 @@ function replaceAll(data, substr, replacement) {
 	return data;
 }
 
-$("#loginBtn").click(function() {
+$("#loginBtn,#signupBtn").click(function() {
 	$("#login-modal").css("display", "block");
 });
 

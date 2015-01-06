@@ -50,12 +50,12 @@ public class UserController extends BaseController {
 	@RequestMapping("/register")
 	public @ResponseBody
 	JSONObject register(
-			/*@RequestParam(value = "userName", required = true) String userName,*/
+			@RequestParam(value = "userName", required = true) String userName,
 			@RequestParam(value = "email", required = true) String email,
 			@RequestParam(value = "password", required = true) String password, 
 			HttpServletResponse response, HttpServletRequest request) {
 		User user=new User();
-		user.setUserName(email);
+		user.setUserName(userName);
 		user.setPassword(password);
 		user.setEmail(email);
 
@@ -102,7 +102,7 @@ public class UserController extends BaseController {
 	
 	@RequestMapping("/login")
 	public @ResponseBody
-	JSONObject login(@RequestParam(value = "email", required = true) String loginName,
+	JSONObject login(@RequestParam(value = "loginName", required = true) String loginName,
 			@RequestParam(value = "password", required = true) String password, 
 			ModelMap model,HttpServletResponse response) {
 
@@ -141,7 +141,7 @@ public class UserController extends BaseController {
 	public String active(@RequestParam(value = "user", required = true) String userName,
 			@RequestParam(value = "code", required = true) String code) {
 		UserVerified uv = verifiedService.findOne(userName, code);
-		if(uv!=null&&uv.getCreatedTime()==null){
+		if(uv!=null&&uv.getVerifiedTime()==null){
 			try {
 				userService.active(userName);
 				uv.setVerifiedTime(new Date());

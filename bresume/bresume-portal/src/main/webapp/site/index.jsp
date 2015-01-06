@@ -134,7 +134,7 @@
 
 				<c:forEach items="${hotResumes}" var="resume">
 					<div class="col-md-4 col-sm-6 portfolio-item">
-						<a href="#portfolioModal1" class="portfolio-link"
+						<a href="/portal/resume/${resume.name}" class="portfolio-link"
 							data-toggle="modal">
 							<div class="portfolio-hover">
 								<div class="portfolio-hover-content">
@@ -182,7 +182,7 @@
 						<li class="timeline-inverted">
 							<div class="timeline-image">
 								<img class="img-circle img-responsive"
-									src="resource/site/img/about/2.jpg" alt="">
+									src="resource/site/img/about/3.jpg" alt="">
 							</div>
 							<div class="timeline-panel">
 								<div class="timeline-heading">
@@ -197,7 +197,7 @@
 						<li>
 							<div class="timeline-image">
 								<img class="img-circle img-responsive"
-									src="resource/site/img/about/3.jpg" alt="">
+									src="resource/site/img/about/2.jpg" alt="">
 							</div>
 							<div class="timeline-panel">
 								<div class="timeline-heading">

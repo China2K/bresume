@@ -97,9 +97,14 @@ public class UserServiceImpl extends GenericService<User, String> implements
 	public void loginCheck(String userName, String password) throws PortalException, PwdNotCorrectException
 	{
 		LogUtils.getInstance().debugSystem(LogUtils.MODULE_PORTAL, "Execute Logining", "userName", userName);
-
-		User user = userDao.findUniqueBy("userName", userName);
-
+		User user ;
+		System.out.println(userName.indexOf("@"));
+		if(userName.contains("@")){
+			user = userDao.findUniqueBy("email", userName);
+		}else{
+			user = userDao.findUniqueBy("userName", userName);
+		}
+		
 		// 校验登录名是否存在
 		if (GeneralUtils.isNull(user))
 		{
@@ -330,7 +335,12 @@ public class UserServiceImpl extends GenericService<User, String> implements
 	{
 		LogUtils.getInstance().debugSystem(LogUtils.MODULE_PORTAL, "Execute finding merchant record from DB", "loginName", userName);
 
-		User user = userDao.findUniqueBy("userName", userName);
+		User user ;
+		if(userName.contains("@")){
+			user = userDao.findUniqueBy("email", userName);
+		}else{
+			user = userDao.findUniqueBy("userName", userName);
+		}
 
 		// 校验登录名是否存在
 		if (GeneralUtils.isNull(user))
