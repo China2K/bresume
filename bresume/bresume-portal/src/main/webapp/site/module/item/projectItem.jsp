@@ -8,7 +8,7 @@
 <div class="project_form_item"
 	style="background-color: #E5E5E5; width: 90%;" id="form_item_@@@@">
 	<s:form class="form-horizontal project-form" id="projectForm_@@@@"
-		method="post" action="/portal/pe/save"
+		method="post" action="/pe/save"
 		onsubmit="return false;" modelAttribute="projectExperience">
 		<s:hidden path="resume.id" class="input-resumeId" />
 		<s:hidden path="id" class="input-id" />

@@ -11,7 +11,7 @@
 
 
 <link
-	href="/portal/resource/plugin/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css"
+	href="<c:url value ='/resource/plugin/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css'/>"
 	rel="stylesheet" media="screen">
 
 <div id="workContiner" class="item-form" style="">
@@ -67,7 +67,7 @@
 
 	function load_new_form(id, key) {
 
-		var url = "/portal/we/load";
+		var url = "<c:url value='/we/load' />";
 		if (id != "undenfined" && id != null & id != "") {
 			url += "?id=" + id;
 		}

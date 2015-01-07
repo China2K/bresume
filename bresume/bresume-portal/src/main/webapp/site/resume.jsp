@@ -128,7 +128,7 @@
 
 			<div class="col-md-9 box-gray aligncenter div-center" style="">
 
-				<s:form class="form-horizontal" action="/portal/resume/save"
+				<s:form class="form-horizontal" action="/resume/save"
 					id="resumeForm" onsubmit="return false;" commandName="resume">
 					<s:hidden path="id" id="resumeId" />
 					<s:hidden path="templateSn" id="templateSn" />

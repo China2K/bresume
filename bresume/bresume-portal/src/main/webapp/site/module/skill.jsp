@@ -5,7 +5,7 @@
 
 <!DOCTYPE HTML>
 
-<form class="form-horizontal item-form" action="/portal/skill/save"
+<form class="form-horizontal item-form" action="/skill/save"
 	id="skills_form" method="post" onsubmit="return false;">
 
 	<input type="hidden" name="resumeId" id="form_skill_resumeId"
@@ -124,7 +124,7 @@
 		$("#skills_form").ajaxSubmit(function(data) {
 			if (data.success) {
 				alert("保存成功！");
-				subUrl("/portal/resume/resumeItem?itemSn=ITEM-0006");
+				subUrl("<c:url value='/resume/resumeItem?itemSn=ITEM-0006'/>");
 			} else {
 				alert(data.message);
 			}

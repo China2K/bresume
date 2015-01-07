@@ -8,7 +8,7 @@
 <div class="work_form_item"
 	style="background-color: #E5E5E5; width: 90%;" id="form_item_@@@@">
 	<s:form class="form-horizontal work-form" id="workForm_@@@@"
-		method="post" action="/portal/we/save" onsubmit="return false;"
+		method="post" action="/we/save" onsubmit="return false;"
 		modelAttribute="workExperience">
 		<s:hidden path="resume.id" class="input-resumeId" />
 		<s:hidden path="id" class="input-id" />

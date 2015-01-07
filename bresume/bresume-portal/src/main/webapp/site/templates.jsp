@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <title>bresume - 简历创建</title>
- 
+
 <style type="text/css">
 </style>
 
@@ -32,7 +32,8 @@
 				<c:forEach items="${templates}" var="template">
 					<div class="col-md-3">
 						<div class="ih-item circle effect2 left_to_right">
-							<a href="/portal/resume/buildResume?template=${template.sn}" class="acover">
+							<a href="<c:url value='/resume/buildResume?template=${template.sn}'/>"
+								class="acover">
 								<div class="img">
 									<img src="${template.coverUrl}" alt="img">
 								</div>
@@ -42,9 +43,10 @@
 								</div>
 							</a>
 						</div>
-						
+
 						<div>
-						<a href="" class="btn btn-default btn btn-primary btn-lg btn-block">查看详细</a>
+							<a href=""
+								class="btn btn-default btn btn-primary btn-lg btn-block">查看详细</a>
 						</div>
 					</div>
 				</c:forEach>
@@ -61,19 +63,27 @@
 
 
 
-	<!-- jQuery -->
-	<script src="/portal/resource/site/js/jquery.js"></script>
 
-	<!-- Bootstrap Core JavaScript -->
-	<script src="/portal/resource/site/js/bootstrap.min.js"></script>
+
+	<!-- jQuery -->
+	<script type="text/javascript"
+		src="<c:url value ='/resource/site/js/jquery.js'/>" charset="UTF-8"></script>
+
+	<script type="text/javascript"
+		src="<c:url value ='/resource/site/js/bootstrap.min.js'/>"></script>
 
 	<!-- Plugin JavaScript -->
-	<script src="/portal/resource/site/js/jquery.easing.min.js"></script>
+	<script src="<c:url value ='/resource/site/js/jquery.easing.min.js'/>"></script>
 
 	<!-- Custom Theme JavaScript -->
-	<script src="/portal/resource/site/js/agency.js"></script>
-	<script src="/portal/resource/app/js/common.js"></script>
-	<script src="/portal/resource/site/js/jquery.form.js"></script>
+	<script src="<c:url value ='/resource/site/js/agency.js'/>"></script>
+
+	<script src="<c:url value ='/resource/app/js/common.js'/>"></script>
+	<script type="text/javascript"
+		src="<c:url value ='/resource/site/js/jquery.form.js'/>"
+		charset="UTF-8"></script>
+
+
 
 	<script type="text/javascript">
 		

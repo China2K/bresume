@@ -4,7 +4,7 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE HTML>
 
-<s:form class="form-horizontal item-form" action="/portal/jobi/save"
+<s:form class="form-horizontal item-form" action="/jobi/save"
 	onsubmit="return false;" commandName="jobIntension" id="form_jobinten">
 	<s:hidden path="id" id="form_jobinten_id" />
 	<s:hidden path="resume.id" id="form_jobinten_resumeId" />

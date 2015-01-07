@@ -5,7 +5,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE HTML>
 
-<s:form class="form-horizontal item-form" action="/portal/pi/save"
+<s:form class="form-horizontal item-form" action="/pi/save"
 	onsubmit="return false;" commandName="persionalInfo"
 	id="persionalInfo_form">
 	<s:hidden path="id" id="form_persionalInfo_id" />

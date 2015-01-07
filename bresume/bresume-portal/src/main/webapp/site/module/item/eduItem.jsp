@@ -8,7 +8,7 @@
 <div class="edu_form_item"
 	style="background-color: #E5E5E5; width: 90%;" id="form_item_@@@@">
 	<s:form class="form-horizontal edu-form" id="eduForm_@@@@" method="post"
-		action="/portal/edu/save" onsubmit="return false;"
+		action="/edu/save" onsubmit="return false;"
 		modelAttribute="eduExperience">
 		<s:hidden path="resume.id"  class="input-resumeId"/>
 		<s:hidden path="id" class="input-id"/>

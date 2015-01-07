@@ -62,7 +62,7 @@
 
 	function load_new_form(id, key) {
 
-		var url = "/portal/pe/load";
+		var url = "<c:url value='/pe/load' />";
 		if (id != "undenfined" && id != null & id != "") {
 			url += "?id=" + id;
 		}

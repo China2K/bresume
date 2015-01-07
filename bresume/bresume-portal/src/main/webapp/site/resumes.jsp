@@ -19,7 +19,7 @@
 	<%@include file="common/header.jsp"%>
 
 
-<section id="portfolio" class="bg-light-gray">
+	<section id="portfolio" class="bg-light-gray">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12 text-center">
@@ -59,18 +59,22 @@
 
 
 	<!-- jQuery -->
-	<script src="/portal/resource/site/js/jquery.js"></script>
+	<script type="text/javascript"
+		src="<c:url value ='/resource/site/js/jquery.js'/>" charset="UTF-8"></script>
 
-	<!-- Bootstrap Core JavaScript -->
-	<script src="/portal/resource/site/js/bootstrap.min.js"></script>
+	<script type="text/javascript"
+		src="<c:url value ='/resource/site/js/bootstrap.min.js'/>"></script>
 
 	<!-- Plugin JavaScript -->
-	<script src="/portal/resource/site/js/jquery.easing.min.js"></script>
+	<script src="<c:url value ='/resource/site/js/jquery.easing.min.js'/>"></script>
 
 	<!-- Custom Theme JavaScript -->
-	<script src="/portal/resource/site/js/agency.js"></script>
-	<script src="/portal/resource/app/js/common.js"></script>
-	<script src="/portal/resource/site/js/jquery.form.js"></script>
+	<script src="<c:url value ='/resource/site/js/agency.js'/>"></script>
+
+	<script src="<c:url value ='/resource/app/js/common.js'/>"></script>
+	<script type="text/javascript"
+		src="<c:url value ='/resource/site/js/jquery.form.js'/>"
+		charset="UTF-8"></script>
 
 	<script type="text/javascript">
 		

@@ -14,7 +14,7 @@
 				<span class="sr-only">B Resume</span> <span class="icon-bar"></span>
 				<span class="icon-bar"></span> <span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand page-scroll" href="/portal/index">B
+			<a class="navbar-brand page-scroll" href="<c:url value='/index'/>">B
 				Resume</a>
 		</div>
 
@@ -23,8 +23,8 @@
 			id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
 				<li class="hidden"><a href="#page-top"></a></li>
-				<li><a href="/portal/templates">简历模板</a></li>
-				<li><a href="/portal/resume/resumes">热门简历</a></li>
+				<li><a href="<c:url value='/templates'/>">简历模板</a></li>
+				<li><a href="<c:url value='/resume/resumes'/>">热门简历</a></li>
 				<li><a href="#">关于我们</a></li>
 				<li><a href="#">提供建议</a></li>
 
@@ -41,7 +41,7 @@
 								<li><a href="<c:url value='/resume/mine'/>">管理我的简历</a></li>
 								<li><a href="#">账户设置</a></li>
 								<li class="divider"></li>
-								<li><a href="/portal/user/logout">安全退出</a></li>
+								<li><a href="<c:url value='/user/logout'/>">安全退出</a></li>
 							</ul>
 						</li>
 					</c:when>

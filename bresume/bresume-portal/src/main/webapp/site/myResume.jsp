@@ -11,23 +11,18 @@
 
 <title>bresume - 简历创建</title>
 
-<!-- Bootstrap Core CSS -->
-<link href="/portal/resource/site/css/bootstrap.min.css"
-	rel="stylesheet">
+    <!-- Bootstrap Core CSS -->
+    <link href="<c:url value='/resource/site/css/bootstrap.min.css'/>" rel="stylesheet">
 
-<!-- Custom CSS -->
-<link href="/portal/resource/site/css/agency.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="<c:url value='/resource/site/css/agency.css'/>" rel="stylesheet">
 
-<!-- Custom Fonts -->
-<link
-	href="/portal/resource/site/font-awesome-4.1.0/css/font-awesome.min.css"
-	rel="stylesheet" type="text/css">
+    <!-- Custom Fonts -->
+    <link href="<c:url value='/resource/site/font-awesome-4.1.0/css/font-awesome.min.css'/>" rel="stylesheet" type="text/css">
 
-<!-- Custom CSS for template -->
-<link rel="stylesheet"
-	href="/portal/resource/site/About_files/css/stuck.css">
-<link rel="stylesheet"
-	href="/portal/resource/site/About_files/css/ihover.css">
+ <!-- Custom CSS for template -->
+	<link rel="stylesheet" href="<c:url value='/resource/site/About_files/css/stuck.css'/>">
+	<link rel="stylesheet" href="<c:url value='/resource/site/About_files/css/ihover.css'/>">
 
 <link rel="stylesheet"
 	href="<c:url value ='/resource/plugin/jQuery-File-Upload/css/jquery.fileupload.css'/>">
@@ -212,22 +207,24 @@
 
 
 	<!-- jQuery -->
-	<script src="/portal/resource/site/js/jquery.js"></script>
+	<script type="text/javascript" src="<c:url value ='/resource/site/js/jquery.js'/>"
+		charset="UTF-8"></script>
 
 	<!-- Bootstrap Core JavaScript -->
-	<script src="/portal/resource/site/js/bootstrap.min.js"></script>
+		<script type="text/javascript"
+		src="<c:url value ='/resource/site/js/bootstrap.min.js'/>"></script>
 
 	<!-- Plugin JavaScript -->
-	<script src="/portal/resource/site/js/jquery.easing.min.js"></script>
-	<script src="/portal/resource/site/js/classie.js"></script>
-	<script src="/portal/resource/site/js/cbpAnimatedHeader.js"></script>
+	<script src="<c:url value ='/resource/site/js/jquery.easing.min.js'/>"></script>
+	<script src="<c:url value ='/resource/site/js/classie.js'/>"></script>
+	<script src="<c:url value ='/resource/site/js/cbpAnimatedHeader.js'/>"></script>
 
 	<!-- Contact Form JavaScript -->
-	<script src="/portal/resource/site/js/jqBootstrapValidation.js"></script>
-	<script src="/portal/resource/site/js/contact_me.js"></script>
+	<script src="<c:url value ='/resource/site/js/jqBootstrapValidation.js'/>"></script>
+	<script src="<c:url value ='/resource/site/js/contact_me.js'/>"></script>
 
 	<!-- Custom Theme JavaScript -->
-	<script src="/portal/resource/site/js/agency.js"></script>
+	<script src="<c:url value ='/resource/site/js/agency.js'/>"></script>
 
 
 
@@ -246,7 +243,7 @@
 		}
 
 		function edit_resume(id) {
-			location.href = "/portal/resume/buildResume?id=" + id;
+			location.href = "/resume/buildResume?id=" + id;
 		}
 
 		function delete_resume(id) {
