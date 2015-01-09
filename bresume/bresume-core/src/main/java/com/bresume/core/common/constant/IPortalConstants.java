@@ -10,7 +10,12 @@ public interface IPortalConstants extends IConstants
 
 	public static final String	SESSION_KEY_LOGIN_USER			= "loginUser";
 	public static final String  VSITE_HOME_ADDRESS 				= "vsiteHomeAddress"; 
-	String						SESSION_KEY_REGISTER_RAND_CODE	= "register.randcode";
-	String						SESSION_KEY_HISTORY_REQPATH		= "history.reqpath";
+	public static final String	SESSION_KEY_REGISTER_RAND_CODE	= "register.randcode";
+	public static final String	SESSION_KEY_HISTORY_REQPATH		= "history.reqpath";
+	
+	
+	public static final String SESSION_KEY_QQ_LOGIN_USER_ACCESS_TOKEN ="qq_access_token";
+	public static final String SESSION_KEY_QQ_LOGIN_USER_TOKEN_EXPIREIN ="qq_token_expirein";
+	public static final String SESSION_KEY_QQ_LOGIN_USER_OPENID ="qq_openid";
 
 }

@@ -1,7 +1,7 @@
 package com.bresume.core.common.constant.enums;
 
 public enum RegisterType {
-	PORTAL_REGISTER(1),PORTAL_ADD(2),ADMIN_ADD(3);
+	PORTAL_REGISTER(1),PORTAL_ADD(2),ADMIN_ADD(3),QQ_REGISTER(4),SINA_REGISTER(5);
 	
 	private int type;
 	RegisterType(int type	){
@@ -20,5 +20,5 @@ public enum RegisterType {
 		this.type = type;
 	}
 	
-
+	
 }
