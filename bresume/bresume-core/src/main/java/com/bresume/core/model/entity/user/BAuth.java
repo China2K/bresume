@@ -23,6 +23,9 @@ public class BAuth extends BaseEntity {
 	private int expiresIn;
 	private Integer type;
 	private Date refreshAccessTime;
+	// icon、nickName如需实时性可能需要更新
+	private String icon;
+	private String nickName;
 	private Date createdTime;
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -87,6 +90,24 @@ public class BAuth extends BaseEntity {
 
 	public void setCreatedTime(Date createdTime) {
 		this.createdTime = createdTime;
+	}
+
+	@Column(name = "`ICON`")
+	public String getIcon() {
+		return icon;
+	}
+
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
+
+	@Column(name = "`NICK_NAME`")
+	public String getNickName() {
+		return nickName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
 
 }

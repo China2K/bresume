@@ -6,8 +6,8 @@ import com.bresume.core.common.exception.impl.PortalException;
 import com.bresume.core.common.exception.impl.PwdNotCorrectException;
 import com.bresume.core.model.entity.user.User;
 
-public interface IUserService extends IGenericService<User,String> {
-	
+public interface IUserService extends IGenericService<User, String> {
+
 	/**
 	 * 查询详细信息
 	 * 
@@ -15,6 +15,7 @@ public interface IUserService extends IGenericService<User,String> {
 	 * @return
 	 */
 	User find(String userName) throws CoreException;
+
 	/**
 	 * 注册
 	 * 
@@ -35,8 +36,8 @@ public interface IUserService extends IGenericService<User,String> {
 	 * @param merchant
 	 * @throws PortalException
 	 */
-	String updatePassword(String loginName, String oldPassword, String newPassword)
-			throws PortalException;
+	String updatePassword(String loginName, String oldPassword,
+			String newPassword) throws PortalException;
 
 	/**
 	 * 登陆
@@ -44,16 +45,16 @@ public interface IUserService extends IGenericService<User,String> {
 	 * @param loginName
 	 * @return
 	 */
-	void loginCheck(String loginName, String password) throws PortalException,PwdNotCorrectException;
-	
-	
+	void loginCheck(String loginName, String password) throws PortalException,
+			PwdNotCorrectException;
+
 	/**
 	 * 修改个人信息
+	 * 
 	 * @param merchant
 	 * @return
 	 */
 	void updateSelf(User user) throws CoreException;
-
 
 	/**
 	 * 停用个人信息
@@ -61,4 +62,11 @@ public interface IUserService extends IGenericService<User,String> {
 	 * @param loginName
 	 */
 	void inactive(String loginName) throws PortalException;
+
+	/**
+	 * 第三方登录跳过，系统自动注册
+	 * 
+	 * @param User
+	 */
+	String registerFromAuth(User user);
 }

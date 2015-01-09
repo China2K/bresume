@@ -17,5 +17,9 @@ public interface IPortalConstants extends IConstants
 	public static final String SESSION_KEY_QQ_LOGIN_USER_ACCESS_TOKEN ="qq_access_token";
 	public static final String SESSION_KEY_QQ_LOGIN_USER_TOKEN_EXPIREIN ="qq_token_expirein";
 	public static final String SESSION_KEY_QQ_LOGIN_USER_OPENID ="qq_openid";
+	
+	public static final String defaultIconUrl="http://tp4.sinaimg.cn/2465082087/50/5617595072/1";
+	
+	public static final String defaultPSW="123456";
 
 }

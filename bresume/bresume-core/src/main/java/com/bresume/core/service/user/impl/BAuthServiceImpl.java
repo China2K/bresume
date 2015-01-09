@@ -13,13 +13,20 @@ import com.bresume.core.service.user.IBAuthService;
 
 @Service
 @Transactional
-public class BAuthServiceImpl extends GenericService<BAuth, String> implements IBAuthService{
+public class BAuthServiceImpl extends GenericService<BAuth, String> implements
+		IBAuthService {
 	@Resource
 	private IBAuthDao authDao;
 
 	@Override
 	public IGenericDao<BAuth, String> getDao() {
 		return authDao;
+	}
+
+	@Override
+	public BAuth findOne(String openId, int type) {
+		return authDao.findUnique("FROM BAuth where openId= ? and type = ?",
+				openId, type);
 	}
 
 }

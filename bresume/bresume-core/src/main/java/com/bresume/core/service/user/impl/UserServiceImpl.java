@@ -45,44 +45,50 @@ public class UserServiceImpl extends GenericService<User, String> implements
 	 */
 	@Override
 	@Transactional(rollbackFor = CoreException.class)
-	public void active(String userName) throws PortalException
-	{
+	public void active(String userName) throws PortalException {
 
-		LogUtils.getInstance().debugSystem(LogUtils.MODULE_PORTAL, "Execute activing user info", "userName", userName);
+		LogUtils.getInstance().debugSystem(LogUtils.MODULE_PORTAL,
+				"Execute activing user info", "userName", userName);
 
 		// 校验登录名是否存在
-		if (!userDao.isNoDeleteExist("userName", userName, null))
-		{
+		if (!userDao.isNoDeleteExist("userName", userName, null)) {
 
-			LogUtils.getInstance().errorSystem(LogUtils.MODULE_PORTAL, "Login name not found error!", "Login name", userName);
+			LogUtils.getInstance().errorSystem(LogUtils.MODULE_PORTAL,
+					"Login name not found error!", "Login name", userName);
 
-			throw new PortalException(PortalErrorCode.USER_LOGIN_NAME_NOT_EXIST_ERROR, "Login name not found error!");
+			throw new PortalException(
+					PortalErrorCode.USER_LOGIN_NAME_NOT_EXIST_ERROR,
+					"Login name not found error!");
 		}
 
 		userDao.updateStatus(userName, UserStatus.ACTIVE);
 
-		LogUtils.getInstance().debugSystem(LogUtils.MODULE_PORTAL, "Finish activing user info", "userName", userName);
+		LogUtils.getInstance().debugSystem(LogUtils.MODULE_PORTAL,
+				"Finish activing user info", "userName", userName);
 	}
-	
+
 	@Override
 	@Transactional(rollbackFor = CoreException.class)
-	public void inactive(String userName) throws PortalException
-	{
+	public void inactive(String userName) throws PortalException {
 
-		LogUtils.getInstance().debugSystem(LogUtils.MODULE_PORTAL, "Execute activing user info", "userName", userName);
+		LogUtils.getInstance().debugSystem(LogUtils.MODULE_PORTAL,
+				"Execute activing user info", "userName", userName);
 
 		// 校验登录名是否存在
-		if (!userDao.isNoDeleteExist("userName", userName, null))
-		{
+		if (!userDao.isNoDeleteExist("userName", userName, null)) {
 
-			LogUtils.getInstance().errorSystem(LogUtils.MODULE_PORTAL, "Login name not found error!", "Login name", userName);
+			LogUtils.getInstance().errorSystem(LogUtils.MODULE_PORTAL,
+					"Login name not found error!", "Login name", userName);
 
-			throw new PortalException(PortalErrorCode.USER_LOGIN_NAME_NOT_EXIST_ERROR, "Login name not found error!");
+			throw new PortalException(
+					PortalErrorCode.USER_LOGIN_NAME_NOT_EXIST_ERROR,
+					"Login name not found error!");
 		}
 
 		userDao.updateStatus(userName, UserStatus.INACTIVE);
 
-		LogUtils.getInstance().debugSystem(LogUtils.MODULE_PORTAL, "Finish activing user info", "userName", userName);
+		LogUtils.getInstance().debugSystem(LogUtils.MODULE_PORTAL,
+				"Finish activing user info", "userName", userName);
 	}
 
 	/**
@@ -94,54 +100,55 @@ public class UserServiceImpl extends GenericService<User, String> implements
 	 */
 	@Override
 	@Transactional(noRollbackFor = { PwdNotCorrectException.class }, rollbackFor = CoreException.class)
-	public void loginCheck(String userName, String password) throws PortalException, PwdNotCorrectException
-	{
-		LogUtils.getInstance().debugSystem(LogUtils.MODULE_PORTAL, "Execute Logining", "userName", userName);
-		User user ;
+	public void loginCheck(String userName, String password)
+			throws PortalException, PwdNotCorrectException {
+		LogUtils.getInstance().debugSystem(LogUtils.MODULE_PORTAL,
+				"Execute Logining", "userName", userName);
+		User user;
 		System.out.println(userName.indexOf("@"));
-		if(userName.contains("@")){
+		if (userName.contains("@")) {
 			user = userDao.findUniqueBy("email", userName);
-		}else{
+		} else {
 			user = userDao.findUniqueBy("userName", userName);
 		}
-		
+
 		// 校验登录名是否存在
-		if (GeneralUtils.isNull(user))
-		{
+		if (GeneralUtils.isNull(user)) {
 
-			LogUtils.getInstance().errorSystem(LogUtils.MODULE_PORTAL, "Login name not found error!", "Login name", userName);
+			LogUtils.getInstance().errorSystem(LogUtils.MODULE_PORTAL,
+					"Login name not found error!", "Login name", userName);
 
-			throw new PortalException(PortalErrorCode.USER_LOGIN_NAME_NOT_EXIST_ERROR, "Login name not found error!");
+			throw new PortalException(
+					PortalErrorCode.USER_LOGIN_NAME_NOT_EXIST_ERROR,
+					"Login name not found error!");
 		}
 
-		if (CommonUtils.isNotEmpty(user.getLastPwdErrorTime()))
-		{
+		if (CommonUtils.isNotEmpty(user.getLastPwdErrorTime())) {
 
-			int sysPasswordUnlockTimes = 1;//TODO 后续可在数据库配置
+			int sysPasswordUnlockTimes = 1;// TODO 后续可在数据库配置
 
-			if (DateUtils.minusMinuteByNow(user.getLastPwdErrorTime()) < sysPasswordUnlockTimes)
-			{
+			if (DateUtils.minusMinuteByNow(user.getLastPwdErrorTime()) < sysPasswordUnlockTimes) {
 
 				// 校验密码是否已经超过最大的次数
-				int sysPasswordMaxTimes = 10;//TODO 后续可在数据库配置
-				if (user.getPwdErrorTimes() >= sysPasswordMaxTimes)
-				{
-					LogUtils.getInstance().errorSystem(LogUtils.MODULE_PORTAL, "Password error times exceed error!", "Error times",
-							user.getPwdErrorTimes());
-					int unlockMins = 1;//TODO 后续可在数据库配置
-					throw new PortalException(PortalErrorCode.USER_PASSWORD_ERROR_TIMES_EXCEED_ERROR, new Object[] { sysPasswordMaxTimes,
-							unlockMins }, "Password error times exceed error!");
+				int sysPasswordMaxTimes = 10;// TODO 后续可在数据库配置
+				if (user.getPwdErrorTimes() >= sysPasswordMaxTimes) {
+					LogUtils.getInstance().errorSystem(LogUtils.MODULE_PORTAL,
+							"Password error times exceed error!",
+							"Error times", user.getPwdErrorTimes());
+					int unlockMins = 1;// TODO 后续可在数据库配置
+					throw new PortalException(
+							PortalErrorCode.USER_PASSWORD_ERROR_TIMES_EXCEED_ERROR,
+							new Object[] { sysPasswordMaxTimes, unlockMins },
+							"Password error times exceed error!");
 				}
 
 				this.checkPassword(password, user, user.getPwdErrorTimes());
 			}
-			//如果密码超过解封时间，则将密码的错误次数置空
-			else
-			{
+			// 如果密码超过解封时间，则将密码的错误次数置空
+			else {
 				this.checkPassword(password, user, 0);
 			}
-		} else
-		{
+		} else {
 			this.checkPassword(password, user, 0);
 		}
 
@@ -156,23 +163,24 @@ public class UserServiceImpl extends GenericService<User, String> implements
 	 * @return
 	 * @throws
 	 */
-	private void checkPassword(String password, User user, int passwordErrorTimes) throws PwdNotCorrectException
-	{
+	private void checkPassword(String password, User user,
+			int passwordErrorTimes) throws PwdNotCorrectException {
 		// 校验密码是否正确
-		if (!user.getPassword().equals(EncryptionUtils.encryptBasedMd5(password)))
-		{
+		if (!user.getPassword().equals(
+				EncryptionUtils.encryptBasedMd5(password))) {
 
-			LogUtils.getInstance().errorSystem(LogUtils.MODULE_PORTAL, "Password incorrect error!");
+			LogUtils.getInstance().errorSystem(LogUtils.MODULE_PORTAL,
+					"Password incorrect error!");
 
 			// 将密码出错次数加1
 			user.setPwdErrorTimes(++passwordErrorTimes);
 			user.setLastPwdErrorTime(new Date());
 			userDao.update(user);
-			throw new PwdNotCorrectException(PortalErrorCode.USER_PASSWORD_NOT_CORRECT_ERROR, "Password incorrect error!");
+			throw new PwdNotCorrectException(
+					PortalErrorCode.USER_PASSWORD_NOT_CORRECT_ERROR,
+					"Password incorrect error!");
 		}
 	}
-
-
 
 	/**
 	 * 注册或者更新时，是否有重复的值
@@ -180,59 +188,111 @@ public class UserServiceImpl extends GenericService<User, String> implements
 	 * @param user
 	 * @throws PortalException
 	 */
-	private void checkValid(User user) throws PortalException
-	{
+	private void checkValid(User user) throws PortalException {
 
 		/**
 		 * 1. 为空校验
 		 */
 		// 登录名为空校验
-		if (GeneralUtils.isNull(user.getUserName()))
-		{
-			LogUtils.getInstance().errorSystem(LogUtils.MODULE_PORTAL, "Check user info error,login name is empty!", user.getUserName());
-			throw new PortalException(PortalErrorCode.USER_LOGIN_NAME_EMPTY_ERROR, "Check user info error,login name is empty!");
+		if (GeneralUtils.isNull(user.getUserName())) {
+			LogUtils.getInstance().errorSystem(LogUtils.MODULE_PORTAL,
+					"Check user info error,login name is empty!",
+					user.getUserName());
+			throw new PortalException(
+					PortalErrorCode.USER_LOGIN_NAME_EMPTY_ERROR,
+					"Check user info error,login name is empty!");
 		}
 
 		// 密码为空校验
-		if (GeneralUtils.isNull(user.getPassword()))
-		{
-			LogUtils.getInstance().errorSystem(LogUtils.MODULE_PORTAL, "Check user info error,password is empty!", user.getUserName());
-			throw new PortalException(PortalErrorCode.USER_PASSWORD_EMPTY_ERROR, "Check user info error,password is empty!");
+		if (GeneralUtils.isNull(user.getPassword())) {
+			LogUtils.getInstance().errorSystem(LogUtils.MODULE_PORTAL,
+					"Check user info error,password is empty!",
+					user.getUserName());
+			throw new PortalException(
+					PortalErrorCode.USER_PASSWORD_EMPTY_ERROR,
+					"Check user info error,password is empty!");
 		}
 
 		// 邮箱为空校验
-		if (GeneralUtils.isNull(user.getEmail()))
-		{
-			LogUtils.getInstance().errorSystem(LogUtils.MODULE_PORTAL, "Check user info error,email is empty!", user.getEmail());
-			throw new PortalException(PortalErrorCode.USER_EMAIL_EMPTY_ERROR, "Check user info error,email is empty!");
+		if (GeneralUtils.isNull(user.getEmail())) {
+			LogUtils.getInstance().errorSystem(LogUtils.MODULE_PORTAL,
+					"Check user info error,email is empty!", user.getEmail());
+			throw new PortalException(PortalErrorCode.USER_EMAIL_EMPTY_ERROR,
+					"Check user info error,email is empty!");
 		}
 
 		/**
 		 * 2. 重复校验
 		 */
 		// 判断登录名是否重复
-		if (userDao.isNoDeleteExist("userName", user.getUserName(), user.getId()))
-		{
+		if (userDao.isNoDeleteExist("userName", user.getUserName(),
+				user.getId())) {
 
-			LogUtils.getInstance().errorSystem(LogUtils.MODULE_PORTAL, "Check user info error,login name exists!", user.getUserName());
-			throw new PortalException(PortalErrorCode.USER_LOGIN_NAME_EXIST_ERROR, "Check user info error,login name exists!");
+			LogUtils.getInstance().errorSystem(LogUtils.MODULE_PORTAL,
+					"Check user info error,login name exists!",
+					user.getUserName());
+			throw new PortalException(
+					PortalErrorCode.USER_LOGIN_NAME_EXIST_ERROR,
+					"Check user info error,login name exists!");
 		}
 
 		// 判断邮箱是否重复
-		if (userDao.isNoDeleteExist("email", user.getEmail(), user.getId()))
-		{
+		if (userDao.isNoDeleteExist("email", user.getEmail(), user.getId())) {
 
-			LogUtils.getInstance().errorSystem(LogUtils.MODULE_PORTAL, "Check user info error,email exists!", user.getUserName());
-			throw new PortalException(PortalErrorCode.USER_EMAIL_EXIST_ERROR, "Check user info error,email exists!");
+			LogUtils.getInstance().errorSystem(LogUtils.MODULE_PORTAL,
+					"Check user info error,email exists!", user.getUserName());
+			throw new PortalException(PortalErrorCode.USER_EMAIL_EXIST_ERROR,
+					"Check user info error,email exists!");
 		}
 
-/*		// 判断手机号码是否重复
-		if (userDao.isNoDeleteExist("cellPhone", user.getCellPhone(), user.getId()))
-		{
+		/*
+		 * // 判断手机号码是否重复 if (userDao.isNoDeleteExist("cellPhone",
+		 * user.getCellPhone(), user.getId())) {
+		 * 
+		 * LogUtils.getInstance().errorSystem(LogUtils.MODULE_PORTAL,
+		 * "Check user info error,phone exists!", user.getUserName()); throw new
+		 * PortalException(PortalErrorCode.USER_MOBILE_PHONE_EXIST_ERROR,
+		 * "Check user info error,phone exists!"); }
+		 */
+	}
 
-			LogUtils.getInstance().errorSystem(LogUtils.MODULE_PORTAL, "Check user info error,phone exists!", user.getUserName());
-			throw new PortalException(PortalErrorCode.USER_MOBILE_PHONE_EXIST_ERROR, "Check user info error,phone exists!");
-		}*/
+	/**
+	 * 第三方登录自动注册
+	 * 
+	 * @param user
+	 */
+	@Override
+	@Transactional(rollbackFor = CoreException.class)
+	public String registerFromAuth(User user) {
+		LogUtils.getInstance().debugSystem(LogUtils.MODULE_PORTAL,
+				"Execute registering user ", user);
+
+		try {
+			LogUtils.getInstance().debugSystem(LogUtils.MODULE_PORTAL,
+					"Begin to insert user data to DB", user);
+			CopyUtils.copyProperty(user, user);
+			Date now = new Date();
+			user.setStatus(UserStatus.INTITAL.getCode());
+			user.setCreatedTime(now);
+			user.setIsEmailVerified(false);
+			user.setIsPhoneVerified(false);
+		} catch (Exception e) {
+			LogUtils.getInstance().errorServiceSystem(LogUtils.MODULE_PORTAL,
+					"Convert from user to user error", e, user.toString());
+		}
+
+		/*String password = user.getPassword();
+		if (CommonUtils.isEmpty(password)) {
+			password = IPortalConstants.defaultPSW;
+		}
+		user.setPassword(EncryptionUtils.encryptBasedMd5(password));*/
+
+		// 保存商户信息
+		String id = userDao.save(user);
+
+		LogUtils.getInstance().debugSystem(LogUtils.MODULE_PORTAL,
+				"Insert user data successful!", user);
+		return id;
 	}
 
 	/**
@@ -242,38 +302,39 @@ public class UserServiceImpl extends GenericService<User, String> implements
 	 */
 	@Override
 	@Transactional(rollbackFor = CoreException.class)
-	public String register(User user) throws CoreException
-	{
-		LogUtils.getInstance().debugSystem(LogUtils.MODULE_PORTAL, "Execute registering user ", user);
+	public String register(User user) throws CoreException {
+		LogUtils.getInstance().debugSystem(LogUtils.MODULE_PORTAL,
+				"Execute registering user ", user);
 
 		// 校验输入有效性
 		this.checkValid(user);
 
-		try
-		{
-			LogUtils.getInstance().debugSystem(LogUtils.MODULE_PORTAL, "Begin to insert user data to DB", user);
+		try {
+			LogUtils.getInstance().debugSystem(LogUtils.MODULE_PORTAL,
+					"Begin to insert user data to DB", user);
 			CopyUtils.copyProperty(user, user);
 			Date now = new Date();
 			user.setStatus(UserStatus.INTITAL.getCode());
 			user.setCreatedTime(now);
 			user.setIsEmailVerified(false);
 			user.setIsPhoneVerified(false);
-		} catch (Exception e)
-		{
-			LogUtils.getInstance().errorServiceSystem(LogUtils.MODULE_PORTAL, "Convert from user to user error", e, user.toString());
-			throw new PortalException(PortalErrorCode.USER_LOGIN_NAME_EXIST_ERROR, "Convert from user to user error", e);
+		} catch (Exception e) {
+			LogUtils.getInstance().errorServiceSystem(LogUtils.MODULE_PORTAL,
+					"Convert from user to user error", e, user.toString());
+			throw new PortalException(
+					PortalErrorCode.USER_LOGIN_NAME_EXIST_ERROR,
+					"Convert from user to user error", e);
 		}
 
 		user.setPassword(EncryptionUtils.encryptBasedMd5(user.getPassword()));
 
 		// 保存商户信息
-		String id=userDao.save(user);
+		String id = userDao.save(user);
 
-		LogUtils.getInstance().debugSystem(LogUtils.MODULE_PORTAL, "Insert user data successful!", user);
+		LogUtils.getInstance().debugSystem(LogUtils.MODULE_PORTAL,
+				"Insert user data successful!", user);
 		return id;
 	}
-
-	
 
 	/**
 	 * 更新信密码
@@ -283,17 +344,20 @@ public class UserServiceImpl extends GenericService<User, String> implements
 	 */
 	@Override
 	@Transactional(rollbackFor = CoreException.class)
-	public String updatePassword(String userName, String oldPassword, String newPassword) throws PortalException
-	{
-		LogUtils.getInstance().debugSystem(LogUtils.MODULE_PORTAL, "Execute updating user password record to DB");
+	public String updatePassword(String userName, String oldPassword,
+			String newPassword) throws PortalException {
+		LogUtils.getInstance().debugSystem(LogUtils.MODULE_PORTAL,
+				"Execute updating user password record to DB");
 
 		// 校验旧密码是否为空正确
 		oldPassword = EncryptionUtils.encryptBasedMd5(oldPassword);
 		User user = userDao.findUniqueBy("userName", userName);
-		if (!user.getPassword().equals(oldPassword))
-		{
-			LogUtils.getInstance().errorSystem(LogUtils.MODULE_PORTAL, "Updating user password error,old password not correct!", userName);
-			throw new PortalException(PortalErrorCode.USER_OLD_PASSWORD_NOT_CORRECT_ERROR,
+		if (!user.getPassword().equals(oldPassword)) {
+			LogUtils.getInstance().errorSystem(LogUtils.MODULE_PORTAL,
+					"Updating user password error,old password not correct!",
+					userName);
+			throw new PortalException(
+					PortalErrorCode.USER_OLD_PASSWORD_NOT_CORRECT_ERROR,
 					"Updating user password error,old 	password not correct!");
 		}
 
@@ -304,12 +368,11 @@ public class UserServiceImpl extends GenericService<User, String> implements
 		return newPassword;
 	}
 
-
 	@Override
 	@Transactional(rollbackFor = CoreException.class)
-	public void updateSelf(User user) throws CoreException
-	{
-		LogUtils.getInstance().debugSystem(LogUtils.MODULE_PORTAL, "Execute updating user himself record to DB", user);
+	public void updateSelf(User user) throws CoreException {
+		LogUtils.getInstance().debugSystem(LogUtils.MODULE_PORTAL,
+				"Execute updating user himself record to DB", user);
 
 		// 校验输入有效性
 		this.checkValid(user);
@@ -319,9 +382,9 @@ public class UserServiceImpl extends GenericService<User, String> implements
 		persist.setEmail(user.getEmail());
 		userDao.update(persist);
 
-		LogUtils.getInstance().debugSystem(LogUtils.MODULE_PORTAL, "Update user himself successful!", user);
+		LogUtils.getInstance().debugSystem(LogUtils.MODULE_PORTAL,
+				"Update user himself successful!", user);
 	}
-
 
 	/**
 	 * 查询详细信息
@@ -331,28 +394,32 @@ public class UserServiceImpl extends GenericService<User, String> implements
 	 */
 	@Override
 	@Transactional(readOnly = true)
-	public User find(String userName) throws CoreException
-	{
-		LogUtils.getInstance().debugSystem(LogUtils.MODULE_PORTAL, "Execute finding merchant record from DB", "loginName", userName);
+	public User find(String userName) throws CoreException {
+		LogUtils.getInstance().debugSystem(LogUtils.MODULE_PORTAL,
+				"Execute finding merchant record from DB", "loginName",
+				userName);
 
-		User user ;
-		if(userName.contains("@")){
+		User user;
+		if (userName.contains("@")) {
 			user = userDao.findUniqueBy("email", userName);
-		}else{
+		} else {
 			user = userDao.findUniqueBy("userName", userName);
 		}
 
 		// 校验登录名是否存在
-		if (GeneralUtils.isNull(user))
-		{
-			LogUtils.getInstance().errorSystem(LogUtils.MODULE_PORTAL, "Login name not found error!", "Login name", userName);
-			throw new PortalException(PortalErrorCode.USER_LOGIN_NAME_NOT_EXIST_ERROR, "Login name not found error!");
+		if (GeneralUtils.isNull(user)) {
+			LogUtils.getInstance().errorSystem(LogUtils.MODULE_PORTAL,
+					"Login name not found error!", "Login name", userName);
+			throw new PortalException(
+					PortalErrorCode.USER_LOGIN_NAME_NOT_EXIST_ERROR,
+					"Login name not found error!");
 		}
-		LogUtils.getInstance().debugSystem(LogUtils.MODULE_PORTAL, "Find merchant record from dao", user);
+		LogUtils.getInstance().debugSystem(LogUtils.MODULE_PORTAL,
+				"Find merchant record from dao", user);
 
-		LogUtils.getInstance().debugSystem(LogUtils.MODULE_PORTAL, "Return user", user);
+		LogUtils.getInstance().debugSystem(LogUtils.MODULE_PORTAL,
+				"Return user", user);
 		return user;
 	}
-
 
 }
