@@ -27,5 +27,10 @@ public class UserVerifiedServiceImpl extends GenericService<UserVerified, String
 	public UserVerified findOne(String userName, String code) {
 		return verifiedDao.findUnique("from UserVerified where user.userName=? and code =? and verifiedTime is NULL", new Object[]{userName,code});
 	}
+	
+	@Override
+	public UserVerified findOneByIdAndCode(String userId, String code) {
+		return verifiedDao.findUnique("from UserVerified where user.id=? and code =? and verifiedTime is NULL", new Object[]{userId,code});
+	}
 
 }

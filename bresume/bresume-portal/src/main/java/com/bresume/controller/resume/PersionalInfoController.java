@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bresume.core.common.base.controller.BaseController;
 import com.bresume.core.common.utils.CommonUtils;
+import com.bresume.core.model.dto.LoginUser;
 import com.bresume.core.model.entity.resume.Resume;
 import com.bresume.core.model.entity.resume.item.PersionalInfo;
-import com.bresume.core.model.entity.user.User;
 import com.bresume.core.service.resume.IPersionalInfoService;
 import com.bresume.core.service.resume.IResumeService;
 
@@ -64,10 +64,10 @@ public class PersionalInfoController extends BaseController {
 					.getResume().getId() : null;
 			Resume resume = resumeService.findOne(resumeId);
 			if (resume != null) {
-				User loginUser=getCurrentLoginUser();
+				LoginUser loginUser=getCurrentLoginUser();
 				persionalInfo.setResume(resume);
 				persionalInfo.setCreatedTime(new Date());
-				persionalInfo.setCreatedBy(loginUser.getUserName());
+				persionalInfo.setCreatedBy(loginUser.getId());
 				persionalInfoService.save(persionalInfo);
 			} else {
 				return this.toJSONResult(false, "保存失败");

@@ -1,6 +1,7 @@
 package com.bresume.controller.login;
 
 import java.io.IOException;
+import java.util.Date;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -96,20 +97,43 @@ public class QQController extends AuthController {
 			BAuth bauth = authService.findOne(openID, AuthType.QQ.getCode());
 			if (bauth != null && bauth.getUser() != null) {
 				// 判定有登录记录
-				loginUser.setAccessToken(accessToken);
-				loginUser
-						.setIcon(icon == null ? IPortalConstants.defaultIconUrl
-								: icon);
-				loginUser.setId(bauth.getUser().getId());
-				loginUser.setLoginType(AuthType.QQ.getCode());
-				loginUser.setNickName(nickName == null ? bauth.getUser()
-						.getNickName() : nickName);
-				loginUser.setOpenId(openID);
+				//刷新accessToken
+				bauth.setAccessToken(accessToken);
+				bauth.setExpiresIn(tokenExpireIn);
+				bauth.setIcon(icon);
+				bauth.setNickName(nickName);
+				bauth.setRefreshAccessTime(new Date());
+				authService.update(bauth);
+				this.setUser2Session(bauth);
 				return "redirect:/index";
-			} else {
-				// 判定首次登录，用户绑定,跳转页面
-				return "redirect:/index";
-
+			} else if(bauth==null) {
+				// 判定首次登录，记录
+				bauth = new BAuth();
+				bauth.setAccessToken(accessToken);
+				bauth.setCreatedTime(new Date());
+				bauth.setExpiresIn(tokenExpireIn);
+				bauth.setIcon(icon);
+				bauth.setNickName(nickName);
+				bauth.setOpenId(openID);
+				bauth.setRefreshAccessTime(new Date());
+				bauth.setType(AuthType.QQ.getCode());
+				authService.save(bauth);
+				//用户绑定,跳转页面
+				model.addAttribute("openId", openID);
+				model.addAttribute("loginFrom", AuthType.QQ.getCode());
+				return "site/bindAuth.jsp";
+			}else{
+				// 登录过但因某种原因为绑定账户
+				bauth.setAccessToken(accessToken);
+				bauth.setExpiresIn(tokenExpireIn);
+				bauth.setIcon(icon);
+				bauth.setNickName(nickName);
+				bauth.setRefreshAccessTime(new Date());
+				authService.update(bauth);
+				//用户绑定,跳转页面
+				model.addAttribute("openId", openID);
+				model.addAttribute("loginFrom", AuthType.QQ.getCode());
+				return "site/bindAuth.jsp";
 			}
 
 		} catch (QQConnectException e) {

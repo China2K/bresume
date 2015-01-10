@@ -31,6 +31,7 @@ import com.bresume.core.common.constant.enums.CommonStatus;
 import com.bresume.core.common.constant.enums.ResumeItemType;
 import com.bresume.core.common.utils.CommonUtils;
 import com.bresume.core.common.utils.search.SearchBean;
+import com.bresume.core.model.dto.LoginUser;
 import com.bresume.core.model.entity.resume.Resume;
 import com.bresume.core.model.entity.resume.ResumeItem;
 import com.bresume.core.model.entity.resume.ResumeItemRef;
@@ -59,8 +60,7 @@ public class ResumeController extends BaseController {
 	
 	@RequestMapping("/mine")
 	public String mine(HttpServletRequest request, Model model) {
-		User loginUser=getCurrentLoginUser();
-		
+		LoginUser loginUser=getCurrentLoginUser();
 		SearchBean sb1=new SearchBean("user.id", loginUser.getId(), "=");
 		SearchBean sb2=new SearchBean("status", CommonStatus.DELETED.getCode()+"", "!=");
 		List<Resume> resumes = resumeService.findAll(new Sort(Direction.ASC, "order"), sb1,sb2);
@@ -175,7 +175,7 @@ public class ResumeController extends BaseController {
 	public @ResponseBody
 	JSONObject save(HttpServletRequest request,
 			@ModelAttribute Resume resume) {
-		User loginUser=getCurrentLoginUser();
+		LoginUser loginUser=getCurrentLoginUser();
 		if(resume!=null&&CommonUtils.isNotEmpty(resume.getId())){
 			Resume oldResume=resumeService.findOne(resume.getId());
 			if(oldResume==null){
@@ -191,7 +191,9 @@ public class ResumeController extends BaseController {
 			resume.setOrder(9999);
 			resume.setRecommended(false);
 			resume.setIsPublic(false);
-			resume.setUser(loginUser);
+			User user=new User();
+			user.setId(loginUser.getId());
+			resume.setUser(user);
 			resumeService.save(resume);
 			
 			//创建简历模快
@@ -213,7 +215,7 @@ public class ResumeController extends BaseController {
 	JSONObject removeItem(HttpServletRequest request,
 			@RequestParam(value = "itemSn", required = true) String sn,
 			@RequestParam(value="resumeId",required=true) String resumeId) {
-		User loginUser=getCurrentLoginUser();
+		LoginUser loginUser=getCurrentLoginUser();
 		ResumeItemRef ref = resumeItemRefService.findByResumeAndSn(resumeId, sn);
 		if(ref.getResume().getUser().getId().equalsIgnoreCase(loginUser.getId())){
 			resumeItemRefService.delete(ref);

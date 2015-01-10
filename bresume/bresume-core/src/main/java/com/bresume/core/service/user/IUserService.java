@@ -45,7 +45,7 @@ public interface IUserService extends IGenericService<User, String> {
 	 * @param loginName
 	 * @return
 	 */
-	void loginCheck(String loginName, String password) throws PortalException,
+	User loginCheck(String loginName, String password) throws PortalException,
 			PwdNotCorrectException;
 
 	/**

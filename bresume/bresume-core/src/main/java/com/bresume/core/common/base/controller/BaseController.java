@@ -23,6 +23,7 @@ import com.bresume.core.common.utils.CommonUtils;
 import com.bresume.core.common.utils.GeneralUtils;
 import com.bresume.core.common.utils.json.JsonHelper;
 import com.bresume.core.common.utils.search.SearchBean;
+import com.bresume.core.model.dto.LoginUser;
 import com.bresume.core.model.entity.user.User;
 
 /**
@@ -147,11 +148,12 @@ public class BaseController extends SimpleFormController {
 		return list.toArray(new SearchBean[] {});
 	}
 
-	protected User getCurrentLoginUser() {
+	protected LoginUser getCurrentLoginUser() {
 		Object obj = SessionContextHolder.getSession().getAttribute(
 				IPortalConstants.SESSION_KEY_LOGIN_USER);
 		if (obj == null)
 			return null;
-		return User.class.cast(obj);
+		return LoginUser.class.cast(obj);
 	}
+	
 }

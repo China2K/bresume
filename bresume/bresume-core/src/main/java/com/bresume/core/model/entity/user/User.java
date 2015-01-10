@@ -40,6 +40,7 @@ public class User extends BaseEntity {
 	private Date lastPwdErrorTime;
 	
 	private String nickName;
+	private String icon;
 
 	@Column(name = "USERNAME")
 	public String getUserName() {
@@ -198,6 +199,15 @@ public class User extends BaseEntity {
 	 */
 	public void setNickName(String nickName) {
 		this.nickName = nickName;
+	}
+
+	@Column(name = "ICON")
+	public String getIcon() {
+		return icon;
+	}
+
+	public void setIcon(String icon) {
+		this.icon = icon;
 	}
 	
 	

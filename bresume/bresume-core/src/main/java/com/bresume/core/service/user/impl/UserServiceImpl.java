@@ -100,7 +100,7 @@ public class UserServiceImpl extends GenericService<User, String> implements
 	 */
 	@Override
 	@Transactional(noRollbackFor = { PwdNotCorrectException.class }, rollbackFor = CoreException.class)
-	public void loginCheck(String userName, String password)
+	public User loginCheck(String userName, String password)
 			throws PortalException, PwdNotCorrectException {
 		LogUtils.getInstance().debugSystem(LogUtils.MODULE_PORTAL,
 				"Execute Logining", "userName", userName);
@@ -154,6 +154,7 @@ public class UserServiceImpl extends GenericService<User, String> implements
 
 		user.setPwdErrorTimes(0);
 		userDao.update(user);
+		return user;
 	}
 
 	/**
@@ -193,7 +194,7 @@ public class UserServiceImpl extends GenericService<User, String> implements
 		/**
 		 * 1. 为空校验
 		 */
-		// 登录名为空校验
+	/*	// 登录名为空校验
 		if (GeneralUtils.isNull(user.getUserName())) {
 			LogUtils.getInstance().errorSystem(LogUtils.MODULE_PORTAL,
 					"Check user info error,login name is empty!",
@@ -202,7 +203,7 @@ public class UserServiceImpl extends GenericService<User, String> implements
 					PortalErrorCode.USER_LOGIN_NAME_EMPTY_ERROR,
 					"Check user info error,login name is empty!");
 		}
-
+*/
 		// 密码为空校验
 		if (GeneralUtils.isNull(user.getPassword())) {
 			LogUtils.getInstance().errorSystem(LogUtils.MODULE_PORTAL,
@@ -224,7 +225,7 @@ public class UserServiceImpl extends GenericService<User, String> implements
 		/**
 		 * 2. 重复校验
 		 */
-		// 判断登录名是否重复
+	/*	// 判断登录名是否重复
 		if (userDao.isNoDeleteExist("userName", user.getUserName(),
 				user.getId())) {
 
@@ -234,7 +235,7 @@ public class UserServiceImpl extends GenericService<User, String> implements
 			throw new PortalException(
 					PortalErrorCode.USER_LOGIN_NAME_EXIST_ERROR,
 					"Check user info error,login name exists!");
-		}
+		}*/
 
 		// 判断邮箱是否重复
 		if (userDao.isNoDeleteExist("email", user.getEmail(), user.getId())) {

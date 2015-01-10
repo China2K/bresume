@@ -20,7 +20,7 @@ public class BAuth extends BaseEntity {
 	private User user;
 	private String openId;
 	private String accessToken;
-	private int expiresIn;
+	private Long expiresIn;
 	private Integer type;
 	private Date refreshAccessTime;
 	// icon、nickName如需实时性可能需要更新
@@ -57,11 +57,11 @@ public class BAuth extends BaseEntity {
 	}
 
 	@Column(name = "EXPIRES_IN")
-	public int getExpiresIn() {
+	public Long getExpiresIn() {
 		return expiresIn;
 	}
 
-	public void setExpiresIn(int expiresIn) {
+	public void setExpiresIn(Long expiresIn) {
 		this.expiresIn = expiresIn;
 	}
 

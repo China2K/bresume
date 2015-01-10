@@ -6,5 +6,7 @@ import com.bresume.core.model.entity.user.UserVerified;
 public interface IUserVerifiedService extends IGenericService<UserVerified,String> {
 	
 	UserVerified findOne(String userName,String code);
+
+	UserVerified findOneByIdAndCode(String userId, String code);
 	
 }
