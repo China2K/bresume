@@ -134,7 +134,7 @@
 							<span class="glyphicon glyphicon-time"
 								style="margin-right: 50px;">${resume.createdTime}</span>
 						</div>
-						<div class="row text-center">
+						<%-- <div class="row text-center">
 							<div class="col-md-4 text-left">
 								<span>将我的简历分享到 </span>
 							</div>
@@ -147,7 +147,7 @@
 									<li><a href="#"><i class="fa fa-weibo"></i></a></li>
 								</ul>
 							</div>
-						</div>
+						</div> --%>
 					</div>
 
 					<div class="col-md-3 actions"

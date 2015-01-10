@@ -51,9 +51,9 @@
 				<ul class="nav navbar-nav navbar-right" id="user_links">
 					<c:choose>
 						<c:when
-							test="${sessionScope.loginUser!=null && sessionScope.loginUser.userName!=null}">
+							test="${sessionScope.loginUser!=null && sessionScope.loginUser.icon!=null}">
 							<li class="dropdown"><a href="#" class="dropdown-toggle"
-								data-toggle="dropdown">${sessionScope.loginUser.userName}</a>
+								data-toggle="dropdown">${sessionScope.loginUser.nickName}</a>
 								<ul class="dropdown-menu" role="menu"
 									style="background: none repeat scroll 0% 0% #3D3F40;">
 									<li><a href="<c:url value='resume/mine'/>">管理我的简历</a></li>
@@ -314,7 +314,7 @@
 	<!-- Custom Theme JavaScript -->
 	<script src="resource/site/js/agency.js"></script>
 	<script src="resource/app/js/common.js"></script>
-	<script src="resource/site/js/jquery.form.js"></script>
+	<script src="<c:url value ='/resource/site/js/jquery.form.js'/>"></script>
 		<!-- jQuery-Validation-Engine -->
 	<link rel="stylesheet"
 		href="<c:url value ='/resource/plugin/jQuery-Validation-Engine/css/validationEngine.jquery.css'/>">
