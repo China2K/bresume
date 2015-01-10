@@ -42,8 +42,8 @@
 			style="margin-top: 100px;">
 			<form accept-charset="UTF-8" onsubmit="return false;"
 				class="simple_form" data-remote="true" id="bind_form" method="post">
-				<input type="hidden" name="openId" value="${openId }" /> <input
-					type="hidden" name="loginFrom" value="${loginFrom }" />
+				<input type="hidden" name="openId" value="${openId}" /> <input
+					type="hidden" name="loginFrom" value="${loginFrom}" />
 				<div class="modal-header">
 					<p>正将您的bresume账号同${login_from}账号绑定。请您将下列表单填写完毕。</p>
 				</div>
@@ -148,9 +148,11 @@
 			}
 			bind_fn("<c:url value='/regist-bind'/>");
 		});
-		$("#ingore_btn").click(function() {
-			bind_fn("<c:url value='/ingore-bind'/>");
-		});
+		$("#ingore_btn").click(
+				function() {
+					location.href = "<c:url value='/ingore-bind'/>"
+							+ "?loginFrom=${loginFrom}&openId=${openId}";
+				});
 	</script>
 
 
