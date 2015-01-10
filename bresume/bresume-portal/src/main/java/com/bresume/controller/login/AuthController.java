@@ -1,11 +1,13 @@
 package com.bresume.controller.login;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.ui.Model;
 
 import com.bresume.core.common.base.controller.BaseController;
 import com.bresume.core.common.base.sys.SessionContextHolder;
@@ -17,11 +19,15 @@ import com.bresume.core.common.utils.mail.MailUtils;
 import com.bresume.core.model.dto.LoginUser;
 import com.bresume.core.model.entity.user.BAuth;
 import com.bresume.core.model.entity.user.User;
+import com.bresume.core.service.user.IBAuthService;
 
 
 public abstract class AuthController extends BaseController {
 	@Resource
 	private JavaMailSender mailSender;
+	
+	@Resource
+	private IBAuthService authService;
 
 	protected LoginUser getU(BAuth auth){
 		LoginUser loginUser= new LoginUser();
@@ -78,6 +84,51 @@ public abstract class AuthController extends BaseController {
 				loader.getProperty("mail.register.success.content")));
 		map.put("email", email);
 		MailUtils.sendMailByAsynchronousMode(map, mailSender);
+
+	}
+	
+	protected String callBack(Model model,BAuth newAuth){
+		BAuth oldAuth = authService.findOne(newAuth.getOpenId(),newAuth.getType());
+		if (oldAuth != null && oldAuth.getUser() != null) {
+			// 判定有登录记录
+			//刷新accessToken
+			oldAuth.setAccessToken(newAuth.getAccessToken());
+			oldAuth.setExpiresIn(newAuth.getExpiresIn());
+			oldAuth.setIcon(newAuth.getIcon());
+			oldAuth.setNickName(newAuth.getNickName());
+			oldAuth.setRefreshAccessTime(new Date());
+			authService.update(oldAuth);
+			this.setUser2Session(oldAuth);
+			return "redirect:/index";
+		} else if(oldAuth==null) {
+			// 判定首次登录，记录
+			oldAuth = new BAuth();
+			oldAuth.setAccessToken(newAuth.getAccessToken());
+			oldAuth.setExpiresIn(newAuth.getExpiresIn());
+			oldAuth.setCreatedTime(new Date());
+			oldAuth.setIcon(newAuth.getIcon());
+			oldAuth.setNickName(newAuth.getNickName());
+			oldAuth.setOpenId(newAuth.getOpenId());
+			oldAuth.setRefreshAccessTime(new Date());
+			oldAuth.setType(newAuth.getType());
+			authService.save(oldAuth);
+			//用户绑定,跳转页面
+			model.addAttribute("openId", newAuth.getOpenId());
+			model.addAttribute("loginFrom", newAuth.getType());
+			return "site/bindAuth.jsp";
+		}else{
+			// 登录过但因某种原因为绑定账户
+			oldAuth.setAccessToken(newAuth.getAccessToken());
+			oldAuth.setExpiresIn(newAuth.getExpiresIn());
+			oldAuth.setIcon(newAuth.getIcon());
+			oldAuth.setNickName(newAuth.getNickName());
+			oldAuth.setRefreshAccessTime(new Date());
+			authService.update(oldAuth);
+			//用户绑定,跳转页面
+			model.addAttribute("openId", newAuth.getOpenId());
+			model.addAttribute("loginFrom", newAuth.getType());
+			return "site/bindAuth.jsp";
+		}
 
 	}
 	

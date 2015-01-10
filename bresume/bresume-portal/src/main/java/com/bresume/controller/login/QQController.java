@@ -1,7 +1,6 @@
 package com.bresume.controller.login;
 
 import java.io.IOException;
-import java.util.Date;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -12,9 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.bresume.core.common.constant.IPortalConstants;
 import com.bresume.core.common.constant.enums.AuthType;
-import com.bresume.core.model.dto.LoginUser;
 import com.bresume.core.model.entity.user.BAuth;
 import com.bresume.core.service.user.IBAuthService;
 import com.bresume.core.service.user.IUserService;
@@ -52,7 +49,6 @@ public class QQController extends AuthController {
 	@RequestMapping("/qq_callback")
 	public String callback(HttpServletRequest request,
 			HttpServletResponse response, Model model) {
-		LoginUser loginUser = new LoginUser();
 		try {
 			AccessToken accessTokenObj = (new Oauth())
 					.getAccessTokenByRequest(request);
@@ -92,9 +88,17 @@ public class QQController extends AuthController {
 				LOGGER.error("很抱歉，我们没能正确获取到您的信息，原因是：" + userInfoBean.getMsg());
 			}
 
+			BAuth newAuth = new BAuth();
+			newAuth.setAccessToken(accessToken);
+			newAuth.setExpiresIn(tokenExpireIn);
+			newAuth.setIcon(icon);
+			newAuth.setNickName(nickName);
+			newAuth.setOpenId(openID);
+			newAuth.setType(AuthType.QQ.getCode());
+			return this.callBack(model, newAuth);
+			
 			// 通过openid判断首次登录与否
-
-			BAuth bauth = authService.findOne(openID, AuthType.QQ.getCode());
+		/*	BAuth bauth = authService.findOne(openID, AuthType.QQ.getCode());
 			if (bauth != null && bauth.getUser() != null) {
 				// 判定有登录记录
 				//刷新accessToken
@@ -134,7 +138,7 @@ public class QQController extends AuthController {
 				model.addAttribute("openId", openID);
 				model.addAttribute("loginFrom", AuthType.QQ.getCode());
 				return "site/bindAuth.jsp";
-			}
+			}*/
 
 		} catch (QQConnectException e) {
 			e.printStackTrace();

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.bresume.core.common.constant.enums.AuthType;
 import com.bresume.core.common.constant.enums.RegisterType;
 import com.bresume.core.common.constant.enums.UserType;
 import com.bresume.core.common.exception.CoreException;
@@ -44,8 +45,6 @@ public class BindController extends AuthController {
 	public String ingore_bind(
 			@RequestParam(value = "loginFrom", required = true) Integer loginFrom,
 			@RequestParam(value = "openId", required = true) String openId,
-			@RequestParam(value = "email", required = true) String email,
-			@RequestParam(value = "password", required = true) String password,
 			ModelMap model, HttpServletResponse response) {
 		BAuth auth = authService.findOne(openId, loginFrom);
 		if (auth == null) {
@@ -58,8 +57,9 @@ public class BindController extends AuthController {
 			 */
 			// user.setEmail(email);
 			user.setNickName(auth.getNickName());
+			user.setIcon(auth.getIcon());
 
-			user.setRegisterType(RegisterType.PORTAL_REGISTER.getType());
+			user.setRegisterType(AuthType.fromCode(loginFrom).getRt().getType());
 			user.setType(UserType.PERSIONAL.getCode());
 			user.setLevel(0);
 			userService.registerFromAuth(user);
@@ -126,6 +126,8 @@ public class BindController extends AuthController {
 				user.setRegisterType(RegisterType.PORTAL_REGISTER.getType());
 				user.setType(UserType.PERSIONAL.getCode());
 				user.setLevel(0);
+				user.setNickName(auth.getNickName());
+				user.setIcon(auth.getIcon());
 				userService.register(user);
 				//生成邮箱验证码
 				UserVerified uv = new UserVerified(user);
