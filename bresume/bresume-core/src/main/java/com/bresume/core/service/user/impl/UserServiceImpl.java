@@ -368,6 +368,32 @@ public class UserServiceImpl extends GenericService<User, String> implements
 		userDao.update(user);
 		return newPassword;
 	}
+	
+	@Override
+	@Transactional(rollbackFor = CoreException.class)
+	public String updatePasswordById(String userId, String oldPassword,
+			String newPassword) throws PortalException {
+		LogUtils.getInstance().debugSystem(LogUtils.MODULE_PORTAL,
+				"Execute updating user password record to DB");
+
+		// 校验旧密码是否为空正确
+		oldPassword = EncryptionUtils.encryptBasedMd5(oldPassword);
+		User user = userDao.findById(userId);
+		if (!user.getPassword().equals(oldPassword)) {
+			LogUtils.getInstance().errorSystem(LogUtils.MODULE_PORTAL,
+					"Updating user password error,old password not correct!",
+					userId);
+			throw new PortalException(
+					PortalErrorCode.USER_OLD_PASSWORD_NOT_CORRECT_ERROR,
+					"Updating user password error,old 	password not correct!");
+		}
+
+		// 更新新密码
+		newPassword = EncryptionUtils.encryptBasedMd5(newPassword);
+		user.setPassword(newPassword);
+		userDao.update(user);
+		return newPassword;
+	}
 
 	@Override
 	@Transactional(rollbackFor = CoreException.class)
@@ -421,6 +447,12 @@ public class UserServiceImpl extends GenericService<User, String> implements
 		LogUtils.getInstance().debugSystem(LogUtils.MODULE_PORTAL,
 				"Return user", user);
 		return user;
+	}
+
+	@Override
+	public boolean isEmailUsed(String email, String userId) {
+		// 判断邮箱是否重复
+		return userDao.isNoDeleteExist("email", email, userId);
 	}
 
 }

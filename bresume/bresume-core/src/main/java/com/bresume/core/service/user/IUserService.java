@@ -38,6 +38,15 @@ public interface IUserService extends IGenericService<User, String> {
 	 */
 	String updatePassword(String loginName, String oldPassword,
 			String newPassword) throws PortalException;
+	
+	/**
+	 * 更新信密码
+	 * 
+	 * @param merchant
+	 * @throws PortalException
+	 */
+	String updatePasswordById(String userId, String oldPassword,
+			String newPassword) throws PortalException;
 
 	/**
 	 * 登陆
@@ -69,4 +78,6 @@ public interface IUserService extends IGenericService<User, String> {
 	 * @param User
 	 */
 	String registerFromAuth(User user);
+	
+	boolean isEmailUsed(String email,String userId);
 }

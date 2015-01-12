@@ -1,9 +1,13 @@
 package com.bresume.core.model.entity.user;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.bresume.core.model.base.BaseEntity;
@@ -41,6 +45,18 @@ public class User extends BaseEntity {
 	
 	private String nickName;
 	private String icon;
+	
+	private List<BAuth> auths;
+	
+	
+	@OneToMany(cascade = CascadeType.ALL,mappedBy="user",fetch=FetchType.LAZY)
+	public List<BAuth> getAuths() {
+		return auths;
+	}
+
+	public void setAuths(List<BAuth> auths) {
+		this.auths = auths;
+	}
 
 	@Column(name = "USERNAME")
 	public String getUserName() {

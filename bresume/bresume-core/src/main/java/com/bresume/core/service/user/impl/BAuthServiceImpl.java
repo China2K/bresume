@@ -29,4 +29,9 @@ public class BAuthServiceImpl extends GenericService<BAuth, String> implements
 				openId, type);
 	}
 
+	@Override
+	public boolean removeBind(String userId, int type) {
+		return authDao.delete(userId, type);
+	}
+
 }

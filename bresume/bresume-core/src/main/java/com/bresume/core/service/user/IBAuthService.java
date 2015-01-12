@@ -11,4 +11,5 @@ import com.bresume.core.model.entity.user.BAuth;
  */
 public interface IBAuthService extends IGenericService<BAuth, String> {
 	BAuth findOne(String openId, int type);
+	boolean removeBind(String userId,int type);
 }

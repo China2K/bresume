@@ -1,6 +1,7 @@
 package com.bresume.controller.user;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -18,14 +19,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.bresume.controller.login.AuthController;
 import com.bresume.core.common.base.sys.SessionContextHolder;
 import com.bresume.core.common.constant.IPortalConstants;
+import com.bresume.core.common.constant.enums.AuthType;
 import com.bresume.core.common.constant.enums.RegisterType;
 import com.bresume.core.common.constant.enums.UserStatus;
 import com.bresume.core.common.constant.enums.UserType;
 import com.bresume.core.common.exception.CoreException;
 import com.bresume.core.common.exception.PortalErrorCode;
+import com.bresume.core.common.exception.impl.PortalException;
 import com.bresume.core.common.utils.CommonUtils;
+import com.bresume.core.model.dto.LoginUser;
+import com.bresume.core.model.entity.user.BAuth;
 import com.bresume.core.model.entity.user.User;
 import com.bresume.core.model.entity.user.UserVerified;
+import com.bresume.core.service.user.IBAuthService;
 import com.bresume.core.service.user.IUserService;
 import com.bresume.core.service.user.IUserVerifiedService;
 
@@ -41,6 +47,9 @@ public class UserController extends AuthController {
 
 	@Resource
 	private JavaMailSender mailSender;
+
+	@Resource
+	private IBAuthService authService;
 
 	@RequestMapping("/register")
 	public @ResponseBody JSONObject register(
@@ -130,6 +139,71 @@ public class UserController extends AuthController {
 		}
 
 		return "redirect:/index";
+	}
+
+	/**
+	 * 修改邮箱接口只针对第三方登录，为注册账户的用户开放
+	 * */
+	@RequestMapping("/email")
+	public @ResponseBody JSONObject email(
+			@RequestParam(value = "email", required = true) String email,
+			ModelMap model, HttpServletResponse response) {
+		LoginUser loginUser = this.getCurrentLoginUser();
+		boolean b = userService.isEmailUsed(email, loginUser.getId());
+		if (b) {
+			return this.toJSONResult(false, "该邮箱已被其他账户绑定");
+		}
+
+		User user = userService.findOne(loginUser.getId());
+		user.setEmail(email);
+		user.setUpdatedBy(user.getId());
+		user.setUpdatedTime(new Date());
+		userService.update(user);
+
+		UserVerified uv = new UserVerified(user);
+		verifiedService.save(uv);
+		// 发送注册成功的邮件
+		if (CommonUtils.isNotEmpty(user.getEmail())) {
+			sendRegisterMail(user, uv.getCode());
+		}
+
+		return this.toJSONResult(true, "保存成功");
+	}
+
+	@RequestMapping("/settings")
+	public String settings(ModelMap model) {
+		LoginUser loginUser = this.getCurrentLoginUser();
+		User user = userService.findOne(loginUser.getId());
+		List<BAuth> auths = user.getAuths();
+
+		model.addAttribute("email", user.getEmail());
+		model.addAttribute("qq", false);
+		model.addAttribute("sina", false);
+		for (BAuth bAuth : auths) {
+			if (bAuth.getType().intValue() == AuthType.QQ.getCode()) {
+				model.addAttribute("qq", true);
+			} else if (bAuth.getType().intValue() == AuthType.SINA.getCode()) {
+				model.addAttribute("sina", true);
+			}
+		}
+		return "site/settings.jsp";
+	}
+	
+	
+	@RequestMapping("/updatePWD")
+	public @ResponseBody JSONObject uptPSW(
+			@RequestParam(value = "password", required = true) String password,
+			@RequestParam(value = "new_password", required = true) String new_password,
+			ModelMap model, HttpServletResponse response) {
+		LoginUser loginUser = this.getCurrentLoginUser();
+		
+		try {
+			userService.updatePasswordById(loginUser.getId(), password, new_password);
+		} catch (PortalException e) {
+			e.printStackTrace();
+			this.toJSONResult(false, this.getMessage(e));
+		}
+		return this.toJSONResult(true, "保存成功");
 	}
 
 	/*

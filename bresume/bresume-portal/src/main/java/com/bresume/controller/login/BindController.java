@@ -8,7 +8,9 @@ import net.sf.json.JSONObject;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -17,7 +19,9 @@ import com.bresume.core.common.constant.enums.RegisterType;
 import com.bresume.core.common.constant.enums.UserType;
 import com.bresume.core.common.exception.CoreException;
 import com.bresume.core.common.exception.PortalErrorCode;
+import com.bresume.core.common.exception.impl.PortalException;
 import com.bresume.core.common.utils.CommonUtils;
+import com.bresume.core.model.dto.LoginUser;
 import com.bresume.core.model.entity.user.BAuth;
 import com.bresume.core.model.entity.user.User;
 import com.bresume.core.model.entity.user.UserVerified;
@@ -81,7 +85,7 @@ public class BindController extends AuthController {
 
 		BAuth auth = authService.findOne(openId, loginFrom);
 		if (auth == null) {
-			return this.toJSONResult(false,"404");
+			return this.toJSONResult(false, "404");
 		}
 
 		if (auth.getUser() == null) {
@@ -117,8 +121,8 @@ public class BindController extends AuthController {
 			return this.toJSONResult(false);
 		}
 		if (auth.getUser() == null) {
-			User user=new User();
-//			user.setUserName(userName);
+			User user = new User();
+			// user.setUserName(userName);
 			user.setPassword(password);
 			user.setEmail(email);
 
@@ -129,12 +133,12 @@ public class BindController extends AuthController {
 				user.setNickName(auth.getNickName());
 				user.setIcon(auth.getIcon());
 				userService.register(user);
-				//生成邮箱验证码
+				// 生成邮箱验证码
 				UserVerified uv = new UserVerified(user);
 				verifiedService.save(uv);
 				// 发送注册成功的邮件
 				if (CommonUtils.isNotEmpty(user.getEmail())) {
-					sendRegisterMail(user,uv.getCode());
+					sendRegisterMail(user, uv.getCode());
 				}
 			} catch (CoreException e) {
 				return this.toJSONResult(false, this.getMessage(e));
@@ -145,6 +149,13 @@ public class BindController extends AuthController {
 
 		this.setUser2Session(auth);
 		return this.toJSONResult(true);
+	}
+
+	@RequestMapping(value="/remove-bind/{authType}")
+	public void removeBind(@PathVariable Integer authType,
+			ModelMap model, HttpServletResponse response) {
+		LoginUser user = this.getCurrentLoginUser();
+		authService.removeBind(user.getId(), authType);
 	}
 
 }
