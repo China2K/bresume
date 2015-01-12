@@ -57,7 +57,7 @@
 								<ul class="dropdown-menu" role="menu"
 									style="background: none repeat scroll 0% 0% #3D3F40;">
 									<li><a href="<c:url value='resume/mine'/>">管理我的简历</a></li>
-									<li><a href="#">账户设置</a></li>
+									<li><a href="<c:url value='/user/settings'/>">账户设置</a></li>
 									<li class="divider"></li>
 									<li><a href="<c:url value='user/logout'/>">安全退出</a></li>
 								</ul></li>
