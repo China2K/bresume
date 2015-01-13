@@ -34,7 +34,7 @@ public class SpringDispatcherEnhancer extends DispatcherServlet {
 	public static final String WebApplicationContextName = "WebApplicationContextEnhancer";
 	private static final List<String> BEANFACTORY_KEYLIST = new ArrayList<String>();
 
-	public static String imageUrlPrefix = "";
+	public static String staticUrlPrefix = "";
 
 	static {
 		InputStream is = SpringDispatcherEnhancer.class
@@ -47,11 +47,9 @@ public class SpringDispatcherEnhancer extends DispatcherServlet {
 				LOGGER.error(e.getMessage(), e);
 				e.printStackTrace();
 			}
-/*			imageUrlPrefix = FileUploadHandler.UPLOAD_CONFIG.getPicUrlPrefix()
-					+ FileUploadHandler.UPLOAD_CONFIG.getImgVirtualDir() + "?"
-					+ FileUploadHandler.UPLOAD_CONFIG.getDownloadParamName()
-					+ "=";
-*/		}
+			staticUrlPrefix = FileUploadHandler.UPLOAD_CONFIG
+					.getStaticUrlPrefix();
+		}
 	}
 
 	@SuppressWarnings("unchecked")
@@ -64,7 +62,8 @@ public class SpringDispatcherEnhancer extends DispatcherServlet {
 		config.getServletContext().setAttribute(WebApplicationContextName, wac);
 		config.getServletContext().setAttribute("contextPath",
 				config.getServletContext().getContextPath());
-		config.getServletContext().setAttribute("imageUrlPrefix", imageUrlPrefix);
+		config.getServletContext().setAttribute("staticUrlPrefix",
+				staticUrlPrefix);
 		try {
 			Field bf = AbstractRefreshableApplicationContext.class
 					.getDeclaredField("beanFactory");
