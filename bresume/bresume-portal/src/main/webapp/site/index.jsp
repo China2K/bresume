@@ -107,7 +107,7 @@
 						<div class="ih-item circle effect2 left_to_right">
 							<div class="acover"  onclick="location.href='${template.siteUrl}'">
 								<div class="img">
-									<img src="${template.coverUrl}" alt="img">
+									<img src="${staticUrlPrefix}${template.coverUrl}" alt="img">
 								</div>
 								
 								<div class="info">
@@ -141,7 +141,7 @@
 								<div class="portfolio-hover-content">
 									<i class="fa fa-1x"> I am more than what you can see! </i>
 								</div>
-							</div> <img src="${resume.coverUrl}" class="img-responsive" alt="">
+							</div> <img src="${staticUrlPrefix}${resume.coverUrl}" class="img-responsive" alt="" width="360px" style="height: 260px;">
 						</a>
 						<div class="portfolio-caption">
 							<h4>${resume.name}</h4>

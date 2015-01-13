@@ -35,7 +35,7 @@
 							<a href="<c:url value='/resume/buildResume?template=${template.sn}'/>"
 								class="acover">
 								<div class="img">
-									<img src="${template.coverUrl}" alt="img">
+									<img src="${staticUrlPrefix}${template.coverUrl}" alt="img">
 								</div>
 								<div class="info">
 									<h3>${template.name}</h3>

@@ -11,18 +11,24 @@
 
 <title>bresume - 简历创建</title>
 
-    <!-- Bootstrap Core CSS -->
-    <link href="<c:url value='/resource/site/css/bootstrap.min.css'/>" rel="stylesheet">
+<!-- Bootstrap Core CSS -->
+<link href="<c:url value='/resource/site/css/bootstrap.min.css'/>"
+	rel="stylesheet">
 
-    <!-- Custom CSS -->
-    <link href="<c:url value='/resource/site/css/agency.css'/>" rel="stylesheet">
+<!-- Custom CSS -->
+<link href="<c:url value='/resource/site/css/agency.css'/>"
+	rel="stylesheet">
 
-    <!-- Custom Fonts -->
-    <link href="<c:url value='/resource/site/font-awesome-4.1.0/css/font-awesome.min.css'/>" rel="stylesheet" type="text/css">
+<!-- Custom Fonts -->
+<link
+	href="<c:url value='/resource/site/font-awesome-4.1.0/css/font-awesome.min.css'/>"
+	rel="stylesheet" type="text/css">
 
- <!-- Custom CSS for template -->
-	<link rel="stylesheet" href="<c:url value='/resource/site/About_files/css/stuck.css'/>">
-	<link rel="stylesheet" href="<c:url value='/resource/site/About_files/css/ihover.css'/>">
+<!-- Custom CSS for template -->
+<link rel="stylesheet"
+	href="<c:url value='/resource/site/About_files/css/stuck.css'/>">
+<link rel="stylesheet"
+	href="<c:url value='/resource/site/About_files/css/ihover.css'/>">
 
 <link rel="stylesheet"
 	href="<c:url value ='/resource/plugin/jQuery-File-Upload/css/jquery.fileupload.css'/>">
@@ -67,12 +73,21 @@
 	opacity: 1;
 }
 
-/*  #fileupload {
-	filter: alpha(opacity = 0); -moz-opacity : 0;
-	-khtml-opacity: 0;
-	opacity: 0;
-	-moz-opacity: 0;
-}  */
+#fileupload {
+	height: 250px ;
+	display:inline-block;
+	color: white;
+	text-align: center;
+	overflow: hidden;
+	text-align: left;
+}
+.uploadify-button ,.uploadify-button-text{
+text-align: center;
+font-size: 20px;
+}
+#fileupload span{
+text-align: center;
+}
 </style>
 
 
@@ -90,7 +105,6 @@
 
 			</div>
 		</div>
-
 		<c:forEach items="${resumes}" var="resume">
 			<section>
 				<div class="panel-heading"
@@ -99,22 +113,24 @@
 				</div>
 				<div class="row resumeRow">
 
-					<div class="col-md-3" id="portfolio"
-						style=" height: 250px;">
-
+					<div class="col-md-3" id="portfolio" style="height: 250px;">
 
 						<div class="portfolio-item">
-							<div  class="portfolio-link" onclick="reUpload()"
+							<div class="portfolio-link" onclick="reUpload()"
 								data-toggle="modal">
 								<div class="portfolio-hover">
-									<div class="portfolio-hover-content">
+									<input class="portfolio-hover-content" id="fileupload" type="file" />
+									<%-- <div class="portfolio-hover-content">
 										<span class="fa fa-1x">
-										<input id="fileupload" type="file"/>
+										
 										</span>
-									</div>
-								</div> <img src="${resume.coverUrl}" id="resumeCoverImg" class="img-responsive" alt="">
-							</div><input type="hidden"
-								value="${resume.coverUrl}" id="resumeCoverUrl" />
+									</div> --%>
+								</div>
+								<img src="${staticUrlPrefix}${resume.coverUrl}"
+									id="resumeCoverImg" class="img-responsive" alt="">
+							</div>
+							<input type="hidden" value="${resume.coverUrl}"
+								id="resumeCoverUrl" />
 						</div>
 					</div>
 
@@ -207,11 +223,11 @@
 
 
 	<!-- jQuery -->
-	<script type="text/javascript" src="<c:url value ='/resource/site/js/jquery.js'/>"
-		charset="UTF-8"></script>
+	<script type="text/javascript"
+		src="<c:url value ='/resource/site/js/jquery.js'/>" charset="UTF-8"></script>
 
 	<!-- Bootstrap Core JavaScript -->
-		<script type="text/javascript"
+	<script type="text/javascript"
 		src="<c:url value ='/resource/site/js/bootstrap.min.js'/>"></script>
 
 	<!-- Plugin JavaScript -->
@@ -220,7 +236,8 @@
 	<script src="<c:url value ='/resource/site/js/cbpAnimatedHeader.js'/>"></script>
 
 	<!-- Contact Form JavaScript -->
-	<script src="<c:url value ='/resource/site/js/jqBootstrapValidation.js'/>"></script>
+	<script
+		src="<c:url value ='/resource/site/js/jqBootstrapValidation.js'/>"></script>
 	<script src="<c:url value ='/resource/site/js/contact_me.js'/>"></script>
 
 	<!-- Custom Theme JavaScript -->
@@ -253,7 +270,7 @@
 		function download_resume(id) {
 
 		}
-		var uploadUrl = "http://localhost:8081/static/upload/uploadImg";
+		var uploadUrl = "http://static.bresume.com/upload/uploadImg";
 		$("#fileupload")
 				.uploadify(
 						{
@@ -263,23 +280,28 @@
 							'queueID' : 'imgFile',
 							'fileObjName' : 'imgFile',
 							'auto' : true,
+							'width' : 285,
+							'height' : 250,
 							'multi' : false,
 							'buttonText' : '重新上传',
 							'formData' : {
 								'user' : 'test',
 								'source' : 'PORTAL'
 							},
-						/*  'onSelect': function (file) {
-						     $('#uploadify').uploadifySettings('formData', { 'ASPSESSID': ASPSESSID, 'AUTHID': auth });
-						 }, */
-						 'onUploadSuccess': function (file, data, response) {
-							 data  = JSON.parse(data); 
-							 var res=data.success;
-							if(res===true){
-								$("#resumeCoverUrl").val(data.message);
-								$("#resumeCoverImg").attr("src","http://localhost:8081/static"+data.message);
-							}
-						},
+							/*  'onSelect': function (file) {
+							     $('#uploadify').uploadifySettings('formData', { 'ASPSESSID': ASPSESSID, 'AUTHID': auth });
+							 }, */
+							'onUploadSuccess' : function(file, data, response) {
+								data = JSON.parse(data);
+								var res = data.success;
+								if (res === true) {
+									$("#resumeCoverUrl").val(data.message);
+									$("#resumeCoverImg").attr(
+											"src",
+											"http://localhost:8081/static"
+													+ data.message);
+								}
+							},
 						/*
 						'onQueueComplete': function () {
 						    alert("上传完成！");

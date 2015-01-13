@@ -9,11 +9,10 @@
 <title>bresume - 简历创建</title>
 
 
-<c:url value ='/resource/app/js/common.js'/>
-
 <link href="<c:url value ='/resource/site/css/bootstrap.min.css'/>"
 	rel="stylesheet" media="screen">
-<link href="<c:url value ='/resource/app/css/common.css'/>" rel="stylesheet">
+<link href="<c:url value ='/resource/app/css/common.css'/>"
+	rel="stylesheet">
 <link
 	href="<c:url value ='/resource/plugin/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css'/>"
 	rel="stylesheet" media="screen">
@@ -23,7 +22,6 @@
 	href="<c:url value ='/resource/plugin/jQuery-Validation-Engine/css/validationEngine.jquery.css'/>">
 
 <style type="text/css">
-
 </style>
 
 
@@ -92,7 +90,7 @@
 							href="javascript:chooseTemplate('${template.sn}','${template.siteUrl}','${template.coverUrl}')"
 							class="acover">
 							<div class="img">
-								<img src="${template.coverUrl}" alt="img">
+								<img src="${staticUrlPrefix}${template.coverUrl}" alt="img">
 							</div>
 							<div class="info">
 								<h3>${template.name}</h3>
@@ -117,7 +115,7 @@
 					<div class="box-gray aligncenter">
 						<div class="icon">
 							<a href="${template.siteUrl}" id="template-select"><img
-								src="${template.coverUrl}" /></a>
+								src="${staticUrlPrefix}${template.coverUrl}" /></a>
 						</div>
 					</div>
 					<div class="box-bottom">
@@ -206,11 +204,12 @@
 
 
 
-	<script type="text/javascript" src="<c:url value ='/resource/site/js/jquery.js'/>"
-		charset="UTF-8"></script>
+	<script type="text/javascript"
+		src="<c:url value ='/resource/site/js/jquery.js'/>" charset="UTF-8"></script>
 
 	<script type="text/javascript"
-		src="<c:url value ='/resource/site/js/jquery.form.js'/>" charset="UTF-8"></script>
+		src="<c:url value ='/resource/site/js/jquery.form.js'/>"
+		charset="UTF-8"></script>
 	<script type="text/javascript"
 		src="<c:url value ='/resource/site/js/bootstrap.min.js'/>"></script>
 	<script type="text/javascript"
