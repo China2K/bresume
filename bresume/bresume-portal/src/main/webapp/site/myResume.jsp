@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -74,19 +75,21 @@
 }
 
 #fileupload {
-	height: 250px ;
-	display:inline-block;
+	height: 250px;
+	display: inline-block;
 	color: white;
 	text-align: center;
 	overflow: hidden;
 	text-align: left;
 }
-.uploadify-button ,.uploadify-button-text{
-text-align: center;
-font-size: 20px;
+
+.uploadify-button, .uploadify-button-text {
+	text-align: center;
+	font-size: 20px;
 }
-#fileupload span{
-text-align: center;
+
+#fileupload span {
+	text-align: center;
 }
 </style>
 
@@ -105,7 +108,7 @@ text-align: center;
 
 			</div>
 		</div>
-		<c:forEach items="${resumes}" var="resume">
+		<c:forEach items="${resumes}" var="resume" varStatus="status">
 			<section>
 				<div class="panel-heading"
 					style="background-color: #f5f5f5; height: 45px; border-color: #ddd;">
@@ -115,11 +118,13 @@ text-align: center;
 
 					<div class="col-md-3" id="portfolio" style="height: 250px;">
 
-						<div class="portfolio-item">
+						<div class="portfolio-item" id="file-div-${status.index}"
+							id-value="${resume.id}">
 							<div class="portfolio-link" onclick="reUpload()"
 								data-toggle="modal">
 								<div class="portfolio-hover">
-									<input class="portfolio-hover-content" id="fileupload" type="file" />
+									<input class="portfolio-hover-content fileupload-file-input_"
+										id="fileupload-${resume.id}" type="file" />
 									<%-- <div class="portfolio-hover-content">
 										<span class="fa fa-1x">
 										
@@ -127,10 +132,11 @@ text-align: center;
 									</div> --%>
 								</div>
 								<img src="${staticUrlPrefix}${resume.coverUrl}"
-									id="resumeCoverImg" class="img-responsive" alt="">
+									style="height: 250px; width: 250px; line-height: 250px;"
+									class="img-responsive text-center fileupload-img-input_" alt="">
 							</div>
 							<input type="hidden" value="${resume.coverUrl}"
-								id="resumeCoverUrl" />
+								class="fileupload-hidden-input_" />
 						</div>
 					</div>
 
@@ -251,6 +257,65 @@ text-align: center;
 		src="<c:url value ='/resource/plugin/uploadify/jquery.uploadify.js'/>"></script>
 
 	<script type="text/javascript">
+		var rNum = '${fn:length(resumes)}';
+		rNum= rNum*1;
+		for (var i = 0; i < rNum; i++) {
+			var idV = "#file-div-" + i;
+
+			var fileEle = $(idV + " .fileupload-file-input_");
+			var imgEle = $(idV + " .fileupload-img-input_");
+			var valueEle = $(idV + " .fileupload-hidden-input_");
+
+			var resumeId = $(idV).attr("id-value");
+			console.log(fileEle);
+			makeFileUpload(fileEle, imgEle, valueEle, resumeId);
+		}
+		//var uploadUrl = "http://static.bresume.com/upload/uploadImg";
+		function makeFileUpload(fileEle, imgEle, valueEle, resumeId){
+			fileEle.uploadify({
+						'uploader' : 'http://static.bresume.com/upload/uploadImg',
+						'swf' : '<c:url value ="/resource/plugin/uploadify/uploadify.swf"/>',
+						'cancelImage' : '<c:url value ="/resource/plugin/uploadify/cancel.png"/>',
+						'queueID' : 'imgFile',
+						'fileObjName' : 'imgFile',
+						'auto' : true,
+						'width' : 285,
+						'height' : 250,
+						'multi' : false,
+						'buttonText' : '重新上传',
+						'formData' : {
+							'user' : 'test',
+							'source' : 'PORTAL'
+						},
+						'onUploadSuccess' : function(file, data, response) {
+							data = JSON.parse(data);
+							var res = data.success;
+							if (res === true) {
+								valueEle.val(data.message);
+								imgEle.attr("src", "http://static.bresume.com"
+										+ data.message);
+
+								var param = {
+									resumeId : resumeId,
+									newImgUrl : data.message
+								};
+								$
+										.ajax({
+											type : "POST",
+											url : "<c:url value='/resume/changeResumeCover'/>",
+											dataType : "json",
+											data : param,
+											success : function(resp) {
+
+											}
+
+										});
+							}
+						},
+					});
+
+		}
+
 		// 上传图片,图片预览,记录图片的url
 		/* 	initUploadAndPreview($('#fileupload'), $("#resumeCoverUrl"),
 				$("#resumeCoverImg")); */
@@ -270,7 +335,7 @@ text-align: center;
 		function download_resume(id) {
 
 		}
-		var uploadUrl = "http://static.bresume.com/upload/uploadImg";
+		/* var uploadUrl = "http://static.bresume.com/upload/uploadImg";
 		$("#fileupload")
 				.uploadify(
 						{
@@ -291,29 +356,41 @@ text-align: center;
 							/*  'onSelect': function (file) {
 							     $('#uploadify').uploadifySettings('formData', { 'ASPSESSID': ASPSESSID, 'AUTHID': auth });
 							 }, */
-							'onUploadSuccess' : function(file, data, response) {
-								data = JSON.parse(data);
-								var res = data.success;
-								if (res === true) {
-									$("#resumeCoverUrl").val(data.message);
-									$("#resumeCoverImg").attr(
-											"src",
-											"http://localhost:8081/static"
-													+ data.message);
-								}
-							},
-						/*
-						'onQueueComplete': function () {
-						    alert("上传完成！");
-						    $('#fileQueue').attr('style', 'visibility :hidden');
-						},
-						'onSelectError': function (file, errorCode, errorMsg) {
-						    $('#fileQueue').attr('style', 'visibility :hidden');
-						},
-						'onUploadStart': function (file) {
-						    $('#fileQueue').attr('style', 'top:200px;left:400px;width:400px;height :400px;visibility :visible');
-						} */
-						});
+		/* 'onUploadSuccess' : function(file, data, response) {
+			data = JSON.parse(data);
+			var res = data.success;
+			if (res === true) {
+				$("#resumeCoverUrl").val(data.message);
+				$("#resumeCoverImg").attr(
+						"src",
+						"http://static.bresume.com"
+								+ data.message);
+				
+				var param={resumeId:'',imgUrl:data.message};
+				$.ajax({
+					  type: "POST",
+					  url: "test.js",
+					  dataType: "json",
+					  data:param,
+					  success:function(resp){
+						  
+					  }
+					  
+					});
+			}
+		}, */
+		/*
+		'onQueueComplete': function () {
+		    alert("上传完成！");
+		    $('#fileQueue').attr('style', 'visibility :hidden');
+		},
+		'onSelectError': function (file, errorCode, errorMsg) {
+		    $('#fileQueue').attr('style', 'visibility :hidden');
+		},
+		'onUploadStart': function (file) {
+		    $('#fileQueue').attr('style', 'top:200px;left:400px;width:400px;height :400px;visibility :visible');
+		} */
+		/* }); */
 	</script>
 
 
