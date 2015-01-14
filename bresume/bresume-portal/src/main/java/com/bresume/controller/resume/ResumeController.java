@@ -53,21 +53,32 @@ public class ResumeController extends BaseController {
 
 	@Resource
 	private IResumeItemService resumeItemService;
-	
+
 	@Resource
 	private IResumeItemRefService resumeItemRefService;
-	
-	
+
+	@RequestMapping("/changeResumeCover")
+	public @ResponseBody JSONObject changeResumeCover(
+			@RequestParam(value = "resumeId", required = true) String resumeId,
+			@RequestParam(value = "newImgUrl", required = true) String newUrl) {
+		Resume resume = resumeService.findOne(resumeId);
+		resume.setCoverUrl(newUrl);
+		resume.setUpdatedTime(new Date());
+		resumeService.update(resume);
+		return this.toJSONResult(true);
+	}
+
 	@RequestMapping("/mine")
 	public String mine(HttpServletRequest request, Model model) {
-		LoginUser loginUser=getCurrentLoginUser();
-		SearchBean sb1=new SearchBean("user.id", loginUser.getId(), "=");
-		SearchBean sb2=new SearchBean("status", CommonStatus.DELETED.getCode()+"", "!=");
-		List<Resume> resumes = resumeService.findAll(new Sort(Direction.ASC, "order"), sb1,sb2);
+		LoginUser loginUser = getCurrentLoginUser();
+		SearchBean sb1 = new SearchBean("user.id", loginUser.getId(), "=");
+		SearchBean sb2 = new SearchBean("status",
+				CommonStatus.DELETED.getCode() + "", "!=");
+		List<Resume> resumes = resumeService.findAll(new Sort(Direction.ASC,
+				"order"), sb1, sb2);
 		model.addAttribute("resumes", resumes);
 		return "site/myResume.jsp";
 	}
-
 
 	@RequestMapping("/startBulidResume")
 	public String contact(HttpServletRequest request, Model model) {
@@ -80,7 +91,6 @@ public class ResumeController extends BaseController {
 		return "site/templates.jsp";
 	}
 
-
 	@RequestMapping("/buildResume")
 	public String bulidResume(HttpServletRequest request,
 			@RequestParam(value = "id", required = false) String id,
@@ -88,27 +98,28 @@ public class ResumeController extends BaseController {
 			Model model) {
 		System.out.println(id);
 		Resume resume = null;
-		int step=1;
+		int step = 1;
 
 		if (CommonUtils.isNotEmpty(id)) {
 			resume = resumeService.findOne(id);
-			sn=resume.getTemplateSn();
-			step=3;
+			sn = resume.getTemplateSn();
+			step = 3;
 		} else {
 			resume = new Resume();
 		}
 
 		Template template = templateService.findUniqueBy("sn", sn);
 
-		/*List<ResumeItem> allResumeItems = (List<ResumeItem>) resumeItemService
-				.findAll(new Sort(Direction.ASC, "order"));*/
-		List<ResumeItem> defaultItems=resumeItemService.findDefaultItems(id);
-		List<ResumeItem> extraItems=resumeItemService.findExtraItems(id);
+		/*
+		 * List<ResumeItem> allResumeItems = (List<ResumeItem>)
+		 * resumeItemService .findAll(new Sort(Direction.ASC, "order"));
+		 */
+		List<ResumeItem> defaultItems = resumeItemService.findDefaultItems(id);
+		List<ResumeItem> extraItems = resumeItemService.findExtraItems(id);
 		model.addAttribute("defaultItems", defaultItems);
 		model.addAttribute("extraItems", extraItems);
 
 		model.addAttribute("template", template);
-		
 
 		Pageable page = new PageRequest(0, 10, new Sort(Direction.ASC, "order"));
 		Page<Template> result = templateService.findPage(page, new SearchBean(
@@ -127,18 +138,18 @@ public class ResumeController extends BaseController {
 			@RequestParam(value = "itemSn", required = true) String sn,
 			Model model) {
 		ResumeItemType resumeItem = ResumeItemType.fromSn(sn);
-		List<?> objItems=null;
-		model.addAttribute("resumeId",resumeId);
+		List<?> objItems = null;
+		model.addAttribute("resumeId", resumeId);
 		if (CommonUtils.isNotEmpty(resumeId) && CommonUtils.isNotEmpty(sn)) {
 			objItems = resumeItemService.findResumeItem(resumeItem, resumeId);
 		}
-		if(objItems!=null&&objItems.size()>0){
+		if (objItems != null && objItems.size() > 0) {
 			model.addAttribute("items", objItems);
-			if(objItems.size()==1){
+			if (objItems.size() == 1) {
 				model.addAttribute(resumeItem.getName(), objItems.get(0));
 			}
-			
-		}else{
+
+		} else {
 			try {
 				Class<?> clazz = resumeItem.getClazz();
 				Object obj = clazz.newInstance();
@@ -147,9 +158,9 @@ public class ResumeController extends BaseController {
 				try {
 					field = clazz.getDeclaredField("resume");
 					field.setAccessible(true);
-					
-					 Resume resume = new Resume();
-					 resume.setId(resumeId);
+
+					Resume resume = new Resume();
+					resume.setId(resumeId);
 					field.set(obj, resume);
 					field.setAccessible(false);
 				} catch (NoSuchFieldException e) {
@@ -164,7 +175,7 @@ public class ResumeController extends BaseController {
 				e.printStackTrace();
 			} catch (IllegalAccessException e) {
 				e.printStackTrace();
-				
+
 			}
 		}
 		model.addAttribute("resumeId", resumeId);
@@ -172,112 +183,113 @@ public class ResumeController extends BaseController {
 	}
 
 	@RequestMapping("/save")
-	public @ResponseBody
-	JSONObject save(HttpServletRequest request,
+	public @ResponseBody JSONObject save(HttpServletRequest request,
 			@ModelAttribute Resume resume) {
-		LoginUser loginUser=getCurrentLoginUser();
-		if(resume!=null&&CommonUtils.isNotEmpty(resume.getId())){
-			Resume oldResume=resumeService.findOne(resume.getId());
-			if(oldResume==null){
-				return this.toJSONResult(false,"简历未找到");
+		LoginUser loginUser = getCurrentLoginUser();
+		if (resume != null && CommonUtils.isNotEmpty(resume.getId())) {
+			Resume oldResume = resumeService.findOne(resume.getId());
+			if (oldResume == null) {
+				return this.toJSONResult(false, "简历未找到");
 			}
 			oldResume.setName(resume.getName());
 			oldResume.setDesc(resume.getDesc());
 			oldResume.setUpdatedTime(new Date());
 			resumeService.update(oldResume);
-		}else{
+		} else {
 			resume.setCreatedTime(new Date());
 			resume.setStatus(CommonStatus.INTITAL.getCode());
 			resume.setOrder(9999);
 			resume.setRecommended(false);
 			resume.setIsPublic(false);
-			User user=new User();
+			User user = new User();
 			user.setId(loginUser.getId());
 			resume.setUser(user);
 			resumeService.save(resume);
-			
-			//创建简历模快
-			List<ResumeItem> items=resumeItemService.findAll(null, new SearchBean("isDefault", "true", "="));
-			for(ResumeItem item:items){
-				ResumeItemRef ref=new ResumeItemRef();
+
+			// 创建简历模快
+			List<ResumeItem> items = resumeItemService.findAll(null,
+					new SearchBean("isDefault", "true", "="));
+			for (ResumeItem item : items) {
+				ResumeItemRef ref = new ResumeItemRef();
 				ref.setResume(resume);
 				ref.setItemSn(item.getSn());
 				resumeItemRefService.save(ref);
 			}
 		}
-		
-		return this.toJSONResult(true,"保存成功",resume.getId());
+
+		return this.toJSONResult(true, "保存成功", resume.getId());
 	}
-	
-	
+
 	@RequestMapping("/removeItem")
-	public @ResponseBody
-	JSONObject removeItem(HttpServletRequest request,
+	public @ResponseBody JSONObject removeItem(HttpServletRequest request,
 			@RequestParam(value = "itemSn", required = true) String sn,
-			@RequestParam(value="resumeId",required=true) String resumeId) {
-		LoginUser loginUser=getCurrentLoginUser();
-		ResumeItemRef ref = resumeItemRefService.findByResumeAndSn(resumeId, sn);
-		if(ref.getResume().getUser().getId().equalsIgnoreCase(loginUser.getId())){
+			@RequestParam(value = "resumeId", required = true) String resumeId) {
+		LoginUser loginUser = getCurrentLoginUser();
+		ResumeItemRef ref = resumeItemRefService
+				.findByResumeAndSn(resumeId, sn);
+		if (ref.getResume().getUser().getId()
+				.equalsIgnoreCase(loginUser.getId())) {
 			resumeItemRefService.delete(ref);
 		}
-		return this.toJSONResult(true,"保存成功");
+		return this.toJSONResult(true, "保存成功");
 	}
-	
-	
+
 	@RequestMapping("/addItem")
-	public @ResponseBody
-	JSONObject addItem(HttpServletRequest request,
+	public @ResponseBody JSONObject addItem(HttpServletRequest request,
 			@RequestParam(value = "itemSn", required = true) String sn,
-			@RequestParam(value="resumeId",required=true) String resumeId) {
-		List<ResumeItemRef> list = resumeItemRefService.findAll(null, new SearchBean("resume.id", resumeId, "="),new SearchBean("itemSn", sn, "="));
-		if(list!=null&&list.size()>0){
-			return this.toJSONResult(true,"保存成功");
+			@RequestParam(value = "resumeId", required = true) String resumeId) {
+		List<ResumeItemRef> list = resumeItemRefService.findAll(null,
+				new SearchBean("resume.id", resumeId, "="), new SearchBean(
+						"itemSn", sn, "="));
+		if (list != null && list.size() > 0) {
+			return this.toJSONResult(true, "保存成功");
 		}
-		Resume resume=resumeService.findOne(resumeId);
-		ResumeItem item=resumeItemService.findUniqueBy("sn", sn);
-		if(resume==null||item==null){
-			return this.toJSONResult(false,"保存失败");
+		Resume resume = resumeService.findOne(resumeId);
+		ResumeItem item = resumeItemService.findUniqueBy("sn", sn);
+		if (resume == null || item == null) {
+			return this.toJSONResult(false, "保存失败");
 		}
-		ResumeItemRef ref=new ResumeItemRef();
+		ResumeItemRef ref = new ResumeItemRef();
 		ref.setResume(resume);
 		ref.setItemSn(item.getSn());
 		resumeItemRefService.save(ref);
-		return this.toJSONResult(true,"保存成功");
+		return this.toJSONResult(true, "保存成功");
 	}
-	
-	@RequestMapping(value="/{resumeName}",method=RequestMethod.GET)
-	public String view(@PathVariable String resumeName,  Model model) {
-		
-		Resume resume=resumeService.findUniqueBy("name", resumeName);
-		if(resume==null){
+
+	@RequestMapping(value = "/{resumeName}", method = RequestMethod.GET)
+	public String view(@PathVariable String resumeName, Model model) {
+
+		Resume resume = resumeService.findUniqueBy("name", resumeName);
+		if (resume == null) {
 			return "404";
 		}
-		
+
 		model.addAttribute("resume", resume);
-		
-		String resumeId=resume.getId();
-		
+
+		String resumeId = resume.getId();
+
 		String templatesn = resume.getTemplateSn();
-		if(CommonUtils.isEmpty(templatesn)){
-			templatesn=IConstants.DEFAULT_TEMPLATE;
+		if (CommonUtils.isEmpty(templatesn)) {
+			templatesn = IConstants.DEFAULT_TEMPLATE;
 		}
-		
-//		Template template = templateService.findUniqueBy("sn", templatesn);
-		String page="resume/resume-"+templatesn+".jsp";
-		
+
+		// Template template = templateService.findUniqueBy("sn", templatesn);
+		String page = "resume/resume-" + templatesn + ".jsp";
+
 		List<ResumeItemRef> refs = resume.getRefs();
-		for(ResumeItemRef ref:refs){
-			String sn=ref.getItemSn();
+		for (ResumeItemRef ref : refs) {
+			String sn = ref.getItemSn();
 			ResumeItemType resumeItem = ResumeItemType.fromSn(sn);
-			List<?> objItems=null;
+			List<?> objItems = null;
 			objItems = resumeItemService.findResumeItem(resumeItem, resumeId);
 			int type = resumeItem.getType();
-			if(type==1){
-				model.addAttribute(resumeItem.getName()+"s", CommonUtils.isEmpty(objItems)?new ArrayList():objItems);
-			}else{
-				if(CommonUtils.isNotEmpty(objItems)){
+			if (type == 1) {
+				model.addAttribute(resumeItem.getName() + "s", CommonUtils
+						.isEmpty(objItems) ? new ArrayList() : objItems);
+			} else {
+				if (CommonUtils.isNotEmpty(objItems)) {
 					model.addAttribute(resumeItem.getName(), objItems.get(0));
-				}else{
+				} else {
 					Class<?> clazz = resumeItem.getClazz();
 					Object obj;
 					try {
@@ -288,15 +300,15 @@ public class ResumeController extends BaseController {
 					} catch (IllegalAccessException e) {
 						e.printStackTrace();
 					}
-					
+
 				}
 			}
-			
+
 		}
-		
-		Map<String,Object> map = model.asMap();
-		for(String key:map.keySet()){
-			System.out.println(key+":"+map.get(key));
+
+		Map<String, Object> map = model.asMap();
+		for (String key : map.keySet()) {
+			System.out.println(key + ":" + map.get(key));
 		}
 		return page;
 	}
