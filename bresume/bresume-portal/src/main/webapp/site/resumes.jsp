@@ -37,7 +37,7 @@
 								<div class="portfolio-hover-content">
 									<i class="fa fa-1x"> I am more than what you can see! </i>
 								</div>
-							</div> <img src="${staticUrlPrefix}${resume.coverUrl}" class="img-responsive" alt="">
+							</div> <img src="${staticUrlPrefix}${resume.coverUrl}" class="img-responsive" alt="" width="360px" style="height: 260px;">
 						</a>
 						<div class="portfolio-caption">
 							<h4>${resume.name}</h4>

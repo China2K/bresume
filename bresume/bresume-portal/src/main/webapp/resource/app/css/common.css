@@ -23,7 +23,7 @@
 	width: 50px;
 	height: 50px;
 	background:
-		url(http://localhost:8089/portal/resource/site/img/top_button.png)
+		url(/resource/site/img/top_button.png)
 		no-repeat 0 0;
 }
 

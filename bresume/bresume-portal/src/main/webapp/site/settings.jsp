@@ -65,7 +65,7 @@
 								<div class="input-group col-md-5">
 									<span class="input-group-addon"><i
 										class="fa fa-envelope"></i></span><input autofocus="autofocus"
-										value="${user_email}"
+										value="${email}"
 										class="form-control validate[required,custom[email]]"
 										id="email_" name="email" placeholder="邮箱地址"
 										required="required">
@@ -87,7 +87,7 @@
 								<div class="input-group col-md-5">
 									<span class="input-group-addon"><i
 										class="fa fa-envelope"></i></span><input autofocus="autofocus"
-										value="${user_email}" disabled="disabled" class="form-control"
+										value="${email}" disabled="disabled" class="form-control"
 										id="email_" name="email" placeholder="邮箱地址"
 										required="required">
 								</div>
