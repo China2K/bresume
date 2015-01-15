@@ -14,4 +14,5 @@ public interface IConstants {
 	
 	public static final String DEFAULT_TEMPLATE="001";
 	
+	
 }

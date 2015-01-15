@@ -26,8 +26,8 @@ public class TemplateController extends BaseController {
 	@Resource
 	private ITemplateService templateService;
 
-	@RequestMapping("/templates")
-	public String contact(HttpServletRequest request, Model model) {
+	/*@RequestMapping("/templates")
+	public String templates(HttpServletRequest request, Model model) {
 
 		Pageable page = new PageRequest(0, 10, new Sort(Direction.ASC, "order"));
 		Page<Template> result = templateService.findPage(page, new SearchBean(
@@ -36,6 +36,6 @@ public class TemplateController extends BaseController {
 		model.addAttribute("templates", list);
 
 		return "site/templates.jsp";
-	}
+	}*/
 	
 }

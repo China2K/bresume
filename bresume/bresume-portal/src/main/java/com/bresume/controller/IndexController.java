@@ -38,7 +38,7 @@ public class IndexController extends BaseController {
 
 	@Resource
 	private IResumeService resumeService;
-	
+
 	@Resource
 	private IContactService constactService;
 
@@ -55,12 +55,12 @@ public class IndexController extends BaseController {
 	}
 
 	@RequestMapping("/contact")
-	public @ResponseBody
-	JSONObject contact(HttpServletRequest request, 
-			@RequestParam(value="email",required=true) String email,
-			@RequestParam(value="name",required=true) String name,
-			@RequestParam(value="message",required=true) String message,
-			@RequestParam(value="cellPhone",required=false) String cellPhone,
+	public @ResponseBody JSONObject contact(
+			HttpServletRequest request,
+			@RequestParam(value = "email", required = true) String email,
+			@RequestParam(value = "name", required = true) String name,
+			@RequestParam(value = "message", required = true) String message,
+			@RequestParam(value = "cellPhone", required = false) String cellPhone,
 			Model model) {
 
 		Contact contact = new Contact();
@@ -72,10 +72,9 @@ public class IndexController extends BaseController {
 		constactService.save(contact);
 		return this.toJSONResult(true, "感谢您的宝贵意见,我会最快时间阅读并给您回复!");
 	}
-	
-	
+
 	@RequestMapping("/templates")
-	public String contact(HttpServletRequest request, Model model) {
+	public String templates(HttpServletRequest request, Model model) {
 
 		Pageable page = new PageRequest(0, 10, new Sort(Direction.ASC, "order"));
 		Page<Template> result = templateService.findPage(page, new SearchBean(
@@ -85,8 +84,7 @@ public class IndexController extends BaseController {
 
 		return "site/templates.jsp";
 	}
-	
-	
+
 	@RequestMapping("/resumes")
 	public String listResume(
 			HttpServletRequest request,

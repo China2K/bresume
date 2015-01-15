@@ -21,5 +21,7 @@ public interface IPortalConstants extends IConstants
 	public static final String defaultIconUrl="http://tp4.sinaimg.cn/2465082087/50/5617595072/1";
 	
 	public static final String defaultPSW="123456";
+	
+	public static final String VPORTAL_DOMAIN="http://www.bresume.com";
 
 }
