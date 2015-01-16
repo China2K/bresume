@@ -53,6 +53,12 @@ public class IndexController extends BaseController {
 		model.addAttribute("hotResumes", hotResumes);
 		return "/site/index.jsp";
 	}
+	
+	
+	@RequestMapping("/login")
+	public String login(HttpServletRequest request, Model model) {
+		return "/site/login.jsp";
+	}
 
 	@RequestMapping("/contact")
 	public @ResponseBody JSONObject contact(

@@ -23,7 +23,7 @@
 		<filter-name>encodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	
+
 	<filter>
 		<filter-name>commonFilter</filter-name>
 		<filter-class>com.bresume.core.common.base.sys.commonFilter</filter-class>
@@ -35,28 +35,16 @@
 		<url-pattern>*.do</url-pattern>
 		<url-pattern>*.action</url-pattern>
 	</filter-mapping>
-	
-		
- 	<!-- <filter>
-		<filter-name>loginfilter</filter-name>
-		<filter-class>com.bresume.admin.controller.filter.LoginFilter</filter-class>
-		<init-param>
-			不用登陆的 URL 开头。注意仅是servletPath开头
-			<param-name>excludePrefix</param-name>
-			<param-value>
-				/nologin,/upload
-			</param-value>
-		</init-param>
-	</filter>
-	<filter-mapping>
-		<filter-name>loginfilter</filter-name>
-		<url-pattern>*.html</url-pattern>
-		<url-pattern>*.jsp</url-pattern>
-		<url-pattern>*.do</url-pattern>
-		<url-pattern>*.action</url-pattern>
-	</filter-mapping> -->
-	 
-	
+
+
+	<!-- <filter> <filter-name>loginfilter</filter-name> <filter-class>com.bresume.admin.controller.filter.LoginFilter</filter-class> 
+		<init-param> 不用登陆的 URL 开头。注意仅是servletPath开头 <param-name>excludePrefix</param-name> 
+		<param-value> /nologin,/upload </param-value> </init-param> </filter> <filter-mapping> 
+		<filter-name>loginfilter</filter-name> <url-pattern>*.html</url-pattern> 
+		<url-pattern>*.jsp</url-pattern> <url-pattern>*.do</url-pattern> <url-pattern>*.action</url-pattern> 
+		</filter-mapping> -->
+
+
 	<filter>
 		<filter-name>OpenSessionInViewFilter</filter-name>
 		<filter-class>org.springframework.orm.hibernate4.support.OpenSessionInViewFilter</filter-class>
@@ -77,7 +65,17 @@
 		<filter-name>OpenSessionInViewFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	
+
+
+	<filter>
+		<filter-name>sitemesh</filter-name>
+		<filter-class>org.sitemesh.config.ConfigurableSiteMeshFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>sitemesh</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
 	<servlet>
 		<servlet-name>SpringDispatcher</servlet-name>
 		<servlet-class>com.bresume.core.common.base.sys.SpringDispatcherEnhancer</servlet-class>

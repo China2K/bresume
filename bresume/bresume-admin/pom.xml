@@ -1,17 +1,18 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <artifactId>bresume</artifactId>
-    <groupId>com.bresume</groupId>
-    <version>0.0.1-SNAPSHOT</version>
-  </parent>
-  <groupId>com.bresume</groupId>
-  <artifactId>bresume-admin</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <packaging>war</packaging>
-  <name>bresume-admin</name>
-  
-  <build>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>bresume</artifactId>
+		<groupId>com.bresume</groupId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<groupId>com.bresume</groupId>
+	<artifactId>bresume-admin</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+	<name>bresume-admin</name>
+
+	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -37,8 +38,8 @@
 				<configuration>
 					<path>/admin</path>
 					<uriEncoding>utf-8</uriEncoding>
-					<ajpPort>8019</ajpPort>
-					<port>8089</port>
+					<ajpPort>8012</ajpPort>
+					<port>8082</port>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -56,5 +57,15 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.sitemesh</groupId>
+			<artifactId>sitemesh</artifactId>
+			<version>3.1.1</version>
+			<scope>system</scope>
+			<systemPath>E:/code/GitHub/jars/sitemesh-3.0-alpha-2.jar</systemPath>
+		</dependency>
+
+
+
 	</dependencies>
 </project>

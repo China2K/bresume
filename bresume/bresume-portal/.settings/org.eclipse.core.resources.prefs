@@ -1,6 +1,8 @@
 eclipse.preferences.version=1
 encoding//src/main/java=UTF-8
 encoding//src/main/resources=UTF-8
+encoding//src/main/resources/jdbc.properties=UTF-8
+encoding//src/main/resources/mail.properties=UTF-8
 encoding//src/main/webapp/META-INF/bak/bakEduForeach.jsp=UTF-8
 encoding//src/main/webapp/META-INF/bak/myResume_bak.jsp=UTF-8
 encoding//src/main/webapp/resume/resume-001.jsp=UTF-8

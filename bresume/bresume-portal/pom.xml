@@ -36,7 +36,7 @@
 				<artifactId>tomcat7-maven-plugin</artifactId>
 				<version>2.2</version>
 				<configuration>
-					<path>/portal</path>
+					<path>/</path>
 					<uriEncoding>utf-8</uriEncoding>
 					<ajpPort>8019</ajpPort>
 					<port>8089</port>
@@ -49,6 +49,22 @@
 				<groupId>com.bresume</groupId>
 				<artifactId>bresume-core</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
+			
+			<dependency>
+			    <groupId>com.connect.login</groupId>
+			    <artifactId>qq-connect</artifactId>
+			    <version>2.0</version>
+			    <scope>system</scope>
+			    <systemPath>E:/code/GitHub/jars/qq-Sdk4J.jar</systemPath>
+			</dependency>
+			
+			<dependency>
+			    <groupId>com.connect.login</groupId>
+			    <artifactId>sina-connect</artifactId>
+			    <version>3.1.1</version>
+			    <scope>system</scope>
+			    <systemPath>E:/code/GitHub/jars/weibo-Sdk4J.jar</systemPath>
 			</dependency>
 		
 	</dependencies>
