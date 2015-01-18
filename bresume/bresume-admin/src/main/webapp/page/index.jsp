@@ -371,8 +371,8 @@
 				</a> <b class="arrow"></b>
 
 					<ul class="submenu">
-						<li class=""><a href="tables.html"> <i
-								class="menu-icon fa fa-caret-right"></i> Simple &amp; Dynamic
+						<li class=""><a href="/page/customer.jsp" class="ajaxPage"> <i
+								class="menu-icon fa fa-caret-right"></i> 客户管理
 						</a> <b class="arrow"></b></li>
 
 						<li class=""><a href="jqgrid.html"> <i
@@ -575,7 +575,6 @@ var subUrl = function (url){
 		}
 	});
 	};
-	
 	</script>
 </body>
 </html>
