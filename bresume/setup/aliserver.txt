@@ -1,0 +1,2 @@
+/etc/init.d/nginx stop|start|restart
+/etc/init.d/tomcat7 stop|start|restart

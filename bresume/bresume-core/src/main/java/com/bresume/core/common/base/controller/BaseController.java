@@ -42,6 +42,10 @@ public class BaseController extends SimpleFormController {
 	public static final String DEFAULT_JSON_SUCCESS = "success";
 	
 	public static final String DEFAULT_JSON_ID = "id";
+	
+	public static final String DEFAULT_JSON_ID_TOTALPAGES="totalpages";
+	
+	public static final String DEFAULT_JSON_ID_CURRPAGE="currpage";
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
@@ -57,6 +61,20 @@ public class BaseController extends SimpleFormController {
 
 	protected String getMessage(CoreException e, Object... params) {
 		return MsgDescription.getMsgDesc(e.getErrorCode(), params);
+	}
+	
+	
+	protected JSONObject toJSONResult(long count,List data,int pageSize,int currpage) {
+		pageSize=pageSize==0?10:pageSize;
+		currpage=currpage==0?1:currpage;
+		
+		long totalPage = count/pageSize+(count % pageSize==0?0:1);
+		JSONObject result = new JSONObject();
+		result.put(DEFAULT_JSON_TOTAL_PROPERTY, count);
+		result.put(DEFAULT_JSON_DATA, data);
+		result.put(DEFAULT_JSON_ID_TOTALPAGES, totalPage);
+		result.put(DEFAULT_JSON_ID_CURRPAGE, currpage);
+		return result;
 	}
 
 	protected JSONObject toJSONResult(long count, List data) {

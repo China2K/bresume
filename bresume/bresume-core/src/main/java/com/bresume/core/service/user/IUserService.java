@@ -1,9 +1,14 @@
 package com.bresume.core.service.user;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.bresume.core.common.base.service.IGenericService;
 import com.bresume.core.common.exception.CoreException;
 import com.bresume.core.common.exception.impl.PortalException;
 import com.bresume.core.common.exception.impl.PwdNotCorrectException;
+import com.bresume.core.common.utils.search.SearchBean;
+import com.bresume.core.model.dto.UserDto;
 import com.bresume.core.model.entity.user.User;
 
 public interface IUserService extends IGenericService<User, String> {
@@ -80,4 +85,8 @@ public interface IUserService extends IGenericService<User, String> {
 	String registerFromAuth(User user);
 	
 	boolean isEmailUsed(String email,String userId);
+	
+	
+	public Page<UserDto> find(Pageable pageable, SearchBean... searchBeans) ;
+	
 }

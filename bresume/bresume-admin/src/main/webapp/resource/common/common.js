@@ -145,12 +145,22 @@ function applyActions(id,actions){
 	}
 	var htm='<div style="margin-left: 3px;">';
 	
+	if(actions.indexOf("view")>-1){
+		var aHtm = '<div title="" style="float: left; cursor: pointer;margin-left: 5px;" class="ui-pg-div"'
+			+'id="jEditButton_'+id+'" '
+			+'onclick="grid_row_view('+id+');"'
+			+'onmouseover="jQuery(this).addClass(\'ui-state-hover\');" onmouseout="jQuery(this).removeClass(\'ui-state-hover\')" '
+			+'data-original-title="详细"><span class="ui-icon  fa-eye blue"></span></div>';
+		
+		htm+=aHtm;
+	}
+	
 	if(actions.indexOf("active")>-1){
 		var aHtm = '<div title="" style="float: left; cursor: pointer;margin-left: 5px;" class="ui-pg-div"'
 			+'id="jEditButton_'+id+'" '
 			+'onclick="grid_row_active('+id+');"'
 			+'onmouseover="jQuery(this).addClass(\'ui-state-hover\');" onmouseout="jQuery(this).removeClass(\'ui-state-hover\')" '
-			+'data-original-title="激活"><span class="ui-icon fa-eye"></span></div>';
+			+'data-original-title="激活"><span class="ui-icon fa-check green"></span></div>';
 		
 		htm+=aHtm;
 	}
@@ -159,7 +169,7 @@ function applyActions(id,actions){
 			+'id="jEditButton_'+id+'" '
 			+'onclick="grid_row_inActive('+id+');"'
 			+'onmouseover="jQuery(this).addClass(\'ui-state-hover\');" onmouseout="jQuery(this).removeClass(\'ui-state-hover\')" '
-			+'data-original-title="下线"><span class="ui-icon fa-eye-slash"></span></div>';
+			+'data-original-title="下线"><span class="ui-icon fa-ban grey"></span></div>';
 		
 		htm+=iHtm;
 	}
@@ -185,6 +195,84 @@ function applyActions(id,actions){
 	htm+="</div>";
 	
 	return htm;
+}
+
+
+function applyNavButton(option){
+	//grid-pager_left
+	 var table=$("<table></table>");
+	 
+	 
+	 table.attr("cellspacing","0");
+	 table.attr("cellpadding","0");
+	 table.attr("border","0");
+	 table.addClass("ui-pg-table");
+	 table.addClass("navtable");
+	 table.css({"float": "left","table-layout": "auto"});
 	
+	 
+        var tr=$("<tr></tr>");
+        tr.appendTo(table);
+        if(option.add==true){
+            var _td=createTD(1,option.addFunction);
+            _td.appendTo(tr);
+        }
+        if(option.del==true){
+            var _td=createTD(2,option.delFunction);
+            _td.appendTo(tr);
+        }
+        if(option.refresh==true){
+            var _td=createTD(3,option.refreshFuction);
+            _td.appendTo(tr);
+        }
+        if(option.search==true){
+            var _td=createTD(4,option.searchFunction);
+            _td.appendTo(tr);
+        }
+        console.log(table);
+        table.appendTo($("#grid-pager_left"));
 	
+}
+
+function createTD(type,fn){
+	
+	var iconClass;
+	var hoverTitle;
+	switch (type) {
+	case 1:
+		iconClass="ui-icon ace-icon fa fa-plus-circle purple";
+		hoverTitle="添加一条记录";
+		break;
+	case 2:
+		iconClass="ui-icon ace-icon fa fa-trash-o red";
+		hoverTitle="删除选中记录";
+		break;
+	case 3:
+		iconClass="ui-icon ace-icon fa fa-refresh green";
+		hoverTitle="刷新记录";
+		break;
+	
+	case 4:
+		iconClass="ui-icon ace-icon fa fa-search orange";
+		hoverTitle="搜索";
+		break;
+
+	default:
+		break;
+	}
+	var td=$("<td></td>");
+	var _div=$("<div></div>");
+    var _span=$("<span></span>");
+    
+    _div.appendTo(td);
+    _span.appendTo(_div);
+    td.on("click", fn);
+    
+    _div.addClass("ui-pg-div");
+    td.addClass("ui-pg-button ui-corner-all");
+    td.attr("data-original-title",hoverTitle);
+    _span.addClass(iconClass);
+    
+    return td;
+   
 }

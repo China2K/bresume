@@ -1,5 +1,6 @@
 package com.bresume.core.model.entity.user;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -46,7 +47,7 @@ public class User extends BaseEntity {
 	private String nickName;
 	private String icon;
 	
-	private List<BAuth> auths;
+	private List<BAuth> auths = new ArrayList<BAuth>();
 	
 	
 	@OneToMany(cascade = CascadeType.ALL,mappedBy="user",fetch=FetchType.LAZY)

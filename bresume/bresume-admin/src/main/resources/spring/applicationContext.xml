@@ -87,8 +87,8 @@
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass"
 			value="org.springframework.web.servlet.view.JstlView" />
-		<property name="prefix" value="/WEB-INF/jsp/" />
-		<property name="order" value="1" />
+	<!-- 	<property name="prefix" value="/page/" />
+		<property name="order" value="1" /> -->
 	</bean>
 	
 	<!--①邮件服务器-->

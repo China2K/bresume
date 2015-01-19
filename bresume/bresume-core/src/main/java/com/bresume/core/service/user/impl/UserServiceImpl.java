@@ -1,9 +1,14 @@
 package com.bresume.core.service.user.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,7 +25,9 @@ import com.bresume.core.common.utils.CopyUtils;
 import com.bresume.core.common.utils.DateUtils;
 import com.bresume.core.common.utils.EncryptionUtils;
 import com.bresume.core.common.utils.GeneralUtils;
+import com.bresume.core.common.utils.search.SearchBean;
 import com.bresume.core.dao.user.IUserDao;
+import com.bresume.core.model.dto.UserDto;
 import com.bresume.core.model.entity.user.User;
 import com.bresume.core.service.user.IUserService;
 
@@ -194,16 +201,14 @@ public class UserServiceImpl extends GenericService<User, String> implements
 		/**
 		 * 1. 为空校验
 		 */
-	/*	// 登录名为空校验
-		if (GeneralUtils.isNull(user.getUserName())) {
-			LogUtils.getInstance().errorSystem(LogUtils.MODULE_PORTAL,
-					"Check user info error,login name is empty!",
-					user.getUserName());
-			throw new PortalException(
-					PortalErrorCode.USER_LOGIN_NAME_EMPTY_ERROR,
-					"Check user info error,login name is empty!");
-		}
-*/
+		/*
+		 * // 登录名为空校验 if (GeneralUtils.isNull(user.getUserName())) {
+		 * LogUtils.getInstance().errorSystem(LogUtils.MODULE_PORTAL,
+		 * "Check user info error,login name is empty!", user.getUserName());
+		 * throw new PortalException(
+		 * PortalErrorCode.USER_LOGIN_NAME_EMPTY_ERROR,
+		 * "Check user info error,login name is empty!"); }
+		 */
 		// 密码为空校验
 		if (GeneralUtils.isNull(user.getPassword())) {
 			LogUtils.getInstance().errorSystem(LogUtils.MODULE_PORTAL,
@@ -225,17 +230,16 @@ public class UserServiceImpl extends GenericService<User, String> implements
 		/**
 		 * 2. 重复校验
 		 */
-	/*	// 判断登录名是否重复
-		if (userDao.isNoDeleteExist("userName", user.getUserName(),
-				user.getId())) {
-
-			LogUtils.getInstance().errorSystem(LogUtils.MODULE_PORTAL,
-					"Check user info error,login name exists!",
-					user.getUserName());
-			throw new PortalException(
-					PortalErrorCode.USER_LOGIN_NAME_EXIST_ERROR,
-					"Check user info error,login name exists!");
-		}*/
+		/*
+		 * // 判断登录名是否重复 if (userDao.isNoDeleteExist("userName",
+		 * user.getUserName(), user.getId())) {
+		 * 
+		 * LogUtils.getInstance().errorSystem(LogUtils.MODULE_PORTAL,
+		 * "Check user info error,login name exists!", user.getUserName());
+		 * throw new PortalException(
+		 * PortalErrorCode.USER_LOGIN_NAME_EXIST_ERROR,
+		 * "Check user info error,login name exists!"); }
+		 */
 
 		// 判断邮箱是否重复
 		if (userDao.isNoDeleteExist("email", user.getEmail(), user.getId())) {
@@ -282,11 +286,12 @@ public class UserServiceImpl extends GenericService<User, String> implements
 					"Convert from user to user error", e, user.toString());
 		}
 
-		/*String password = user.getPassword();
-		if (CommonUtils.isEmpty(password)) {
-			password = IPortalConstants.defaultPSW;
-		}
-		user.setPassword(EncryptionUtils.encryptBasedMd5(password));*/
+		/*
+		 * String password = user.getPassword(); if
+		 * (CommonUtils.isEmpty(password)) { password =
+		 * IPortalConstants.defaultPSW; }
+		 * user.setPassword(EncryptionUtils.encryptBasedMd5(password));
+		 */
 
 		// 保存商户信息
 		String id = userDao.save(user);
@@ -368,7 +373,7 @@ public class UserServiceImpl extends GenericService<User, String> implements
 		userDao.update(user);
 		return newPassword;
 	}
-	
+
 	@Override
 	@Transactional(rollbackFor = CoreException.class)
 	public String updatePasswordById(String userId, String oldPassword,
@@ -453,6 +458,17 @@ public class UserServiceImpl extends GenericService<User, String> implements
 	public boolean isEmailUsed(String email, String userId) {
 		// 判断邮箱是否重复
 		return userDao.isNoDeleteExist("email", email, userId);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Page<UserDto> find(Pageable pageable, SearchBean... searchBeans) {
+		Page<User> list = userDao.findAll(pageable, searchBeans);
+		List<UserDto> content = new ArrayList<UserDto>();
+		for (User user : list.getContent()) {
+			content.add(UserDto.convert(user));
+		}
+		return new PageImpl<UserDto>(content, pageable, list.getTotalElements());
 	}
 
 }

@@ -1,3 +1,4 @@
+E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\model\dto\UserDto.java
 E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\common\utils\FreeMarkers.java
 E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\common\base\SimplePage.java
 E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\model\entity\resume\item\ProjectExperience.java
@@ -119,6 +120,7 @@ E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume
 E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\dao\sys\IAreaDao.java
 E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\service\resume\IEduService.java
 E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\service\resume\impl\EduServiceImpl.java
+E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\common\utils\UtilDateConverter.java
 E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\common\exception\PortalErrorCode.java
 E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\common\utils\json\IJsonConvert.java
 E:\code\GitHub\repository\bresume\bresume\bresume-core\src\main\java\com\bresume\core\model\entity\resume\Resume.java
