@@ -1,6 +1,7 @@
 package com.bresume.admin.controller.customer;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +23,7 @@ import com.bresume.core.common.base.controller.BaseController;
 import com.bresume.core.common.constant.enums.RegisterType;
 import com.bresume.core.common.constant.enums.UserStatus;
 import com.bresume.core.common.utils.CommonUtils;
+import com.bresume.core.common.utils.search.SearchBean;
 import com.bresume.core.model.dto.UserDto;
 import com.bresume.core.model.entity.user.User;
 import com.bresume.core.service.resume.IResumeService;
@@ -55,14 +57,18 @@ public class CustomerController extends BaseController {
 			@RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
 			@RequestParam(value = "rows", required = false, defaultValue = "10") Integer pageSize,
 			Model model) {
+		
+		List<SearchBean> sbeans = convert2SearchBean(request);
+		sbeans.add(new SearchBean("status", "4", "!="));
 		Pageable pageable = new PageRequest(page - 1, pageSize, null);
-		Page<UserDto> list = userService.find(pageable);
+		Page<UserDto> list = userService.find(pageable, sbeans.toArray(new SearchBean[] {}));
 		return this.toJSONResult(list.getTotalElements(), list.getContent(),
 				pageSize, page);
 	}
 
 	@RequestMapping("/changStatus.do")
-	public @ResponseBody JSONObject changStatus(HttpServletRequest request,
+	public @ResponseBody JSONObject changStatus(
+			HttpServletRequest request,
 			@RequestParam(value = "status", required = true) Integer status,
 			@RequestParam(value = "ids", required = true) String ids,
 			Model model) {
@@ -71,7 +77,7 @@ public class CustomerController extends BaseController {
 			User user = userService.findOne(id);
 			if (user != null) {
 				user.setStatus(status);
-				user.setUpdatedBy(getCurrentLoginUser().getId());
+				user.setUpdatedBy(getCurrentUserId());
 				user.setUpdatedTime(new Date());
 				userService.update(user);
 			}

@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import net.sf.json.JSONObject;
 
 import org.apache.log4j.Logger;
@@ -24,7 +26,6 @@ import com.bresume.core.common.utils.GeneralUtils;
 import com.bresume.core.common.utils.json.JsonHelper;
 import com.bresume.core.common.utils.search.SearchBean;
 import com.bresume.core.model.dto.LoginUser;
-import com.bresume.core.model.entity.user.User;
 
 /**
  * Controller基类，所有的Controller必须要继承此类
@@ -165,6 +166,24 @@ public class BaseController extends SimpleFormController {
 		}
 		return list.toArray(new SearchBean[] {});
 	}
+	
+	protected List<SearchBean> convert2SearchBean(HttpServletRequest request) {
+		String query = request.getParameter("query");
+		List<SearchBean> list = new ArrayList<SearchBean>();
+		if(CommonUtils.isEmpty(query)){
+			String[] paramStrs = query.split(",");
+			for (String paramStr : paramStrs) {
+				String[] search = paramStr.split(":");
+				// 如果没有填写值，则不生成searchbean
+				if (search.length < 2 || GeneralUtils.isNullOrZeroLenght(search[1])) {
+					continue;
+				}
+				SearchBean searchBean = new SearchBean(search[0], search[1],"=");
+				list.add(searchBean);
+			}
+		}
+		return list;
+	}
 
 	protected LoginUser getCurrentLoginUser() {
 		Object obj = SessionContextHolder.getSession().getAttribute(
@@ -173,5 +192,12 @@ public class BaseController extends SimpleFormController {
 			return null;
 		return LoginUser.class.cast(obj);
 	}
+	protected String getCurrentUserId() {
+		LoginUser user= getCurrentLoginUser();
+		return user==null?null:user.getId();
+	}
+	
+	
+
 	
 }

@@ -79,4 +79,7 @@
 <!-- ace scripts -->
 <script src="/resource/site/js/ace-elements.min.js"></script>
 <script src="/resource/site/js/ace.min.js"></script>
+
+<script src="/resource/site/js/bootbox.min.js"></script>
+
 <script src="/resource/common/common.js"></script>

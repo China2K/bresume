@@ -213,6 +213,15 @@ function applyNavButton(option){
 	 
         var tr=$("<tr></tr>");
         tr.appendTo(table);
+        if(option.active==true){
+            var _td=createTD(5,option.activeFunction);
+            _td.appendTo(tr);
+        }
+        if(option.inActive==true){
+            var _td=createTD(6,option.inActiveFunction);
+            _td.appendTo(tr);
+        }
+        
         if(option.add==true){
             var _td=createTD(1,option.addFunction);
             _td.appendTo(tr);
@@ -222,7 +231,7 @@ function applyNavButton(option){
             _td.appendTo(tr);
         }
         if(option.refresh==true){
-            var _td=createTD(3,option.refreshFuction);
+            var _td=createTD(3,option.refreshFunction);
             _td.appendTo(tr);
         }
         if(option.search==true){
@@ -256,6 +265,16 @@ function createTD(type,fn){
 		iconClass="ui-icon ace-icon fa fa-search orange";
 		hoverTitle="搜索";
 		break;
+		
+	case 5:
+		iconClass="ui-icon ace-icon fa fa-check green";
+		hoverTitle="激活";
+		break;
+	
+	case 6:
+		iconClass="ui-icon ace-icon fa fa-ban grey";
+		hoverTitle="下线";
+		break;
 
 	default:
 		break;
@@ -276,3 +295,29 @@ function createTD(type,fn){
     return td;
    
 }
+
+
+function alertInfo(msg){
+	bootbox.dialog({
+		message: "<span class='bigger-110'>"+msg+"</span>",
+		buttons: 			
+		{
+			"click" :
+			{
+				"label" : "关闭",
+				"className" : "btn-sm btn-primary",
+				"callback": function() {
+				}
+			}, 
+		}
+	});
+}
+
+
+$(".close-search-btn").click(function(){
+	$(".search-div").css("display","none");
+});
+
+$(".open-search-btn").click(function(){
+	$(".search-div").css("display","block");
+});
