@@ -1,6 +1,5 @@
 package com.bresume.admin.controller.customer;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -20,38 +19,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bresume.core.common.base.controller.BaseController;
-import com.bresume.core.common.constant.enums.RegisterType;
-import com.bresume.core.common.constant.enums.UserStatus;
 import com.bresume.core.common.utils.CommonUtils;
 import com.bresume.core.common.utils.search.SearchBean;
-import com.bresume.core.model.dto.UserDto;
-import com.bresume.core.model.entity.user.User;
-import com.bresume.core.service.resume.IResumeService;
-import com.bresume.core.service.resume.ITemplateService;
+import com.bresume.core.model.dto.ContactDto;
+import com.bresume.core.model.entity.user.Contact;
 import com.bresume.core.service.user.IContactService;
-import com.bresume.core.service.user.IUserService;
 
-@RequestMapping("/user")
+@RequestMapping("/advice")
 @Controller
-public class CustomerController extends BaseController {
-	@Resource
-	private ITemplateService templateService;
+public class AdviceController extends BaseController {
 
 	@Resource
-	private IResumeService resumeService;
+	private IContactService contactService;
 
-	@Resource
-	private IContactService constactService;
-
-	@Resource
-	private IUserService userService;
-
-	@RequestMapping("/customers.do")
-	public String customer(HttpServletRequest request, Model model) {
-		return "customer.jsp";
-	}
-
-	@RequestMapping("/customerList.do")
+	@RequestMapping("/list.do")
 	public @ResponseBody JSONObject customerList(
 			HttpServletRequest request,
 			@RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
@@ -61,7 +42,7 @@ public class CustomerController extends BaseController {
 		List<SearchBean> sbeans = convert2SearchBean(request);
 		sbeans.add(new SearchBean("status", "4", "!="));
 		Pageable pageable = new PageRequest(page - 1, pageSize, null);
-		Page<UserDto> list = userService.find(pageable, sbeans.toArray(new SearchBean[] {}));
+		Page<ContactDto> list = contactService.find(pageable, sbeans.toArray(new SearchBean[] {}));
 		return this.toJSONResult(list.getTotalElements(), list.getContent(),
 				pageSize, page);
 	}
@@ -74,12 +55,10 @@ public class CustomerController extends BaseController {
 			Model model) {
 		String[] idArr = ids.split(",");
 		for (String id : idArr) {
-			User user = userService.findOne(id);
-			if (user != null) {
-				user.setStatus(status);
-				user.setUpdatedBy(getCurrentUserId());
-				user.setUpdatedTime(new Date());
-				userService.update(user);
+			Contact contact = contactService.findOne(id);
+			if (contact != null) {
+				contact.setStatus(status);
+				contactService.update(contact);
 			}
 		}
 
@@ -89,30 +68,24 @@ public class CustomerController extends BaseController {
 	@RequestMapping("/form.do")
 	public String form(HttpServletRequest request,
 			@RequestParam(value = "id", required = false) String id, Model model) {
-		User user = null;
+		Contact contact = null;
 		if (CommonUtils.isNotEmpty(id)) {
-			user = userService.findOne(id);
+			contact = contactService.findOne(id);
 		}
-		if (user == null) {
-			user = new User();
+		if (contact == null) {
+			contact = new Contact();
 		}
-		model.addAttribute("user", user);
-		return "/page/user/form.jsp";
+		model.addAttribute("contact", contact);
+		return "/page/contact/form.jsp";
 	}
 
 	@RequestMapping(value = "/save.do", method = RequestMethod.POST)
-	public @ResponseBody JSONObject form(@ModelAttribute User user, Model model) {
-		if (CommonUtils.isNotEmpty(user.getId())) {
+	public @ResponseBody JSONObject form(@ModelAttribute Contact contact, Model model) {
+		if (CommonUtils.isNotEmpty(contact.getId())) {
 			// TODO update
-			User uptUser = userService.findOne(user.getId());
+			Contact uptContact = contactService.findOne(contact.getId());
 		} else {
-			user.setRegisterType(RegisterType.ADMIN_ADD.getType());
-			user.setCreatedBy(getCurrentLoginUser().getId());
-			user.setCreatedTime(new Date());
-			user.setIsEmailVerified(false);
-			user.setIsPhoneVerified(false);
-			user.setStatus(UserStatus.INTITAL.getCode());
-			userService.save(user);
+			contactService.save(contact);
 		}
 
 		return this.toJSONResult(true, "保存成功");
@@ -121,11 +94,10 @@ public class CustomerController extends BaseController {
 	@RequestMapping(value = "/load.do", method = RequestMethod.GET)
 	public String load(@RequestParam(value = "id", required = true) String id,
 			Model model) {
-		User user = userService.findOne(id);
-		model.addAttribute("user", user);
-		return "/page/user/detail.jsp";
+		Contact contact = contactService.findOne(id);
+		model.addAttribute("contact", contact);
+		return "/page/contact/detail.jsp";
 	}
-	
 	
 	
 	

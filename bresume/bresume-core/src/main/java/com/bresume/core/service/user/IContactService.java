@@ -9,7 +9,12 @@
   
 package com.bresume.core.service.user;  
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.bresume.core.common.base.service.IGenericService;
+import com.bresume.core.common.utils.search.SearchBean;
+import com.bresume.core.model.dto.ContactDto;
 import com.bresume.core.model.entity.user.Contact;
 
 /** 
@@ -20,6 +25,8 @@ import com.bresume.core.model.entity.user.Contact;
      
  */
 public interface IContactService extends IGenericService<Contact,String> {
+	
+	Page<ContactDto> find(Pageable pageable, SearchBean... searchBeans) ;
 
 }
   
