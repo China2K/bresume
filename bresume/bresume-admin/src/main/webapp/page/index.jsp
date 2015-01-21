@@ -371,7 +371,7 @@
 				</a> <b class="arrow"></b>
 
 					<ul class="submenu">
-						<li class=""><a href="/page/customer.jsp" class="ajaxPage"> <i
+						<li class=""><a href="/page/user/customer.jsp" class="ajaxPage"> <i
 								class="menu-icon fa fa-caret-right"></i> 客户管理
 						</a> <b class="arrow"></b></li>
 
@@ -381,12 +381,12 @@
 					</ul></li>
 
 
-				<li class=""><a href="widgets.html"> <i
+				<li class=""><a href="/page/resume/resumes.jsp" class="ajaxPage"> <i
 						class="menu-icon fa fa-list-alt"></i> <span class="menu-text">
 							简历管理 </span>
 				</a> <b class="arrow"></b></li>
 
-				<li class=""><a href="gallery.html"> <i
+				<li class=""><a href="/page/template/templates.jsp" class="ajaxPage"> <i
 						class="menu-icon fa fa-picture-o"></i> <span class="menu-text">
 							模版管理 </span>
 				</a> <b class="arrow"></b></li>

@@ -170,7 +170,7 @@ public class BaseController extends SimpleFormController {
 	protected List<SearchBean> convert2SearchBean(HttpServletRequest request) {
 		String query = request.getParameter("query");
 		List<SearchBean> list = new ArrayList<SearchBean>();
-		if(CommonUtils.isEmpty(query)){
+		if(CommonUtils.isNotEmpty(query)){
 			String[] paramStrs = query.split(",");
 			for (String paramStr : paramStrs) {
 				String[] search = paramStr.split(":");

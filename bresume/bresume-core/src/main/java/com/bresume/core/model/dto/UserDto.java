@@ -36,9 +36,11 @@ public class UserDto extends BaseDto {
 		
 		
 		UserDto dto= new UserDto();
-		CommonUtils.copyPropBetweenBeans(user, dto);
-		dto.setCreatedTime(DateUtils.date2String(user.getCreatedTime(),
-				DateUtils.YYYY_MM_DD_HH_MM_SS_PATTERN));
+		if(user!=null&&user.getId()!=null){
+			CommonUtils.copyPropBetweenBeans(user, dto);
+			dto.setCreatedTime(DateUtils.date2String(user.getCreatedTime(),
+					DateUtils.YYYY_MM_DD_HH_MM_SS_PATTERN));
+		}
 		return  dto;
 	}
 

@@ -28,6 +28,10 @@
 <link rel="stylesheet" href="/resource/site/css/ace-skins.min.css" />
 <link rel="stylesheet" href="/resource/site/css/ace-rtl.min.css" />
 
+<!-- common styles -->
+<link rel="stylesheet" href="/resource/common/common.css" />
+
+
 <!--[if lte IE 9]>
 		  <link rel="stylesheet" href="/resource/site/css/ace-ie.min.css" />
 		<![endif]-->

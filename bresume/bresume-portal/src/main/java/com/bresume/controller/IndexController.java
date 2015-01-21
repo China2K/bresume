@@ -101,7 +101,8 @@ public class IndexController extends BaseController {
 		Pageable pageable = new PageRequest(page, limit, new Sort(
 				Direction.ASC, "order"));
 		Page<Resume> result = resumeService.findPage(pageable, new SearchBean(
-				"status", CommonStatus.ACTIVE.getCode() + "", "="));
+				"status", CommonStatus.ACTIVE.getCode() + "", "="),new SearchBean(
+						"isPublic", "1", "="));
 
 		model.addAttribute("resumes", result.getContent());
 

@@ -71,6 +71,8 @@ public class Template extends BaseEntity {
 
 	@Column(name = "`TYPE`")
 	public Integer getType() {
+		if(type==null)
+			return 0;
 		return type;
 	}
 
@@ -89,6 +91,8 @@ public class Template extends BaseEntity {
 
 	@Column(name = "`USED_COUNT`")
 	public Integer getUsedCount() {
+		if(usedCount==null)
+			return 0;
 		return usedCount;
 	}
 
@@ -99,6 +103,8 @@ public class Template extends BaseEntity {
 
 	@Column(name = "`STATUS`")
 	public Integer getStatus() {
+		if(status==null)
+			return 0;
 		return status;
 	}
 
@@ -117,6 +123,8 @@ public class Template extends BaseEntity {
 
 	@Column(name = "`ORDER`")
 	public Integer getOrder() {
+		if(order==null)
+			return 0;
 		return order;
 	}
 

@@ -148,7 +148,7 @@ function applyActions(id,actions){
 	if(actions.indexOf("view")>-1){
 		var aHtm = '<div title="" style="float: left; cursor: pointer;margin-left: 5px;" class="ui-pg-div"'
 			+'id="jEditButton_'+id+'" '
-			+'onclick="grid_row_view('+id+');"'
+			+'onclick="grid_row_view(\''+id+'\');"'
 			+'onmouseover="jQuery(this).addClass(\'ui-state-hover\');" onmouseout="jQuery(this).removeClass(\'ui-state-hover\')" '
 			+'data-original-title="详细"><span class="ui-icon  fa-eye blue"></span></div>';
 		
@@ -158,7 +158,7 @@ function applyActions(id,actions){
 	if(actions.indexOf("active")>-1){
 		var aHtm = '<div title="" style="float: left; cursor: pointer;margin-left: 5px;" class="ui-pg-div"'
 			+'id="jEditButton_'+id+'" '
-			+'onclick="grid_row_active('+id+');"'
+			+'onclick="grid_row_active(\''+id+'\');"'
 			+'onmouseover="jQuery(this).addClass(\'ui-state-hover\');" onmouseout="jQuery(this).removeClass(\'ui-state-hover\')" '
 			+'data-original-title="激活"><span class="ui-icon fa-check green"></span></div>';
 		
@@ -167,7 +167,7 @@ function applyActions(id,actions){
 	if(actions.indexOf("inActive")>-1){
 		var iHtm = '<div title="" style="float: left; cursor: pointer;margin-left: 5px;" class="ui-pg-div"'
 			+'id="jEditButton_'+id+'" '
-			+'onclick="grid_row_inActive('+id+');"'
+			+'onclick="grid_row_inActive(\''+id+'\');"'
 			+'onmouseover="jQuery(this).addClass(\'ui-state-hover\');" onmouseout="jQuery(this).removeClass(\'ui-state-hover\')" '
 			+'data-original-title="下线"><span class="ui-icon fa-ban grey"></span></div>';
 		
@@ -177,7 +177,7 @@ function applyActions(id,actions){
 	if(actions.indexOf("edit")>-1){
 		var editHtm = '<div title="" style="float: left; cursor: pointer;margin-left: 5px;" class="ui-pg-div ui-inline-edit"'
 			+'id="jEditButton_'+id+'" '
-			+'onclick="grid_row_edit('+id+');"'
+			+'onclick="grid_row_edit(\''+id+'\');"'
 			+'onmouseover="jQuery(this).addClass(\'ui-state-hover\');" onmouseout="jQuery(this).removeClass(\'ui-state-hover\')" '
 			+'data-original-title="编辑"><span class="ui-icon ui-icon-pencil"></span></div>';
 		
@@ -186,7 +186,7 @@ function applyActions(id,actions){
 	if(actions.indexOf("delete")>-1){
 		var dHtm = '<div title="" style="float: left; cursor: pointer;margin-left: 5px;" class="ui-pg-div ui-inline-del"'
 			+'id="jDeleteButton_'+id+'" '
-			+'onclick="grid_row_delete('+id+');"'
+			+'onclick="grid_row_delete(\''+id+'\');"'
 			+'onmouseover="jQuery(this).addClass(\'ui-state-hover\');" onmouseout="jQuery(this).removeClass(\'ui-state-hover\')" '
 			+'data-original-title="删除"><span class="ui-icon ui-icon-trash"></span></div>';
 		

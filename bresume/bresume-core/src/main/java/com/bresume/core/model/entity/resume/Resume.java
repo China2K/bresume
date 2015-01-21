@@ -64,6 +64,8 @@ public class Resume extends BaseEntity {
 
 	@Column(name = "STATUS")
 	public Integer getStatus() {
+		if(status==null)
+			return 0;
 		return status;
 	}
 
@@ -127,6 +129,8 @@ public class Resume extends BaseEntity {
 
 	@Column(name = "`ORDER`")
 	public Integer getOrder() {
+		if(order==null)
+			return 0;
 		return order;
 	}
 
