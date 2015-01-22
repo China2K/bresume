@@ -29,7 +29,10 @@
 <link rel="stylesheet" href="/resource/site/css/ace-rtl.min.css" />
 
 <!-- common styles -->
+<!-- common styles -->
 <link rel="stylesheet" href="/resource/common/common.css" />
+
+<link rel="stylesheet" href="/resource/plugin/uploadify/uploadify.css" />
 
 
 <!--[if lte IE 9]>
@@ -37,9 +40,6 @@
 		<![endif]-->
 
 <!-- inline styles related to this page -->
-
-<!-- ace settings handler -->
-<script src="/resource/site/js/ace-extra.min.js"></script>
 
 <!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
 
@@ -80,10 +80,31 @@
 <script src="/resource/site/js/jqGrid/jquery.jqGrid.min.js"></script>
 <script src="/resource/site/js/jqGrid/i18n/grid.locale-en.js"></script>
 
+<!-- ace settings handler -->
+<script src="/resource/site/js/ace-extra.min.js"></script>
+
 <!-- ace scripts -->
 <script src="/resource/site/js/ace-elements.min.js"></script>
 <script src="/resource/site/js/ace.min.js"></script>
 
+
+
 <script src="/resource/site/js/bootbox.min.js"></script>
 
+<script type="text/javascript"
+		src="<c:url value ='/resource/site/js/jquery.form.js'/>"
+		charset="UTF-8"></script>
+		
+<script
+		src="<c:url value ='/resource/plugin/uploadify/jquery.uploadify.js'/>"></script>
+
 <script src="/resource/common/common.js"></script>
+
+<!-- jQuery-Validation-Engine -->
+<link rel="stylesheet"
+	href="<c:url value ='/resource/plugin/jQuery-Validation-Engine/css/validationEngine.jquery.css'/>">
+<script
+	src="<c:url value ='/resource/plugin/jQuery-Validation-Engine/js/jquery.validationEngine-zh_CN.js'/>"></script>
+<script
+	src="<c:url value ='/resource/plugin/jQuery-Validation-Engine/js/jquery.validationEngine.min.js'/>"></script>
+

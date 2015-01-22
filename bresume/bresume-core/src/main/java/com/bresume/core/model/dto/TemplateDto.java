@@ -1,5 +1,6 @@
 package com.bresume.core.model.dto;
 
+import com.bresume.core.common.upload.FileUploadHandler;
 import com.bresume.core.common.utils.CommonUtils;
 import com.bresume.core.common.utils.DateUtils;
 import com.bresume.core.model.base.BaseEntity;
@@ -15,7 +16,7 @@ public class TemplateDto extends BaseEntity {
 	private String siteUrl;
 	private String desc;
 	private int type;
-	private int recommended;
+	private boolean recommended;
 	private int usedCount;
 	private int status;
 	private String source;
@@ -38,6 +39,11 @@ public class TemplateDto extends BaseEntity {
 			dto.setUpdatedTime(DateUtils.date2String(template.getUpdatedTime(),
 					DateUtils.YYYY_MM_DD_HH_MM_SS_PATTERN));
 		}
+		
+//		String coverUrl= template.getCoverUrl();
+//		if(CommonUtils.isNotEmpty(coverUrl)&&!coverUrl.startsWith("http")){
+//			coverUrl =  FileUploadHandler.UPLOAD_CONFIG.getStaticUrlPrefix() + coverUrl;
+//		}
 		return dto;
 	}
 
@@ -81,11 +87,11 @@ public class TemplateDto extends BaseEntity {
 		this.type = type;
 	}
 
-	public int getRecommended() {
+	public boolean getRecommended() {
 		return recommended;
 	}
 
-	public void setRecommended(int recommended) {
+	public void setRecommended(boolean recommended) {
 		this.recommended = recommended;
 	}
 

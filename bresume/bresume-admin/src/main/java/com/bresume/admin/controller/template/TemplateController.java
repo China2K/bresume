@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bresume.core.common.base.controller.BaseController;
+import com.bresume.core.common.constant.IConstants;
+import com.bresume.core.common.constant.enums.CommonStatus;
 import com.bresume.core.common.utils.CommonUtils;
 import com.bresume.core.common.utils.search.SearchBean;
 import com.bresume.core.model.dto.TemplateDto;
@@ -92,6 +94,13 @@ public class TemplateController extends BaseController {
 			// TODO update
 			Template uptTemplate = templateService.findOne(template.getId());
 		} else {
+			template.setCreatedTime(new Date());
+			template.setCreatedBy(getCurrentUserId());
+			if(CommonUtils.isEmpty(template.getStatus())){
+				template.setStatus(CommonStatus.INTITAL.getCode());
+			}
+			template.setOrder(0);
+			template.setCoverUrl(IConstants.DEFAULT_TEMPLATE_COVERURL);
 			templateService.save(template);
 		}
 

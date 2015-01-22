@@ -57,13 +57,13 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.sitemesh</groupId>
 			<artifactId>sitemesh</artifactId>
 			<version>3.1.1</version>
 			<scope>system</scope>
 			<systemPath>E:/code/GitHub/jars/sitemesh-3.0-alpha-2.jar</systemPath>
-		</dependency>
+		</dependency> -->
 
 
 

@@ -1,16 +1,19 @@
 function style_edit_form(form) {
-	//enable datepicker on "sdate" field and switches for "stock" field
+	// enable datepicker on "sdate" field and switches for "stock" field
 	form.find('input[name=sdate]').datepicker({
 		format : 'yyyy-mm-dd',
 		autoclose : true
 	}).end().find('input[name=stock]').addClass('ace ace-switch ace-switch-5')
 			.after('<span class="lbl"></span>');
-	//don't wrap inside a label element, the checkbox value won't be submitted (POST'ed)
-	//.addClass('ace ace-switch ace-switch-5').wrap('<label class="inline" />').after('<span class="lbl"></span>');
+	// don't wrap inside a label element, the checkbox value won't be submitted
+	// (POST'ed)
+	// .addClass('ace ace-switch ace-switch-5').wrap('<label class="inline"
+	// />').after('<span class="lbl"></span>');
 
-	//update buttons classes
+	// update buttons classes
 	var buttons = form.next().find('.EditButton .fm-button');
-	buttons.addClass('btn btn-sm').find('[class*="-icon"]').hide();//ui-icon, s-icon
+	buttons.addClass('btn btn-sm').find('[class*="-icon"]').hide();// ui-icon,
+	// s-icon
 	buttons.eq(0).addClass('btn-primary').prepend(
 			'<i class="ace-icon fa fa-check"></i>');
 	buttons.eq(1).prepend('<i class="ace-icon fa fa-times"></i>')
@@ -24,7 +27,7 @@ function style_edit_form(form) {
 function style_delete_form(form) {
 	var buttons = form.next().find('.EditButton .fm-button');
 	buttons.addClass('btn btn-sm btn-white btn-round').find('[class*="-icon"]')
-			.hide();//ui-icon, s-icon
+			.hide();// ui-icon, s-icon
 	buttons.eq(0).addClass('btn-danger').prepend(
 			'<i class="ace-icon fa fa-trash-o"></i>');
 	buttons.eq(1).addClass('btn-default').prepend(
@@ -69,24 +72,24 @@ function beforeEditCallback(e) {
 	style_edit_form(form);
 }
 
-//it causes some flicker when reloading or navigating grid
-//it may be possible to have some custom formatter to do this as the grid is being created to prevent this
-//or go back to default browser checkbox styles for the grid
+// it causes some flicker when reloading or navigating grid
+// it may be possible to have some custom formatter to do this as the grid is
+// being created to prevent this
+// or go back to default browser checkbox styles for the grid
 function styleCheckbox(table) {
 	/**
-		$(table).find('input:checkbox').addClass('ace')
-		.wrap('<label />')
-		.after('<span class="lbl align-top" />')
-	
-	
-		$('.ui-jqgrid-labels th[id*="_cb"]:first-child')
-		.find('input.cbox[type=checkbox]').addClass('ace')
-		.wrap('<label />').after('<span class="lbl align-top" />');
+	 * $(table).find('input:checkbox').addClass('ace') .wrap('<label />')
+	 * .after('<span class="lbl align-top" />')
+	 * 
+	 * 
+	 * $('.ui-jqgrid-labels th[id*="_cb"]:first-child')
+	 * .find('input.cbox[type=checkbox]').addClass('ace') .wrap('<label
+	 * />').after('<span class="lbl align-top" />');
 	 */
 }
 
-//unlike navButtons icons, action icons in rows seem to be hard-coded
-//you can change them like this in here if you want
+// unlike navButtons icons, action icons in rows seem to be hard-coded
+// you can change them like this in here if you want
 function updateActionIcons(table) {
 
 	var replacement = {
@@ -104,7 +107,7 @@ function updateActionIcons(table) {
 
 }
 
-//replace icons with FontAwesome icons like above
+// replace icons with FontAwesome icons like above
 function updatePagerIcons(table) {
 	var replacement = {
 		'ui-icon-seek-first' : 'ace-icon fa fa-angle-double-left bigger-140',
@@ -131,193 +134,310 @@ function enableTooltips(table) {
 	});
 }
 
-//var selr = jQuery(grid_selector).jqGrid('getGridParam','selrow');
+// var selr = jQuery(grid_selector).jqGrid('getGridParam','selrow');
 
 $(document).on('ajaxloadstart', function(e) {
 	$(grid_selector).jqGrid('GridUnload');
 	$('.ui-jqdialog').remove();
 });
 
-
-function applyActions(id,actions){
-	if(actions==null||actions==""||actions=="undefined"){
+function applyActions(id, actions) {
+	if (actions == null || actions == "" || actions == "undefined") {
 		return "";
 	}
-	var htm='<div style="margin-left: 3px;">';
-	
-	if(actions.indexOf("view")>-1){
+	var htm = '<div style="margin-left: 3px;">';
+
+	if (actions.indexOf("view") > -1) {
 		var aHtm = '<div title="" style="float: left; cursor: pointer;margin-left: 5px;" class="ui-pg-div"'
-			+'id="jEditButton_'+id+'" '
-			+'onclick="grid_row_view(\''+id+'\');"'
-			+'onmouseover="jQuery(this).addClass(\'ui-state-hover\');" onmouseout="jQuery(this).removeClass(\'ui-state-hover\')" '
-			+'data-original-title="详细"><span class="ui-icon  fa-eye blue"></span></div>';
-		
-		htm+=aHtm;
+				+ 'id="jEditButton_'
+				+ id
+				+ '" '
+				+ 'onclick="grid_row_view(\''
+				+ id
+				+ '\');"'
+				+ 'onmouseover="jQuery(this).addClass(\'ui-state-hover\');" onmouseout="jQuery(this).removeClass(\'ui-state-hover\')" '
+				+ 'data-original-title="详细"><span class="ui-icon  fa-eye blue"></span></div>';
+
+		htm += aHtm;
 	}
-	
-	if(actions.indexOf("active")>-1){
+
+	if (actions.indexOf("active") > -1) {
 		var aHtm = '<div title="" style="float: left; cursor: pointer;margin-left: 5px;" class="ui-pg-div"'
-			+'id="jEditButton_'+id+'" '
-			+'onclick="grid_row_active(\''+id+'\');"'
-			+'onmouseover="jQuery(this).addClass(\'ui-state-hover\');" onmouseout="jQuery(this).removeClass(\'ui-state-hover\')" '
-			+'data-original-title="激活"><span class="ui-icon fa-check green"></span></div>';
-		
-		htm+=aHtm;
+				+ 'id="jEditButton_'
+				+ id
+				+ '" '
+				+ 'onclick="grid_row_active(\''
+				+ id
+				+ '\');"'
+				+ 'onmouseover="jQuery(this).addClass(\'ui-state-hover\');" onmouseout="jQuery(this).removeClass(\'ui-state-hover\')" '
+				+ 'data-original-title="激活"><span class="ui-icon fa-check green"></span></div>';
+
+		htm += aHtm;
 	}
-	if(actions.indexOf("inActive")>-1){
+	if (actions.indexOf("inActive") > -1) {
 		var iHtm = '<div title="" style="float: left; cursor: pointer;margin-left: 5px;" class="ui-pg-div"'
-			+'id="jEditButton_'+id+'" '
-			+'onclick="grid_row_inActive(\''+id+'\');"'
-			+'onmouseover="jQuery(this).addClass(\'ui-state-hover\');" onmouseout="jQuery(this).removeClass(\'ui-state-hover\')" '
-			+'data-original-title="下线"><span class="ui-icon fa-ban grey"></span></div>';
-		
-		htm+=iHtm;
+				+ 'id="jEditButton_'
+				+ id
+				+ '" '
+				+ 'onclick="grid_row_inActive(\''
+				+ id
+				+ '\');"'
+				+ 'onmouseover="jQuery(this).addClass(\'ui-state-hover\');" onmouseout="jQuery(this).removeClass(\'ui-state-hover\')" '
+				+ 'data-original-title="下线"><span class="ui-icon fa-ban grey"></span></div>';
+
+		htm += iHtm;
 	}
-	
-	if(actions.indexOf("edit")>-1){
+
+	if (actions.indexOf("edit") > -1) {
 		var editHtm = '<div title="" style="float: left; cursor: pointer;margin-left: 5px;" class="ui-pg-div ui-inline-edit"'
-			+'id="jEditButton_'+id+'" '
-			+'onclick="grid_row_edit(\''+id+'\');"'
-			+'onmouseover="jQuery(this).addClass(\'ui-state-hover\');" onmouseout="jQuery(this).removeClass(\'ui-state-hover\')" '
-			+'data-original-title="编辑"><span class="ui-icon ui-icon-pencil"></span></div>';
-		
-		htm+=editHtm;
+				+ 'id="jEditButton_'
+				+ id
+				+ '" '
+				+ 'onclick="grid_row_edit(\''
+				+ id
+				+ '\');"'
+				+ 'onmouseover="jQuery(this).addClass(\'ui-state-hover\');" onmouseout="jQuery(this).removeClass(\'ui-state-hover\')" '
+				+ 'data-original-title="编辑"><span class="ui-icon ui-icon-pencil"></span></div>';
+
+		htm += editHtm;
 	}
-	if(actions.indexOf("delete")>-1){
+	if (actions.indexOf("delete") > -1) {
 		var dHtm = '<div title="" style="float: left; cursor: pointer;margin-left: 5px;" class="ui-pg-div ui-inline-del"'
-			+'id="jDeleteButton_'+id+'" '
-			+'onclick="grid_row_delete(\''+id+'\');"'
-			+'onmouseover="jQuery(this).addClass(\'ui-state-hover\');" onmouseout="jQuery(this).removeClass(\'ui-state-hover\')" '
-			+'data-original-title="删除"><span class="ui-icon ui-icon-trash"></span></div>';
-		
-		htm+=dHtm;
+				+ 'id="jDeleteButton_'
+				+ id
+				+ '" '
+				+ 'onclick="grid_row_delete(\''
+				+ id
+				+ '\');"'
+				+ 'onmouseover="jQuery(this).addClass(\'ui-state-hover\');" onmouseout="jQuery(this).removeClass(\'ui-state-hover\')" '
+				+ 'data-original-title="删除"><span class="ui-icon ui-icon-trash"></span></div>';
+
+		htm += dHtm;
 	}
-	htm+="</div>";
-	
+	htm += "</div>";
+
 	return htm;
 }
 
+function applyNavButton(option) {
+	// grid-pager_left
+	var table = $("<table></table>");
 
-function applyNavButton(option){
-	//grid-pager_left
-	 var table=$("<table></table>");
-	 
-	 
-	 table.attr("cellspacing","0");
-	 table.attr("cellpadding","0");
-	 table.attr("border","0");
-	 table.addClass("ui-pg-table");
-	 table.addClass("navtable");
-	 table.css({"float": "left","table-layout": "auto"});
-	
-	 
-        var tr=$("<tr></tr>");
-        tr.appendTo(table);
-        if(option.active==true){
-            var _td=createTD(5,option.activeFunction);
-            _td.appendTo(tr);
-        }
-        if(option.inActive==true){
-            var _td=createTD(6,option.inActiveFunction);
-            _td.appendTo(tr);
-        }
-        
-        if(option.add==true){
-            var _td=createTD(1,option.addFunction);
-            _td.appendTo(tr);
-        }
-        if(option.del==true){
-            var _td=createTD(2,option.delFunction);
-            _td.appendTo(tr);
-        }
-        if(option.refresh==true){
-            var _td=createTD(3,option.refreshFunction);
-            _td.appendTo(tr);
-        }
-        if(option.search==true){
-            var _td=createTD(4,option.searchFunction);
-            _td.appendTo(tr);
-        }
-        console.log(table);
-        table.appendTo($("#grid-pager_left"));
-	
+	table.attr("cellspacing", "0");
+	table.attr("cellpadding", "0");
+	table.attr("border", "0");
+	table.addClass("ui-pg-table");
+	table.addClass("navtable");
+	table.css({
+		"float" : "left",
+		"table-layout" : "auto"
+	});
+
+	var tr = $("<tr></tr>");
+	tr.appendTo(table);
+	if (option.active == true) {
+		var _td = createTD(5, option.activeFunction);
+		_td.appendTo(tr);
+	}
+	if (option.inActive == true) {
+		var _td = createTD(6, option.inActiveFunction);
+		_td.appendTo(tr);
+	}
+
+	if (option.add == true) {
+		var _td = createTD(1, option.addFunction);
+		_td.appendTo(tr);
+	}
+	if (option.del == true) {
+		var _td = createTD(2, option.delFunction);
+		_td.appendTo(tr);
+	}
+	if (option.refresh == true) {
+		var _td = createTD(3, option.refreshFunction);
+		_td.appendTo(tr);
+	}
+	if (option.search == true) {
+		var _td = createTD(4, option.searchFunction);
+		_td.appendTo(tr);
+	}
+	console.log(table);
+	table.appendTo($("#grid-pager_left"));
+
 }
 
-function createTD(type,fn){
-	
+function createTD(type, fn) {
+
 	var iconClass;
 	var hoverTitle;
 	switch (type) {
 	case 1:
-		iconClass="ui-icon ace-icon fa fa-plus-circle purple";
-		hoverTitle="添加一条记录";
+		iconClass = "ui-icon ace-icon fa fa-plus-circle purple";
+		hoverTitle = "添加一条记录";
 		break;
 	case 2:
-		iconClass="ui-icon ace-icon fa fa-trash-o red";
-		hoverTitle="删除选中记录";
+		iconClass = "ui-icon ace-icon fa fa-trash-o red";
+		hoverTitle = "删除选中记录";
 		break;
 	case 3:
-		iconClass="ui-icon ace-icon fa fa-refresh green";
-		hoverTitle="刷新记录";
+		iconClass = "ui-icon ace-icon fa fa-refresh green";
+		hoverTitle = "刷新记录";
 		break;
-	
+
 	case 4:
-		iconClass="ui-icon ace-icon fa fa-search orange";
-		hoverTitle="搜索";
+		iconClass = "ui-icon ace-icon fa fa-search orange";
+		hoverTitle = "搜索";
 		break;
-		
+
 	case 5:
-		iconClass="ui-icon ace-icon fa fa-check green";
-		hoverTitle="激活";
+		iconClass = "ui-icon ace-icon fa fa-check green";
+		hoverTitle = "激活";
 		break;
-	
+
 	case 6:
-		iconClass="ui-icon ace-icon fa fa-ban grey";
-		hoverTitle="下线";
+		iconClass = "ui-icon ace-icon fa fa-ban grey";
+		hoverTitle = "下线";
 		break;
 
 	default:
 		break;
 	}
-	var td=$("<td></td>");
-	var _div=$("<div></div>");
-    var _span=$("<span></span>");
-    
-    _div.appendTo(td);
-    _span.appendTo(_div);
-    td.on("click", fn);
-    
-    _div.addClass("ui-pg-div");
-    td.addClass("ui-pg-button ui-corner-all");
-    td.attr("data-original-title",hoverTitle);
-    _span.addClass(iconClass);
-    
-    return td;
-   
+	var td = $("<td></td>");
+	var _div = $("<div></div>");
+	var _span = $("<span></span>");
+
+	_div.appendTo(td);
+	_span.appendTo(_div);
+	td.on("click", fn);
+
+	_div.addClass("ui-pg-div");
+	td.addClass("ui-pg-button ui-corner-all");
+	td.attr("data-original-title", hoverTitle);
+	_span.addClass(iconClass);
+
+	return td;
+
 }
 
-
-function alertInfo(msg){
+function alertInfo(msg) {
 	bootbox.dialog({
-		message: "<span class='bigger-110'>"+msg+"</span>",
-		buttons: 			
-		{
-			"click" :
-			{
+		message : "<span class='bigger-110'>" + msg + "</span>",
+		buttons : {
+			"click" : {
 				"label" : "关闭",
 				"className" : "btn-sm btn-primary",
-				"callback": function() {
+				"callback" : function() {
 				}
-			}, 
+			},
 		}
 	});
 }
 
-
-$(".close-search-btn").click(function(){
-	$(".search-div").css("display","none");
+$(".close-search-btn").click(function() {
+	$(".search-div").css("display", "none");
 });
 
-$(".open-search-btn").click(function(){
-	$(".search-div").css("display","block");
+$(".open-search-btn").click(function() {
+	$(".search-div").css("display", "block");
 });
+
+// 主要内容部分，要来局部刷新不同模块的主要部分
+var _mainContent = $("div#page-container");
+// 菜单 点击后， 局部刷新 主要内容部分 _mainContent
+$("a.ajaxPage").click(function(event) {
+	var a = $(this);
+	// 取消 默认的点击事件 否则跳转页面
+	event.preventDefault();
+
+	var url = a.attr("href");
+	$.ajax({
+		type : "GET",
+		url : url,
+		async : false,
+		cache : false,
+		dataType : "html",
+		error : function(request) {
+			if (request.status == "747") {
+				window.location.href = "/login.do";
+			} else {
+				alert("跳转页面出现错误");
+			}
+		},
+		success : function(data) {
+			// 会寻找返回的HTML中是否
+			// 存在fullpage:true的注释，如果存在则整张页面改变（body里面内容替换为响应返回的html）
+			// 不想整张页面变化，则不需要别的操作
+			if (data.indexOf("<!--fullpage:true-->") >= 0) {
+				// 整个页面改变
+				$("body").html(data);
+			} else {
+				// 局部页面填充，改变 class=mainCont的内部
+				_mainContent.html(data);
+				// 改变面包屑
+				// changeCrumb(generateCrumbArray(a));
+			}
+		}
+	});
+});
+
+/* for inside url forward */
+var subUrl = function(url) {
+	// 主要内容部分，要来局部刷新不同模块的主要部分
+	$.ajax({
+		type : "GET",
+		url : url,
+		async : false,
+		cache : false,
+		dataType : "html",
+		error : function(request) {
+			if (request.status == "747") {
+				window.location.href = "/login.do";
+			} else {
+				alert("跳转页面出现错误");
+			}
+		},
+		success : function(data) {
+			// 会寻找返回的HTML中是否
+			// 存在fullpage:true的注释，如果存在则整张页面改变（body里面内容替换为响应返回的html）
+			// 不想整张页面变化，则不需要别的操作
+			if (data.indexOf("<!--fullpage:true-->") >= 0) {
+				// 整个页面改变
+				$("body").html(data);
+			} else {
+				// 局部页面填充，改变 class=mainCont的内部
+				_mainContent.html(data);
+				// 改变面包屑
+				// changeCrumb(generateCrumbArray(a));
+			}
+		}
+	});
+};
+
+function makeFileUpload(fileEle, imgEle, valueEle) {
+	fileEle
+			.uploadify({
+				'uploader' : 'http://static.bresume.com/upload/uploadImg',
+				'swf' : '/resource/plugin/uploadify/uploadify.swf',
+				'cancelImage' : '/resource/plugin/uploadify/cancel.png',
+				'queueID' : 'imgFile',
+				'fileObjName' : 'imgFile',
+				'auto' : true,
+				'width' : 120,
+				'height' : 40,
+				'multi' : false,
+				'buttonText' : '上传图片',
+				'formData' : {
+					'user' : 'test',
+					'source' : 'PORTAL'
+				},
+				'onUploadSuccess' : function(file, data, response) {
+					data = JSON.parse(data);
+					var res = data.success;
+					if (res === true) {
+						valueEle.val(data.message);
+						imgEle.attr("src", "http://static.bresume.com"
+								+ data.message);
+					}
+				},
+			});
+
+}
