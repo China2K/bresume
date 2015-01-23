@@ -179,10 +179,11 @@
 				index : 'recommended',
 				width : 100,
 				formatter : function(cellvalue, options, rowObject) {
-					if (rowObject.recommended === true) {
+					return getRecoBtn(rowObject.recommended, rowObject.id);
+					/* if (rowObject.recommended === true) {
 						return "是";
 					}
-					return "否";
+					return "否"; */
 				}
 			}, {
 				name : 'status',
@@ -231,7 +232,38 @@
 
 		});
 		$(window).triggerHandler('resize.jqGrid');//trigger window resize to make the grid get the correct size
+		function getRecoBtn(isReco,id){
+			var htm="";
+			if(isReco===true){
+				htm ='是 &nbsp;<button class="btn btn-xs btn-info" onclick="setRecommend('+false+',\''+id+'\')">'
+				+ '取消<i class="ace-icon fa fa-arrow-left icon-on-left"></i></button>';
+			}else{
+				htm ='否 &nbsp;<button class="btn btn-xs btn-success" onclick="setRecommend('+true+',\''+id+'\')">'
+				+ '推荐<i class="ace-icon fa fa-arrow-right icon-on-right"></i></button>';
+			}
+			
+			
+			return htm;
+		}
+		
+		function setRecommend(_isReco,_id){
+			$.ajax({
+				url : "/resume/recommend.do",
+				type : "GET",
+				data : {
+					id : _id,
+					recommend : _isReco
+				},
+				dataType : "json",
+				success : function(resp) {
+					refreshFunction();
+					alertInfo(resp.message);
+				}
 
+			});
+		}
+		
+		
 		var status_url = "/resume/changStatus.do";
 		function change(_url, _status, _ids) {
 			$.ajax({

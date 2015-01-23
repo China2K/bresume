@@ -375,8 +375,8 @@
 								class="menu-icon fa fa-caret-right"></i> 客户管理
 						</a> <b class="arrow"></b></li>
 
-						<li class="sub-nav-bar"><a href="jqgrid.html"> <i
-								class="menu-icon fa fa-caret-right"></i> jqGrid plugin
+						<li class="sub-nav-bar"><a href="/page/user/advice.jsp" class="ajaxPage"> <i
+								class="menu-icon fa fa-caret-right"></i>建议管理
 						</a> <b class="arrow"></b></li>
 					</ul></li>
 

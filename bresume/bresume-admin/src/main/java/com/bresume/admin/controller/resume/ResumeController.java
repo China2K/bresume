@@ -24,6 +24,7 @@ import com.bresume.core.common.utils.CommonUtils;
 import com.bresume.core.common.utils.search.SearchBean;
 import com.bresume.core.model.dto.ResumeDto;
 import com.bresume.core.model.entity.resume.Resume;
+import com.bresume.core.model.entity.resume.Template;
 import com.bresume.core.service.resume.IResumeService;
 
 @RequestMapping("/resume")
@@ -102,4 +103,19 @@ public class ResumeController extends BaseController {
 		return "/page/resume/detail.jsp";
 	}
 
+	
+	@RequestMapping(value = "/recommend.do")
+	public @ResponseBody JSONObject recommoned(
+			@RequestParam(value = "id", required = false) String id,
+			@RequestParam(value = "recommend", required = false) boolean recommend
+			) {
+			Resume uptResume = resumeService.findOne(id);
+			if(uptResume!=null){
+				uptResume.setRecommended(recommend);
+				uptResume.setUpdatedTime(new Date());
+				resumeService.update(uptResume);
+			}
+
+		return this.toJSONResult(true, "保存成功");
+	}
 }

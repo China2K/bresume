@@ -11,6 +11,8 @@ import net.sf.json.JSONObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -47,7 +49,7 @@ public class TemplateController extends BaseController {
 
 		List<SearchBean> sbeans = convert2SearchBean(request);
 		sbeans.add(new SearchBean("status", "4", "!="));
-		Pageable pageable = new PageRequest(page - 1, pageSize, null);
+		Pageable pageable = new PageRequest(page - 1, pageSize, new Sort(Direction.ASC, "order"));
 		Page<TemplateDto> list = templateService.find(pageable,
 				sbeans.toArray(new SearchBean[] {}));
 		return this.toJSONResult(list.getTotalElements(), list.getContent(),
@@ -91,8 +93,19 @@ public class TemplateController extends BaseController {
 	public @ResponseBody JSONObject form(@ModelAttribute Template template,
 			Model model) {
 		if (CommonUtils.isNotEmpty(template.getId())) {
-			// TODO update
+			
 			Template uptTemplate = templateService.findOne(template.getId());
+			uptTemplate.setCoverUrl(template.getCoverUrl());
+			uptTemplate.setDesc(template.getDesc());
+			uptTemplate.setName(template.getName());
+			uptTemplate.setOrder(template.getOrder());
+			uptTemplate.setRecommended(template.getRecommended());
+			uptTemplate.setSiteUrl(template.getSiteUrl());
+			uptTemplate.setSource(template.getSource());
+			uptTemplate.setType(template.getType());
+			uptTemplate.setUpdatedBy(getCurrentUserId());
+			uptTemplate.setUpdatedTime(new Date());
+			templateService.update(uptTemplate);
 		} else {
 			template.setCreatedTime(new Date());
 			template.setCreatedBy(getCurrentUserId());
@@ -113,6 +126,22 @@ public class TemplateController extends BaseController {
 		Template template = templateService.findOne(id);
 		model.addAttribute("template", template);
 		return "/page/template/detail.jsp";
+	}
+	
+	@RequestMapping(value = "/recommend.do")
+	public @ResponseBody JSONObject recommoned(
+			@RequestParam(value = "id", required = false) String id,
+			@RequestParam(value = "recommend", required = false) boolean recommend
+			) {
+			Template uptTemplate = templateService.findOne(id);
+			if(uptTemplate!=null){
+				uptTemplate.setRecommended(recommend);
+				uptTemplate.setUpdatedTime(new Date());
+				uptTemplate.setUpdatedBy(getCurrentUserId());
+				templateService.update(uptTemplate);
+			}
+
+		return this.toJSONResult(true, "保存成功");
 	}
 
 }
