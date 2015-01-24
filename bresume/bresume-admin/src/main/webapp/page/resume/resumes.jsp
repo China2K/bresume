@@ -160,7 +160,6 @@
 				resize : false,
 				formatter : function(cellvalue, options, rowObject) {
 					var id = rowObject.id;
-					console.log("id=" + id);
 					return applyActions(id, "view,active,inActive,delete");
 				}
 			}, {

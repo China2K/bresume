@@ -7,14 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-<title>jqGrid - Ace Admin</title>
-
-<meta name="description" content="简历" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-
 <%@ include file="../common/common.jsp"%>
 
 <style type="text/css">
@@ -59,14 +52,14 @@
 										<div class="widget-main">
 											<div>
 												<label for="form-field-8">名称</label> <input type="text"
-													name="name" class="form-control" placeholder="Default Text" />
+													name="name" class="form-control" placeholder="名称" />
 											</div>
 
 											<hr />
 
 											<div>
 												<label for="form-field-8">编号</label> <input type="text"
-													name="sn" class="form-control" placeholder="Default Text" />
+													name="sn" class="form-control" placeholder="编号" />
 											</div>
 
 											<hr />
@@ -167,8 +160,7 @@
 				resize : false,
 				formatter : function(cellvalue, options, rowObject) {
 					var id = rowObject.id;
-					console.log("id=" + id);
-					return applyActions(id, "view,active,inActive,delete");
+					return applyActions(id, "view,active,inActive,edit,delete");
 				}
 			}, {
 				name : 'name',
@@ -296,7 +288,7 @@
 			change(status_url, 4, id);
 		}
 		function grid_row_edit(id) {
-
+			subUrl("/tem/form.do?id="+id);
 		}
 		function grid_row_active(id) {
 			change(status_url, 1, id);

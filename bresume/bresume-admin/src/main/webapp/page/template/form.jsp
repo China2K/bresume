@@ -63,8 +63,8 @@
 								for="form-field-1"> 封面</label>
 
 							<div class="col-sm-9">
-									<input class="fileupload-file-input" id="fileupload" type="file" />
-								<img src="${staticUrlPrefix}${template.coverUrl}"
+								<input class="fileupload-file-input" id="fileupload" type="file" />
+								<img src="${staticUrlPrefix}${template.coverUrl}" width="45px;" height="35px;"
 											class="img-responsive text-center fileupload-img-input" alt="">
 								<input type="hidden" value="${template.coverUrl}" class="fileupload-hidden-input" />
 							</div>
@@ -125,8 +125,8 @@
 								for="form-field-1"> 是否推荐 </label>
 
 							<div class="col-sm-9">
-
-								<label> <input name="recommended"
+					
+								<label> <input name="recommended" checked="{template.recommended}"
 									class="ace ace-switch ace-switch-7" type="checkbox"/> <span
 									class="lbl"></span>
 								</label>

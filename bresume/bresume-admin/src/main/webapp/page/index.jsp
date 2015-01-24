@@ -51,10 +51,10 @@
 <body class="no-skin">
 	<div id="navbar" class="navbar navbar-default">
 		<script type="text/javascript">
-			try {
+			/* try {
 				ace.settings.check('navbar', 'fixed')
 			} catch (e) {
-			}
+			} */
 		</script>
 
 		<div class="navbar-container" id="navbar-container">
@@ -294,18 +294,18 @@
 
 	<div class="main-container" id="main-container">
 		<script type="text/javascript">
-			try {
+			/* try {
 				ace.settings.check('main-container', 'fixed')
 			} catch (e) {
-			}
+			} */
 		</script>
 
 		<div id="sidebar" class="sidebar                  responsive">
 			<script type="text/javascript">
-				try {
+				/* try {
 					ace.settings.check('sidebar', 'fixed')
 				} catch (e) {
-				}
+				} */
 			</script>
 
 			<div class="sidebar-shortcuts" id="sidebar-shortcuts">
@@ -335,13 +335,15 @@
 			</div>
 			<!-- /.sidebar-shortcuts -->
 
-			<ul class="nav nav-list">
-				<li class="sub-nav-bar"><a href="/dashboard.do" class="ajaxPage"> <i
+			<ul class="nav nav-list index-nav-list">
+				<li class=""><a href="javasrcipt:void(0);"
+					data-href="/dashboard.do" class="ajaxPage"> <i
 						class="menu-icon fa fa-tachometer"></i> <span class="menu-text">
 							概览 </span>
 				</a> <b class="arrow"></b></li>
 
-				<li class="sub-nav-bar"><a href="calendar.html"> <i
+				<li class="sub-nav-bar"><a href="javasrcipt:void(0);"
+					data-href="/dashboard.do" class="ajaxPage"> <i
 						class="menu-icon fa fa-calendar"></i> <span class="menu-text">
 							待办事项 <span class="badge badge-transparent tooltip-error"
 							title="2 Important Events"> <i
@@ -350,43 +352,49 @@
 					</span>
 				</a> <b class="arrow"></b></li>
 
-				<li class=""><a href="#" class="dropdown-toggle"> <i
+				<li class="hsub"><a href="#" class="dropdown-toggle"> <i
 						class="menu-icon fa fa-desktop"></i> <span class="menu-text">
 							网站管理 </span> <b class="arrow fa fa-angle-down"></b>
 				</a> <b class="arrow"></b>
 
 					<ul class="submenu">
-						<li class="sub-nav-bar"><a href="typography.html"> <i
+						<li class="sub-nav-bar"><a href="javasrcipt:void(0);"
+							data-href="/dashboard.do" class="ajaxPage"> <i
 								class="menu-icon fa fa-caret-right"></i> 主页热门简历
 						</a> <b class="arrow"></b></li>
 
-						<li class="sub-nav-bar"><a href="elements.html"> <i
+						<li class="sub-nav-bar"><a href="javasrcipt:void(0);"
+							data-href="/dashboard.do" class="ajaxPage"> <i
 								class="menu-icon fa fa-caret-right"></i> 主页热门模版
 						</a> <b class="arrow"></b></li>
 					</ul></li>
 
-				<li class=""><a href="#" class="dropdown-toggle"> <i
+				<li class="hsub"><a href="#" class="dropdown-toggle"> <i
 						class="menu-icon fa fa-list"></i> <span class="menu-text">
 							用户管理 </span> <b class="arrow fa fa-angle-down"></b>
 				</a> <b class="arrow"></b>
 
 					<ul class="submenu">
-						<li class="sub-nav-bar"><a href="/page/user/customer.jsp" class="ajaxPage"> <i
+						<li class="sub-nav-bar"><a href="javasrcipt:void(0);"
+							data-href="/page/user/customer.jsp" class="ajaxPage"> <i
 								class="menu-icon fa fa-caret-right"></i> 客户管理
 						</a> <b class="arrow"></b></li>
 
-						<li class="sub-nav-bar"><a href="/page/user/advice.jsp" class="ajaxPage"> <i
+						<li class="sub-nav-bar"><a href="javasrcipt:void(0);"
+							data-href="/page/user/advice.jsp" class="ajaxPage"> <i
 								class="menu-icon fa fa-caret-right"></i>建议管理
 						</a> <b class="arrow"></b></li>
 					</ul></li>
 
 
-				<li class="sub-nav-bar"><a href="/page/resume/resumes.jsp" class="ajaxPage"> <i
+				<li class="sub-nav-bar"><a href="javascript:void(0);"
+					data-href="/page/resume/resumes.jsp" class="ajaxPage"> <i
 						class="menu-icon fa fa-list-alt"></i> <span class="menu-text">
 							简历管理 </span>
 				</a> <b class="arrow"></b></li>
 
-				<li class="sub-nav-bar"><a href="/page/template/templates.jsp" class="ajaxPage"> <i
+				<li class="sub-nav-bar"><a href="javasrcipt:void(0);"
+					data-href="/page/template/templates.jsp" class="ajaxPage"> <i
 						class="menu-icon fa fa-picture-o"></i> <span class="menu-text">
 							模版管理 </span>
 				</a> <b class="arrow"></b></li>
@@ -401,20 +409,20 @@
 			</div>
 
 			<script type="text/javascript">
-				try {
-					ace.settings.check('sidebar', 'collapsed')
-				} catch (e) {
-				}
+				 	try {
+						ace.settings.check('sidebar', 'collapsed')
+					} catch (e) {
+					} 
 			</script>
 		</div>
 
 		<div class="main-content">
 			<div class="breadcrumbs" id="breadcrumbs">
 				<script type="text/javascript">
-					try {
+					/* try {
 						ace.settings.check('breadcrumbs', 'fixed')
 					} catch (e) {
-					}
+					} */
 				</script>
 
 				<ul class="breadcrumb">
@@ -475,8 +483,9 @@
 	<!--[if !IE]> -->
 	<script type="text/javascript">
 		window.jQuery
-				|| document.write("<script src='/resource/site/js/jquery.min.js'>"
-						+ "<"+"/script>");
+				|| document
+						.write("<script src='/resource/site/js/jquery.min.js'>"
+								+ "<"+"/script>");
 	</script>
 	<!-- <![endif]-->
 
@@ -499,13 +508,79 @@
 	<!-- ace scripts -->
 	<script src="/resource/site/js/ace-elements.min.js"></script>
 	<script src="/resource/site/js/ace.min.js"></script>
+	<script src="/resource/site/js/jquery.livequery.js"></script>
 	<script src="/resource/common/common.js"></script>
 
 	<!-- inline scripts related to this page -->
 
 
 	<script type="text/javascript">
-	
+		// 主要内容部分，要来局部刷新不同模块的主要部分
+
+		// 菜单 点击后， 局部刷新 主要内容部分 _mainContent
+		$("a.ajaxPage").click(function(event) {
+			$(".tooltip").css("display", "none");
+			var _mainContent = $("div#page-container");
+			var a = $(this);
+			// 取消 默认的点击事件 否则跳转页面
+			event.preventDefault();
+			 event.stopPropagation();
+			var url = a.attr("data-href");
+			$.ajax({
+				type : "GET",
+				url : url,
+				async : false,
+				cache : false,
+				dataType : "html",
+				error : function(request) {
+					if (request.status == "747") {
+						window.location.href = "/login.do";
+					} else {
+						alert("跳转页面出现错误");
+					}
+				},
+				success : function(data) {
+					// 会寻找返回的HTML中是否
+					// 存在fullpage:true的注释，如果存在则整张页面改变（body里面内容替换为响应返回的html）
+					// 不想整张页面变化，则不需要别的操作
+					if (data.indexOf("<!--fullpage:true-->") >= 0) {
+						// 整个页面改变
+						$("body").html(data);
+					} else {
+						// 局部页面填充，改变 class=mainCont的内部
+						_mainContent.html(data);
+						// 改变面包屑
+						// changeCrumb(generateCrumbArray(a));
+					}
+				}
+			});
+
+			$(".index-nav-list li").removeClass("active");
+			//$(".index-nav-list li").removeClass("open");
+			$(this).parent("li.sub-nav-bar").addClass("active");
+			var uls = $(this).parent("li.sub-nav-bar").parent("ul.submenu")
+			if (uls) {
+				uls.parent("li.hsub").addClass("active");
+			}
+		});
+		
+		
+		  $(".hsub").click(function(event){
+			  
+			 console.log(this);
+			 //if(event.target == this){   
+				 if ($(this).hasClass("open")){
+						$(this).removeClass("open");
+						$(this).children("ul.submenu").css("display","none");
+						
+					}else{
+						$(this).addClass("open");
+						$(this).children("ul.submenu").css("display","block");
+					}
+			// }
+			event.preventDefault();
+			 event.stopPropagation();
+		});  
 	</script>
 </body>
 </html>
