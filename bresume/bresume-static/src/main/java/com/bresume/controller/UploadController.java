@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.bresume.core.common.base.controller.BaseController;
+import com.bresume.core.common.base.controller.StaticController;
 import com.bresume.core.common.upload.FileUploadHandler;
 import com.bresume.core.common.upload.UploadConfig.FileSource;
 import com.bresume.core.common.upload.UploadConfig.FileType;
@@ -26,7 +26,7 @@ import com.bresume.core.service.sys.IFileService;
 
 @Controller
 @RequestMapping("/upload")
-public class UploadController extends BaseController{
+public class UploadController extends StaticController{
 
 	private static final Logger logger = Logger.getLogger(UploadController.class);
 	

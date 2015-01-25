@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.bresume.core.common.base.controller.BaseController;
+import com.bresume.core.common.base.controller.PortalController;
 import com.bresume.core.common.utils.CommonUtils;
 import com.bresume.core.model.dto.LoginUser;
 import com.bresume.core.model.entity.resume.Resume;
@@ -24,7 +24,7 @@ import com.bresume.core.service.resume.IResumeService;
 
 @RequestMapping("/pi")
 @Controller
-public class PersionalInfoController extends BaseController {
+public class PersionalInfoController extends PortalController {
 
 	@Resource
 	private IPersionalInfoService persionalInfoService;

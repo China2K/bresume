@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.bresume.core.common.base.controller.BaseController;
+import com.bresume.core.common.base.controller.AdminController;
 import com.bresume.core.common.constant.IConstants;
 import com.bresume.core.common.constant.enums.CommonStatus;
 import com.bresume.core.common.utils.CommonUtils;
@@ -33,7 +33,7 @@ import com.bresume.core.service.resume.ITemplateService;
 
 @RequestMapping("/tem")
 @Controller
-public class TemplateController extends BaseController {
+public class TemplateController extends AdminController {
 	@Resource
 	private ITemplateService templateService;
 

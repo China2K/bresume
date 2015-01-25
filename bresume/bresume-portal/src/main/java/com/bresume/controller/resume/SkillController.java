@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.bresume.core.common.base.controller.BaseController;
+import com.bresume.core.common.base.controller.PortalController;
 import com.bresume.core.common.constant.enums.CommonStatus;
 import com.bresume.core.common.utils.CommonUtils;
 import com.bresume.core.model.entity.resume.Resume;
@@ -25,7 +25,7 @@ import com.bresume.core.service.resume.ISkillService;
 
 @RequestMapping("/skill")
 @Controller
-public class SkillController extends BaseController {
+public class SkillController extends PortalController {
 
 	@Resource
 	private ISkillService skillService;

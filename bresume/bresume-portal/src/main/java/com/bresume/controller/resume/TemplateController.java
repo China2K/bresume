@@ -14,7 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.bresume.core.common.base.controller.BaseController;
+import com.bresume.core.common.base.controller.PortalController;
 import com.bresume.core.common.constant.enums.CommonStatus;
 import com.bresume.core.common.utils.search.SearchBean;
 import com.bresume.core.model.entity.resume.Template;
@@ -22,7 +22,7 @@ import com.bresume.core.service.resume.ITemplateService;
 
 @RequestMapping("/template")
 @Controller
-public class TemplateController extends BaseController {
+public class TemplateController extends PortalController {
 	@Resource
 	private ITemplateService templateService;
 

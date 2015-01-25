@@ -17,7 +17,7 @@ public class SysUser extends BaseEntity {
 	private String userName;
 	private String password;
 	private String realName;
-	private String sn;
+	private String num;
 	private Integer status;
 	private String roleId;
 
@@ -84,7 +84,7 @@ public class SysUser extends BaseEntity {
 		this.email = email;
 	}
 
-	@Column(name = "REALNAME")
+	@Column(name = "REAL_NAME")
 	public String getRealName() {
 		return realName;
 	}
@@ -93,13 +93,13 @@ public class SysUser extends BaseEntity {
 		this.realName = realName;
 	}
 
-	@Column(name = "SN")
-	public String getSn() {
-		return sn;
+	@Column(name = "NUM")
+	public String getNum() {
+		return num;
 	}
 
-	public void setSn(String sn) {
-		this.sn = sn;
+	public void setNum(String num) {
+		this.num = num;
 	}
 
 	@Column(name = "`DESC`")

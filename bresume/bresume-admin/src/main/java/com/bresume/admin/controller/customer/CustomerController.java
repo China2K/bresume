@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.bresume.core.common.base.controller.BaseController;
+import com.bresume.core.common.base.controller.AdminController;
 import com.bresume.core.common.constant.enums.RegisterType;
 import com.bresume.core.common.constant.enums.UserStatus;
 import com.bresume.core.common.utils.CommonUtils;
@@ -33,7 +33,7 @@ import com.bresume.core.service.user.IUserService;
 
 @RequestMapping("/user")
 @Controller
-public class CustomerController extends BaseController {
+public class CustomerController extends AdminController {
 	@Resource
 	private ITemplateService templateService;
 

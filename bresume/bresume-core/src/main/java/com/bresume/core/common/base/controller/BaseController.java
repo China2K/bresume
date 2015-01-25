@@ -17,21 +17,18 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
-import com.bresume.core.common.base.sys.SessionContextHolder;
-import com.bresume.core.common.constant.IPortalConstants;
 import com.bresume.core.common.exception.CoreException;
 import com.bresume.core.common.msg.MsgDescription;
 import com.bresume.core.common.utils.CommonUtils;
 import com.bresume.core.common.utils.GeneralUtils;
 import com.bresume.core.common.utils.json.JsonHelper;
 import com.bresume.core.common.utils.search.SearchBean;
-import com.bresume.core.model.dto.LoginUser;
 
 /**
  * Controller基类，所有的Controller必须要继承此类
  * 
  */
-public class BaseController extends SimpleFormController {
+public abstract class BaseController extends SimpleFormController {
 	protected Logger LOGGER = Logger.getLogger(this.getClass());
 
 	public static final String DEFAULT_JSON_DATA = "data";
@@ -185,17 +182,9 @@ public class BaseController extends SimpleFormController {
 		return list;
 	}
 
-	protected LoginUser getCurrentLoginUser() {
-		Object obj = SessionContextHolder.getSession().getAttribute(
-				IPortalConstants.SESSION_KEY_LOGIN_USER);
-		if (obj == null)
-			return null;
-		return LoginUser.class.cast(obj);
-	}
-	protected String getCurrentUserId() {
-		LoginUser user= getCurrentLoginUser();
-		return user==null?null:user.getId();
-	}
+	public abstract Object getCurrentLoginUser();
+	
+	public abstract String getCurrentUserId() ;
 	
 	
 

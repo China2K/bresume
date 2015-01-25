@@ -19,17 +19,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.bresume.core.common.base.controller.BaseController;
+import com.bresume.core.common.base.controller.PortalController;
 import com.bresume.core.common.utils.CommonUtils;
 import com.bresume.core.common.utils.search.SearchBean;
 import com.bresume.core.model.dto.ResumeDto;
 import com.bresume.core.model.entity.resume.Resume;
-import com.bresume.core.model.entity.resume.Template;
 import com.bresume.core.service.resume.IResumeService;
 
 @RequestMapping("/resume")
 @Controller
-public class ResumeController extends BaseController {
+public class ResumeController extends PortalController {
 
 	@Resource
 	private IResumeService resumeService;

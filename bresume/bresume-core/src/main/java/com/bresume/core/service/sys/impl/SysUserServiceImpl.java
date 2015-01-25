@@ -1,14 +1,9 @@
-package com.bresume.core.service.user.impl;
+package com.bresume.core.service.sys.impl;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,28 +15,24 @@ import com.bresume.core.common.exception.PortalErrorCode;
 import com.bresume.core.common.exception.impl.PortalException;
 import com.bresume.core.common.exception.impl.PwdNotCorrectException;
 import com.bresume.core.common.log.LogUtils;
-import com.bresume.core.common.utils.CommonUtils;
 import com.bresume.core.common.utils.CopyUtils;
-import com.bresume.core.common.utils.DateUtils;
 import com.bresume.core.common.utils.EncryptionUtils;
 import com.bresume.core.common.utils.GeneralUtils;
-import com.bresume.core.common.utils.search.SearchBean;
-import com.bresume.core.dao.user.IUserDao;
-import com.bresume.core.model.dto.UserDto;
-import com.bresume.core.model.entity.user.User;
-import com.bresume.core.service.user.IUserService;
+import com.bresume.core.dao.sys.ISysUserDao;
+import com.bresume.core.model.entity.sys.SysUser;
+import com.bresume.core.service.sys.ISysUserService;
 
 @Service
 @Transactional
-public class UserServiceImpl extends GenericService<User, String> implements
-		IUserService {
+public class SysUserServiceImpl extends GenericService<SysUser, String>
+		implements ISysUserService {
 
 	@Resource
-	private IUserDao userDao;
+	private ISysUserDao sysUserDao;
 
 	@Override
-	public IGenericDao<User, String> getDao() {
-		return userDao;
+	public IGenericDao<SysUser, String> getDao() {
+		return sysUserDao;
 	}
 
 	/**
@@ -51,24 +42,20 @@ public class UserServiceImpl extends GenericService<User, String> implements
 	 * @throws PortalException
 	 */
 	@Override
-	@Transactional(rollbackFor = CoreException.class)
-	public void active(String userName) throws PortalException {
+	@Transactional(rollbackFor = Exception.class)
+	public void active(String userName) {
 
 		LogUtils.getInstance().debugSystem(LogUtils.MODULE_PORTAL,
 				"Execute activing user info", "userName", userName);
 
+		SysUser sUser = sysUserDao.findUniqueBy("username", userName);
+
 		// 校验登录名是否存在
-		if (!userDao.isNoDeleteExist("userName", userName, null)) {
-
-			LogUtils.getInstance().errorSystem(LogUtils.MODULE_PORTAL,
-					"Login name not found error!", "Login name", userName);
-
-			throw new PortalException(
-					PortalErrorCode.USER_LOGIN_NAME_NOT_EXIST_ERROR,
-					"Login name not found error!");
+		if (sUser != null) {
+			sUser.setStatus(UserStatus.ACTIVE.getCode());
+			sUser.setUpdatedTime(new Date());
+			sysUserDao.update(sUser);
 		}
-
-		userDao.updateStatus(userName, UserStatus.ACTIVE);
 
 		LogUtils.getInstance().debugSystem(LogUtils.MODULE_PORTAL,
 				"Finish activing user info", "userName", userName);
@@ -81,18 +68,14 @@ public class UserServiceImpl extends GenericService<User, String> implements
 		LogUtils.getInstance().debugSystem(LogUtils.MODULE_PORTAL,
 				"Execute activing user info", "userName", userName);
 
+		SysUser sUser = sysUserDao.findUniqueBy("username", userName);
+
 		// 校验登录名是否存在
-		if (!userDao.isNoDeleteExist("userName", userName, null)) {
-
-			LogUtils.getInstance().errorSystem(LogUtils.MODULE_PORTAL,
-					"Login name not found error!", "Login name", userName);
-
-			throw new PortalException(
-					PortalErrorCode.USER_LOGIN_NAME_NOT_EXIST_ERROR,
-					"Login name not found error!");
+		if (sUser != null) {
+			sUser.setStatus(UserStatus.INACTIVE.getCode());
+			sUser.setUpdatedTime(new Date());
+			sysUserDao.update(sUser);
 		}
-
-		userDao.updateStatus(userName, UserStatus.INACTIVE);
 
 		LogUtils.getInstance().debugSystem(LogUtils.MODULE_PORTAL,
 				"Finish activing user info", "userName", userName);
@@ -107,16 +90,16 @@ public class UserServiceImpl extends GenericService<User, String> implements
 	 */
 	@Override
 	@Transactional(noRollbackFor = { PwdNotCorrectException.class }, rollbackFor = CoreException.class)
-	public User loginCheck(String userName, String password)
+	public SysUser loginCheck(String userName, String password)
 			throws PortalException, PwdNotCorrectException {
 		LogUtils.getInstance().debugSystem(LogUtils.MODULE_PORTAL,
 				"Execute Logining", "userName", userName);
-		User user;
+		SysUser user;
 		System.out.println(userName.indexOf("@"));
 		if (userName.contains("@")) {
-			user = userDao.findUniqueBy("email", userName);
+			user = sysUserDao.findUniqueBy("email", userName);
 		} else {
-			user = userDao.findUniqueBy("userName", userName);
+			user = sysUserDao.findUniqueBy("userName", userName);
 		}
 
 		// 校验登录名是否存在
@@ -130,37 +113,7 @@ public class UserServiceImpl extends GenericService<User, String> implements
 					"Login name not found error!");
 		}
 
-		if (CommonUtils.isNotEmpty(user.getLastPwdErrorTime())) {
-
-			int sysPasswordUnlockTimes = 1;// TODO 后续可在数据库配置
-
-			if (DateUtils.minusMinuteByNow(user.getLastPwdErrorTime()) < sysPasswordUnlockTimes) {
-
-				// 校验密码是否已经超过最大的次数
-				int sysPasswordMaxTimes = 10;// TODO 后续可在数据库配置
-				if (user.getPwdErrorTimes() >= sysPasswordMaxTimes) {
-					LogUtils.getInstance().errorSystem(LogUtils.MODULE_PORTAL,
-							"Password error times exceed error!",
-							"Error times", user.getPwdErrorTimes());
-					int unlockMins = 1;// TODO 后续可在数据库配置
-					throw new PortalException(
-							PortalErrorCode.USER_PASSWORD_ERROR_TIMES_EXCEED_ERROR,
-							new Object[] { sysPasswordMaxTimes, unlockMins },
-							"Password error times exceed error!");
-				}
-
-				this.checkPassword(password, user, user.getPwdErrorTimes());
-			}
-			// 如果密码超过解封时间，则将密码的错误次数置空
-			else {
-				this.checkPassword(password, user, 0);
-			}
-		} else {
-			this.checkPassword(password, user, 0);
-		}
-
-		user.setPwdErrorTimes(0);
-		userDao.update(user);
+		this.checkPassword(password, user);
 		return user;
 	}
 
@@ -171,19 +124,14 @@ public class UserServiceImpl extends GenericService<User, String> implements
 	 * @return
 	 * @throws
 	 */
-	private void checkPassword(String password, User user,
-			int passwordErrorTimes) throws PwdNotCorrectException {
+	private void checkPassword(String password, SysUser user)
+			throws PwdNotCorrectException {
 		// 校验密码是否正确
 		if (!user.getPassword().equals(
 				EncryptionUtils.encryptBasedMd5(password))) {
 
 			LogUtils.getInstance().errorSystem(LogUtils.MODULE_PORTAL,
 					"Password incorrect error!");
-
-			// 将密码出错次数加1
-			user.setPwdErrorTimes(++passwordErrorTimes);
-			user.setLastPwdErrorTime(new Date());
-			userDao.update(user);
 			throw new PwdNotCorrectException(
 					PortalErrorCode.USER_PASSWORD_NOT_CORRECT_ERROR,
 					"Password incorrect error!");
@@ -196,7 +144,7 @@ public class UserServiceImpl extends GenericService<User, String> implements
 	 * @param user
 	 * @throws PortalException
 	 */
-	private void checkValid(User user) throws PortalException {
+	private void checkValid(SysUser user) throws PortalException {
 
 		/**
 		 * 1. 为空校验
@@ -231,7 +179,7 @@ public class UserServiceImpl extends GenericService<User, String> implements
 		 * 2. 重复校验
 		 */
 		/*
-		 * // 判断登录名是否重复 if (userDao.isNoDeleteExist("userName",
+		 * // 判断登录名是否重复 if (sysUserDao.isNoDeleteExist("userName",
 		 * user.getUserName(), user.getId())) {
 		 * 
 		 * LogUtils.getInstance().errorSystem(LogUtils.MODULE_PORTAL,
@@ -242,7 +190,7 @@ public class UserServiceImpl extends GenericService<User, String> implements
 		 */
 
 		// 判断邮箱是否重复
-		if (userDao.isNoDeleteExist("email", user.getEmail(), user.getId())) {
+		if (sysUserDao.isNoDeleteExist("email", user.getEmail(), user.getId())) {
 
 			LogUtils.getInstance().errorSystem(LogUtils.MODULE_PORTAL,
 					"Check user info error,email exists!", user.getUserName());
@@ -251,7 +199,7 @@ public class UserServiceImpl extends GenericService<User, String> implements
 		}
 
 		/*
-		 * // 判断手机号码是否重复 if (userDao.isNoDeleteExist("cellPhone",
+		 * // 判断手机号码是否重复 if (sysUserDao.isNoDeleteExist("cellPhone",
 		 * user.getCellPhone(), user.getId())) {
 		 * 
 		 * LogUtils.getInstance().errorSystem(LogUtils.MODULE_PORTAL,
@@ -262,53 +210,13 @@ public class UserServiceImpl extends GenericService<User, String> implements
 	}
 
 	/**
-	 * 第三方登录自动注册
-	 * 
-	 * @param user
-	 */
-	@Override
-	@Transactional(rollbackFor = CoreException.class)
-	public String registerFromAuth(User user) {
-		LogUtils.getInstance().debugSystem(LogUtils.MODULE_PORTAL,
-				"Execute registering user ", user);
-
-		try {
-			LogUtils.getInstance().debugSystem(LogUtils.MODULE_PORTAL,
-					"Begin to insert user data to DB", user);
-			CopyUtils.copyProperty(user, user);
-			Date now = new Date();
-			user.setStatus(UserStatus.INTITAL.getCode());
-			user.setCreatedTime(now);
-			user.setIsEmailVerified(false);
-			user.setIsPhoneVerified(false);
-		} catch (Exception e) {
-			LogUtils.getInstance().errorServiceSystem(LogUtils.MODULE_PORTAL,
-					"Convert from user to user error", e, user.toString());
-		}
-
-		/*
-		 * String password = user.getPassword(); if
-		 * (CommonUtils.isEmpty(password)) { password =
-		 * IPortalConstants.defaultPSW; }
-		 * user.setPassword(EncryptionUtils.encryptBasedMd5(password));
-		 */
-
-		// 保存商户信息
-		String id = userDao.save(user);
-
-		LogUtils.getInstance().debugSystem(LogUtils.MODULE_PORTAL,
-				"Insert user data successful!", user);
-		return id;
-	}
-
-	/**
 	 * 注册
 	 * 
 	 * @param user
 	 */
 	@Override
 	@Transactional(rollbackFor = CoreException.class)
-	public String register(User user) throws CoreException {
+	public String register(SysUser user) throws CoreException {
 		LogUtils.getInstance().debugSystem(LogUtils.MODULE_PORTAL,
 				"Execute registering user ", user);
 
@@ -322,8 +230,6 @@ public class UserServiceImpl extends GenericService<User, String> implements
 			Date now = new Date();
 			user.setStatus(UserStatus.INTITAL.getCode());
 			user.setCreatedTime(now);
-			user.setIsEmailVerified(false);
-			user.setIsPhoneVerified(false);
 		} catch (Exception e) {
 			LogUtils.getInstance().errorServiceSystem(LogUtils.MODULE_PORTAL,
 					"Convert from user to user error", e, user.toString());
@@ -335,7 +241,7 @@ public class UserServiceImpl extends GenericService<User, String> implements
 		user.setPassword(EncryptionUtils.encryptBasedMd5(user.getPassword()));
 
 		// 保存商户信息
-		String id = userDao.save(user);
+		String id = sysUserDao.save(user);
 
 		LogUtils.getInstance().debugSystem(LogUtils.MODULE_PORTAL,
 				"Insert user data successful!", user);
@@ -357,7 +263,7 @@ public class UserServiceImpl extends GenericService<User, String> implements
 
 		// 校验旧密码是否为空正确
 		oldPassword = EncryptionUtils.encryptBasedMd5(oldPassword);
-		User user = userDao.findUniqueBy("userName", userName);
+		SysUser user = sysUserDao.findUniqueBy("userName", userName);
 		if (!user.getPassword().equals(oldPassword)) {
 			LogUtils.getInstance().errorSystem(LogUtils.MODULE_PORTAL,
 					"Updating user password error,old password not correct!",
@@ -370,7 +276,7 @@ public class UserServiceImpl extends GenericService<User, String> implements
 		// 更新新密码
 		newPassword = EncryptionUtils.encryptBasedMd5(newPassword);
 		user.setPassword(newPassword);
-		userDao.update(user);
+		sysUserDao.update(user);
 		return newPassword;
 	}
 
@@ -383,7 +289,7 @@ public class UserServiceImpl extends GenericService<User, String> implements
 
 		// 校验旧密码是否为空正确
 		oldPassword = EncryptionUtils.encryptBasedMd5(oldPassword);
-		User user = userDao.findById(userId);
+		SysUser user = sysUserDao.findById(userId);
 		if (!user.getPassword().equals(oldPassword)) {
 			LogUtils.getInstance().errorSystem(LogUtils.MODULE_PORTAL,
 					"Updating user password error,old password not correct!",
@@ -396,23 +302,23 @@ public class UserServiceImpl extends GenericService<User, String> implements
 		// 更新新密码
 		newPassword = EncryptionUtils.encryptBasedMd5(newPassword);
 		user.setPassword(newPassword);
-		userDao.update(user);
+		sysUserDao.update(user);
 		return newPassword;
 	}
 
 	@Override
 	@Transactional(rollbackFor = CoreException.class)
-	public void updateSelf(User user) throws CoreException {
+	public void updateSelf(SysUser user) throws CoreException {
 		LogUtils.getInstance().debugSystem(LogUtils.MODULE_PORTAL,
 				"Execute updating user himself record to DB", user);
 
 		// 校验输入有效性
 		this.checkValid(user);
 
-		User persist = userDao.findById(user.getId());
+		SysUser persist = sysUserDao.findById(user.getId());
 		persist.setCellPhone(user.getCellPhone());
 		persist.setEmail(user.getEmail());
-		userDao.update(persist);
+		sysUserDao.update(persist);
 
 		LogUtils.getInstance().debugSystem(LogUtils.MODULE_PORTAL,
 				"Update user himself successful!", user);
@@ -426,16 +332,16 @@ public class UserServiceImpl extends GenericService<User, String> implements
 	 */
 	@Override
 	@Transactional(readOnly = true)
-	public User find(String userName) throws CoreException {
+	public SysUser find(String userName) throws CoreException {
 		LogUtils.getInstance().debugSystem(LogUtils.MODULE_PORTAL,
 				"Execute finding merchant record from DB", "loginName",
 				userName);
 
-		User user;
+		SysUser user;
 		if (userName.contains("@")) {
-			user = userDao.findUniqueBy("email", userName);
+			user = sysUserDao.findUniqueBy("email", userName);
 		} else {
-			user = userDao.findUniqueBy("userName", userName);
+			user = sysUserDao.findUniqueBy("userName", userName);
 		}
 
 		// 校验登录名是否存在
@@ -454,20 +360,4 @@ public class UserServiceImpl extends GenericService<User, String> implements
 		return user;
 	}
 
-	@Override
-	public boolean isEmailUsed(String email, String userId) {
-		// 判断邮箱是否重复
-		return userDao.isNoDeleteExist("email", email, userId);
-	}
-
-	@Override
-	@Transactional(readOnly = true)
-	public Page<UserDto> find(Pageable pageable, SearchBean... searchBeans) {
-		Page<User> list = userDao.findAll(pageable, searchBeans);
-		List<UserDto> content = new ArrayList<UserDto>();
-		for (User user : list.getContent()) {
-			content.add(UserDto.convert(user));
-		}
-		return new PageImpl<UserDto>(content, pageable, list.getTotalElements());
-	}
 }

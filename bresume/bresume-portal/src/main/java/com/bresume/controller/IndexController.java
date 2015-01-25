@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.bresume.core.common.base.controller.BaseController;
+import com.bresume.core.common.base.controller.PortalController;
 import com.bresume.core.common.constant.enums.CommonStatus;
 import com.bresume.core.common.constant.enums.ContactStatus;
 import com.bresume.core.common.utils.search.SearchBean;
@@ -32,7 +32,7 @@ import com.bresume.core.service.user.IContactService;
 
 @RequestMapping("/")
 @Controller
-public class IndexController extends BaseController {
+public class IndexController extends PortalController {
 	@Resource
 	private ITemplateService templateService;
 

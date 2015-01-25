@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.bresume.core.common.base.controller.BaseController;
+import com.bresume.core.common.base.controller.PortalController;
 import com.bresume.core.common.utils.CommonUtils;
 import com.bresume.core.model.entity.resume.Resume;
 import com.bresume.core.model.entity.resume.item.WorkExperience;
@@ -23,7 +23,7 @@ import com.bresume.core.service.resume.IWorkExperienceService;
 
 @RequestMapping("/we")
 @Controller
-public class WorkExperienceController extends BaseController {
+public class WorkExperienceController extends PortalController {
 
 	@Resource
 	private IResumeService resumeService;

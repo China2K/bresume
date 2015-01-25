@@ -1,12 +1,11 @@
 package com.bresume.core.common.constant;
 
-public interface IAdminConstants extends IConstants
-{
-	String	SESSION_KEY_LOGIN_USER		= "loginUser";
+public interface IAdminConstants extends IConstants {
+	String SESSION_KEY_LOGIN_USER = "loginUser";
 
-	String	SESSION_KEY_LOGIN_TIME		= "loginTime";
+	String SESSION_KEY_LOGIN_TIME = "loginTime";
 
-	String	SESSION_KEY_CURRENT_USER	= "currentUser";
+	public static final String defaultIconUrl = "http://tp4.sinaimg.cn/2465082087/50/5617595072/1";
 
-	String	SESSION_KEY_SKIN			= "skin";
+	public static final String VPORTAL_DOMAIN = "http://www.bresume.com";
 }

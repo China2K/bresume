@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.bresume.core.common.base.sys.SessionContextHolder;
-import com.bresume.core.common.constant.IPortalConstants;
+import com.bresume.core.common.constant.IAdminConstants;
 
 
 public class LoginFilter extends HttpServlet implements Filter
@@ -31,7 +31,7 @@ public class LoginFilter extends HttpServlet implements Filter
 	private void deleteFromCookie(String cookieKey, HttpServletResponse res)
 	{
 		Cookie token = new Cookie(cookieKey, null);
-		token.setDomain(IPortalConstants.VPORTAL_DOMAIN);
+		token.setDomain(IAdminConstants.VPORTAL_DOMAIN);
 		token.setPath("/");
 		token.setMaxAge(0);
 		res.addCookie(token);
@@ -103,14 +103,14 @@ public class LoginFilter extends HttpServlet implements Filter
 		if (!flag)
 		{
 			// 如果session不为空，则可以浏览其他页面
-			if (session.getAttribute(IPortalConstants.SESSION_KEY_LOGIN_USER) != null)
+			if (session.getAttribute(IAdminConstants.SESSION_KEY_LOGIN_USER) != null)
 			{
 				filterChain.doFilter(request, response);
 				return;
 			} else
 			{
 				// 跳转到登陆页
-				res.sendRedirect(basePath + "login");
+				res.sendRedirect(basePath + "login.do");
 				return;
 			}
 		} else

@@ -9,7 +9,7 @@ import javax.annotation.Resource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.ui.Model;
 
-import com.bresume.core.common.base.controller.BaseController;
+import com.bresume.core.common.base.controller.PortalController;
 import com.bresume.core.common.base.sys.SessionContextHolder;
 import com.bresume.core.common.constant.IPortalConstants;
 import com.bresume.core.common.constant.enums.AuthType;
@@ -22,7 +22,7 @@ import com.bresume.core.model.entity.user.User;
 import com.bresume.core.service.user.IBAuthService;
 
 
-public abstract class AuthController extends BaseController {
+public abstract class AuthController extends PortalController {
 	@Resource
 	private JavaMailSender mailSender;
 	

@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.bresume.core.common.base.controller.BaseController;
+import com.bresume.core.common.base.controller.AdminController;
 import com.bresume.core.common.utils.search.SearchBean;
 import com.bresume.core.model.dto.ContactDto;
 import com.bresume.core.model.entity.user.Contact;
@@ -27,7 +27,7 @@ import com.bresume.core.service.user.IContactService;
 
 @RequestMapping("/advice")
 @Controller
-public class AdviceController extends BaseController {
+public class AdviceController extends AdminController {
 
 	@Resource
 	private IContactService contactService;
