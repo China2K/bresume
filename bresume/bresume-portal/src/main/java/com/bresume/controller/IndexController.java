@@ -45,7 +45,7 @@ public class IndexController extends PortalController {
 	@RequestMapping("/index")
 	public String index(HttpServletRequest request, Model model) {
 
-		List<Template> hotTemplates = templateService.findHostTemplates();
+		List<Template> hotTemplates = templateService.findHostTemplates(CommonStatus.ACTIVE.getCode());
 
 		List<Resume> hotResumes = resumeService.findHostResumes();
 

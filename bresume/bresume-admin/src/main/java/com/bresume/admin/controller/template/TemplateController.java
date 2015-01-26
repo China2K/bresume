@@ -39,6 +39,17 @@ public class TemplateController extends AdminController {
 
 	@Resource
 	private IResumeService resumeService;
+	
+	@RequestMapping("/hot.do")
+	public String index(HttpServletRequest request, Model model) {
+
+		List<Template> hotTemplates = templateService.findHostTemplates(null);
+		model.addAttribute("hotTemplates", hotTemplates);
+		return "/site/hotTemplates.jsp";
+	}
+	
+	
+	
 
 	@RequestMapping("/list.do")
 	public @ResponseBody JSONObject customerList(

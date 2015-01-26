@@ -11,7 +11,7 @@ import com.bresume.core.model.dto.TemplateDto;
 import com.bresume.core.model.entity.resume.Template;
 
 public interface ITemplateService extends IGenericService<Template,String>{
-	List<Template> findHostTemplates();
+	List<Template> findHostTemplates(Integer status);
 	
 	Page<TemplateDto> find(Pageable pageable, SearchBean... searchBeans) ;
 }

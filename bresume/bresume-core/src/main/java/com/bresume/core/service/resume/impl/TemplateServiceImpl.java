@@ -31,7 +31,10 @@ public class TemplateServiceImpl extends GenericService<Template, String> implem
 		return templateDao;
 	}
 	@Override
-	public List<Template> findHostTemplates() {
+	public List<Template> findHostTemplates(Integer status) {
+		if(status!=null){
+			return templateDao.findAll(new Sort(Direction.ASC, "order"), new SearchBean("recommended","1", "="),new SearchBean("status",status.toString(), "="));
+		}
 		return templateDao.findAll(new Sort(Direction.ASC, "order"), new SearchBean("recommended","1", "="));
 	}
 	@Override

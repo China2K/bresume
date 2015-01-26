@@ -359,12 +359,12 @@
 
 					<ul class="submenu">
 						<li class="sub-nav-bar"><a href="javasrcipt:void(0);"
-							data-href="/dashboard.do" class="ajaxPage"> <i
+							data-href="/resume/hot.do" class="ajaxPage"> <i
 								class="menu-icon fa fa-caret-right"></i> 主页热门简历
 						</a> <b class="arrow"></b></li>
 
 						<li class="sub-nav-bar"><a href="javasrcipt:void(0);"
-							data-href="/dashboard.do" class="ajaxPage"> <i
+							data-href="/tem/hot.do" class="ajaxPage"> <i
 								class="menu-icon fa fa-caret-right"></i> 主页热门模版
 						</a> <b class="arrow"></b></li>
 					</ul></li>
@@ -409,10 +409,10 @@
 			</div>
 
 			<script type="text/javascript">
-				 	try {
-						ace.settings.check('sidebar', 'collapsed')
-					} catch (e) {
-					} 
+				try {
+					ace.settings.check('sidebar', 'collapsed')
+				} catch (e) {
+				}
 			</script>
 		</div>
 
@@ -524,7 +524,7 @@
 			var a = $(this);
 			// 取消 默认的点击事件 否则跳转页面
 			event.preventDefault();
-			 event.stopPropagation();
+			event.stopPropagation();
 			var url = a.attr("data-href");
 			$.ajax({
 				type : "GET",
@@ -563,24 +563,23 @@
 				uls.parent("li.hsub").addClass("active");
 			}
 		});
-		
-		
-		  $(".hsub").click(function(event){
-			  
-			 console.log(this);
-			 //if(event.target == this){   
-				 if ($(this).hasClass("open")){
-						$(this).removeClass("open");
-						$(this).children("ul.submenu").css("display","none");
-						
-					}else{
-						$(this).addClass("open");
-						$(this).children("ul.submenu").css("display","block");
-					}
+
+		$(".hsub").click(function(event) {
+
+			console.log(this);
+			//if(event.target == this){   
+			if ($(this).hasClass("open")) {
+				$(this).removeClass("open");
+				$(this).children("ul.submenu").css("display", "none");
+
+			} else {
+				$(this).addClass("open");
+				$(this).children("ul.submenu").css("display", "block");
+			}
 			// }
 			event.preventDefault();
-			 event.stopPropagation();
-		});  
+			event.stopPropagation();
+		});
 	</script>
 </body>
 </html>
