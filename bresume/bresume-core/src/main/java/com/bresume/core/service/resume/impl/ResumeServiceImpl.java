@@ -34,8 +34,13 @@ public class ResumeServiceImpl extends GenericService<Resume, String> implements
 	}
 
 	@Override
-	public List<Resume> findHostResumes() {
+	public List<Resume> findHostResumes(Integer status ) {
+		if(status!=null){
+			return resumeDao.findAll(new Sort(Direction.ASC, "order"), new SearchBean("recommended","1", "="),new SearchBean("status",status.toString(), "="));
+		}
 		return resumeDao.findAll(new Sort(Direction.ASC, "order"), new SearchBean("recommended","1", "="));
+		
+		
 	}
 
 	@Override

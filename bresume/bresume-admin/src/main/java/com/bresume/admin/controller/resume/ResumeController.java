@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bresume.core.common.base.controller.PortalController;
+import com.bresume.core.common.constant.enums.CommonStatus;
 import com.bresume.core.common.utils.CommonUtils;
 import com.bresume.core.common.utils.search.SearchBean;
 import com.bresume.core.model.dto.ResumeDto;
@@ -102,19 +103,61 @@ public class ResumeController extends PortalController {
 		return "/page/resume/detail.jsp";
 	}
 
-	
 	@RequestMapping(value = "/recommend.do")
 	public @ResponseBody JSONObject recommoned(
 			@RequestParam(value = "id", required = false) String id,
-			@RequestParam(value = "recommend", required = false) boolean recommend
-			) {
-			Resume uptResume = resumeService.findOne(id);
-			if(uptResume!=null){
-				uptResume.setRecommended(recommend);
-				uptResume.setUpdatedTime(new Date());
-				resumeService.update(uptResume);
-			}
+			@RequestParam(value = "recommend", required = false) boolean recommend) {
+		Resume uptResume = resumeService.findOne(id);
+		if (uptResume != null) {
+			uptResume.setRecommended(recommend);
+			uptResume.setUpdatedTime(new Date());
+			resumeService.update(uptResume);
+		}
 
 		return this.toJSONResult(true, "保存成功");
 	}
+
+	@RequestMapping("/hot.do")
+	public String index(HttpServletRequest request, Model model) {
+
+		List<Resume> hotResumes = resumeService
+				.findHostResumes(CommonStatus.ACTIVE.getCode());
+		model.addAttribute("hotResumes", hotResumes);
+		return "/page/site/hotResumes.jsp";
+	}
+
+	@RequestMapping("/setReommends.do")
+	public @ResponseBody JSONObject setReommends(
+			HttpServletRequest request,
+			@RequestParam(value = "ids", required = true) String ids,
+			@RequestParam(value = "recommend", required = true) boolean recommend) {
+
+		String[] idArr = ids.split(",");
+		for (String id : idArr) {
+			Resume resume = resumeService.findOne(id);
+			if (resume != null) {
+				resume.setRecommended(recommend);
+				resumeService.update(resume);
+			}
+		}
+		return this.toJSONResult(true, "操作成功");
+	}
+
+	@RequestMapping("/setReommend.do")
+	public @ResponseBody JSONObject setReommend(
+			HttpServletRequest request,
+			@RequestParam(value = "id", required = true) String id,
+			@RequestParam(value = "recommend", required = true) boolean recommend,
+			@RequestParam(value = "order", required = false, defaultValue = "0") int order) {
+		Resume resume = resumeService.findOne(id);
+		if (resume != null) {
+			resume.setRecommended(recommend);
+			if (order != 0) {
+				resume.setOrder(order);
+			}
+			resumeService.update(resume);
+		}
+		return this.toJSONResult(true, "操作成功");
+	}
+
 }

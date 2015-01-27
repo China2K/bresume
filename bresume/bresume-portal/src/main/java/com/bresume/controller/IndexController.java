@@ -47,7 +47,7 @@ public class IndexController extends PortalController {
 
 		List<Template> hotTemplates = templateService.findHostTemplates(CommonStatus.ACTIVE.getCode());
 
-		List<Resume> hotResumes = resumeService.findHostResumes();
+		List<Resume> hotResumes = resumeService.findHostResumes(CommonStatus.ACTIVE.getCode());
 
 		model.addAttribute("hotTemplates", hotTemplates);
 		model.addAttribute("hotResumes", hotResumes);

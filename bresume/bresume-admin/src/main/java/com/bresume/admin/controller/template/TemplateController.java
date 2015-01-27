@@ -39,17 +39,50 @@ public class TemplateController extends AdminController {
 
 	@Resource
 	private IResumeService resumeService;
-	
+
 	@RequestMapping("/hot.do")
 	public String index(HttpServletRequest request, Model model) {
 
-		List<Template> hotTemplates = templateService.findHostTemplates(null);
+		List<Template> hotTemplates = templateService.findHostTemplates(CommonStatus.ACTIVE.getCode());
 		model.addAttribute("hotTemplates", hotTemplates);
-		return "/site/hotTemplates.jsp";
+		return "/page/site/hotTemplates.jsp";
+	}
+
+	@RequestMapping("/setReommends.do")
+	public @ResponseBody JSONObject setReommends(HttpServletRequest request,
+			@RequestParam(value = "ids", required = true) String ids,
+			@RequestParam(value = "recommend", required = true) boolean recommend
+			) {
+		
+		String[] idArr = ids.split(",");
+		for (String id : idArr) {
+			Template template = templateService.findOne(id);
+			if(template!=null){
+				template.setRecommended(recommend);
+				template.setUpdatedBy(getCurrentUserId());
+				templateService.update(template);
+			}
+		}
+		return this.toJSONResult(true, "操作成功");
 	}
 	
-	
-	
+	@RequestMapping("/setReommend.do")
+	public @ResponseBody JSONObject setReommend(HttpServletRequest request,
+			@RequestParam(value = "id", required = true) String id,
+			@RequestParam(value = "recommend", required = true) boolean recommend,
+			@RequestParam(value = "order", required = false ,defaultValue="0") int order
+			) {
+		Template template = templateService.findOne(id);
+		if(template!=null){
+			template.setRecommended(recommend);
+			template.setUpdatedBy(getCurrentUserId());
+			if(order!=0){
+				template.setOrder(order);
+			}
+			templateService.update(template);
+		}
+		return this.toJSONResult(true, "操作成功");
+	}
 
 	@RequestMapping("/list.do")
 	public @ResponseBody JSONObject customerList(
@@ -60,12 +93,25 @@ public class TemplateController extends AdminController {
 
 		List<SearchBean> sbeans = convert2SearchBean(request);
 		sbeans.add(new SearchBean("status", "4", "!="));
-		Pageable pageable = new PageRequest(page - 1, pageSize, new Sort(Direction.ASC, "order"));
+		Pageable pageable = new PageRequest(page - 1, pageSize, new Sort(
+				Direction.ASC, "order"));
 		Page<TemplateDto> list = templateService.find(pageable,
 				sbeans.toArray(new SearchBean[] {}));
 		return this.toJSONResult(list.getTotalElements(), list.getContent(),
 				pageSize, page);
 	}
+	
+	@RequestMapping("/listAll.do")
+	public @ResponseBody JSONObject listAll(
+			HttpServletRequest request,
+			Model model) {
+
+		List<SearchBean> sbeans = convert2SearchBean(request);
+		sbeans.add(new SearchBean("status", CommonStatus.ACTIVE.getCode()+"", "="));
+		List<TemplateDto> list = templateService.find(sbeans.toArray(new SearchBean[] {}));
+		return this.toJSONResult( list.size(),list);
+	}
+	
 
 	@RequestMapping("/changStatus.do")
 	public @ResponseBody JSONObject changStatus(HttpServletRequest request,
@@ -104,7 +150,7 @@ public class TemplateController extends AdminController {
 	public @ResponseBody JSONObject form(@ModelAttribute Template template,
 			Model model) {
 		if (CommonUtils.isNotEmpty(template.getId())) {
-			
+
 			Template uptTemplate = templateService.findOne(template.getId());
 			uptTemplate.setCoverUrl(template.getCoverUrl());
 			uptTemplate.setDesc(template.getDesc());
@@ -120,7 +166,7 @@ public class TemplateController extends AdminController {
 		} else {
 			template.setCreatedTime(new Date());
 			template.setCreatedBy(getCurrentUserId());
-			if(CommonUtils.isEmpty(template.getStatus())){
+			if (CommonUtils.isEmpty(template.getStatus())) {
 				template.setStatus(CommonStatus.INTITAL.getCode());
 			}
 			template.setOrder(0);
@@ -138,19 +184,18 @@ public class TemplateController extends AdminController {
 		model.addAttribute("template", template);
 		return "/page/template/detail.jsp";
 	}
-	
+
 	@RequestMapping(value = "/recommend.do")
 	public @ResponseBody JSONObject recommoned(
 			@RequestParam(value = "id", required = false) String id,
-			@RequestParam(value = "recommend", required = false) boolean recommend
-			) {
-			Template uptTemplate = templateService.findOne(id);
-			if(uptTemplate!=null){
-				uptTemplate.setRecommended(recommend);
-				uptTemplate.setUpdatedTime(new Date());
-				uptTemplate.setUpdatedBy(getCurrentUserId());
-				templateService.update(uptTemplate);
-			}
+			@RequestParam(value = "recommend", required = false) boolean recommend) {
+		Template uptTemplate = templateService.findOne(id);
+		if (uptTemplate != null) {
+			uptTemplate.setRecommended(recommend);
+			uptTemplate.setUpdatedTime(new Date());
+			uptTemplate.setUpdatedBy(getCurrentUserId());
+			templateService.update(uptTemplate);
+		}
 
 		return this.toJSONResult(true, "保存成功");
 	}

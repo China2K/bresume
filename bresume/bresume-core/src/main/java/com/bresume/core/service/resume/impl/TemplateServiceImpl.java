@@ -33,9 +33,9 @@ public class TemplateServiceImpl extends GenericService<Template, String> implem
 	@Override
 	public List<Template> findHostTemplates(Integer status) {
 		if(status!=null){
-			return templateDao.findAll(new Sort(Direction.ASC, "order"), new SearchBean("recommended","1", "="),new SearchBean("status",status.toString(), "="));
+			return templateDao.findAll(new Sort(Direction.ASC, "order"), new SearchBean("recommended","true", "="),new SearchBean("status",status.toString(), "="));
 		}
-		return templateDao.findAll(new Sort(Direction.ASC, "order"), new SearchBean("recommended","1", "="));
+		return templateDao.findAll(new Sort(Direction.ASC, "order"), new SearchBean("recommended","true", "="));
 	}
 	@Override
 	public Page<TemplateDto> find(Pageable pageable, SearchBean... searchBeans) {
@@ -45,6 +45,15 @@ public class TemplateServiceImpl extends GenericService<Template, String> implem
 			content.add(TemplateDto.convert(Template));
 		}
 		return new PageImpl<TemplateDto>(content, pageable, list.getTotalElements());
+	}
+	@Override
+	public List<TemplateDto> find(SearchBean... searchBeans) {
+		List<Template> list = templateDao.findAll(searchBeans);
+		List<TemplateDto> content = new ArrayList<TemplateDto>();
+		for (Template Template : list) {
+			content.add(TemplateDto.convert(Template));
+		}
+		return content;
 	}
 
 }

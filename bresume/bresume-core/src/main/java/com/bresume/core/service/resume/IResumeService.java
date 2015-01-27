@@ -11,7 +11,7 @@ import com.bresume.core.model.dto.ResumeDto;
 import com.bresume.core.model.entity.resume.Resume;
 
 public interface IResumeService extends IGenericService<Resume,String>{
-	List<Resume> findHostResumes();
+	List<Resume> findHostResumes( Integer status);
 	
 	public Page<ResumeDto> find(Pageable pageable, SearchBean... searchBeans) ;
 }

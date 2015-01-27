@@ -213,8 +213,10 @@ public class SearchFactory {
 			try {
 				Field field = getField(name, entity);
 				Class type = field.getType();
-				value = convertValue(type, searchBean[i].getValue(),
-						searchBean[i].getRelation());
+				
+					value = convertValue(type, searchBean[i].getValue(),
+							searchBean[i].getRelation());
+				
 			} catch (Exception e) {
 				value = searchBean[i].getValue();
 				beans[i] = new ExpressionBean(name,
@@ -328,6 +330,8 @@ public class SearchFactory {
 				} catch (ParseException e) {
 					throw new RasterFormatException("Unable to parse the Date");
 				}
+			} else if(type == Boolean.class || (type == Boolean.TYPE)){
+				object = booleanValue(value)?Boolean.TRUE : Boolean.FALSE;
 			} else {
 				object = OgnlOps.convertValue(value, type);
 			}
@@ -382,11 +386,38 @@ public class SearchFactory {
 	 * @throws ParseException
 	 */
 	public static void main(String[] args) {
-		String str = "[name,yubo,like],[telephone,13810770810,=],[createDate,2009-8-02 00:00,>=],[interface_,1;2;3,in]";
+		/*String str = "[name,yubo,like],[telephone,13810770810,=],[createDate,2009-8-02 00:00,>=],[interface_,1;2;3,in]";
 		SearchBean[] search = getSearchTeam(str);
 		for (SearchBean s : search)
 			System.out.println("search =" + s.toString());
-		System.out.println(getSearchMonth(search));
+		System.out.println(getSearchMonth(search));*/
+		System.out.println(booleanValue("0"));
 	}
+	
+	
+	 public static boolean booleanValue(Object value)
+	    {
+	        if (value == null)
+	            return false;
+	        Class c = value.getClass();
+
+	        if (c == Boolean.class)
+	            return ((Boolean) value).booleanValue();
+
+	        // if ( c == String.class )
+	        // return ((String)value).length() > 0;
+
+	        if (c == Character.class)
+	            return ((Character) value).charValue() != 0;
+	        if (value instanceof Number)
+	            return ((Number) value).doubleValue() != 0;
+	        if (c == String.class){
+	        	if (value.equals("false")||value.equals("0"))
+		            return false;
+		        if (value.equals("true")||value.equals("1"))
+		            return true;
+	        }
+	        return true; // non-null
+	    }
 
 }

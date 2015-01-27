@@ -35,10 +35,11 @@ public class SpringDispatcherEnhancer extends DispatcherServlet {
 	private static final List<String> BEANFACTORY_KEYLIST = new ArrayList<String>();
 
 	public static String staticUrlPrefix = "";
+	public static String portalUrlPrefix = "";
 
 	static {
 		InputStream is = SpringDispatcherEnhancer.class
-				.getResourceAsStream("/upload.properties");
+				.getResourceAsStream("/service.properties");
 		if (is != null) {
 			Properties properties = new Properties();
 			try {
@@ -49,6 +50,8 @@ public class SpringDispatcherEnhancer extends DispatcherServlet {
 			}
 			staticUrlPrefix = FileUploadHandler.UPLOAD_CONFIG
 					.getStaticUrlPrefix();
+			
+			portalUrlPrefix = properties.getProperty("portal.url.prefix");
 		}
 	}
 
@@ -64,6 +67,8 @@ public class SpringDispatcherEnhancer extends DispatcherServlet {
 				config.getServletContext().getContextPath());
 		config.getServletContext().setAttribute("staticUrlPrefix",
 				staticUrlPrefix);
+		config.getServletContext().setAttribute("portalUrlPrefix",
+				portalUrlPrefix);
 		try {
 			Field bf = AbstractRefreshableApplicationContext.class
 					.getDeclaredField("beanFactory");

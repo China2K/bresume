@@ -35,9 +35,9 @@ border: none;
 					<!-- PAGE CONTENT BEGINS -->
 					<div>
 						<ul class="ace-thumbnails clearfix">
-							<c:forEach items="${hotTemplates}" var="template">
-								<li id="item-${template.id}"><a href="${resume.siteUrl}"  data-rel="colorbox"> 
-										<img width="150" height="150" alt="150x150" src="${staticUrlPrefix}${template.coverUrl}" />
+							<c:forEach items="${hotResumes}" var="resume">
+								<li id="item-${resume.id}"><a href="${portalUrlPrefix}/resume/${resume.name}"  data-rel="colorbox"> 
+										<img width="150" height="150" alt="150x150" src="${staticUrlPrefix}${resume.coverUrl}" />
 									</a>
 		
 									<%--  <div class="tags">
@@ -55,8 +55,8 @@ border: none;
 									<div class="tools">
 										<!-- <a href="#"> <i class="ace-icon fa fa-link"></i></a>
 										<a href="#"> <i class="ace-icon fa fa-paperclip"></i></a> -->
-										<a href="javascript:reorderHot('${template.id}');"> <i class="ace-icon fa fa-pencil"></i></a> 
-										<a href="javascript:removeHot('${template.id}');"> <i class="ace-icon fa fa-times red"></i></a>
+										<a href="javascript:reorderHot('${resume.id}');"> <i class="ace-icon fa fa-pencil"></i></a> 
+										<a href="javascript:removeHot('${resume.id}');"> <i class="ace-icon fa fa-times red"></i></a>
 									</div>
 								</li>
 							</c:forEach>
@@ -71,7 +71,7 @@ border: none;
 						</ul>
 						
 					</div>
-					<div class="dialog-grid" style="display:none;z-index:99;position: absolute; top: 20px; left: 100px; text-align: center; width: 725px;background-color: white;">
+					<div class="dialog-grid" style="display:none;z-index:99;position: absolute; top: 20px; left: 100px; text-align: center; width: 800px;background-color: white;">
 						<table id="grid-table"></table>
 						<div id="grid-pager"></div>
 					</div>
@@ -93,7 +93,7 @@ border: none;
 				}
 				
 				$.ajax({
-					url:"/tem/setReommend.do",
+					url:"/resume/setReommend.do",
 					data:{id:id,recommend:true,order:order},
 					dataType:"json",
 					success:function(resp){
@@ -110,7 +110,7 @@ border: none;
 		bootbox.confirm("确定删除吗?", function(result) {
 			if (result) {
 				$.ajax({
-					url:"/tem/setReommend.do",
+					url:"/resume/setReommend.do",
 					data:{id:id,recommend:false},
 					dataType:"json",
 					success:function(resp){
@@ -137,34 +137,41 @@ border: none;
 		var grid_selector = "#grid-table";
 		var pager_selector = "#grid-pager";
 	jQuery(grid_selector).jqGrid({
-		url : "/tem/list.do",
+		url : "/resume/list.do",
 		postData:{query :"status:1,recommended:0"},
 		datatype : "json",
 		height : 390,
-		colNames : [ '编号', '名称' ,'使用人数','状态','创建时间' ],
+		colNames : [ '名称' ,'用户' , '使用模版','创建时间','查看' ],
 		colModel : [ {
-			name : 'sn',
-			index : 'sn',
-			width : 160
-		},{
 			name : 'name',
 			index : 'name',
 			width : 160
-		}, {
-			name : 'userCount',
-			index : 'userCount',
-			width : 160
-		}, {
-			name : 'status',
-			index : 'status',
-			width : 70,
+		},{
+			name : 'user.email',
+			index : 'user.email',
+			width : 160,
 			formatter : function(cellvalue, options, rowObject) {
-				return tem_status[rowObject.status];
+				return rowObject.user.userName || rowObject.user.email;
 			}
+		}, {
+			name : 'templateSn',
+			index : 'templateSn',
+			width : 160
 		}, {
 			name : 'createdTime',
 			index : 'createdTime',
 			width : 120
+		},{
+			name : '',
+			index : '',
+			width : 150,
+			fixed : true,
+			sortable : false,
+			resize : false,
+			formatter : function(cellvalue, options, rowObject) {
+				var id = rowObject.id;
+				return applyActions(id, "view");
+			}
 		} ],
 		jsonReader : {
 			root : "data",
@@ -196,11 +203,14 @@ border: none;
 			}, 0);
 		},
 
-		caption : "模版列表",
+		caption : "简历列表",
 		autowidth : true,
 
 	});
 	
+	function grid_row_view(id) {
+		window.open("http://www.baidu.com");
+	}
 	
 	function activeFunction (){
 		
@@ -216,7 +226,7 @@ border: none;
 		}
 		var ids = selectedIds.toString();
 		$.ajax({
-			url : "/tem/setReommends.do",
+			url : "/resume/setReommends.do",
 			type : "POST",
 			data : {
 				ids : ids,
@@ -226,7 +236,7 @@ border: none;
 			success : function(resp) {
 				alertInfo(resp.message);
 				$(".dialog-grid").css("display","none");
-				subUrl("/tem/hot.do");
+				subUrl("/resume/hot.do");
 			}
 
 		});

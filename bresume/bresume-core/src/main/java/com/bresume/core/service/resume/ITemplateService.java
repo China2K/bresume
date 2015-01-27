@@ -14,4 +14,6 @@ public interface ITemplateService extends IGenericService<Template,String>{
 	List<Template> findHostTemplates(Integer status);
 	
 	Page<TemplateDto> find(Pageable pageable, SearchBean... searchBeans) ;
+	
+	List<TemplateDto> find(SearchBean... searchBeans) ;
 }
