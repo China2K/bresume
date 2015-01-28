@@ -1,9 +1,13 @@
 package com.bresume.core.service.resume.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
@@ -16,6 +20,9 @@ import com.bresume.core.common.utils.CommonUtils;
 import com.bresume.core.common.utils.search.SearchBean;
 import com.bresume.core.dao.resume.IResumeItemDao;
 import com.bresume.core.dao.resume.IResumeItemRefDao;
+import com.bresume.core.model.dto.ResumeDto;
+import com.bresume.core.model.dto.ResumeItemDto;
+import com.bresume.core.model.entity.resume.Resume;
 import com.bresume.core.model.entity.resume.ResumeItem;
 import com.bresume.core.service.resume.IResumeItemService;
 
@@ -54,11 +61,24 @@ public class ResumeItemServiceImpl extends GenericService<ResumeItem, String>
 
 	@Override
 	public List<ResumeItem> findExtraItems(String resumeId) {
-		List<ResumeItem> all=resumeItemDao.findAll(new Sort(Direction.ASC, "order"));
-		
-		List<ResumeItem> defaultItems=findDefaultItems(resumeId);
+		List<ResumeItem> all = resumeItemDao.findAll(new Sort(Direction.ASC,
+				"order"));
+
+		List<ResumeItem> defaultItems = findDefaultItems(resumeId);
 		all.removeAll(defaultItems);
 		return all;
+	}
+
+	@Override
+	public Page<ResumeItemDto> find(Pageable pageable,
+			SearchBean... searchBeans) {
+		Page<ResumeItem> list = resumeItemDao.findAll(pageable, searchBeans);
+		List<ResumeItemDto> content = new ArrayList<ResumeItemDto>();
+		for (ResumeItem item : list.getContent()) {
+			content.add(ResumeItemDto.convert(item));
+		}
+		return new PageImpl<ResumeItemDto>(content, pageable,
+				list.getTotalElements());
 	}
 
 }

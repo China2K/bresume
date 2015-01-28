@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-<%@ include file="../common/common.jsp"%>
+<%@ include file="../../common/common.jsp"%>
 
 <style type="text/css">
 </style>
@@ -20,7 +20,7 @@
 		<div class="page-content-area">
 			<div class="page-header">
 				<h1>
-					简历管理<small> 
+					模块管理<small> 
 					</small>
 				</h1>
 			</div>
@@ -55,39 +55,18 @@
 										<div class="widget-main">
 											<div>
 												<label for="form-field-8">名称</label> <input type="text"
-													name="name" class="form-control" placeholder="Default Text" />
-											</div>
-											<hr />
-											<div>
-												<label for="form-field-8">email</label> <input type="text"
-													name="user.email" class="form-control"
-													placeholder="Default Text" />
+													name="name" class="form-control" placeholder="名称" />
 											</div>
 
 											<hr />
 
 											<div>
-												<label for="form-field-9">注册方式</label> <select
-													name="isPublic" class="form-control"">
-													<option value="">全部</option>
-													<option value="0">否</option>
-													<option value="1">是</option>
-												</select>
+												<label for="form-field-8">编号</label> <input type="text"
+													name="sn" class="form-control" placeholder="编号" />
 											</div>
 
 											<hr />
-
-											<div>
-												<label for="form-field-11">状态</label> <select name="status"
-													class="form-control">
-													<option value="">全部</option>
-													<option value="0">初始</option>
-													<option value="1">激活</option>
-													<option value="2">未激活</option>
-												</select>
-
-											</div>
-											<hr />
+											
 											<div>
 												<span class="input-group-btn">
 													<button type="button"
@@ -118,12 +97,7 @@
 
 	<!-- inline scripts related to this page -->
 	<script type="text/javascript">
-		var resume_status = {
-			0 : "<span class='label label-sm label-info arrowed arrowed-righ'>初始</span>",
-			1 : "<span class='label label-sm label-success'>激活</span>",
-			2 : "<span class='label label-sm label-warning'>未激活</span>",
-			4 : "<span class='label label-sm label-inverse arrowed-in'>删除</span>"
-		};//INTITAL(0), ACTIVE(1), INACTIVE(2), DELETED(4);
+		var tem_type = {};
 		var grid_selector = "#grid-table";
 		var pager_selector = "#grid-pager";
 
@@ -150,10 +124,10 @@
 				})
 
 		jQuery(grid_selector).jqGrid({
-			url : "/resume/list.do",
+			url : "/resume/item/list.do",
 			datatype : "json",
 			height : 390,
-			colNames : [ '操作', '用户', '名称', '是否推荐', '状态', '创建时间' ],
+			colNames : [ '操作','序号' ,'名称', '编号', '是否必选', '是否默认','创建时间' ],
 			colModel : [ {
 				name : 'test',
 				index : '',
@@ -163,36 +137,37 @@
 				resize : false,
 				formatter : function(cellvalue, options, rowObject) {
 					var id = rowObject.id;
-					return applyActions(id, "view,active,inActive,delete");
+					return applyActions(id, "edit,delete");
 				}
 			}, {
-				name : 'user.email',
-				index : 'user.email',
-				width : 160,
-				formatter : function(cellvalue, options, rowObject) {
-					return rowObject.user.userName || rowObject.user.email;
-				}
+				name : 'order',
+				index : 'order',
+				width : 160
 			}, {
 				name : 'name',
 				index : 'name',
 				width : 160
 			}, {
-				name : 'recommended',
-				index : 'recommended',
+				name : 'sn',
+				index : 'sn',
+				width : 160
+			}, {
+				name : 'required',
+				index : 'required',
 				width : 100,
 				formatter : function(cellvalue, options, rowObject) {
-					return getRecoBtn(rowObject.recommended, rowObject.id);
+					return getReqBtn(rowObject.required, rowObject.id);
 					/* if (rowObject.recommended === true) {
 						return "是";
 					}
 					return "否"; */
 				}
-			}, {
-				name : 'status',
-				index : 'status',
-				width : 70,
+			},  {
+				name : 'isDefault',
+				index : 'isDefault',
+				width : 100,
 				formatter : function(cellvalue, options, rowObject) {
-					return resume_status[rowObject.status];
+					return getDefBtn(rowObject.isDefault, rowObject.id);
 				}
 			}, {
 				name : 'createdTime',
@@ -229,32 +204,34 @@
 			},
 
 			//editurl: "/dummy.html",//nothing is saved
-			caption : "简历列表",
+			caption : "模版列表",
 			autowidth : true,
 
 		});
 		$(window).triggerHandler('resize.jqGrid');//trigger window resize to make the grid get the correct size
-		function getRecoBtn(isReco,id){
+
+		
+		function getDefBtn(isReco,id){
 			var htm="";
 			if(isReco===true){
-				htm ='是 &nbsp;<button class="btn btn-xs btn-info" onclick="setRecommend('+false+',\''+id+'\')">'
+				htm ='是 &nbsp;<button class="btn btn-xs btn-info" onclick="setDefault('+false+',\''+id+'\')">'
 				+ '取消<i class="ace-icon fa fa-arrow-left icon-on-left"></i></button>';
 			}else{
-				htm ='否 &nbsp;<button class="btn btn-xs btn-success" onclick="setRecommend('+true+',\''+id+'\')">'
-				+ '推荐<i class="ace-icon fa fa-arrow-right icon-on-right"></i></button>';
+				htm ='否 &nbsp;<button class="btn btn-xs btn-success" onclick="setDefault('+true+',\''+id+'\')">'
+				+ '默认<i class="ace-icon fa fa-arrow-right icon-on-right"></i></button>';
 			}
 			
 			
 			return htm;
 		}
 		
-		function setRecommend(_isReco,_id){
+		function setDefault(_isReco,_id){
 			$.ajax({
-				url : "/resume/recommend.do",
+				url : "/resume/item/setDefault.do",
 				type : "GET",
 				data : {
 					id : _id,
-					recommend : _isReco
+				isDefault : _isReco
 				},
 				dataType : "json",
 				success : function(resp) {
@@ -265,15 +242,27 @@
 			});
 		}
 		
+		function getReqBtn(isReco,id){
+			var htm="";
+			if(isReco===true){
+				htm ='是 &nbsp;<button class="btn btn-xs btn-info" onclick="setRequired('+false+',\''+id+'\')">'
+				+ '取消<i class="ace-icon fa fa-arrow-left icon-on-left"></i></button>';
+			}else{
+				htm ='否 &nbsp;<button class="btn btn-xs btn-success" onclick="setRequired('+true+',\''+id+'\')">'
+				+ '必填<i class="ace-icon fa fa-arrow-right icon-on-right"></i></button>';
+			}
+			
+			
+			return htm;
+		}
 		
-		var status_url = "/resume/changStatus.do";
-		function change(_url, _status, _ids) {
+		function setRequired(_isReco,_id){
 			$.ajax({
-				url : _url,
+				url : "/resume/item/setRequired.do",
 				type : "GET",
 				data : {
-					ids : _ids,
-					status : _status
+					id : _id,
+					required : _isReco
 				},
 				dataType : "json",
 				success : function(resp) {
@@ -283,46 +272,33 @@
 
 			});
 		}
+		
+		
 
 		function grid_row_view(id) {
-
+			window.open("http://www.baidu.com");
 		}
 		function grid_row_delete(id) {
-			change(status_url, 4, id);
+			$.ajax({
+				url : "/resume/item/delete.do",
+				type : "GET",
+				data : {
+					ids : id,
+				},
+				dataType : "json",
+				success : function(resp) {
+					refreshFunction();
+					alertInfo(resp.message);
+				}
+
+			});
 		}
 		function grid_row_edit(id) {
-
-		}
-		function grid_row_active(id) {
-			change(status_url, 1, id);
-		}
-		function grid_row_inActive(id) {
-			change(status_url, 2, id);
+			subUrl("/resume/item/form.do?id="+id);
 		}
 
-		function activeFunction() {
-			var selectedIds = $(grid_selector).jqGrid("getGridParam",
-					"selarrrow");
-			if (selectedIds == null || selectedIds == ""
-					|| selectedIds == "undefined") {
-				alertInfo("请选中至少一行");
-				return;
-			}
-			change(status_url, 1, selectedIds.toString());
-		}
-
-		function inActiveFunction() {
-			var selectedIds = $(grid_selector).jqGrid("getGridParam",
-					"selarrrow");
-			if (selectedIds == null || selectedIds == ""
-					|| selectedIds == "undefined") {
-				alertInfo("请选中至少一行");
-				return;
-			}
-			change(status_url, 2, selectedIds.toString());
-		}
 		function addFunction() {
-			alert(t);
+			subUrl("/resume/item/form.do");
 		}
 		function delFunction() {
 
@@ -336,9 +312,23 @@
 				alertInfo("请选中至少一行");
 				return;
 			}
+			var _ids = selectedIds.toString();
 			bootbox.confirm("确定删除吗?", function(result) {
 				if (result) {
-					change(status_url, 4, selectedIds.toString());
+					$.ajax({
+						url : "/resume/item/delete.do",
+						type : "GET",
+						data : {
+							ids : _ids,
+						},
+						dataType : "json",
+						success : function(resp) {
+							refreshFunction();
+							alertInfo(resp.message);
+						}
+
+					});
+					
 				}
 			});
 
@@ -353,20 +343,16 @@
 		}
 
 		applyNavButton({
-			/* add : true,
+			add : true,
 			addFunction : function() {
 				addFunction();
-			}, */
+			},
 			del : true,
 			delFunction : delFunction,
 			refresh : true,
 			refreshFunction : refreshFunction,
 			search : true,
 			searchFunction : searchFunction,
-			active : true,
-			activeFunction : activeFunction,
-			inActive : true,
-			inActiveFunction : inActiveFunction,
 		});
 
 		$(".sub-search-btn").click(function() {
@@ -383,6 +369,8 @@
 			}).trigger("reloadGrid");
 			$(".search-div").css("display", "none");
 		});
+		
+		
 	</script>
 </body>
 </html>

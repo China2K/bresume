@@ -15,7 +15,7 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 
-<%@ include file="../common/common.jsp"%>
+<%@ include file="../../common/common.jsp"%>
 
 <style type="text/css">
 </style>
@@ -26,7 +26,7 @@
 		<div class="page-content-area">
 			<div class="page-header">
 				<h1>
-					模版管理 <small> <i class="ace-icon fa fa-angle-double-right"></i>
+					模块管理 <small> <i class="ace-icon fa fa-angle-double-right"></i>
 						新增
 					</small>
 				</h1>
@@ -36,8 +36,8 @@
 			<div class="row">
 				<div class="col-xs-12">
 					<!-- PAGE CONTENT BEGINS -->
-					<s:form class="form-horizontal" action="/tem/save.do"
-						onsubmit="return false;" commandName="template" id="template_form">
+					<s:form class="form-horizontal" action="/resume/item/save.do"
+						onsubmit="return false;" commandName="resumeItem" id="resumeItem_form">
 						<div class="form-group">
 							<label class="col-sm-3 control-label no-padding-right"
 								for="form-field-1"> 名称 </label>
@@ -57,58 +57,7 @@
 									class="col-xs-10 col-sm-5 validate[required,maxSize[50]]" />
 							</div>
 						</div>
-
-						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right"
-								for="form-field-1"> 封面</label>
-
-							<div class="col-sm-9">
-								<input class="fileupload-file-input" id="fileupload" type="file" />
-								<img src="${staticUrlPrefix}${template.coverUrl}" width="145px;" height="135px;" id="fileupload-img-input"
-											class="img-responsive text-center" alt="">
-								<input type="hidden" value="${template.coverUrl}" id="fileupload-hidden-input" />
-							</div>
-							
-								
-						</div>
 						
-
-						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right"
-								for="form-field-1"> 地址 </label>
-
-							<div class="col-sm-9">
-								<s:input path="siteUrl" id="siteUrl" placeholder="模版地址"
-									class="col-xs-10 col-sm-5 validate[required,custom[url]]" />
-							</div>
-						</div>
-
-
-						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right"
-								for="form-field-1"> 模版类型 </label>
-
-							<div class="col-sm-3">
-								<s:select path="type" class="form-control">
-									<s:option value="0">通用</s:option>
-									<s:option value="1">程序猿</s:option>
-									<s:option value="2">攻城狮</s:option>
-									<s:option value="3">人事</s:option>
-								</s:select>
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="col-sm-3 control-label no-padding-right"
-								for="form-field-1"> 来源 </label>
-
-							<div class="col-sm-9">
-								<s:input path="source" id="source" placeholder="来源"
-									class="col-xs-10 col-sm-5" />
-							</div>
-						</div>
-
-
 						<div class="form-group">
 							<label class="col-sm-3 control-label no-padding-right"
 								for="form-field-1"> 排序 </label>
@@ -122,11 +71,24 @@
 
 						<div class="form-group">
 							<label class="col-sm-3 control-label no-padding-right"
-								for="form-field-1"> 是否推荐 </label>
+								for="form-field-1"> 是否必须</label>
 
 							<div class="col-sm-9">
 					
-								<label> <input name="recommended" checked="{template.recommended}"
+								<label> <input name="required" checked="{resumeItem.required}"
+									class="ace ace-switch ace-switch-7" type="checkbox"/> <span
+									class="lbl"></span>
+								</label>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label class="col-sm-3 control-label no-padding-right"
+								for="form-field-1"> 是否默认</label>
+
+							<div class="col-sm-9">
+					
+								<label> <input name="isDefault" checked="{resumeItem.isDefault}"
 									class="ace ace-switch ace-switch-7" type="checkbox"/> <span
 									class="lbl"></span>
 								</label>
@@ -177,13 +139,13 @@
 			btn_down_class : 'btn-danger'
 		});
 		
-		$("#template_form").validationEngine();
+		$("#resumeItem_form").validationEngine();
 
 		$("#sub_tem_btn").click(function() {
-			if (!$("#template_form").validationEngine("validate")) {
+			if (!$("#resumeItem_form").validationEngine("validate")) {
 				return false;
 			}
-			$("#template_form").ajaxSubmit(function(data) {
+			$("#resumeItem_form").ajaxSubmit(function(data) {
 				if (data.success) {
 					alert("保存成功！");
 				} else {
@@ -193,7 +155,6 @@
 
 		});
 		
-		makeFileUpload($("#fileupload"), $("#fileupload-img-input"), $("#fileupload-hidden-input"));
 	</script>
 </body>
 </html>

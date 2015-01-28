@@ -266,24 +266,20 @@
 					<li class="light-blue"><a data-toggle="dropdown" href="#"
 						class="dropdown-toggle"> <img class="nav-user-photo"
 							src="/resource/site/avatars/user.jpg" alt="Jason's Photo" /> <span
-							class="user-info"> <small>Welcome,</small> Jason
+							class="user-info"> <small>超级管理员</small> 
 						</span> <i class="ace-icon fa fa-caret-down"></i>
 					</a>
 
 						<ul
 							class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
 							<li><a href="#"> <i class="ace-icon fa fa-cog"></i>
-									Settings
-							</a></li>
-
-							<li><a href="profile.html"> <i
-									class="ace-icon fa fa-user"></i> Profile
+									设置
 							</a></li>
 
 							<li class="divider"></li>
 
-							<li><a href="#"> <i class="ace-icon fa fa-power-off"></i>
-									Logout
+							<li><a href="/sys/user/logout.do"> <i class="ace-icon fa fa-power-off"></i>
+									退出
 							</a></li>
 						</ul></li>
 				</ul>
@@ -343,7 +339,7 @@
 				</a> <b class="arrow"></b></li>
 
 				<li class="sub-nav-bar"><a href="javasrcipt:void(0);"
-					data-href="/dashboard.do" class="ajaxPage"> <i
+					data-href="/page/calendar.jsp" class="ajaxPage"> <i
 						class="menu-icon fa fa-calendar"></i> <span class="menu-text">
 							待办事项 <span class="badge badge-transparent tooltip-error"
 							title="2 Important Events"> <i
@@ -386,12 +382,23 @@
 						</a> <b class="arrow"></b></li>
 					</ul></li>
 
+				
+				<li class="hsub"><a href="#" class="dropdown-toggle"> <i
+						class="menu-icon fa fa-list"></i> <span class="menu-text">
+							简历管理  </span> <b class="arrow fa fa-angle-down"></b>
+				</a> <b class="arrow"></b>
 
-				<li class="sub-nav-bar"><a href="javascript:void(0);"
-					data-href="/page/resume/resumes.jsp" class="ajaxPage"> <i
-						class="menu-icon fa fa-list-alt"></i> <span class="menu-text">
-							简历管理 </span>
-				</a> <b class="arrow"></b></li>
+					<ul class="submenu">
+						<li class="sub-nav-bar"><a href="javasrcipt:void(0);"
+							data-href="/page/resume/resumes.jsp" class="ajaxPage"> <i
+								class="menu-icon fa fa-caret-right"></i> 用户简历 
+						</a> <b class="arrow"></b></li>
+
+						<li class="sub-nav-bar"><a href="javasrcipt:void(0);"
+							data-href="/page/resume/item/items.jsp" class="ajaxPage"> <i
+								class="menu-icon fa fa-caret-right"></i>模块管理
+						</a> <b class="arrow"></b></li>
+					</ul></li>
 
 				<li class="sub-nav-bar"><a href="javasrcipt:void(0);"
 					data-href="/page/template/templates.jsp" class="ajaxPage"> <i
@@ -426,11 +433,9 @@
 				</script>
 
 				<ul class="breadcrumb">
-					<li><i class="ace-icon fa fa-home home-icon"></i> <a href="#">Home</a>
+					<li><i class="ace-icon fa fa-home home-icon"></i> <a href="#">主页</a>
 					</li>
 
-					<li><a href="#">Other Pages</a></li>
-					<li class="active">Error 404</li>
 				</ul>
 				<!-- /.breadcrumb -->
 
@@ -455,7 +460,7 @@
 			<div class="footer-inner">
 				<div class="footer-content">
 					<span class="bigger-120"> <span class="blue bolder">bresume.com</span>
-						&copy; 2013-2014
+						&copy; 2014-2015
 					</span>
 
 

@@ -1,50 +1,50 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix='spring' uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="s" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<meta charset="utf-8" />
-<title>Full Calendar - Ace Admin</title>
-
-<meta name="description" content="with draggable and editable events" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 
 <!-- bootstrap & fontawesome -->
-<link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+<link rel="stylesheet" href="/resource/site/css/bootstrap.min.css" />
 <link rel="stylesheet"
-	href="assets/font-awesome/4.1.0/css/font-awesome.min.css" />
+	href="/resource/site/font-awesome/4.1.0/css/font-awesome.min.css" />
 
 <!-- page specific plugin styles -->
-<link rel="stylesheet" href="assets/css/jquery-ui.custom.min.css" />
-<link rel="stylesheet" href="assets/css/fullcalendar.css" />
+<link rel="stylesheet" href="/resource/site/css/jquery-ui.custom.min.css" />
+<link rel="stylesheet" href="/resource/site/css/fullcalendar.css" />
 
 <!-- text fonts -->
 <link rel="stylesheet"
 	href="http://fonts.useso.com/css?family=Open+Sans:400,300" />
 
 <!-- ace styles -->
-<link rel="stylesheet" href="assets/css/ace.min.css" id="main-ace-style" />
+<link rel="stylesheet" href="/resource/site/css/ace.min.css" id="main-ace-style" />
 
 <!--[if lte IE 9]>
-			<link rel="stylesheet" href="assets/css/ace-part2.min.css" />
+			<link rel="stylesheet" href="/resource/site/css/ace-part2.min.css" />
 		<![endif]-->
-<link rel="stylesheet" href="assets/css/ace-skins.min.css" />
-<link rel="stylesheet" href="assets/css/ace-rtl.min.css" />
+<link rel="stylesheet" href="/resource/site/css/ace-skins.min.css" />
+<link rel="stylesheet" href="/resource/site/css/ace-rtl.min.css" />
 
 <!--[if lte IE 9]>
-		  <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
+		  <link rel="stylesheet" href="/resource/site/css/ace-ie.min.css" />
 		<![endif]-->
 
 <!-- inline styles related to this page -->
 
 <!-- ace settings handler -->
-<script src="assets/js/ace-extra.min.js"></script>
+<script src="/resource/site/js/ace-extra.min.js"></script>
 
 <!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
 
 <!--[if lte IE 8]>
-		<script src="assets/js/html5shiv.min.js"></script>
-		<script src="assets/js/respond.min.js"></script>
+		<script src="/resource/site/js/html5shiv.min.js"></script>
+		<script src="/resource/site/js/respond.min.js"></script>
 		<![endif]-->
 </head>
 
@@ -219,40 +219,40 @@
 	<!-- basic scripts -->
 
 	<!--[if !IE]> -->
-	<script src="assets/js/jquery/jquery-2.1.1.min.js"></script>
+	<script src="/resource/site/js/jquery/jquery-2.1.1.min.js"></script>
 	<!-- <![endif]-->
 
 	<!--[if IE]>
-		<script src="assets/js/jquery/jquery-1.11.1.min.js"></script>
+		<script src="/resource/site/js/jquery/jquery-1.11.1.min.js"></script>
 		<![endif]-->
 
 	<!--[if !IE]> -->
 	<script type="text/javascript">
-			window.jQuery || document.write("<script src='assets/js/jquery.min.js'>"+"<"+"/script>");
+			window.jQuery || document.write("<script src='/resource/site/js/jquery.min.js'>"+"<"+"/script>");
 		</script>
 	<!-- <![endif]-->
 
 	<!--[if IE]>
 		<script type="text/javascript">
-		 window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"/script>");
+		 window.jQuery || document.write("<script src='/resource/site/js/jquery1x.min.js'>"+"<"+"/script>");
 		</script>
 		<![endif]-->
 
 	<script type="text/javascript">
-			if('ontouchstart' in document.documentElement) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+			if('ontouchstart' in document.documentElement) document.write("<script src='/resource/site/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
 		</script>
-	<script src="assets/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<script src="/resource/site/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
 	<!-- page specific plugin scripts -->
-	<script src="assets/js/jquery-ui.custom.min.js"></script>
-	<script src="assets/js/jquery.ui.touch-punch.min.js"></script>
-	<script src="assets/js/date-time/moment.min.js"></script>
-	<script src="assets/js/fullcalendar.min.js"></script>
-	<script src="assets/js/bootbox.min.js"></script>
+	<script src="/resource/site/js/jquery-ui.custom.min.js"></script>
+	<script src="/resource/site/js/jquery.ui.touch-punch.min.js"></script>
+	<script src="/resource/site/js/date-time/moment.min.js"></script>
+	<script src="/resource/site/js/fullcalendar.min.js"></script>
+	<script src="/resource/site/js/bootbox.min.js"></script>
 
 	<!-- ace scripts -->
-	<script src="assets/js/ace-elements.min.js"></script>
-	<script src="assets/js/ace.min.js"></script>
+	<script src="/resource/site/js/ace-elements.min.js"></script>
+	<script src="/resource/site/js/ace.min.js"></script>
 
 	<!-- inline scripts related to this page -->
 	<script type="text/javascript">

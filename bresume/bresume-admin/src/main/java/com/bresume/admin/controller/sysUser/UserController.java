@@ -82,8 +82,8 @@ public class UserController extends AdminController {
 			HttpServletResponse response) {
 		// 删除session
 		SessionContextHolder.getSession().removeAttribute(
-				IPortalConstants.SESSION_KEY_LOGIN_USER);
-		return "redirect:/index";
+				IAdminConstants.SESSION_KEY_LOGIN_USER);
+		return "redirect:/index.do";
 	}
 
 }

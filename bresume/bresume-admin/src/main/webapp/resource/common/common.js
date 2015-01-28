@@ -396,11 +396,12 @@ function makeFileUpload(fileEle, imgEle, valueEle) {
 				},
 				'onUploadSuccess' : function(file, data, response) {
 					data = JSON.parse(data);
+					console.log(data);
 					var res = data.success;
 					if (res === true) {
+						alert(data.message);
 						valueEle.val(data.message);
-						imgEle.attr("src", "http://static.bresume.com"
-								+ data.message);
+						imgEle.attr("src", "http://static.bresume.com"+ data.message);
 					}
 				},
 			});

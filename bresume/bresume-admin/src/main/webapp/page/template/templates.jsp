@@ -19,7 +19,10 @@
 
 		<div class="page-content-area">
 			<div class="page-header">
-				<h1></h1>
+				<h1>
+					模版管理<small> 
+					</small>
+				</h1>
 			</div>
 			<!-- /.page-header -->
 

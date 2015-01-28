@@ -25,7 +25,7 @@ border: none;
 			<div class="page-header">
 				<h1>
 					网站管理 <small> <i
-						class="ace-icon fa fa-angle-double-right"></i> 热门模版
+						class="ace-icon fa fa-angle-double-right"></i> 热门简历
 					</small>
 				</h1>
 			</div>
