@@ -193,7 +193,9 @@
 
 		});
 		
-		makeFileUpload($("#fileupload"), $("#fileupload-img-input"), $("#fileupload-hidden-input"));
+		
+		var upload_info ='${sessionScope.upload_info}';
+		makeFileUpload($("#fileupload"), $("#fileupload-img-input"), $("#fileupload-hidden-input"),upload_info);
 	</script>
 </body>
 </html>

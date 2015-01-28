@@ -13,6 +13,9 @@ public interface IPortalConstants extends IConstants
 	public static final String	SESSION_KEY_REGISTER_RAND_CODE	= "register.randcode";
 	public static final String	SESSION_KEY_HISTORY_REQPATH		= "history.reqpath";
 	
+	public static final String SESSION_USER_UPLOAD_INFO = "upload_info";
+	
+	
 	
 	public static final String SESSION_KEY_QQ_LOGIN_USER_ACCESS_TOKEN ="qq_access_token";
 	public static final String SESSION_KEY_QQ_LOGIN_USER_TOKEN_EXPIREIN ="qq_token_expirein";

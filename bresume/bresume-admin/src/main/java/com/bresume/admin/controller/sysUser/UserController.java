@@ -64,6 +64,9 @@ public class UserController extends AdminController {
 			// 记录session
 			SessionContextHolder.getSession().setAttribute(
 					IAdminConstants.SESSION_KEY_LOGIN_USER, loginUser);
+			SessionContextHolder.getSession().setAttribute(
+							IAdminConstants.SESSION_USER_UPLOAD_INFO, getUploadAuthInfo(loginUser.getId(), loginUser.getPassword()));
+			System.out.println(getUploadAuthInfo(loginUser.getId(), loginUser.getPassword()));
 			return this.toJSONResult(true);
 
 		} catch (CoreException e) {

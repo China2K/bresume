@@ -18,54 +18,76 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.bresume.core.common.base.controller.StaticController;
+import com.bresume.core.common.constant.IConstants;
 import com.bresume.core.common.upload.FileUploadHandler;
 import com.bresume.core.common.upload.UploadConfig.FileSource;
 import com.bresume.core.common.upload.UploadConfig.FileType;
+import com.bresume.core.common.utils.security.Encrypt;
 import com.bresume.core.model.entity.sys.SysFile;
+import com.bresume.core.model.entity.sys.SysUser;
+import com.bresume.core.model.entity.user.User;
 import com.bresume.core.service.sys.IFileService;
+import com.bresume.core.service.sys.ISysUserService;
+import com.bresume.core.service.user.IUserService;
 
 @Controller
 @RequestMapping("/upload")
-public class UploadController extends StaticController{
+public class UploadController extends StaticController {
 
-	private static final Logger logger = Logger.getLogger(UploadController.class);
-	
-	
+	private static final Logger logger = Logger
+			.getLogger(UploadController.class);
+
 	@Resource
 	private IFileService fileService;
 
+	@Resource
+	private IUserService userService;
+
+	@Resource
+	private ISysUserService sysUserService;
+
 	/*
 	 * file name: imgFile
-	 * 
-	 * */
+	 */
 	@RequestMapping("/uploadImg")
-	public @ResponseBody JSONObject uploadMaterialImg (
-			@RequestParam(value = "imgFile", required= false) MultipartFile imgFile,
-			@RequestParam(value = "source", required= false,defaultValue = "unknown") String source,
-			@RequestParam(value = "user", required= false,defaultValue = "system") String user
+	public @ResponseBody JSONObject uploadMaterialImg(
+			@RequestParam(value = "imgFile", required = false) MultipartFile imgFile,
+			@RequestParam(value = "source", required = false, defaultValue = "unknown") String source,
+			@RequestParam(value = "upload_info", required = true) String upload_info)
+			throws FileUploadException {
 
-	) throws FileUploadException {
-		
-		logger.info("user:"+user+"上传文件，开始...");
-		System.out.println(imgFile.getOriginalFilename());
-		int index=imgFile.getOriginalFilename().lastIndexOf(".");
-		String suffix=null;
-		if(index>-1){
-			suffix=imgFile.getOriginalFilename().substring(index+1);
+		String userinfo = Encrypt
+				.decryptSSO(upload_info, IConstants.HELLO_WORD);
+		String[] split = userinfo.split("_");
+		String user = split[0];
+		String psw = split[1];
+
+		if (!check(source, user, psw)) {
+			return this.toJSONResult(false, "非法权限");
 		}
-		Map<String,String> params = new HashMap<String, String>();
-		params.put("user",user);
-		
-		String new_img_url=null;
+
+		logger.info("user:" + user + "上传文件，开始...");
+		System.out.println(imgFile.getOriginalFilename());
+		int index = imgFile.getOriginalFilename().lastIndexOf(".");
+		String suffix = null;
+		if (index > -1) {
+			suffix = imgFile.getOriginalFilename().substring(index + 1);
+		}
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("user", user);
+
+		String new_img_url = null;
 		try {
-			new_img_url = FileUploadHandler.uploadFile(imgFile.getBytes(), FileSource.valueOf(source.toUpperCase()), suffix, FileType.valueOf("IMAGE"), params);
+			new_img_url = FileUploadHandler.uploadFile(imgFile.getBytes(),
+					FileSource.valueOf(source.toUpperCase()), suffix,
+					FileType.valueOf("IMAGE"), params);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		this.saveFile(imgFile, user, new_img_url);
 		return toJSONResult(true, new_img_url);
 	}
-	
+
 	@RequestMapping("/uploadFile")
 	public @ResponseBody String uploadFile(
 			@RequestParam(value = "imgFile") MultipartFile multipartFile,
@@ -73,20 +95,19 @@ public class UploadController extends StaticController{
 			@RequestParam(value = "user", defaultValue = "system") String user
 
 	) {
-		String resp = null;
 		String imgId = null;
 		if (multipartFile != null) {
 		}
 		return imgId;
 	}
 
-
 	// 记录上传图片到db
-	private void saveFile(final MultipartFile multipartFile,final String user,final String dbURL) {
+	private void saveFile(final MultipartFile multipartFile, final String user,
+			final String dbURL) {
 		new Thread(new Runnable() {
 			public void run() {
-				SysFile file=new SysFile();
-				file.setFileName(dbURL.substring(dbURL.lastIndexOf("/")+1));
+				SysFile file = new SysFile();
+				file.setFileName(dbURL.substring(dbURL.lastIndexOf("/") + 1));
 				file.setCreatedBy(user);
 				file.setCreatedTime(new Date());
 				file.setFileSize(multipartFile.getSize());
@@ -97,5 +118,20 @@ public class UploadController extends StaticController{
 			}
 		}).start();
 	}
-	
+
+	private boolean check(String source, String id, String psw) {
+		if (source.equalsIgnoreCase("PORTAL")) {
+			User user = userService.findOne(id);
+			if (user != null && user.getPassword().equals(psw)) {
+				return true;
+			}
+		} else if (source.equalsIgnoreCase("ADMIN")) {
+			SysUser user = sysUserService.findOne(id);
+			if (user != null && user.getPassword().equals(psw)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 }

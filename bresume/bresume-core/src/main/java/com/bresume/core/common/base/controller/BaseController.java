@@ -17,12 +17,14 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
+import com.bresume.core.common.constant.IConstants;
 import com.bresume.core.common.exception.CoreException;
 import com.bresume.core.common.msg.MsgDescription;
 import com.bresume.core.common.utils.CommonUtils;
 import com.bresume.core.common.utils.GeneralUtils;
 import com.bresume.core.common.utils.json.JsonHelper;
 import com.bresume.core.common.utils.search.SearchBean;
+import com.bresume.core.common.utils.security.Encrypt;
 
 /**
  * Controller基类，所有的Controller必须要继承此类
@@ -187,6 +189,9 @@ public abstract class BaseController extends SimpleFormController {
 	public abstract String getCurrentUserId() ;
 	
 	
-
+	public String getUploadAuthInfo(String userId,String userPSW){
+		String info = userId+"_"+userPSW;
+		return Encrypt.encryptSSO(info, IConstants.HELLO_WORD);
+	}
 	
 }

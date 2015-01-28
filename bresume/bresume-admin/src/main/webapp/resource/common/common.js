@@ -377,7 +377,7 @@ var subUrl = function(url) {
 	});
 };
 
-function makeFileUpload(fileEle, imgEle, valueEle) {
+function makeFileUpload(fileEle, imgEle, valueEle,upload_info) {
 	fileEle
 			.uploadify({
 				'uploader' : 'http://static.bresume.com/upload/uploadImg',
@@ -391,17 +391,18 @@ function makeFileUpload(fileEle, imgEle, valueEle) {
 				'multi' : false,
 				'buttonText' : '上传图片',
 				'formData' : {
-					'user' : 'test',
-					'source' : 'PORTAL'
+					'upload_info' : upload_info,
+					'source' : 'ADMIN'
 				},
 				'onUploadSuccess' : function(file, data, response) {
 					data = JSON.parse(data);
 					console.log(data);
 					var res = data.success;
 					if (res === true) {
-						alert(data.message);
 						valueEle.val(data.message);
 						imgEle.attr("src", "http://static.bresume.com"+ data.message);
+					}else{
+						alert(data.message);
 					}
 				},
 			});

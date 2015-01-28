@@ -271,6 +271,7 @@
 			makeFileUpload(fileEle, imgEle, valueEle, resumeId);
 		}
 		//var uploadUrl = "http://static.bresume.com/upload/uploadImg";
+		var upload_info ='${sessionScope.upload_info}';
 		function makeFileUpload(fileEle, imgEle, valueEle, resumeId){
 			fileEle.uploadify({
 						'uploader' : 'http://static.bresume.com/upload/uploadImg',
@@ -284,8 +285,8 @@
 						'multi' : false,
 						'buttonText' : '重新上传',
 						'formData' : {
-							'user' : 'test',
-							'source' : 'PORTAL'
+							'source' : 'PORTAL',
+							'upload_info':upload_info
 						},
 						'onUploadSuccess' : function(file, data, response) {
 							data = JSON.parse(data);
