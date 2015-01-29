@@ -153,7 +153,7 @@
 			url : "/tem/list.do",
 			datatype : "json",
 			height : 390,
-			colNames : [ '操作', '名称', '编号', '是否推荐', '状态', '创建时间' ],
+			colNames : [ '操作', '','名称', '编号', '是否推荐', '状态', '创建时间' ],
 			colModel : [ {
 				name : 'test',
 				index : '',
@@ -166,6 +166,10 @@
 					return applyActions(id, "view,active,inActive,edit,delete");
 				}
 			}, {
+				name : 'siteUrl',
+				index : 'siteUrl',
+				hidden:true,
+			},{
 				name : 'name',
 				index : 'name',
 				width : 160
@@ -285,7 +289,9 @@
 		}
 
 		function grid_row_view(id) {
-			window.open("http://www.baidu.com");
+			var row = $(grid_selector).jqGrid("getRowData",id);
+			console.log(row);
+			window.open(row.siteUrl);
 		}
 		function grid_row_delete(id) {
 			change(status_url, 4, id);

@@ -66,7 +66,6 @@ public class UserController extends AdminController {
 					IAdminConstants.SESSION_KEY_LOGIN_USER, loginUser);
 			SessionContextHolder.getSession().setAttribute(
 							IAdminConstants.SESSION_USER_UPLOAD_INFO, getUploadAuthInfo(loginUser.getId(), loginUser.getPassword()));
-			System.out.println(getUploadAuthInfo(loginUser.getId(), loginUser.getPassword()));
 			return this.toJSONResult(true);
 
 		} catch (CoreException e) {
@@ -86,6 +85,8 @@ public class UserController extends AdminController {
 		// 删除session
 		SessionContextHolder.getSession().removeAttribute(
 				IAdminConstants.SESSION_KEY_LOGIN_USER);
+		SessionContextHolder.getSession().removeAttribute(
+				IAdminConstants.SESSION_USER_UPLOAD_INFO);
 		return "redirect:/index.do";
 	}
 

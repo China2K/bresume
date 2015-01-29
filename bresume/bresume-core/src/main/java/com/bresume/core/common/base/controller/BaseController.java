@@ -177,7 +177,7 @@ public abstract class BaseController extends SimpleFormController {
 				if (search.length < 2 || GeneralUtils.isNullOrZeroLenght(search[1])) {
 					continue;
 				}
-				SearchBean searchBean = new SearchBean(search[0], search[1],"like");
+				SearchBean searchBean = new SearchBean(search[0], search[1],"=");
 				list.add(searchBean);
 			}
 		}

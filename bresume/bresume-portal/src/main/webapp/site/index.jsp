@@ -16,6 +16,7 @@
 
 
 <style type="text/css">
+
 </style>
 
 
@@ -168,7 +169,7 @@
 						<li>
 							<div class="timeline-image">
 								<img class="img-circle img-responsive"
-									src="resource/site/img/about/1.jpg" alt="">
+									src="<c:url value ='/resource/site/img/about/1.jpg" alt="">
 							</div>
 							<div class="timeline-panel">
 								<div class="timeline-heading">
@@ -183,7 +184,7 @@
 						<li class="timeline-inverted">
 							<div class="timeline-image">
 								<img class="img-circle img-responsive"
-									src="resource/site/img/about/3.jpg" alt="">
+									src="<c:url value ='/resource/site/img/about/3.jpg" alt="">
 							</div>
 							<div class="timeline-panel">
 								<div class="timeline-heading">
@@ -198,7 +199,7 @@
 						<li>
 							<div class="timeline-image">
 								<img class="img-circle img-responsive"
-									src="resource/site/img/about/2.jpg" alt="">
+									src="<c:url value ='/resource/site/img/about/2.jpg" alt="">
 							</div>
 							<div class="timeline-panel">
 								<div class="timeline-heading">
@@ -213,7 +214,7 @@
 						<li class="timeline-inverted">
 							<div class="timeline-image">
 								<img class="img-circle img-responsive"
-									src="resource/site/img/about/4.jpg" alt="">
+									src="<c:url value ='/resource/site/img/about/4.jpg" alt="">
 							</div>
 							<div class="timeline-panel">
 								<div class="timeline-heading">
@@ -297,23 +298,23 @@
 
 
 	<!-- jQuery -->
-	<script src="resource/site/js/jquery.js"></script>
+	<script src="<c:url value ='/resource/site/js/jquery.js'/>"></script>
 
 	<!-- Bootstrap Core JavaScript -->
-	<script src="resource/site/js/bootstrap.min.js"></script>
+	<script src="<c:url value ='/resource/site/js/bootstrap.min.js'/>"></script>
 
 	<!-- Plugin JavaScript -->
-	<script src="resource/site/js/jquery.easing.min.js"></script>
-	<script src="resource/site/js/classie.js"></script>
-	<script src="resource/site/js/cbpAnimatedHeader.js"></script>
+	<script src="<c:url value ='/resource/site/js/jquery.easing.min.js'/>"></script>
+	<script src="<c:url value ='/resource/site/js/classie.js'/>"></script>
+	<script src="<c:url value ='/resource/site/js/cbpAnimatedHeader.js'/>"></script>
 
 	<!-- Contact Form JavaScript -->
-	<script src="resource/site/js/jqBootstrapValidation.js"></script>
-	<script src="resource/site/js/contact_me.js"></script>
+	<script src="<c:url value ='/resource/site/js/jqBootstrapValidation.js'/>"></script>
+	<script src="<c:url value ='/resource/site/js/contact_me.js'/>"></script>
 
 	<!-- Custom Theme JavaScript -->
-	<script src="resource/site/js/agency.js"></script>
-	<script src="resource/app/js/common.js"></script>
+	<script src="<c:url value ='/resource/site/js/agency.js'/>"></script>
+	<script src="<c:url value ='/resource/app/js/common.js'/>"></script>
 	<script src="<c:url value ='/resource/site/js/jquery.form.js'/>"></script>
 		<!-- jQuery-Validation-Engine -->
 	<link rel="stylesheet"

@@ -409,6 +409,61 @@
 
 		//jquery validation
 		$("#resumeForm").validationEngine();
+		
+		
+		
+		
+		//菜单 点击后， 局部刷新 主要内容部分 _mainContent
+
+		$("li.ajaxPage").click(function(event) {
+			
+			var _mainContent = $("div.item-form-container");
+			
+			//console.log($(this).children("a"));
+			var isextra= $(this).children("a").children("span").hasClass("glyphicon-plus");
+			if(isextra===true){
+				return ;
+			}
+			var a = $(this);
+			//取消 默认的点击事件 否则跳转页面
+			event.preventDefault();
+			var url= "/resume/resumeItem.do?itemSn=";
+			url = url + a.attr("data-href");
+			var resumeId = $("#resumeForm #resumeId").val();
+			if (resumeId == null || resumeId == '') {
+				alert("请先完成前两步！");
+				goStep(1);
+			}
+			url = url + "&id=" + resumeId;
+			$.ajax({
+				type : "GET",
+				url : url,
+				async : false,
+				cache : false,
+				dataType : "html",
+				error : function(request) {
+					if (request.status == "747") {
+						window.location.href = request.getResponseHeader('loginUrl');
+					} else {
+						alert("跳转页面出现错误");
+					}
+				},
+				success : function(data) {
+					//会寻找返回的HTML中是否 存在fullpage:true的注释，如果存在则整张页面改变（body里面内容替换为响应返回的html）
+					//不想整张页面变化，则不需要别的操作
+					if (data.indexOf("<!--fullpage:true-->") >= 0) {
+						//整个页面改变
+						$("body").html(data);
+					} else {
+						//局部页面填充，改变 class=mainCont的内部
+						_mainContent.html(data);
+						//改变点击样式 TODO
+
+					}
+				}
+			});
+		});
+		
 	</script>
 
 </body>
