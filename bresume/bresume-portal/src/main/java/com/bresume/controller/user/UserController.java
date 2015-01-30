@@ -53,8 +53,6 @@ public class UserController extends AuthController {
 
 	@RequestMapping("/register")
 	public @ResponseBody JSONObject register(
-			// @RequestParam(value = "userName", required = true) String
-			// userName,
 			@RequestParam(value = "email", required = true) String email,
 			@RequestParam(value = "password", required = true) String password,
 			HttpServletResponse response, HttpServletRequest request) {

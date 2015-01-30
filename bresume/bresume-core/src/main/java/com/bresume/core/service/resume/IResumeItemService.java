@@ -13,7 +13,7 @@ import com.bresume.core.model.entity.resume.ResumeItem;
 
 public interface IResumeItemService extends IGenericService<ResumeItem,String>{
 	
-	public List findResumeItem(ResumeItemType rit,String resumeId); 
+	public List<?>findResumeItem(ResumeItemType rit,String resumeId); 
 	
 	public List<ResumeItem> findDefaultItems(String resumeId);
 	

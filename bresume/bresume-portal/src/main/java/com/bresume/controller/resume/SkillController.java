@@ -18,7 +18,6 @@ import com.bresume.core.common.base.controller.PortalController;
 import com.bresume.core.common.constant.enums.CommonStatus;
 import com.bresume.core.common.utils.CommonUtils;
 import com.bresume.core.model.entity.resume.Resume;
-import com.bresume.core.model.entity.resume.item.JobIntension;
 import com.bresume.core.model.entity.resume.item.Skill;
 import com.bresume.core.service.resume.IResumeService;
 import com.bresume.core.service.resume.ISkillService;

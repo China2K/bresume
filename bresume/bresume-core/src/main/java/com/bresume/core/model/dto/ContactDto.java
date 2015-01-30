@@ -1,6 +1,5 @@
 package com.bresume.core.model.dto;
 
-import com.bresume.core.common.utils.CommonUtils;
 import com.bresume.core.common.utils.DateUtils;
 import com.bresume.core.model.base.BaseEntity;
 import com.bresume.core.model.entity.user.Contact;

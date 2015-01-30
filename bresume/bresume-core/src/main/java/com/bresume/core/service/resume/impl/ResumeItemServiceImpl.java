@@ -20,9 +20,7 @@ import com.bresume.core.common.utils.CommonUtils;
 import com.bresume.core.common.utils.search.SearchBean;
 import com.bresume.core.dao.resume.IResumeItemDao;
 import com.bresume.core.dao.resume.IResumeItemRefDao;
-import com.bresume.core.model.dto.ResumeDto;
 import com.bresume.core.model.dto.ResumeItemDto;
-import com.bresume.core.model.entity.resume.Resume;
 import com.bresume.core.model.entity.resume.ResumeItem;
 import com.bresume.core.service.resume.IResumeItemService;
 

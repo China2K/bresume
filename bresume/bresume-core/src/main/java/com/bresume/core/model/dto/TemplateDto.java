@@ -1,6 +1,5 @@
 package com.bresume.core.model.dto;
 
-import com.bresume.core.common.upload.FileUploadHandler;
 import com.bresume.core.common.utils.CommonUtils;
 import com.bresume.core.common.utils.DateUtils;
 import com.bresume.core.model.base.BaseEntity;
@@ -8,6 +7,10 @@ import com.bresume.core.model.entity.resume.Template;
 
 public class TemplateDto extends BaseEntity {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/**
 	 * 
 	 */

@@ -45,7 +45,7 @@
 					<li><a class="page-scroll" href="#templates">简历模板</a></li>
 					<li><a class="page-scroll" href="#portfolio">热门简历</a></li>
 					<li><a class="page-scroll" href="#about">关于我们</a></li>
-					<li><a class="page-scroll" href="#contact">提供建议</a></li>
+					<li><a class="page-scroll" href="#contact" id="contact_btn">提供建议</a></li>
 
 				</ul>
 
@@ -169,7 +169,7 @@
 						<li>
 							<div class="timeline-image">
 								<img class="img-circle img-responsive"
-									src="<c:url value ='/resource/site/img/about/1.jpg" alt="">
+									src="<c:url value ='/resource/site/img/about/1.jpg'/>" alt="">
 							</div>
 							<div class="timeline-panel">
 								<div class="timeline-heading">
@@ -184,7 +184,7 @@
 						<li class="timeline-inverted">
 							<div class="timeline-image">
 								<img class="img-circle img-responsive"
-									src="<c:url value ='/resource/site/img/about/3.jpg" alt="">
+									src="<c:url value ='/resource/site/img/about/3.jpg'/>" alt="">
 							</div>
 							<div class="timeline-panel">
 								<div class="timeline-heading">
@@ -199,7 +199,7 @@
 						<li>
 							<div class="timeline-image">
 								<img class="img-circle img-responsive"
-									src="<c:url value ='/resource/site/img/about/2.jpg" alt="">
+									src="<c:url value ='/resource/site/img/about/2.jpg'/>" alt="">
 							</div>
 							<div class="timeline-panel">
 								<div class="timeline-heading">
@@ -214,7 +214,7 @@
 						<li class="timeline-inverted">
 							<div class="timeline-image">
 								<img class="img-circle img-responsive"
-									src="<c:url value ='/resource/site/img/about/4.jpg" alt="">
+									src="<c:url value ='/resource/site/img/about/4.jpg'/>" alt="">
 							</div>
 							<div class="timeline-panel">
 								<div class="timeline-heading">
@@ -240,7 +240,7 @@
 	</section>
 
 
-	<section id="contact">
+	<section id="contact" style="display: none;">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12 text-center">
@@ -330,11 +330,19 @@
 		$("#contactForm").ajaxSubmit(
 				function(data) {
 					alert(data.message);
+					$('#contact').fadeOut(100);
+					$('#contact').slideUp(200);
 					$('html, body').animate({
 						scrollTop : 0
 					}, 'slow');
 				}
 			);
+	});
+	
+	
+	$("#contact_btn").click(function(){
+		$('#contact').fadeIn(100);
+		$('#contact').slideDown(200);
 	});
 
 	</script>

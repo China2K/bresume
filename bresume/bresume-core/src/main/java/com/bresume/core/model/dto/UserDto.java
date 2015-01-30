@@ -7,6 +7,12 @@ import com.bresume.core.model.entity.user.User;
 
 public class UserDto extends BaseDto {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	
 	private String userName;
 	private String password;
 	/** 0-个人用户；1-企业用户；2-企业成员 */
