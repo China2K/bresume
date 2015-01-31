@@ -1,14 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
 <!DOCTYPE HTML>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta property="qc:admins" content="2500654377622535556375" />
 <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" content="">
 
@@ -177,7 +175,7 @@
 									<h4 class="subheading">我们的开始</h4>
 								</div>
 								<div class="timeline-body">
-									<p class="text-muted">一个突发奇想让我们开始了一个不一样的旅程，bresume想做一个不一样的个人简历网站！</p>
+									<p class="text-muted">一个突发奇想让我开始了一个神奇的旅程，bresume想做一个不一样的个人简历网站！</p>
 								</div>
 							</div>
 						</li>
@@ -188,11 +186,11 @@
 							</div>
 							<div class="timeline-panel">
 								<div class="timeline-heading">
-									<h4>2014.11-</h4>
+									<h4>2014.11-2015.2</h4>
 									<h4 class="subheading">编码中</h4>
 								</div>
 								<div class="timeline-body">
-									<p class="text-muted">这是一个程序员的故事...</p>
+									<p class="text-muted">这是一个程序猿的故事...</p>
 								</div>
 							</div>
 						</li>
@@ -203,7 +201,7 @@
 							</div>
 							<div class="timeline-panel">
 								<div class="timeline-heading">
-									<h4>2015.1-1</h4>
+									<h4>2015.2-1</h4>
 									<h4 class="subheading">我们来了</h4>
 								</div>
 								<div class="timeline-body">
@@ -218,7 +216,7 @@
 							</div>
 							<div class="timeline-panel">
 								<div class="timeline-heading">
-									<h4>2015.1-2</h4>
+									<h4>2015.2-2</h4>
 									<h4 class="subheading">第二个用户</h4>
 								</div>
 								<div class="timeline-body">

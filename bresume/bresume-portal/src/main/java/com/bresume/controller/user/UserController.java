@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bresume.controller.login.AuthController;
 import com.bresume.core.common.base.sys.SessionContextHolder;
+import com.bresume.core.common.constant.IConstants;
 import com.bresume.core.common.constant.IPortalConstants;
 import com.bresume.core.common.constant.enums.AuthType;
 import com.bresume.core.common.constant.enums.RegisterType;
@@ -65,6 +66,8 @@ public class UserController extends AuthController {
 			user.setRegisterType(RegisterType.PORTAL_REGISTER.getType());
 			user.setType(UserType.PERSIONAL.getCode());
 			user.setLevel(0);
+			user.setIcon(IConstants.DEFAULT_USER_ICON);
+			user.setNickName(email.substring(0,email.indexOf("@")));
 			userService.register(user);
 			// 生成邮箱验证码
 			UserVerified uv = new UserVerified(user);
@@ -284,4 +287,5 @@ public class UserController extends AuthController {
 	 * return this.toJSONResult(true); } catch (CoreException e) { return
 	 * this.toJSONResult(false, this.getMessage(e)); } }
 	 */
+	
 }

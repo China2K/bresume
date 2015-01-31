@@ -12,13 +12,13 @@ public interface IConstants {
 	public static final String HTTP_HTTPS_REG = "^(http|https)://.+"; 
 	
 	
+	
+	
+	//系统参数，后续需存放db并于后台参数配置
 	public static final String DEFAULT_TEMPLATE="001";
-	
-	
 	public static final String DEFAULT_TEMPLATE_COVERURL="001";
-	
-	
 	public static final String HELLO_WORD = "ILOVEYOU";
+	public static final String DEFAULT_USER_ICON="001";
 	
 	
 }

@@ -57,14 +57,14 @@
 								<div class="input-group">
 									<span class="input-group-addon"><i
 										class="fa fa-envelope"></i></span><input autofocus="autofocus"
-										class="form-control" name="loginName"
+										class="form-control validate[required,custom[email],minSize[5],maxSize[100]]" name="loginName"
 										placeholder="邮箱地址" required="required">
 								</div>
 							</div>
 							<div class="form-group">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-key"></i></span><input
-										class="form-control" id="user_password" name="password"
+										class="form-control validate[required,minSize[5],maxSize[100]]" id="user_password" name="password"
 										placeholder="密码" required="required" type="password"><input
 										id="redirect_from" name="redirect_from" type="hidden">
 								</div>
@@ -114,7 +114,7 @@
 							<div class="form-group email_group">
 								<div class="input-group">
 									<span class="input-group-addon"><i
-										class="fa fa-envelope"></i></span><input class="form-control validate[required,custom[email]]"
+										class="fa fa-envelope"></i></span><input class="form-control validate[required,custom[email],minSize[5],maxSize[100]]"
 										id="user_email" name="email" placeholder="邮箱地址"
 										required="required" type="email">
 								</div>
@@ -122,7 +122,7 @@
 							<div class="form-group password_group">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-key"></i></span><input
-										class="form-control validate[required]" id="user_password" name="password"
+										class="form-control validate[required,minSize[5],maxSize[100]]" id="user_password" name="password"
 										placeholder="密码" required="required" type="password">
 								</div>
 							</div>
@@ -175,6 +175,9 @@
 
 	<script type="text/javascript">
 		function login(){
+			if (!$("#login_form").validationEngine("validate")) {
+				return false;
+			}
 				$("#login_form").ajaxSubmit(
 					function(data) {
 						if (data.success) {
@@ -188,6 +191,7 @@
 		}
 		
 		$("#register_form").validationEngine();
+		$("#login_form").validationEngine();
 		
 		function register(){
 				if (!$("#register_form").validationEngine("validate")) {
