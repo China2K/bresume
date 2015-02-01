@@ -75,7 +75,7 @@ public class ResumeController extends PortalController {
 		resume.setStatus(CommonStatus.DELETED.getCode());
 		resume.setUpdatedTime(new Date());
 		resumeService.update(resume);
-		return this.toJSONResult(true);
+		return this.toJSONResult(true,"操作成功");
 	}
 
 	@RequestMapping("/mine")
@@ -349,14 +349,14 @@ public class ResumeController extends PortalController {
 		return page;
 	}
 
-	@RequestMapping(value = "/getScore", method = RequestMethod.GET)
+	@RequestMapping(value = "/getScore")
 	public @ResponseBody JSONObject getScore(
 			@RequestParam(value = "id", required = true) String id) {
 		Resume resume = resumeService.findOne(id);
 		if (resume == null)
 			return this.toJSONResult(false, "未找到");
-
-		return this.toJSONResult(true, getScore(resume));
+			int proc=  getScore(resume);
+		return this.toJSONResult(true,proc);
 	}
 
 	private int getScore(Resume resume) {

@@ -119,7 +119,7 @@
 						</div>
 					</div>
 					<div class="box-bottom">
-						<a href="#">换个模板</a>
+						<a href="javascript:goStep(1);">换个模板</a>
 					</div>
 				</div>
 			</div>
@@ -423,7 +423,7 @@
 		}
 
 		//jquery validation
-		$("#resumeForm").validationEngine();
+		//$("#resumeForm").validationEngine();
 
 		//菜单 点击后， 局部刷新 主要内容部分 _mainContent
 
@@ -482,14 +482,13 @@
 		function setProcessBarDynamic(id) {
 			$.ajax({
 				type : "POST",
-				url : "/resume/setScore",
+				url : "/resume/getScore",
 				data : {
 					id : id
 				},
 				dataType : "json",
 				success : function(resp) {
-					alert(resp.message);
-					setProcessBar(resp.message);
+					setProcessBar(resp.data);
 				}
 
 			});

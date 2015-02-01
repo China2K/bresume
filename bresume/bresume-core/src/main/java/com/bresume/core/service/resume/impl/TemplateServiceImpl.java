@@ -15,7 +15,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.bresume.core.common.base.dao.IGenericDao;
 import com.bresume.core.common.base.service.support.GenericService;
+import com.bresume.core.common.constant.enums.CommonStatus;
 import com.bresume.core.common.utils.search.SearchBean;
+import com.bresume.core.dao.resume.IResumeDao;
 import com.bresume.core.dao.resume.ITemplateDao;
 import com.bresume.core.model.dto.TemplateDto;
 import com.bresume.core.model.entity.resume.Template;
@@ -23,29 +25,44 @@ import com.bresume.core.service.resume.ITemplateService;
 
 @Service
 @Transactional
-public class TemplateServiceImpl extends GenericService<Template, String> implements ITemplateService {
+public class TemplateServiceImpl extends GenericService<Template, String>
+		implements ITemplateService {
 	@Resource
 	private ITemplateDao templateDao;
+
+	@Resource
+	private IResumeDao resumeDao;
+
 	@Override
 	public IGenericDao<Template, String> getDao() {
 		return templateDao;
 	}
+
 	@Override
 	public List<Template> findHostTemplates(Integer status) {
-		if(status!=null){
-			return templateDao.findAll(new Sort(Direction.ASC, "order"), new SearchBean("recommended","true", "="),new SearchBean("status",status.toString(), "="));
+		if (status != null) {
+			return templateDao.findAll(new Sort(Direction.ASC, "order"),
+					new SearchBean("recommended", "true", "="), new SearchBean(
+							"status", status.toString(), "="));
 		}
-		return templateDao.findAll(new Sort(Direction.ASC, "order"), new SearchBean("recommended","true", "="));
+		return templateDao.findAll(new Sort(Direction.ASC, "order"),
+				new SearchBean("recommended", "true", "="));
 	}
+
 	@Override
 	public Page<TemplateDto> find(Pageable pageable, SearchBean... searchBeans) {
 		Page<Template> list = templateDao.findAll(pageable, searchBeans);
 		List<TemplateDto> content = new ArrayList<TemplateDto>();
 		for (Template Template : list.getContent()) {
-			content.add(TemplateDto.convert(Template));
+			TemplateDto dto = TemplateDto.convert(Template);
+			dto.setUsedCount(resumeDao.count(new SearchBean("status",
+					CommonStatus.DELETED.getCode() + "", "!=")));
+			content.add(dto);
 		}
-		return new PageImpl<TemplateDto>(content, pageable, list.getTotalElements());
+		return new PageImpl<TemplateDto>(content, pageable,
+				list.getTotalElements());
 	}
+
 	@Override
 	public List<TemplateDto> find(SearchBean... searchBeans) {
 		List<Template> list = templateDao.findAll(searchBeans);
