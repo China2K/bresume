@@ -15,9 +15,12 @@ public interface IConstants {
 	
 	
 	//系统参数，后续需存放db并于后台参数配置
+	public static final String HELLO_WORD = "ILOVEYOU";
+	
 	public static final String DEFAULT_TEMPLATE="001";
 	public static final String DEFAULT_TEMPLATE_COVERURL="001";
-	public static final String HELLO_WORD = "ILOVEYOU";
+	public static final String DEFAULT_RESUME_COVERURL="/portal/test/1420294879979_4.png";
+	
 	public static final String DEFAULT_USER_ICON="001";
 	
 	

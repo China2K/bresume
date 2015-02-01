@@ -36,11 +36,13 @@ public class Resume extends BaseEntity {
 	private String templateSn;
 	private String coverUrl;
 	private Boolean recommended;
-	
+
 	private Integer order;
 
 	private String desc;
-	
+
+	private Integer score;
+
 	private List<ResumeItemRef> refs;
 
 	@Column(name = "NAME")
@@ -50,6 +52,15 @@ public class Resume extends BaseEntity {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	@Column(name = "SCORE")
+	public Integer getScore() {
+		return score;
+	}
+
+	public void setScore(Integer score) {
+		this.score = score;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -64,7 +75,7 @@ public class Resume extends BaseEntity {
 
 	@Column(name = "STATUS")
 	public Integer getStatus() {
-		if(status==null)
+		if (status == null)
 			return 0;
 		return status;
 	}
@@ -129,7 +140,7 @@ public class Resume extends BaseEntity {
 
 	@Column(name = "`ORDER`")
 	public Integer getOrder() {
-		if(order==null)
+		if (order == null)
 			return 0;
 		return order;
 	}
@@ -147,8 +158,7 @@ public class Resume extends BaseEntity {
 		this.desc = desc;
 	}
 
-	
-	@OneToMany(cascade = CascadeType.ALL,fetch=FetchType.LAZY,mappedBy="resume")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "resume")
 	public List<ResumeItemRef> getRefs() {
 		return refs;
 	}

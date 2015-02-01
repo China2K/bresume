@@ -68,6 +68,16 @@ public class ResumeController extends PortalController {
 		return this.toJSONResult(true);
 	}
 
+	@RequestMapping("/delete")
+	public @ResponseBody JSONObject changeResumeCover(
+			@RequestParam(value = "id", required = true) String id) {
+		Resume resume = resumeService.findOne(id);
+		resume.setStatus(CommonStatus.DELETED.getCode());
+		resume.setUpdatedTime(new Date());
+		resumeService.update(resume);
+		return this.toJSONResult(true);
+	}
+
 	@RequestMapping("/mine")
 	public String mine(HttpServletRequest request, Model model) {
 		LoginUser loginUser = getCurrentLoginUser();
@@ -103,6 +113,7 @@ public class ResumeController extends PortalController {
 		if (CommonUtils.isNotEmpty(id)) {
 			resume = resumeService.findOne(id);
 			sn = resume.getTemplateSn();
+			resume.setScore(getScore(resume));
 			step = 3;
 		} else {
 			resume = new Resume();
@@ -186,6 +197,11 @@ public class ResumeController extends PortalController {
 	public @ResponseBody JSONObject save(HttpServletRequest request,
 			@ModelAttribute Resume resume) {
 		LoginUser loginUser = getCurrentLoginUser();
+		boolean isNameExist = resumeService.isExist(resume.getId(),
+				resume.getName());
+		if (isNameExist) {
+			return this.toJSONResult(false, "简历名称已存在");
+		}
 		if (resume != null && CommonUtils.isNotEmpty(resume.getId())) {
 			Resume oldResume = resumeService.findOne(resume.getId());
 			if (oldResume == null) {
@@ -196,11 +212,17 @@ public class ResumeController extends PortalController {
 			oldResume.setUpdatedTime(new Date());
 			resumeService.update(oldResume);
 		} else {
+			long count = resumeService.count();
 			resume.setCreatedTime(new Date());
 			resume.setStatus(CommonStatus.INTITAL.getCode());
-			resume.setOrder(9999);
+			resume.setOrder((int) (count + 1));
 			resume.setRecommended(false);
 			resume.setIsPublic(false);
+			resume.setScore(50);
+			if (CommonUtils.isEmpty(resume.getCoverUrl())) {
+				resume.setCoverUrl(IConstants.DEFAULT_RESUME_COVERURL);
+			}
+
 			User user = new User();
 			user.setId(loginUser.getId());
 			resume.setUser(user);
@@ -232,6 +254,20 @@ public class ResumeController extends PortalController {
 			resumeItemRefService.delete(ref);
 		}
 		return this.toJSONResult(true, "保存成功");
+	}
+
+	@RequestMapping("/setPublicity")
+	public @ResponseBody JSONObject setPublicity(HttpServletRequest request,
+			@RequestParam(value = "id", required = true) String id,
+			@RequestParam(value = "flag", required = true) Integer flag) {
+		Resume resume = resumeService.findOne(id);
+		if (resume != null) {
+			resume.setIsPublic(flag.intValue() == 1);
+			resume.setUpdatedTime(new Date());
+			resumeService.update(resume);
+		}
+		return this.toJSONResult(true, "保存成功");
+
 	}
 
 	@RequestMapping("/addItem")
@@ -313,4 +349,42 @@ public class ResumeController extends PortalController {
 		return page;
 	}
 
+	@RequestMapping(value = "/getScore", method = RequestMethod.GET)
+	public @ResponseBody JSONObject getScore(
+			@RequestParam(value = "id", required = true) String id) {
+		Resume resume = resumeService.findOne(id);
+		if (resume == null)
+			return this.toJSONResult(false, "未找到");
+
+		return this.toJSONResult(true, getScore(resume));
+	}
+
+	private int getScore(Resume resume) {
+		if (resume == null)
+			return 0;
+		List<ResumeItemRef> refs = resume.getRefs();
+		double rate = 50.00d;
+		if (refs != null) {
+			int size = refs.size();
+			for (ResumeItemRef ref : refs) {
+				String sn = ref.getItemSn();
+				ResumeItemType resumeItem = ResumeItemType.fromSn(sn);
+				List<?> objItems = resumeItemService.findResumeItem(resumeItem,
+						resume.getId());
+				if (CommonUtils.isNotEmpty(objItems)) {
+					rate += 50.00 / size;
+				}
+			}
+		}
+		return Integer.parseInt(new java.text.DecimalFormat("0").format(rate));
+	}
+
+	public static void main(String[] args) {
+		int a = 3;
+		double b = 50.00;
+		double c = b / a;
+		System.out.println(c);
+		System.out.println(Integer.parseInt(new java.text.DecimalFormat("0")
+				.format(c)));
+	}
 }

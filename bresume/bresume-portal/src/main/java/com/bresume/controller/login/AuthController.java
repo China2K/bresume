@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 
 import com.bresume.core.common.base.controller.PortalController;
 import com.bresume.core.common.base.sys.SessionContextHolder;
+import com.bresume.core.common.constant.IAdminConstants;
 import com.bresume.core.common.constant.IPortalConstants;
 import com.bresume.core.common.constant.enums.AuthType;
 import com.bresume.core.common.utils.PropertiesLoader;
@@ -21,16 +22,15 @@ import com.bresume.core.model.entity.user.BAuth;
 import com.bresume.core.model.entity.user.User;
 import com.bresume.core.service.user.IBAuthService;
 
-
 public abstract class AuthController extends PortalController {
 	@Resource
 	private JavaMailSender mailSender;
-	
+
 	@Resource
 	private IBAuthService authService;
 
-	protected LoginUser getU(BAuth auth){
-		LoginUser loginUser= new LoginUser();
+	protected LoginUser getU(BAuth auth) {
+		LoginUser loginUser = new LoginUser();
 		loginUser.setAccessToken(auth.getAccessToken());
 		loginUser
 				.setIcon(auth.getIcon() == null ? IPortalConstants.defaultIconUrl
@@ -42,38 +42,48 @@ public abstract class AuthController extends PortalController {
 		loginUser.setOpenId(auth.getOpenId());
 		return loginUser;
 	}
-	
-	protected LoginUser getU(User user){
-		LoginUser loginUser= new LoginUser();
+
+	protected LoginUser getU(User user) {
+		LoginUser loginUser = new LoginUser();
 		loginUser
 				.setIcon(user.getIcon() == null ? IPortalConstants.defaultIconUrl
 						: user.getIcon());
 		loginUser.setId(user.getId());
 		loginUser.setLoginType(AuthType.bresume.getCode());
-		loginUser.setNickName( user.getNickName());
+		loginUser.setNickName(user.getNickName());
 		return loginUser;
 	}
-	
-	protected boolean setUser2Session(BAuth auth){
+
+	protected boolean setUser2Session(BAuth auth) {
 		LoginUser loginuser = this.getU(auth);
-		SessionContextHolder.getSession().setAttribute(IPortalConstants.SESSION_KEY_LOGIN_USER, loginuser);
+		SessionContextHolder.getSession().setAttribute(
+				IPortalConstants.SESSION_KEY_LOGIN_USER, loginuser);
+
+		User user = auth.getUser();
+		SessionContextHolder.getSession().setAttribute(
+				IPortalConstants.SESSION_USER_UPLOAD_INFO,
+				getUploadAuthInfo(user.getId(), user.getPassword()));
 		return true;
 	}
-	
-	protected boolean setUser2Session(User user){
+
+	protected boolean setUser2Session(User user) {
 		LoginUser loginuser = this.getU(user);
-		SessionContextHolder.getSession().setAttribute(IPortalConstants.SESSION_KEY_LOGIN_USER, loginuser);
+		SessionContextHolder.getSession().setAttribute(
+				IPortalConstants.SESSION_KEY_LOGIN_USER, loginuser);
+		SessionContextHolder.getSession().setAttribute(
+				IPortalConstants.SESSION_USER_UPLOAD_INFO,
+				getUploadAuthInfo(user.getId(), user.getPassword()));
 		return true;
 	}
-	
-	protected void sendRegisterMail(User user,String code) {
+
+	protected void sendRegisterMail(User user, String code) {
 		PropertiesLoader loader = new PropertiesLoader("mail.properties");
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		Email email = new Email();
 		email.setSender(loader.getProperty("mail.from"));
 		email.setAddress(user.getEmail());
-		
+
 		email.setSubject(loader.getProperty("mail.register.success.subject"));
 		// 从模板生成
 		HashMap<String, Object> param = new HashMap<String, Object>();
@@ -86,12 +96,13 @@ public abstract class AuthController extends PortalController {
 		MailUtils.sendMailByAsynchronousMode(map, mailSender);
 
 	}
-	
-	protected String callBack(Model model,BAuth newAuth){
-		BAuth oldAuth = authService.findOne(newAuth.getOpenId(),newAuth.getType());
+
+	protected String callBack(Model model, BAuth newAuth) {
+		BAuth oldAuth = authService.findOne(newAuth.getOpenId(),
+				newAuth.getType());
 		if (oldAuth != null && oldAuth.getUser() != null) {
 			// 判定有登录记录
-			//刷新accessToken
+			// 刷新accessToken
 			oldAuth.setAccessToken(newAuth.getAccessToken());
 			oldAuth.setExpiresIn(newAuth.getExpiresIn());
 			oldAuth.setIcon(newAuth.getIcon());
@@ -100,7 +111,7 @@ public abstract class AuthController extends PortalController {
 			authService.update(oldAuth);
 			this.setUser2Session(oldAuth);
 			return "redirect:/index";
-		} else if(oldAuth==null) {
+		} else if (oldAuth == null) {
 			// 判定首次登录，记录
 			oldAuth = new BAuth();
 			oldAuth.setAccessToken(newAuth.getAccessToken());
@@ -112,11 +123,11 @@ public abstract class AuthController extends PortalController {
 			oldAuth.setRefreshAccessTime(new Date());
 			oldAuth.setType(newAuth.getType());
 			authService.save(oldAuth);
-			//用户绑定,跳转页面
+			// 用户绑定,跳转页面
 			model.addAttribute("openId", newAuth.getOpenId());
 			model.addAttribute("loginFrom", newAuth.getType());
 			return "site/bindAuth.jsp";
-		}else{
+		} else {
 			// 登录过但因某种原因为绑定账户
 			oldAuth.setAccessToken(newAuth.getAccessToken());
 			oldAuth.setExpiresIn(newAuth.getExpiresIn());
@@ -124,12 +135,12 @@ public abstract class AuthController extends PortalController {
 			oldAuth.setNickName(newAuth.getNickName());
 			oldAuth.setRefreshAccessTime(new Date());
 			authService.update(oldAuth);
-			//用户绑定,跳转页面
+			// 用户绑定,跳转页面
 			model.addAttribute("openId", newAuth.getOpenId());
 			model.addAttribute("loginFrom", newAuth.getType());
 			return "site/bindAuth.jsp";
 		}
 
 	}
-	
+
 }

@@ -2,6 +2,7 @@ package com.bresume.core.common.utils;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.NoSuchElementException;
 import java.util.Properties;
 
@@ -24,6 +25,8 @@ public class PropertiesLoader {
 	private static ResourceLoader resourceLoader = new DefaultResourceLoader();
 
 	private final Properties properties;
+	
+	private static final String propertiesFileEncode = "UTF-8";
 
 	public PropertiesLoader(String... resourcesPaths) {
 		properties = loadProperties(resourcesPaths);
@@ -41,6 +44,14 @@ public class PropertiesLoader {
 		if (systemProperty != null) {
 			return systemProperty;
 		}
+		
+		
+		try {
+			return new String(properties.getProperty(key).getBytes("ISO-8859-1"),propertiesFileEncode);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		
 		return properties.getProperty(key);
 	}
 

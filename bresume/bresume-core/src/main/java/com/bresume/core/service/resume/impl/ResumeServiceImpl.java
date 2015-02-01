@@ -23,24 +23,29 @@ import com.bresume.core.service.resume.IResumeService;
 
 @Service
 @Transactional
-public class ResumeServiceImpl extends GenericService<Resume, String> implements IResumeService {
+public class ResumeServiceImpl extends GenericService<Resume, String> implements
+		IResumeService {
 
 	@Resource
 	private IResumeDao resumeDao;
-	
+
 	@Override
 	public IGenericDao<Resume, String> getDao() {
 		return resumeDao;
 	}
 
 	@Override
-	public List<Resume> findHostResumes(Integer status ) {
-		if(status!=null){
-			return resumeDao.findAll(new Sort(Direction.ASC, "order"), new SearchBean("recommended","1", "="),new SearchBean("status",status.toString(), "="));
+	public List<Resume> findHostResumes(Integer status) {
+		if (status != null) {
+			return resumeDao.findAll(new Sort(Direction.ASC, "order"),
+					new SearchBean("recommended", "1", "="), new SearchBean(
+							"status", status.toString(), "="), new SearchBean(
+							"isPublic", "1", "="));
 		}
-		return resumeDao.findAll(new Sort(Direction.ASC, "order"), new SearchBean("recommended","1", "="));
-		
-		
+		return resumeDao.findAll(new Sort(Direction.ASC, "order"),
+				new SearchBean("recommended", "1", "="), new SearchBean(
+						"isPublic", "1", "="));
+
 	}
 
 	@Override
@@ -50,7 +55,13 @@ public class ResumeServiceImpl extends GenericService<Resume, String> implements
 		for (Resume Resume : list.getContent()) {
 			content.add(ResumeDto.convert(Resume));
 		}
-		return new PageImpl<ResumeDto>(content, pageable, list.getTotalElements());
+		return new PageImpl<ResumeDto>(content, pageable,
+				list.getTotalElements());
+	}
+
+	@Override
+	public boolean isExist(String id, String name) {
+		return resumeDao.isNoDeleteExist("name", name, id);
 	}
 
 }

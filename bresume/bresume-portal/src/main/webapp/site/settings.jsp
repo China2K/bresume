@@ -102,7 +102,7 @@
 				<h3 class="section_title">
 					<i class="fa fa-key"></i>修改密码
 				</h3>
-				<form accept-charset="UTF-8" action="/user/updatePWD"
+				<form accept-charset="UTF-8" action="/user/updatePWD" onsubmit="return false;"
 					id="upt_pwd_form" class="simple_form form-horizontal"
 					id="setting-password" method="post">
 					<div class="form-group">
@@ -112,7 +112,7 @@
 
 						<div class="input-group col-md-5">
 							<span class="input-group-addon"><i class="fa fa-key"></i></span><input
-								class="form-control validate[required]"
+								class="form-control validate[required,minSize[6],maxSize[30]]"
 								id="user_current_password" name="password"
 								placeholder="请输入当前设置的密码" required="required" type="password">
 						</div>
@@ -123,7 +123,7 @@
 
 						<div class="input-group col-md-5">
 							<span class="input-group-addon"><i class="fa fa-key"></i></span><input
-								class="form-control validate[required]" id="new_password"
+								class="form-control validate[required,minSize[6],maxSize[30]]" id="new_password"
 								name="new_password" placeholder="密码至少 6 位以上" required="required"
 								type="password">
 						</div>
@@ -133,7 +133,7 @@
 
 						<div class="input-group col-md-5">
 							<span class="input-group-addon"><i class="fa fa-key"></i></span><input
-								class="form-control validate[required]"
+								class="form-control validate[required,minSize[6],maxSize[30]]"
 								id="user_password_confirmation" placeholder="重复新密码"
 								required="required" type="password">
 						</div>
@@ -259,11 +259,10 @@
 				return false;
 			}
 
-			String
-			a = $("#new_password").val();
-			String
-			b = $("#user_password_confirmation").val();
-			if (!a === b) {
+			var a = $("#new_password").val();
+			var b = $("#user_password_confirmation").val();
+			
+			if (a === b==false) {
 				$('#user_password_confirmation').validationEngine('showPrompt',
 						"两次密码输入不一致", 'error');
 				return false;
@@ -271,6 +270,7 @@
 
 			$("#upt_pwd_form").ajaxSubmit(
 					function(data) {
+						alert(data.message);
 						if (data.success) {
 							location.reload();
 						} else {

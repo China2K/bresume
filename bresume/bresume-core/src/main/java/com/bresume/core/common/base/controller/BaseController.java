@@ -190,7 +190,7 @@ public abstract class BaseController extends SimpleFormController {
 	
 	
 	public String getUploadAuthInfo(String userId,String userPSW){
-		String info = userId+"_"+userPSW;
+		String info = userId/*+"_"+userPSW*/;
 		return Encrypt.encryptSSO(info, IConstants.HELLO_WORD);
 	}
 	

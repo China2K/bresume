@@ -58,8 +58,8 @@
 			<div class="col-md-8" id="pro-area">
 				<div class="progress" id="progress-bar-div">
 					<div class="progress-bar progress-bar-striped" role="progressbar"
-						aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
-						style="width: 60%">
+						aria-valuenow="${resume.score}" aria-valuemin="0"
+						aria-valuemax="100" style="width: ${resume.score}%">
 						<span class="sr-only">100% Complete</span>
 					</div>
 				</div>
@@ -87,7 +87,7 @@
 				<div class="col-md-3">
 					<div class="ih-item circle effect2 left_to_right">
 						<a
-							href="javascript:chooseTemplate('${template.sn}','${template.siteUrl}','${template.coverUrl}')"
+							href="javascript:chooseTemplate('${template.sn}','${template.siteUrl}','${staticUrlPrefix}${template.coverUrl}')"
 							class="acover">
 							<div class="img">
 								<img src="${staticUrlPrefix}${template.coverUrl}" alt="img">
@@ -100,7 +100,7 @@
 					</div>
 
 					<div>
-						<a href=""
+						<a href="${template.siteUrl}"
 							class="btn btn-default btn btn-primary btn-lg btn-block">查看详细</a>
 					</div>
 				</div>
@@ -332,7 +332,6 @@
 		} else {
 			goStep(1);
 		}
-
 		function goStep(step) {
 
 			if (step == "undefined" || step == null || step == "") {
@@ -349,6 +348,22 @@
 					alert("请先完成前两步");
 					return false;
 				}
+			}
+
+			if (step == 2) {
+				var sn = $("#resume_step_2 #templateSn").val();
+				if (sn == null || sn == "") {
+					alert("请先选择模版");
+					goStep(1);
+					return false;
+				} else {
+					if ($("#resumeId").val() == null
+							|| $("#resumeId").val() == '') {
+						setProcessBar(25);
+					}
+				}
+			} else if (step == 3) {
+				setProcessBarDynamic($("#resumeId").val());
 			}
 
 			var contentId = "#resume_step_" + step;
@@ -409,61 +424,84 @@
 
 		//jquery validation
 		$("#resumeForm").validationEngine();
-		
-		
-		
-		
+
 		//菜单 点击后， 局部刷新 主要内容部分 _mainContent
 
-		$("li.ajaxPage").click(function(event) {
-			
-			var _mainContent = $("div.item-form-container");
-			
-			//console.log($(this).children("a"));
-			var isextra= $(this).children("a").children("span").hasClass("glyphicon-plus");
-			if(isextra===true){
-				return ;
-			}
-			var a = $(this);
-			//取消 默认的点击事件 否则跳转页面
-			event.preventDefault();
-			var url= "/resume/resumeItem.do?itemSn=";
-			url = url + a.attr("data-href");
-			var resumeId = $("#resumeForm #resumeId").val();
-			if (resumeId == null || resumeId == '') {
-				alert("请先完成前两步！");
-				goStep(1);
-			}
-			url = url + "&id=" + resumeId;
-			$.ajax({
-				type : "GET",
-				url : url,
-				async : false,
-				cache : false,
-				dataType : "html",
-				error : function(request) {
-					if (request.status == "747") {
-						window.location.href = request.getResponseHeader('loginUrl');
-					} else {
-						alert("跳转页面出现错误");
-					}
-				},
-				success : function(data) {
-					//会寻找返回的HTML中是否 存在fullpage:true的注释，如果存在则整张页面改变（body里面内容替换为响应返回的html）
-					//不想整张页面变化，则不需要别的操作
-					if (data.indexOf("<!--fullpage:true-->") >= 0) {
-						//整个页面改变
-						$("body").html(data);
-					} else {
-						//局部页面填充，改变 class=mainCont的内部
-						_mainContent.html(data);
-						//改变点击样式 TODO
+		$("li.ajaxPage").click(
+				function(event) {
 
+					var _mainContent = $("div.item-form-container");
+
+					//console.log($(this).children("a"));
+					var isextra = $(this).children("a").children("span")
+							.hasClass("glyphicon-plus");
+					if (isextra === true) {
+						return;
 					}
+					var a = $(this);
+					//取消 默认的点击事件 否则跳转页面
+					event.preventDefault();
+					var url = "/resume/resumeItem.do?itemSn=";
+					url = url + a.attr("data-href");
+					var resumeId = $("#resumeForm #resumeId").val();
+					if (resumeId == null || resumeId == '') {
+						alert("请先完成前两步！");
+						goStep(1);
+					}
+					url = url + "&id=" + resumeId;
+					$.ajax({
+						type : "GET",
+						url : url,
+						async : false,
+						cache : false,
+						dataType : "html",
+						error : function(request) {
+							if (request.status == "747") {
+								window.location.href = request
+										.getResponseHeader('loginUrl');
+							} else {
+								alert("跳转页面出现错误");
+							}
+						},
+						success : function(data) {
+							//会寻找返回的HTML中是否 存在fullpage:true的注释，如果存在则整张页面改变（body里面内容替换为响应返回的html）
+							//不想整张页面变化，则不需要别的操作
+							if (data.indexOf("<!--fullpage:true-->") >= 0) {
+								//整个页面改变
+								$("body").html(data);
+							} else {
+								//局部页面填充，改变 class=mainCont的内部
+								_mainContent.html(data);
+								//改变点击样式 TODO
+
+							}
+						}
+					});
+				});
+
+		function setProcessBarDynamic(id) {
+			$.ajax({
+				type : "POST",
+				url : "/resume/setScore",
+				data : {
+					id : id
+				},
+				dataType : "json",
+				success : function(resp) {
+					alert(resp.message);
+					setProcessBar(resp.message);
 				}
+
 			});
-		});
-		
+
+		}
+
+		function setProcessBar(proportion) {
+			$("#progress-bar-div .progress-bar").attr("aria-valuenow",
+					proportion);
+
+			$("#progress-bar-div .progress-bar").css("width", proportion + "%");
+		}
 	</script>
 
 </body>

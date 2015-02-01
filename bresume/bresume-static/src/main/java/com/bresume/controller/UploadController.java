@@ -53,16 +53,24 @@ public class UploadController extends StaticController {
 	public @ResponseBody JSONObject uploadMaterialImg(
 			@RequestParam(value = "imgFile", required = false) MultipartFile imgFile,
 			@RequestParam(value = "source", required = false, defaultValue = "unknown") String source,
-			@RequestParam(value = "upload_info", required = true) String upload_info)
+			@RequestParam(value = "upload_info", required = true) String upload_info,
+			@RequestParam(value = "upload_key", required = false) String key)
 			throws FileUploadException {
-
+		/*
+		 * key 为临时前台权限控制 TODO 待修改
+		 */
 		String userinfo = Encrypt
 				.decryptSSO(upload_info, IConstants.HELLO_WORD);
-		String[] split = userinfo.split("_");
-		String user = split[0];
-		String psw = split[1];
+		/*String[] split = userinfo.split("_");
+		if (split == null || split.length < 2) {
+			logger.error("upload_info 错误:" + userinfo);
+			return this.toJSONResult(false, "非法权限");
+		}
+*/
+		String user = userinfo;
+		String psw =null/* split[1]*/;
 
-		if (!check(source, user, psw)) {
+		if (!check(source, user, psw, key)) {
 			return this.toJSONResult(false, "非法权限");
 		}
 
@@ -119,15 +127,25 @@ public class UploadController extends StaticController {
 		}).start();
 	}
 
-	private boolean check(String source, String id, String psw) {
+	private boolean check(String source, String id, String psw, String key) {
 		if (source.equalsIgnoreCase("PORTAL")) {
 			User user = userService.findOne(id);
-			if (user != null && user.getPassword().equals(psw)) {
+			if(user!=null&&user.getId()!=null){
 				return true;
 			}
+			/*if (user != null
+					&& (user.getPassword().equals(psw)
+							|| CommonUtils.isEmpty(user.getPassword()) || "whatadiors"
+								.equals(key))) {
+				return true;
+			}*/
 		} else if (source.equalsIgnoreCase("ADMIN")) {
 			SysUser user = sysUserService.findOne(id);
-			if (user != null && user.getPassword().equals(psw)) {
+		/*	if (user != null && user.getPassword().equals(psw)) {
+				return true;
+			}*/
+			
+			if(user!=null&&user.getId()!=null){
 				return true;
 			}
 		}

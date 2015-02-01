@@ -14,8 +14,13 @@ function replaceAll(data, substr, replacement) {
 	return data;
 }
 
-$("#loginBtn,#signupBtn").click(function() {
+$("#loginBtn").click(function() {
 	$("#login-modal").css("display", "block");
+	$("#email_sign_in_header").click();
+});
+$("#signupBtn").click(function() {
+	$("#login-modal").css("display", "block");
+	$("#email_sign_up_header").click();
 });
 
 $(".modal-footer button").click(function() {

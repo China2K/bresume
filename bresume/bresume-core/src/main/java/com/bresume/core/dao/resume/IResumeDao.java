@@ -4,5 +4,6 @@ import com.bresume.core.common.base.dao.IGenericDao;
 import com.bresume.core.model.entity.resume.Resume;
 
 public interface IResumeDao extends IGenericDao<Resume, String> {
-
+	public boolean isNoDeleteExist(String propertyName, Object value,
+			String uuid);
 }

@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -91,6 +91,10 @@
 #fileupload span {
 	text-align: center;
 }
+
+section {
+	padding: 60px 0 !important;
+}
 </style>
 
 
@@ -108,55 +112,83 @@
 
 			</div>
 		</div>
-		<c:forEach items="${resumes}" var="resume" varStatus="status">
-			<section>
-				<div class="panel-heading"
-					style="background-color: #f5f5f5; height: 45px; border-color: #ddd;">
 
-				</div>
-				<div class="row resumeRow">
+		<c:choose>
+			<c:when test="${fn:length(resumes)<1}">
+				<section class="text-center">
+					您尚未创建简历，立即创建？<a href="<c:url value='/resume/buildResume'/>"
+						class="page-scroll btn btn-xl">创建简历</a>
+				</section>
 
-					<div class="col-md-3" id="portfolio" style="height: 250px;">
+			</c:when>
+			<c:otherwise>
+				<c:forEach items="${resumes}" var="resume" varStatus="status">
+					<section>
+						<div class="panel-heading text-center"
+							style="background-color: #f5f5f5; height: 45px; border-color: #ddd; font-size: 20px;">
+							<h5>${resume.name}</h5>
+						</div>
+						<div class="row resumeRow">
 
-						<div class="portfolio-item" id="file-div-${status.index}"
-							id-value="${resume.id}">
-							<div class="portfolio-link" onclick="reUpload()"
-								data-toggle="modal">
-								<div class="portfolio-hover">
-									<input class="portfolio-hover-content fileupload-file-input_"
-										id="fileupload-${resume.id}" type="file" />
-									<%-- <div class="portfolio-hover-content">
+							<div class="col-md-3" id="portfolio" style="height: 250px;">
+
+								<div class="portfolio-item" id="file-div-${status.index}"
+									id-value="${resume.id}">
+									<div class="portfolio-link"
+										data-toggle="modal">
+										<div class="portfolio-hover">
+											<input class="portfolio-hover-content fileupload-file-input_"
+												id="fileupload-${resume.id}" type="file" />
+											<%-- <div class="portfolio-hover-content">
 										<span class="fa fa-1x">
 										
 										</span>
 									</div> --%>
+										</div>
+										<img src="${staticUrlPrefix}${resume.coverUrl}"
+											style="height: 250px; width: 250px; line-height: 250px;"
+											class="img-responsive text-center fileupload-img-input_"
+											alt="">
+									</div>
+									<input type="hidden" value="${resume.coverUrl}"
+										class="fileupload-hidden-input_" />
 								</div>
-								<img src="${staticUrlPrefix}${resume.coverUrl}"
-									style="height: 250px; width: 250px; line-height: 250px;"
-									class="img-responsive text-center fileupload-img-input_" alt="">
 							</div>
-							<input type="hidden" value="${resume.coverUrl}"
-								class="fileupload-hidden-input_" />
-						</div>
-					</div>
 
-					<div class="col-md-6"
-						style="background-color: #fff; height: 250px;">
+							<div class="col-md-6"
+								style="background-color: #fff; height: 250px;">
 
-						<div class="row text-left">
-							<h4 class="librarytitle">
-								<a href="#">${resume.name}</a>
-							</h4>
-						</div>
-						<div class="row text-left">
-							<span class="glyphicon glyphicon-stats">
-								${resume.name}&nbsp;|&nbsp; ${resume.name}</span>
-						</div>
-						<div class="row text-left">
-							<span class="glyphicon glyphicon-time"
-								style="margin-right: 50px;">${resume.createdTime}</span>
-						</div>
-						<%-- <div class="row text-center">
+								<div class="row text-left">
+									<h4 class="librarytitle">
+										<a href="#">${resume.name}</a>
+									</h4>
+								</div>
+								<div class="row text-left">
+									<span class="glyphicon glyphicon-stats">
+										公开程度&nbsp;:&nbsp; <c:choose>
+											<c:when test="${resume.isPublic}">
+												<i style="color: #46b8da">公开</i>
+												<button class="btn btn-xs btn-warning"
+													onclick="setPublicity('${resume.id}',0);">设为保密</button>
+											</c:when>
+											<c:otherwise>
+												<i style="color: #B4B6e9">保密</i> &nbsp;-&nbsp;<button
+													class="btn btn-xs btn-success"
+													onclick="setPublicity('${resume.id}',1);">设为公开</button>
+											</c:otherwise>
+
+										</c:choose>
+									</span>
+								</div>
+								<div class="row text-left">
+									<span class="glyphicon glyphicon-flag"
+										style="margin-right: 50px;">&nbsp;&nbsp;${resume.desc}</span>
+								</div>
+								<div class="row text-left">
+									<span class="glyphicon glyphicon-time"
+										style="margin-right: 50px;">&nbsp;&nbsp;${resume.createdTime}</span>
+								</div>
+								<%-- <div class="row text-center">
 							<div class="col-md-4 text-left">
 								<span>将我的简历分享到 </span>
 							</div>
@@ -170,53 +202,58 @@
 								</ul>
 							</div>
 						</div> --%>
-					</div>
+							</div>
 
-					<div class="col-md-3 actions"
-						style="background-color: #3079ab; height: 250px;">
-						<div class="col-md-6"
-							style="height: 125px; border-right: 1px dashed #eeeeee; border-bottom: 1px dashed #eeeeee;">
-							<div class="center-block action-button text-center" id="view_btn"
-								onclick="view_resume('${resume.id}');">
-								<div class="action-icon">
-									<span class="text-center glyphicon glyphicon-zoom-in"></span>
+							<div class="col-md-3 actions"
+								style="background-color: #3079ab; height: 250px;">
+								<div class="col-md-6"
+									style="height: 125px; border-right: 1px dashed #eeeeee; border-bottom: 1px dashed #eeeeee;">
+									<div class="center-block action-button text-center"
+										id="view_btn"
+										onclick="view_resume('${resume.name}',${resume.score});">
+										<div class="action-icon">
+											<span class="text-center glyphicon glyphicon-zoom-in"></span>
+										</div>
+										<div class="action-text">查看</div>
+									</div>
 								</div>
-								<div class="action-text">查看</div>
+								<div class="col-md-6"
+									style="height: 125px; border-bottom: 1px dashed #eeeeee;">
+									<div class="center-block action-button text-center"
+										onclick="edit_resume('${resume.id}');">
+										<div class="action-icon">
+											<span class="text-center glyphicon glyphicon-edit"></span>
+										</div>
+										<div class="action-text">编辑</div>
+									</div>
+								</div>
+								<div class="col-md-6"
+									style="height: 125px; border-right: 1px dashed #eeeeee;">
+									<div class="center-block action-button text-center"
+										onclick="delete_resume('${resume.id}');">
+										<div class="action-icon">
+											<span class="text-center glyphicon glyphicon-trash"></span>
+										</div>
+										<div class="action-text">删除</div>
+									</div>
+								</div>
+								<div class="col-md-6" style="height: 125px;">
+									<div class="center-block action-button text-center"
+										onclick="download_resume('${resume.id}',${resume.score});">
+										<div class="action-icon">
+											<span class="text-center glyphicon glyphicon-download-alt"></span>
+										</div>
+										<div class="action-text">下载</div>
+									</div>
+								</div>
 							</div>
 						</div>
-						<div class="col-md-6"
-							style="height: 125px; border-bottom: 1px dashed #eeeeee;">
-							<div class="center-block action-button text-center"
-								onclick="edit_resume('${resume.id}');">
-								<div class="action-icon">
-									<span class="text-center glyphicon glyphicon-edit"></span>
-								</div>
-								<div class="action-text">编辑</div>
-							</div>
-						</div>
-						<div class="col-md-6"
-							style="height: 125px; border-right: 1px dashed #eeeeee;">
-							<div class="center-block action-button text-center"
-								onclick="delete_resume('${resume.id}');">
-								<div class="action-icon">
-									<span class="text-center glyphicon glyphicon-trash"></span>
-								</div>
-								<div class="action-text">删除</div>
-							</div>
-						</div>
-						<div class="col-md-6" style="height: 125px;">
-							<div class="center-block action-button text-center"
-								onclick="download_resume('${resume.id}');">
-								<div class="action-icon">
-									<span class="text-center glyphicon glyphicon-download-alt"></span>
-								</div>
-								<div class="action-text">下载</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
-		</c:forEach>
+					</section>
+				</c:forEach>
+			</c:otherwise>
+
+		</c:choose>
+
 
 	</div>
 
@@ -257,8 +294,9 @@
 		src="<c:url value ='/resource/plugin/uploadify/jquery.uploadify.js'/>"></script>
 
 	<script type="text/javascript">
+		var upload_info ='${sessionScope.upload_info}';
 		var rNum = '${fn:length(resumes)}';
-		rNum= rNum*1;
+		rNum = rNum * 1;
 		for (var i = 0; i < rNum; i++) {
 			var idV = "#file-div-" + i;
 
@@ -268,12 +306,16 @@
 
 			var resumeId = $(idV).attr("id-value");
 			console.log(fileEle);
-			makeFileUpload(fileEle, imgEle, valueEle, resumeId);
+			makeFileUpload(fileEle, imgEle, valueEle, resumeId,upload_info);
 		}
 		//var uploadUrl = "http://static.bresume.com/upload/uploadImg";
-		var upload_info ='${sessionScope.upload_info}';
-		function makeFileUpload(fileEle, imgEle, valueEle, resumeId){
-			fileEle.uploadify({
+	
+		
+		
+		
+		function makeFileUpload(fileEle, imgEle, valueEle, resumeId,upload_info) {
+			fileEle
+					.uploadify({
 						'uploader' : 'http://static.bresume.com/upload/uploadImg',
 						'swf' : '<c:url value ="/resource/plugin/uploadify/uploadify.swf"/>',
 						'cancelImage' : '<c:url value ="/resource/plugin/uploadify/cancel.png"/>',
@@ -286,7 +328,8 @@
 						'buttonText' : '重新上传',
 						'formData' : {
 							'source' : 'PORTAL',
-							'upload_info':upload_info
+							'upload_info' : upload_info,
+							'upload_key':'whatadiors',
 						},
 						'onUploadSuccess' : function(file, data, response) {
 							data = JSON.parse(data);
@@ -321,8 +364,12 @@
 		/* 	initUploadAndPreview($('#fileupload'), $("#resumeCoverUrl"),
 				$("#resumeCoverImg")); */
 
-		function view_resume(id) {
-			alert("check");
+		function view_resume(name,score) {
+			if(score*1<50){
+				alert("您的简历尚未完成，不可进行此操作");
+				return ;
+			}
+			location.href="/resume/"+name;
 		}
 
 		function edit_resume(id) {
@@ -330,11 +377,39 @@
 		}
 
 		function delete_resume(id) {
-
+			$.ajax({
+				type:"POST",
+				url:"/resume/delete",
+				data:{id:id},
+				dataType:"json",
+				success:function(resp){
+					alert(resp.message);
+					 location.reload();
+				}
+				
+			});
 		}
 
-		function download_resume(id) {
-
+		function download_resume(id,score) {
+			if(score*1<50){
+				alert("您的简历尚未完成，不可进行此操作");
+				return ;
+			}
+		}
+		
+		
+		function setPublicity(id,flag){
+			$.ajax({
+				type:"POST",
+				url:"/resume/setPublicity",
+				data:{id:id,flag:flag},
+				dataType:"json",
+				success:function(resp){
+					alert(resp.message);
+					 location.reload();
+				}
+				
+			});
 		}
 		/* var uploadUrl = "http://static.bresume.com/upload/uploadImg";
 		$("#fileupload")

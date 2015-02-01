@@ -235,7 +235,7 @@ public interface IGenericDao<T, ID extends Serializable>
 	 * 获取全部记录数
 	 * @return
 	 */
-	int count();
+	long count();
 	
 	
 	int count(SearchBean... searchBeans);

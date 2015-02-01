@@ -37,9 +37,9 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<ul class="nav nav-pills nav-pills-list nav-justified">
-					<li class="active"><a data-toggle="tab"
+					<li class="active"><a data-toggle="tab"  id="email_sign_in_header"
 						href="#email_sign_in_tab">登录<span>Sign In</span></a></li>
-					<li class=""><a data-toggle="tab" href="#email_sign_up_tab">注册<span>Sign
+					<li class=""><a data-toggle="tab" id="email_sign_up_header" href="#email_sign_up_tab">注册<span>Sign
 								Up</span></a></li>
 				</ul>
 			</div>
@@ -57,14 +57,14 @@
 								<div class="input-group">
 									<span class="input-group-addon"><i
 										class="fa fa-envelope"></i></span><input autofocus="autofocus"
-										class="form-control validate[required,custom[email],minSize[5],maxSize[100]]" name="loginName"
+										class="form-control validate[required,custom[email],minSize[6],maxSize[100]]" name="loginName"
 										placeholder="邮箱地址" required="required">
 								</div>
 							</div>
 							<div class="form-group">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-key"></i></span><input
-										class="form-control validate[required,minSize[5],maxSize[100]]" id="user_password" name="password"
+										class="form-control validate[required,minSize[6],maxSize[100]]" id="user_password" name="password"
 										placeholder="密码" required="required" type="password"><input
 										id="redirect_from" name="redirect_from" type="hidden">
 								</div>
@@ -114,7 +114,7 @@
 							<div class="form-group email_group">
 								<div class="input-group">
 									<span class="input-group-addon"><i
-										class="fa fa-envelope"></i></span><input class="form-control validate[required,custom[email],minSize[5],maxSize[100]]"
+										class="fa fa-envelope"></i></span><input class="form-control validate[required,custom[email],minSize[6],maxSize[100]]"
 										id="user_email" name="email" placeholder="邮箱地址"
 										required="required" type="email">
 								</div>
@@ -122,7 +122,7 @@
 							<div class="form-group password_group">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-key"></i></span><input
-										class="form-control validate[required,minSize[5],maxSize[100]]" id="user_password" name="password"
+										class="form-control validate[required,minSize[6],maxSize[100]]" id="user_password" name="password"
 										placeholder="密码" required="required" type="password">
 								</div>
 							</div>
@@ -200,7 +200,7 @@
 				$("#register_form").ajaxSubmit(
 					function(data) {
 						if (data.success) {
-							alert("1");
+							alert("注册成功,激活邮件已发送,请验证!");
 						}else{
 							alert(data.message);
 						}

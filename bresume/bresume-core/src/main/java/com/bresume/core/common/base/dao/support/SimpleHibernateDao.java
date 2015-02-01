@@ -335,11 +335,11 @@ public abstract class SimpleHibernateDao<T, ID extends Serializable> extends Abs
 	}
 
 	@Override
-	public int count()
+	public long count()
 	{
 		Criteria criteria = createCriteria();
 		criteria.setProjection(Projections.rowCount());
-		return (Integer) criteria.list().get(0);
+		return (Long) criteria.list().get(0);
 	}
 
 	@Override

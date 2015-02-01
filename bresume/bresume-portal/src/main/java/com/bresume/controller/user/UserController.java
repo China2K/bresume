@@ -126,6 +126,7 @@ public class UserController extends AuthController {
 		if (uv != null && uv.getVerifiedTime() == null) {
 			loginUser = userService.findOne(userId);
 			loginUser.setStatus(UserStatus.ACTIVE.getCode());
+			loginUser.setIsEmailVerified(true);
 			userService.update(loginUser);
 			uv.setVerifiedTime(new Date());
 			verifiedService.save(uv);
@@ -202,7 +203,7 @@ public class UserController extends AuthController {
 			userService.updatePasswordById(loginUser.getId(), password, new_password);
 		} catch (PortalException e) {
 			e.printStackTrace();
-			this.toJSONResult(false, this.getMessage(e));
+			return this.toJSONResult(false, this.getMessage(e));
 		}
 		return this.toJSONResult(true, "保存成功");
 	}
