@@ -63,6 +63,7 @@
 					<s:option value="2">本科</s:option>
 					<s:option value="3">硕士</s:option>
 					<s:option value="4">博士</s:option>
+					<s:option value="9">技能培训</s:option>
 				</s:select>
 
 			</div>

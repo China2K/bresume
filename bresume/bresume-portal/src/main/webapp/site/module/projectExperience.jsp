@@ -15,13 +15,13 @@
 		<div class="item-bar row" data-value="${projectExperience.id}"
 			id="item-bar_${projectExperience.id}"
 			onclick="load_detail('${projectExperience.id}');">
-			<div class="col-md-5">
+			<div class="col-md-8">
 				<span class="time"><fmt:formatDate
 						value="${projectExperience.startDate}" pattern="yyyy-MM-dd" /> -- <fmt:formatDate
 						value="${projectExperience.endDate}" pattern="yyyy-MM-dd" /></span> <span
 					class="project">${projectExperience.projectName}</span>
 			</div>
-			<div class="col-md-offset-4 col-md-3">
+			<div class="col-md-offset-1 col-md-3">
 				<a class="btn" href="javascript:delete_item('${projectExperience.id}');">删除</a>
 			</div>
 
@@ -76,21 +76,24 @@
 
 	}
 
+	function addBar2Container(key){
+
+		var htm = '<div hidden="hidden" onclick="load_detail(\'' + key
+				+ '\');" class="item-bar row" hide data-value="' + key
+				+ '"' + 'id="item-bar_' + key
+				+ '"><div class="col-md-8"><span class="time">'
+				+ '</span> <span class="project"></span> </div> '
+				+ '<div class="col-md-offset-1 col-md-3"> '
+				+ '<a class="btn" href="javascript:delete_item(\''
+				+ key + '\');">删除</a> </div> </div>';
+
+		$("#projectContiner").append(htm);
+	}
 	$("#project_add").click(
 			function() {
 				var key = randomString(8);
 
-				var htm = '<div hidden="hidden" onclick="load_detail(\'' + key
-						+ '\');" class="item-bar row" hide data-value="' + key
-						+ '"' + 'id="item-bar_' + key
-						+ '"><div class="col-md-5"><span class="time">'
-						+ '</span> <span class="project"></span> </div> '
-						+ '<div class="col-md-offset-4 col-md-3"> '
-						+ '<a class="btn" href="javascript:delete_item(\''
-						+ key + '\');">删除</a> </div> </div>';
-
-				$("#projectContiner").append(htm);
-
+				addBar2Container(key);
 				load_new_form(null, key);
 			});
 
@@ -146,6 +149,10 @@
 	function hide_item(key) {
 		if (!$("#projectForm_" + key).validationEngine("validate")) {
 			return false;
+		}
+		
+		if($("#item-bar_" + key).length<1){
+			addBar2Container(key);
 		}
 
 		var date_start = $("#form_item_" + key + " #date_start_" + key).val();

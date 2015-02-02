@@ -85,7 +85,7 @@
 		<div class="form-group col-md-6">
 			<label for="name" class="col-md-3 control-label">个人主页</label>
 			<div class="col-md-9">
-				<s:input path="siteUrl" class="form-control" id="siteUrl"
+				<s:input path="siteUrl" class="form-control validate[custom[url]]" id="siteUrl"
 					placeholder="请输入您的个人主页地址" />
 			</div>
 		</div>

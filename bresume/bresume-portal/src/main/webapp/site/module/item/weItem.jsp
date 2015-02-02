@@ -12,29 +12,32 @@
 		modelAttribute="workExperience">
 		<s:hidden path="resume.id" class="input-resumeId" />
 		<s:hidden path="id" class="input-id" />
-		<div class="row form-group">
+		<div class="row">
+			<div class="form-group col-md-12" style="margin-left: -45px;">
+				<label for="desc" class="col-md-2 control-label">时间</label>
+				<div class="input-group date form_date col-md-4 f-left" data-date=""
+					data-date-format="dd MM yyyy" data-link-field="date_start_@@@@"
+					data-link-format="yyyy-mm-dd">
+					<input class="form-control validate[required]" size="16"
+						type="text"
+						value="<fmt:formatDate value='${workExperience.startDate}' pattern='yyyy-MM-dd' />"
+						readonly> <span class="input-group-addon"><span
+						class="glyphicon glyphicon-calendar"></span></span>
+				</div>
+				<s:hidden id="date_start_@@@@" path="startDate" />
+				<div class="col-md-1 text-center f-left">&nbsp;-&nbsp;</div>
+				<div class="input-group date form_date col-md-4 f-left" data-date=""
+					data-date-format="dd MM yyyy" data-link-field="date_end_@@@@"
+					data-link-format="yyyy-mm-dd">
+					<input class="form-control validate[required]" size="16"
+						type="text"
+						value="<fmt:formatDate value='${workExperience.endDate}' pattern='yyyy-MM-dd' />"
+						readonly> <span class="input-group-addon"><span
+						class="glyphicon glyphicon-calendar"></span></span>
+				</div>
 
-			<label for="desc" class="col-md-3 control-label">时间</label>
-			<div class="input-group date form_date col-md-3 f-left" data-date=""
-				data-date-format="dd MM yyyy" data-link-field="date_start_@@@@"
-				data-link-format="yyyy-mm-dd">
-				<input class="form-control validate[required]" size="16" type="text"
-					value="<fmt:formatDate value='${workExperience.startDate}' pattern='yyyy-MM-dd' />"
-					readonly> <span class="input-group-addon"><span
-					class="glyphicon glyphicon-calendar"></span></span>
+				<s:hidden id="date_end_@@@@" path="endDate" />
 			</div>
-			<s:hidden id="date_start_@@@@" path="startDate" />
-			<div class="col-md-1 text-center f-left">&nbsp;-&nbsp;</div>
-			<div class="input-group date form_date col-md-3 f-left" data-date=""
-				data-date-format="dd MM yyyy" data-link-field="date_end_@@@@"
-				data-link-format="yyyy-mm-dd">
-				<input class="form-control validate[required]" size="16" type="text"
-					value="<fmt:formatDate value='${workExperience.endDate}' pattern='yyyy-MM-dd' />"
-					readonly> <span class="input-group-addon"><span
-					class="glyphicon glyphicon-calendar"></span></span>
-			</div>
-
-			<s:hidden id="date_end_@@@@" path="endDate" />
 		</div>
 		<div class="row">
 			<div class="form-group col-md-6">
@@ -75,11 +78,11 @@
 		</div>
 
 		<div class="row">
-			<div class="form-group col-md-6">
-				<label for="name" class="col-md-3 control-label">工作描述</label>
+			<div class="form-group col-md-12" style="margin-left: -45px;">
+				<label for="name" class="col-md-2 control-label">工作描述</label>
 				<div class="col-md-9">
-					<s:input path="desc" id="desc" class="form-control"
-						placeholder="不超过20个字符" />
+					<s:textarea path="desc" id="desc" class="form-control" rows="5"
+						placeholder="不超过200个字符" />
 				</div>
 			</div>
 

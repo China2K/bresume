@@ -46,21 +46,30 @@
 			</div>
 		</div>
 		
+		<div class="row form-group">
+
+			<label for="projectName" class="col-md-3 control-label">项目链接</label>
+			<div class="col-md-9">
+				<s:input class="form-control validate[custom[url]]" id="siteUrl"
+					placeholder="http://www.bresume.com" path="siteUrl" />
+			</div>
+		</div>
+		
 		
 		<div class="row form-group">
 
 			<label for="desc" class="col-md-3 control-label">项目描述</label>
 			<div class="col-md-9">
-				<s:textarea class="form-control" id="projectDesc"
-					placeholder="不超过20个字符" path="projectDesc" />
+				<s:textarea class="form-control" id="projectDesc" rows="5"
+					placeholder="不超过200个字符" path="projectDesc" />
 			</div>
 		</div>
 
 		<div class="row form-group">
 			<label for="desc" class="col-md-3 control-label">责任描述</label>
 			<div class="col-md-9">
-				<s:textarea class="form-control" id="respDesc"
-					placeholder="不超过20个字符" path="respDesc" />
+				<s:textarea class="form-control" id="respDesc" rows="5"
+					placeholder="不超过200个字符" path="respDesc" />
 			</div>
 		</div>
 

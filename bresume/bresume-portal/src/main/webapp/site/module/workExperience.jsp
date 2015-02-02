@@ -20,13 +20,13 @@
 		<div class="item-bar row" data-value="${workExperience.id}"
 			id="item-bar_${workExperience.id}"
 			onclick="load_detail('${workExperience.id}');">
-			<div class="col-md-5">
+			<div class="col-md-8">
 				<span class="time"><fmt:formatDate
 						value="${workExperience.startDate}" pattern="yyyy-MM-dd" /> -- <fmt:formatDate
 						value="${workExperience.endDate}" pattern="yyyy-MM-dd" /></span> <span
 					class="companyName">${workExperience.companyName}</span>
 			</div>
-			<div class="col-md-offset-4 col-md-3">
+			<div class="col-md-offset-1 col-md-3">
 				<a class="btn" href="javascript:delete_item('${workExperience.id}');">删除</a>
 			</div>
 
@@ -80,21 +80,26 @@
 		}
 
 	}
+function addBar2Container(key){
 
+	var htm = '<div hidden="hidden" onclick="load_detail(\'' + key
+			+ '\');" class="item-bar row" hide data-value="' + key
+			+ '"' + 'id="item-bar_' + key
+			+ '"><div class="col-md-8"><span class="time">'
+			+ '</span> <span class="companyName"></span> </div> '
+			+ '<div class="col-md-offset-1 col-md-3"> '
+			+ '<a class="btn" href="javascript:delete_item(\''
+			+ key + '\');">删除</a> </div> </div>';
+
+	$("#workContiner").append(htm);
+
+}
+	
 	$("#work_add").click(
 			function() {
 				var key = randomString(8);
 
-				var htm = '<div hidden="hidden" onclick="load_detail(\'' + key
-						+ '\');" class="item-bar row" hide data-value="' + key
-						+ '"' + 'id="item-bar_' + key
-						+ '"><div class="col-md-5"><span class="time">'
-						+ '</span> <span class="companyName"></span> </div> '
-						+ '<div class="col-md-offset-4 col-md-3"> '
-						+ '<a class="btn" href="javascript:delete_item(\''
-						+ key + '\');">删除</a> </div> </div>';
-
-				$("#workContiner").append(htm);
+				addBar2Container(key);
 
 				load_new_form(null, key);
 			});
@@ -152,11 +157,12 @@
 		if (!$("#workForm_" + key).validationEngine("validate")) {
 			return false;
 		}
-
+		if($("#item-bar_" + key).length<1){
+			addBar2Container(key);
+		}
 		var date_start = $("#form_item_" + key + " #date_start_" + key).val();
 		var date_end = $("#form_item_" + key + " #date_end_" + key).val();
 		var companyName = $("#form_item_" + key + " #companyName").val();
-
 		$("#item-bar_" + key + " .time").html(date_start + " -- " + date_end);
 		$("#item-bar_" + key + " .companyName").html(companyName);
 		$("#form_item_" + key).hide();

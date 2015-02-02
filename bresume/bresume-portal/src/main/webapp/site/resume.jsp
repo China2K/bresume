@@ -166,8 +166,7 @@
 				<ul class="list-group resume-items items-top">
 
 					<c:forEach items="${defaultItems }" var="item">
-						<li class="list-group-item ajaxPage" data-href="${item.sn}">${item.name
-							}
+						<li class="list-group-item ajaxPage" _required = "${item.required}" data-href="${item.sn}">${item.name}
 							<a
 							class="btn btn-warning btn-sm ladda-button linkbutton addtolibfav"
 							data-style="expand-right" title="" data-libid="38"
@@ -181,7 +180,7 @@
 				<hr />
 				<ul class="list-group resume-items items-down">
 					<c:forEach items="${extraItems}" var="item">
-						<li class="list-group-item ajaxPage" data-href="${item.sn}">${item.name
+						<li class="list-group-item ajaxPage" _required = "${item.required}" data-href="${item.sn}">${item.name
 							}
 							<a
 							class="btn btn-warning btn-sm ladda-button linkbutton addtolibfav"
@@ -242,14 +241,19 @@
 		$(".resume-items li a.linkbutton").click(function(event) {
 
 			var sn = $(this).parent().attr("data-href");
-
 			if ($(this).children("span").hasClass("glyphicon-minus")) {
+				var required = $(this).parent().attr("_required");
+				if(required==true||required=="true"){
+					alert("该选项必填，不可被移除");
+				}else{
+					$(".items-down").append($(this).parent());
+					$(this).children("span").removeClass("glyphicon-minus");
+					$(this).children("span").addClass("glyphicon-plus");
 
-				$(".items-down").append($(this).parent());
-				$(this).children("span").removeClass("glyphicon-minus");
-				$(this).children("span").addClass("glyphicon-plus");
+					item_bar_remove(sn);
+				}
 
-				item_bar_remove(sn);
+				
 			} else {
 				$(".items-top").append($(this).parent());
 				$(this).children("span").removeClass("glyphicon-plus");

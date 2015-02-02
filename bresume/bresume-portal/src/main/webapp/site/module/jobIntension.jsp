@@ -13,7 +13,6 @@
 			<label for="jobType" class="col-md-3 control-label">工作类型</label>
 			<div class="col-md-9">
 				<s:select path="jobType" class="form-control" id="jobType">
-					<s:option value="">全职</s:option>
 					<s:option value="1">全职</s:option>
 					<s:option value="2">兼职</s:option>
 					<s:option value="3">实习</s:option>
@@ -60,9 +59,17 @@
 			<label for="expertSalary" class="col-md-3 control-label">期望薪水</label>
 			<div class="col-md-9">
 				<s:select path="expertSalary" class="form-control" id="expertSalary">
-					<s:option value="1">面议</s:option>
-					<s:option value="2">1500以下</s:option>
-					<s:option value="3">2000-3000</s:option>
+					<s:option value="0">面议</s:option>
+					<s:option value="1">200以下</s:option>
+					<s:option value="2">2000-3000</s:option>
+					<s:option value="3">3000-4500</s:option>
+					<s:option value="4">4500-6000</s:option>
+					<s:option value="5">6000-8000</s:option>
+					<s:option value="6">8k-10k</s:option>
+					<s:option value="7">10k-15k</s:option>
+					<s:option value="8">15k-20k</s:option>
+					<s:option value="9">20k-30k</s:option>
+					<s:option value="10">30k以上</s:option>
 				</s:select>
 			</div>
 		</div>
@@ -82,7 +89,7 @@
 		<label for="selfEvaluation" class="col-md-2 control-label">自我评价</label>
 
 		<div class="col-md-9">
-			<s:textarea path="selfEvaluation"
+			<s:textarea path="selfEvaluation" rows="5"
 				class="form-control validate[required,maxSize[500]]"
 				id="selfEvaluation" placeholder="请输入个人简介" />
 		</div>
@@ -113,4 +120,6 @@
 		});
 
 	});
+
+	
 </script>
