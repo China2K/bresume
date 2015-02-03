@@ -1,5 +1,6 @@
 package com.bresume.core.model.dto.item;
 
+import com.bresume.core.common.constant.enums.SalaryType;
 import com.bresume.core.common.utils.CommonUtils;
 import com.bresume.core.common.utils.DateUtils;
 import com.bresume.core.model.base.BaseDto;
@@ -32,6 +33,9 @@ public class JobIntensionDto extends BaseDto<JobIntension> {
 
 			this.setUpdatedTime(DateUtils.date2String(ji.getUpdatedTime(),
 					DateUtils.YYYY_MM_DD_HH_MM_SS_PATTERN));
+
+			this.setExpertSalary(SalaryType.getName(ji.getExpertSalary()));
+
 		}
 
 		return this;

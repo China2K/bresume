@@ -28,6 +28,24 @@
             document.createElement('hgroup');
         </script>
     <![endif]-->
+
+
+<style type="text/css">
+.pro-item .projectDesc {
+	height: 250px !important;
+	vertical-align: text-bottom;
+	width: 600px;
+	line-height: 30px;
+	padding-left: 35px;
+}
+.pro-item .respDesc {
+	vertical-align: text-bottom;
+	line-height: 30px;
+	padding-left: 35px;
+}
+
+
+</style>
 </head>
 <body>
 	<div id="home-wrapper">
@@ -74,11 +92,8 @@
 			</aside>
 
 			<aside class="introduction">
-				<h1>${jobIntension.trade}- ${jobIntension.profession}</h1>
-				<h2>
-					<span></span>
-					<div class="js-picture qrcode" js-source=""></div>
-				</h2>
+				<h3>${jobIntension.trade}</h3>
+				<h2>${jobIntension.profession}</h2>
 			</aside>
 
 			<aside class="bottom">
@@ -156,15 +171,21 @@
 					<section>
 						<ul class="line">
 							<c:forEach items="${projectExperiences}" var="project">
-								<li><span>${project.projectDesc}</span></li>
-								<li><span>${project.respDesc}</span></li>
-								<li><a href="${project.siteUrl}" target="_blank">
-										<div class="cover js-picture"
-											js-source="../resource/cover/bresume.png"></div>
-										<p class="desc">${project.projectName}</p>
-								</a></li>
-
-								<hr />
+								<li class="pro-item">
+									<div style="height: 260px;">
+										<a href="${project.siteUrl}" target="_blank"
+											style="width: 350px; float: left;">
+											<div class="cover js-picture"
+												js-source="../resource/cover/bresume.png"></div>
+											<p class="desc">${project.projectName}</p>
+										</a> <span class="projectDesc">${project.projectDesc}</span>
+									</div> <br />
+									<div>
+										<span class="respDesc">${project.respDesc}</span>
+									</div>
+								</li>
+								<br />
+								<br />
 							</c:forEach>
 
 						</ul>
@@ -188,7 +209,7 @@
 									<p>${eduExperience.desc}</p>
 								</li>
 							</c:forEach>
-							
+
 						</ul>
 					</section>
 
@@ -202,10 +223,12 @@
 				<article>
 					<section>
 						<ul class="line">
-						
+
 							<c:forEach items="${workExperiences}" var="workExperience">
 								<li>
-									<h2>${workExperience.companyName} - ${workExperience.position} (${workExperience.startDate}--${workExperience.endDate})</h2>
+									<h2>${workExperience.companyName}-
+										${workExperience.position}
+										(${workExperience.startDate}--${workExperience.endDate})</h2>
 									<p class="">${workExperience.desc}</p>
 								</li>
 							</c:forEach>

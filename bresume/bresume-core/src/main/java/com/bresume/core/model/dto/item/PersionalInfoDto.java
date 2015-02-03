@@ -47,9 +47,38 @@ public class PersionalInfoDto extends BaseDto<PersionalInfo> {
 
 			this.setUpdatedTime(DateUtils.date2String(pi.getUpdatedTime(),
 					DateUtils.YYYY_MM_DD_HH_MM_SS_PATTERN));
+			
+			
+			this.setBirthday(DateUtils.date2String(pi.getBirthday(),
+					DateUtils.YYYY_MM_DD_PATTERN));
+
+			
+			
+			int s = pi.getSex();
+			this.setSex(s==1?"男":"女");
+			
+			int c = pi.getCredentialsType();
+			this.setCredentialsType(c==1?"身份证":"学生证");
+			
+			int jobStatus = pi.getJobStatus();
+			this.setJobStatus(getJobStatus(jobStatus));
 		}
 
 		return this;
+	}
+	
+	public String getJobStatus(int i){
+		switch (i) {
+		case 1:
+			return "正在找工作";
+		case 2:
+			return "观望有机会在考虑";
+		case 3:
+			return "暂时不考虑换工作";
+
+		default:
+			return null;
+		}
 	}
 
 	public String getName() {
