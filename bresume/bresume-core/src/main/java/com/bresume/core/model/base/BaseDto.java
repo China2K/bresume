@@ -11,7 +11,7 @@ import javax.persistence.MappedSuperclass;
  */
 @SuppressWarnings("serial")
 @MappedSuperclass
-public abstract class BaseDto implements Serializable
+public abstract class BaseDto<T extends BaseEntity> implements Serializable
 {
 	protected String id;
 	public String getId()
@@ -23,5 +23,8 @@ public abstract class BaseDto implements Serializable
 	{
 		this.id = id;
 	}
+	
+	
+	public abstract Object convert(T t);
 	
 }

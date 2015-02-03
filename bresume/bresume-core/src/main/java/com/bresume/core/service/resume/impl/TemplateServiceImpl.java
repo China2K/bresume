@@ -54,7 +54,7 @@ public class TemplateServiceImpl extends GenericService<Template, String>
 		Page<Template> list = templateDao.findAll(pageable, searchBeans);
 		List<TemplateDto> content = new ArrayList<TemplateDto>();
 		for (Template Template : list.getContent()) {
-			TemplateDto dto = TemplateDto.convert(Template);
+			TemplateDto dto = TemplateDto.convert2Dto(Template);
 			dto.setUsedCount(resumeDao.count(new SearchBean("status",
 					CommonStatus.DELETED.getCode() + "", "!=")));
 			content.add(dto);
@@ -68,7 +68,7 @@ public class TemplateServiceImpl extends GenericService<Template, String>
 		List<Template> list = templateDao.findAll(searchBeans);
 		List<TemplateDto> content = new ArrayList<TemplateDto>();
 		for (Template Template : list) {
-			content.add(TemplateDto.convert(Template));
+			content.add(TemplateDto.convert2Dto(Template));
 		}
 		return content;
 	}

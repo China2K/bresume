@@ -36,7 +36,7 @@ public class ContactServiceImpl extends GenericService<Contact, String>
 		Page<Contact> list = contactDao.findAll(pageable, searchBeans);
 		List<ContactDto> content = new ArrayList<ContactDto>();
 		for (Contact con : list.getContent()) {
-			content.add(ContactDto.convert(con));
+			content.add(ContactDto.convert2Dto(con));
 		}
 		return new PageImpl<ContactDto>(content, pageable, list.getTotalElements());
 	}

@@ -75,7 +75,7 @@ public class ResumeController extends PortalController {
 		resume.setStatus(CommonStatus.DELETED.getCode());
 		resume.setUpdatedTime(new Date());
 		resumeService.update(resume);
-		return this.toJSONResult(true,"操作成功");
+		return this.toJSONResult(true, "操作成功");
 	}
 
 	@RequestMapping("/mine")
@@ -299,7 +299,10 @@ public class ResumeController extends PortalController {
 		if (resume == null) {
 			return "404";
 		}
-
+		int score = getScore(resume);
+		if (score < 51) {
+			return "404";
+		}
 		model.addAttribute("resume", resume);
 
 		String resumeId = resume.getId();
@@ -317,7 +320,8 @@ public class ResumeController extends PortalController {
 			String sn = ref.getItemSn();
 			ResumeItemType resumeItem = ResumeItemType.fromSn(sn);
 			List<?> objItems = null;
-			objItems = resumeItemService.findResumeItem(resumeItem, resumeId);
+			objItems = resumeItemService
+					.findResumeItemDto(resumeItem, resumeId);
 			int type = resumeItem.getType();
 			if (type == 1) {
 				model.addAttribute(resumeItem.getName() + "s", CommonUtils
@@ -326,7 +330,7 @@ public class ResumeController extends PortalController {
 				if (CommonUtils.isNotEmpty(objItems)) {
 					model.addAttribute(resumeItem.getName(), objItems.get(0));
 				} else {
-					Class<?> clazz = resumeItem.getClazz();
+					Class<?> clazz = resumeItem.getDtoClazz();
 					Object obj;
 					try {
 						obj = clazz.newInstance();
@@ -342,10 +346,10 @@ public class ResumeController extends PortalController {
 
 		}
 
-		Map<String, Object> map = model.asMap();
-		for (String key : map.keySet()) {
-			System.out.println(key + ":" + map.get(key));
-		}
+		/*
+		 * Map<String, Object> map = model.asMap(); for (String key :
+		 * map.keySet()) { System.out.println(key + ":" + map.get(key)); }
+		 */
 		return page;
 	}
 
@@ -355,8 +359,8 @@ public class ResumeController extends PortalController {
 		Resume resume = resumeService.findOne(id);
 		if (resume == null)
 			return this.toJSONResult(false, "未找到");
-			int proc=  getScore(resume);
-		return this.toJSONResult(true,proc);
+		int proc = getScore(resume);
+		return this.toJSONResult(true, proc);
 	}
 
 	private int getScore(Resume resume) {
@@ -379,12 +383,4 @@ public class ResumeController extends PortalController {
 		return Integer.parseInt(new java.text.DecimalFormat("0").format(rate));
 	}
 
-	public static void main(String[] args) {
-		int a = 3;
-		double b = 50.00;
-		double c = b / a;
-		System.out.println(c);
-		System.out.println(Integer.parseInt(new java.text.DecimalFormat("0")
-				.format(c)));
-	}
 }

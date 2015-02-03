@@ -21,6 +21,8 @@ public interface IResumeItemService extends IGenericService<ResumeItem,String>{
 	
 	public Page<ResumeItemDto> find(Pageable pageable, SearchBean... searchBeans) ;
 	
+	public List<?> findResumeItemDto(ResumeItemType rit, String resumeId);
+	
 	
 	
 }

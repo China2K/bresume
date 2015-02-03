@@ -5,7 +5,7 @@ import com.bresume.core.common.utils.DateUtils;
 import com.bresume.core.model.base.BaseDto;
 import com.bresume.core.model.entity.resume.ResumeItem;
 
-public class ResumeItemDto extends BaseDto {
+public class ResumeItemDto extends BaseDto<ResumeItem> {
 
 	/**
 	 * 
@@ -19,8 +19,19 @@ public class ResumeItemDto extends BaseDto {
 	private boolean isDefault;
 	private boolean required;
 	private String createdTime;
+	
+	@Override
+	public ResumeItemDto convert(ResumeItem item) {
 
-	public static ResumeItemDto convert(ResumeItem item) {
+		if (item != null && item.getId() != null) {
+			CommonUtils.copyPropBetweenBeans(item, this);
+			this.setCreatedTime(DateUtils.date2String(item.getCreatedTime(),
+					DateUtils.YYYY_MM_DD_HH_MM_SS_PATTERN));
+		}
+		return this;
+	}
+
+	public static ResumeItemDto convert2Dto(ResumeItem item) {
 
 		ResumeItemDto dto = new ResumeItemDto();
 		if (item != null && item.getId() != null) {

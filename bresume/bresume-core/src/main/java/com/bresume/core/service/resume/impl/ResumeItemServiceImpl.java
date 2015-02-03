@@ -1,5 +1,6 @@
 package com.bresume.core.service.resume.impl;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +21,8 @@ import com.bresume.core.common.utils.CommonUtils;
 import com.bresume.core.common.utils.search.SearchBean;
 import com.bresume.core.dao.resume.IResumeItemDao;
 import com.bresume.core.dao.resume.IResumeItemRefDao;
+import com.bresume.core.model.base.BaseDto;
+import com.bresume.core.model.base.BaseEntity;
 import com.bresume.core.model.dto.ResumeItemDto;
 import com.bresume.core.model.entity.resume.ResumeItem;
 import com.bresume.core.service.resume.IResumeItemService;
@@ -47,6 +50,32 @@ public class ResumeItemServiceImpl extends GenericService<ResumeItem, String>
 						new SearchBean[] { new SearchBean("resume.id",
 								resumeId, "=") }, null);
 	}
+	
+	@Override
+	public List<?> findResumeItemDto(ResumeItemType rit, String resumeId) {
+		List<?> eList = resumeItemDao
+		.findResumeItem(rit.getClazz(),
+				new SearchBean[] { new SearchBean("resume.id",
+						resumeId, "=") }, null);
+		if(CommonUtils.isEmpty(eList)){
+			return null;
+		}
+		List<Object> list = new ArrayList<Object>();
+		try {
+			Class<? extends BaseDto> dtoClass = rit.getDtoClazz();
+			Class<? extends BaseEntity> entityClass = rit.getClazz();
+			System.out.println(dtoClass+"------"+entityClass);
+			Method m_convert = dtoClass.getDeclaredMethod("convert", entityClass);
+			for(Object obj:eList){
+				
+				Object invoke = m_convert.invoke(dtoClass.newInstance(), obj);
+				list.add(dtoClass.cast(invoke));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 
 	@Override
 	public List<ResumeItem> findDefaultItems(String resumeId) {
@@ -73,7 +102,7 @@ public class ResumeItemServiceImpl extends GenericService<ResumeItem, String>
 		Page<ResumeItem> list = resumeItemDao.findAll(pageable, searchBeans);
 		List<ResumeItemDto> content = new ArrayList<ResumeItemDto>();
 		for (ResumeItem item : list.getContent()) {
-			content.add(ResumeItemDto.convert(item));
+			content.add(ResumeItemDto.convert2Dto(item));
 		}
 		return new PageImpl<ResumeItemDto>(content, pageable,
 				list.getTotalElements());

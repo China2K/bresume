@@ -1,10 +1,10 @@
 package com.bresume.core.model.dto;
 
 import com.bresume.core.common.utils.DateUtils;
-import com.bresume.core.model.base.BaseEntity;
+import com.bresume.core.model.base.BaseDto;
 import com.bresume.core.model.entity.resume.Resume;
 
-public class ResumeDto extends BaseEntity {
+public class ResumeDto extends BaseDto <Resume>{
 
 	/**
 	 * 
@@ -30,8 +30,30 @@ public class ResumeDto extends BaseEntity {
 	private int order;
 
 	private String desc;
+	
+	@Override
+	public ResumeDto convert(Resume resume) {
+		if (resume != null&&resume.getId()!=null) {
+			this.setId(resume.getId());
+			this.setName(resume.getName());
+			this.setIsPublic(resume.getIsPublic());		
+			this.setStatus(resume.getStatus());
+			this.setCreatedTime(DateUtils.date2String(resume.getCreatedTime(),
+					DateUtils.YYYY_MM_DD_HH_MM_SS_PATTERN));
 
-	public static ResumeDto convert(Resume resume) {
+			this.setUpdatedTime(DateUtils.date2String(resume.getUpdatedTime(),
+					DateUtils.YYYY_MM_DD_HH_MM_SS_PATTERN));
+			this.setUser(UserDto.convert2Dto(resume.getUser()));
+			
+			this.setTemplateSn(resume.getTemplateSn());
+			this.setCoverUrl(resume.getCoverUrl());
+			this.setRecommended(resume.getRecommended());
+		}
+		return this;
+	}
+
+
+	public static ResumeDto convert2Dto(Resume resume) {
 
 		ResumeDto dto = new ResumeDto();
 		if (resume != null&&resume.getId()!=null) {
@@ -44,7 +66,7 @@ public class ResumeDto extends BaseEntity {
 
 			dto.setUpdatedTime(DateUtils.date2String(resume.getUpdatedTime(),
 					DateUtils.YYYY_MM_DD_HH_MM_SS_PATTERN));
-			dto.setUser(UserDto.convert(resume.getUser()));
+			dto.setUser(UserDto.convert2Dto(resume.getUser()));
 			
 			dto.setTemplateSn(resume.getTemplateSn());
 			dto.setCoverUrl(resume.getCoverUrl());

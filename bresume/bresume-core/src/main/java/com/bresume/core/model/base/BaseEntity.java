@@ -1,6 +1,5 @@
 package com.bresume.core.model.base;
 
-
 import java.io.Serializable;
 
 import javax.persistence.Column;
@@ -16,22 +15,18 @@ import org.hibernate.annotations.GenericGenerator;
  */
 @SuppressWarnings("serial")
 @MappedSuperclass
-public abstract class BaseEntity implements Serializable
-{
+public abstract class BaseEntity implements Serializable {
 	protected String id;
 
 	@GenericGenerator(name = "generator", strategy = "uuid.hex")
 	@Id
 	@GeneratedValue(generator = "generator")
 	@Column(name = "ID", unique = true, nullable = false, length = 32)
-	public String getId()
-	{
+	public String getId() {
 		return id;
 	}
 
-	public void setId(final String id)
-	{
+	public void setId(final String id) {
 		this.id = id;
 	}
-	
 }

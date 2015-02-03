@@ -5,7 +5,7 @@ import com.bresume.core.common.utils.DateUtils;
 import com.bresume.core.model.base.BaseDto;
 import com.bresume.core.model.entity.user.User;
 
-public class UserDto extends BaseDto {
+public class UserDto extends BaseDto<User> {
 
 	/**
 	 * 
@@ -38,7 +38,7 @@ public class UserDto extends BaseDto {
 	private String nickName;
 	private String icon;
 	
-	public static UserDto convert(User user){
+	public static UserDto convert2Dto(User user){
 		
 		
 		UserDto dto= new UserDto();
@@ -50,6 +50,11 @@ public class UserDto extends BaseDto {
 		return  dto;
 	}
 
+	@Override
+	public UserDto convert(User t) {
+		return null;
+	}
+	
 	public String getUserName() {
 		return userName;
 	}
@@ -193,6 +198,5 @@ public class UserDto extends BaseDto {
 	public void setIcon(String icon) {
 		this.icon = icon;
 	}
-
 
 }

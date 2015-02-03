@@ -466,7 +466,7 @@ public class UserServiceImpl extends GenericService<User, String> implements
 		Page<User> list = userDao.findAll(pageable, searchBeans);
 		List<UserDto> content = new ArrayList<UserDto>();
 		for (User user : list.getContent()) {
-			content.add(UserDto.convert(user));
+			content.add(UserDto.convert2Dto(user));
 		}
 		return new PageImpl<UserDto>(content, pageable, list.getTotalElements());
 	}

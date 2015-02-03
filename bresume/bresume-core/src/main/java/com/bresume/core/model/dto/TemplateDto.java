@@ -2,10 +2,10 @@ package com.bresume.core.model.dto;
 
 import com.bresume.core.common.utils.CommonUtils;
 import com.bresume.core.common.utils.DateUtils;
-import com.bresume.core.model.base.BaseEntity;
+import com.bresume.core.model.base.BaseDto;
 import com.bresume.core.model.entity.resume.Template;
 
-public class TemplateDto extends BaseEntity {
+public class TemplateDto extends BaseDto<Template> {
 
 	/**
 	 * 
@@ -31,9 +31,24 @@ public class TemplateDto extends BaseEntity {
 	private String createdBy;
 	private String updatedBy;
 
-	public static TemplateDto convert(Template template) {
+	@Override
+	public TemplateDto convert(Template template) {
+		CommonUtils.copyPropBetweenBeans(template, this);
+		if (template != null&&template.getId()!=null) {
+			this.setCreatedTime(DateUtils.date2String(template.getCreatedTime(),
+					DateUtils.YYYY_MM_DD_HH_MM_SS_PATTERN));
 
-		TemplateDto dto = new TemplateDto();
+			this.setUpdatedTime(DateUtils.date2String(template.getUpdatedTime(),
+					DateUtils.YYYY_MM_DD_HH_MM_SS_PATTERN));
+		}
+		
+		return this;
+	}
+
+	
+	public static TemplateDto convert2Dto(Template template) {
+
+		TemplateDto dto= new TemplateDto();
 		CommonUtils.copyPropBetweenBeans(template, dto);
 		if (template != null&&template.getId()!=null) {
 			dto.setCreatedTime(DateUtils.date2String(template.getCreatedTime(),

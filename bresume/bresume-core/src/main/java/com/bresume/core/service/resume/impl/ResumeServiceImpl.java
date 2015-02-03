@@ -53,7 +53,7 @@ public class ResumeServiceImpl extends GenericService<Resume, String> implements
 		Page<Resume> list = resumeDao.findAll(pageable, searchBeans);
 		List<ResumeDto> content = new ArrayList<ResumeDto>();
 		for (Resume Resume : list.getContent()) {
-			content.add(ResumeDto.convert(Resume));
+			content.add(ResumeDto.convert2Dto(Resume));
 		}
 		return new PageImpl<ResumeDto>(content, pageable,
 				list.getTotalElements());
