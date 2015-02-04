@@ -6,7 +6,11 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%> 
 <!DOCTYPE HTML>
 <style type="text/css">
-
+.uploadify-button, .uploadify-button-text {
+	text-align: center;
+	font-size: 20px;
+	font-family: Tahoma,Verdana,微软雅黑,新宋体;
+}
 </style>
 
 <div id="projectContiner" class="item-form" style="">
@@ -36,7 +40,10 @@
 		data-style="expand-right" title="" data-libid="38" id="project_add"
 		data-original-title="添加此栏目"><span class="glyphicon glyphicon-plus"></span></a>
 </div>
-
+<link rel="stylesheet"
+	href="<c:url value ='/resource/plugin/jQuery-File-Upload/css/jquery.fileupload.css'/>">
+	<script
+		src="<c:url value ='/resource/plugin/uploadify/jquery.uploadify.js'/>"></script>
 
 <script type="text/javascript">
 	$('.form_date').datetimepicker({
@@ -73,6 +80,9 @@
 		if (temp == null || temp == "") {
 			$("#projectForm_" + key + " .input-resumeId").val(resumeId);
 		}
+		var _div ="#file-div-" + key;
+		makeFileUpload( $(_div +" .fileupload-file-input_"), $(_div +" .fileupload-img-input_"), $(_div +" .fileupload-hidden-input_"),'${sessionScope.upload_info}');
+
 
 	}
 
@@ -100,7 +110,7 @@
 	function load_detail(key) {
 
 		var obj = document.getElementById("form_item_" + key);
-		console.log(obj);
+		//console.log(obj);
 		if (obj) {
 			$("#form_item_" + key).show();
 		} else {
@@ -109,7 +119,6 @@
 			} else {
 				load_new_form(null, key);
 			}
-
 		}
 
 		$("#item-bar_" + key).hide();
@@ -180,6 +189,37 @@
 		});
 	}
 	
+	function makeFileUpload(fileEle, imgEle, valueEle, upload_info) {
+		fileEle
+				.uploadify({
+					'uploader' : 'http://static.bresume.com/upload/uploadImg',
+					'swf' : '<c:url value ="/resource/plugin/uploadify/uploadify.swf"/>',
+					'cancelImage' : '<c:url value ="/resource/plugin/uploadify/cancel.png"/>',
+					'queueID' : 'imgFile',
+					'fileObjName' : 'imgFile',
+					'auto' : true,
+					'width' : 285,
+					'height' : 250,
+					'multi' : false,
+					'buttonText' : '上传',
+					'formData' : {
+						'source' : 'PORTAL',
+						'upload_info' : upload_info,
+						'upload_key' : 'whatadiors',
+					},
+					'onUploadSuccess' : function(file, data, response) {
+						data = JSON.parse(data);
+						var res = data.success;
+						if (res === true) {
+							valueEle.val(data.message);
+							imgEle.attr("src", "http://static.bresume.com"
+									+ data.message);
+						} else {
+							alert("上传失败");
+						}
+					},
+				});
 
+	}
 	
 </script>

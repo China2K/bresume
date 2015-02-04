@@ -3,12 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!doctype html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width">
-
-<title>孙悟空-简历</title>
+<title>${persionalInfo.name}-简历</title>
 <link rel="stylesheet" type="text/css"
 	href="../resource/templates/template-bresume-002/styles/d.css">
 <link rel="stylesheet" type="text/css"
@@ -38,12 +36,12 @@
 	line-height: 30px;
 	padding-left: 35px;
 }
+
 .pro-item .respDesc {
 	vertical-align: text-bottom;
 	line-height: 30px;
 	padding-left: 35px;
 }
-
 
 </style>
 </head>
@@ -165,7 +163,7 @@
 		<section class="content project">
 			<div class="bg"></div>
 			<div class="content-panel">
-				<h1>项目作品</h1>
+				<h1>项目作品 </h1>
 
 				<article>
 					<section>
@@ -174,14 +172,16 @@
 								<li class="pro-item">
 									<div style="height: 260px;">
 										<a href="${project.siteUrl}" target="_blank"
-											style="width: 350px; float: left;">
+											style="width: 350px; float: left;margin-right: 50px;">
 											<div class="cover js-picture"
-												js-source="../resource/cover/bresume.png"></div>
+												js-source="${staticUrlPrefix}${project.coverUrl}"></div>
 											<p class="desc">${project.projectName}</p>
-										</a> <span class="projectDesc">${project.projectDesc}</span>
+										</a>
+										<span class="projectDesc">${project.projectDesc}</span>
+
 									</div> <br />
 									<div>
-										<span class="respDesc">${project.respDesc}</span>
+										<span class="respDesc">${project.respDesc} </span>
 									</div>
 								</li>
 								<br />
@@ -203,10 +203,13 @@
 						<ul class="line">
 							<c:forEach items="${eduExperiences}" var="eduExperience">
 								<li>
-									<p>时间：${eduExperience.startDate} - ${eduExperience.endDate}</p>
+									<p>时间：${eduExperience.startDate}&nbsp;&nbsp;至 &nbsp;&nbsp;${eduExperience.endDate}</p>
 									<p>学校：${eduExperience.schoolName}</p>
+									<p>学历：${eduExperience.degree}</p>
 									<p>专业：${eduExperience.majorName}</p>
 									<p>${eduExperience.desc}</p>
+									<br/>
+									<br/>
 								</li>
 							</c:forEach>
 

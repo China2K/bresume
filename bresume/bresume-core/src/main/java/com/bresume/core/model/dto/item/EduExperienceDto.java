@@ -1,5 +1,6 @@
 package com.bresume.core.model.dto.item;
 
+import com.bresume.core.common.constant.enums.EduDegree;
 import com.bresume.core.common.utils.CommonUtils;
 import com.bresume.core.common.utils.DateUtils;
 import com.bresume.core.model.base.BaseDto;
@@ -16,13 +17,13 @@ public class EduExperienceDto extends BaseDto<EduExperience> {
 	private String endDate;
 	private String schoolName;
 	private String majorName;
+	private int dCode;
 	private String degree;
 	private String order;
 	private String desc;
 	private String createdTime;
 	private String updatedTime;
 
-	
 	@Override
 	public EduExperienceDto convert(EduExperience experience) {
 		if (experience != null) {
@@ -39,9 +40,20 @@ public class EduExperienceDto extends BaseDto<EduExperience> {
 			this.setUpdatedTime(DateUtils.date2String(
 					experience.getUpdatedTime(),
 					DateUtils.YYYY_MM_DD_HH_MM_SS_PATTERN));
+
+			this.setdCode(experience.getDegree());
+			this.setDegree(EduDegree.getName(experience.getDegree()));
 		}
 
 		return this;
+	}
+
+	public int getdCode() {
+		return dCode;
+	}
+
+	public void setdCode(int dCode) {
+		this.dCode = dCode;
 	}
 
 	public String getStartDate() {

@@ -11,6 +11,7 @@ import javax.persistence.Table;
 
 import com.bresume.core.model.base.BaseEntity;
 import com.bresume.core.model.entity.resume.Resume;
+
 @Entity
 @Table(name = "br_project_experience")
 public class ProjectExperience extends BaseEntity {
@@ -19,7 +20,7 @@ public class ProjectExperience extends BaseEntity {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	private Resume resume;
 	private Date startDate;
 	private Date endDate;
@@ -28,10 +29,9 @@ public class ProjectExperience extends BaseEntity {
 	private String respDesc;
 	private Integer order;
 	private String siteUrl;
+	private String coverUrl;
 	private Date createdTime;
 	private Date updatedTime;
-	
-
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "RESUME_ID")
@@ -87,7 +87,7 @@ public class ProjectExperience extends BaseEntity {
 	public void setRespDesc(String respDesc) {
 		this.respDesc = respDesc;
 	}
-	
+
 	@Column(name = "`ORDER`")
 	public Integer getOrder() {
 		return order;
@@ -115,7 +115,6 @@ public class ProjectExperience extends BaseEntity {
 		this.updatedTime = updatedTime;
 	}
 
-	
 	@Column(name = "SITE_URL")
 	public String getSiteUrl() {
 		return siteUrl;
@@ -124,5 +123,14 @@ public class ProjectExperience extends BaseEntity {
 	public void setSiteUrl(String siteUrl) {
 		this.siteUrl = siteUrl;
 	}
-	
+
+	@Column(name = "COVER_URL")
+	public String getCoverUrl() {
+		return coverUrl;
+	}
+
+	public void setCoverUrl(String coverUrl) {
+		this.coverUrl = coverUrl;
+	}
+
 }

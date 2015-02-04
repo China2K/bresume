@@ -8,8 +8,8 @@
 <div class="project_form_item"
 	style="background-color: #E5E5E5; width: 90%;" id="form_item_@@@@">
 	<s:form class="form-horizontal project-form" id="projectForm_@@@@"
-		method="post" action="/pe/save"
-		onsubmit="return false;" modelAttribute="projectExperience">
+		method="post" action="/pe/save" onsubmit="return false;"
+		modelAttribute="projectExperience">
 		<s:hidden path="resume.id" class="input-resumeId" />
 		<s:hidden path="id" class="input-id" />
 		<div class="row form-group">
@@ -36,7 +36,7 @@
 
 			<s:hidden id="date_end_@@@@" path="endDate" />
 		</div>
-		
+
 		<div class="row form-group">
 
 			<label for="projectName" class="col-md-3 control-label">项目名称</label>
@@ -45,7 +45,7 @@
 					placeholder="不超过20个字符" path="projectName" />
 			</div>
 		</div>
-		
+
 		<div class="row form-group">
 
 			<label for="projectName" class="col-md-3 control-label">项目链接</label>
@@ -54,8 +54,30 @@
 					placeholder="http://www.bresume.com" path="siteUrl" />
 			</div>
 		</div>
-		
-		
+
+		<div class="row form-group" id="portfolio">
+
+			<label for="siteUrl" class="col-md-3 control-label">封面展示</label>
+			<div class="col-md-9 portfolio-item" id="file-div-@@@@">
+				<div class="portfolio-link" data-toggle="modal">
+					<div class="portfolio-hover" style="height: 250px; width: 250px; line-height: 250px;">
+						<input class="portfolio-hover-content fileupload-file-input_" id="fileupload_@@@@"
+							type="file" />
+					</div>
+					<img src="${staticUrlPrefix}${projectExperience.coverUrl}"
+						style="height: 250px; width: 250px; line-height: 250px;"
+						class="img-responsive text-center fileupload-img-input_" alt=""/>
+				</div>
+				<s:hidden path="coverUrl" value="${projectExperience.coverUrl}"
+					class="fileupload-hidden-input_" />
+			</div>
+		</div>
+
+
+
+
+
+
 		<div class="row form-group">
 
 			<label for="desc" class="col-md-3 control-label">项目描述</label>
@@ -102,4 +124,5 @@
 		forceParse : 0,
 		pageType : 'child'
 	});
+
 </script>

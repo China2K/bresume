@@ -17,4 +17,7 @@ public interface IResumeService extends IGenericService<Resume,String>{
 	
 	
 	boolean isExist(String id,String name);
+	
+	
+	int getScore(Resume resume) ;
 }

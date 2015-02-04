@@ -1,10 +1,8 @@
 package com.bresume.controller.resume;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -19,9 +17,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -113,7 +109,7 @@ public class ResumeController extends PortalController {
 		if (CommonUtils.isNotEmpty(id)) {
 			resume = resumeService.findOne(id);
 			sn = resume.getTemplateSn();
-			resume.setScore(getScore(resume));
+			resume.setScore(resumeService.getScore(resume));
 			step = 3;
 		} else {
 			resume = new Resume();
@@ -292,66 +288,7 @@ public class ResumeController extends PortalController {
 		return this.toJSONResult(true, "保存成功");
 	}
 
-	@RequestMapping(value = "/{resumeName}", method = RequestMethod.GET)
-	public String view(@PathVariable String resumeName, Model model) {
-
-		Resume resume = resumeService.findUniqueBy("name", resumeName);
-		if (resume == null) {
-			return "404";
-		}
-		int score = getScore(resume);
-		if (score < 51) {
-			return "404";
-		}
-		model.addAttribute("resume", resume);
-
-		String resumeId = resume.getId();
-
-		String templatesn = resume.getTemplateSn();
-		if (CommonUtils.isEmpty(templatesn)) {
-			templatesn = IConstants.DEFAULT_TEMPLATE;
-		}
-
-		// Template template = templateService.findUniqueBy("sn", templatesn);
-		String page = "resume/resume-" + templatesn + ".jsp";
-
-		List<ResumeItemRef> refs = resume.getRefs();
-		for (ResumeItemRef ref : refs) {
-			String sn = ref.getItemSn();
-			ResumeItemType resumeItem = ResumeItemType.fromSn(sn);
-			List<?> objItems = null;
-			objItems = resumeItemService
-					.findResumeItemDto(resumeItem, resumeId);
-			int type = resumeItem.getType();
-			if (type == 1) {
-				model.addAttribute(resumeItem.getName() + "s", CommonUtils
-						.isEmpty(objItems) ? new ArrayList() : objItems);
-			} else {
-				if (CommonUtils.isNotEmpty(objItems)) {
-					model.addAttribute(resumeItem.getName(), objItems.get(0));
-				} else {
-					Class<?> clazz = resumeItem.getDtoClazz();
-					Object obj;
-					try {
-						obj = clazz.newInstance();
-						model.addAttribute(resumeItem.getName(), obj);
-					} catch (InstantiationException e) {
-						e.printStackTrace();
-					} catch (IllegalAccessException e) {
-						e.printStackTrace();
-					}
-
-				}
-			}
-
-		}
-
-		/*
-		 * Map<String, Object> map = model.asMap(); for (String key :
-		 * map.keySet()) { System.out.println(key + ":" + map.get(key)); }
-		 */
-		return page;
-	}
+	
 
 	@RequestMapping(value = "/getScore")
 	public @ResponseBody JSONObject getScore(
@@ -359,28 +296,9 @@ public class ResumeController extends PortalController {
 		Resume resume = resumeService.findOne(id);
 		if (resume == null)
 			return this.toJSONResult(false, "未找到");
-		int proc = getScore(resume);
+		int proc =resumeService.getScore(resume);
 		return this.toJSONResult(true, proc);
 	}
 
-	private int getScore(Resume resume) {
-		if (resume == null)
-			return 0;
-		List<ResumeItemRef> refs = resume.getRefs();
-		double rate = 50.00d;
-		if (refs != null) {
-			int size = refs.size();
-			for (ResumeItemRef ref : refs) {
-				String sn = ref.getItemSn();
-				ResumeItemType resumeItem = ResumeItemType.fromSn(sn);
-				List<?> objItems = resumeItemService.findResumeItem(resumeItem,
-						resume.getId());
-				if (CommonUtils.isNotEmpty(objItems)) {
-					rate += 50.00 / size;
-				}
-			}
-		}
-		return Integer.parseInt(new java.text.DecimalFormat("0").format(rate));
-	}
 
 }

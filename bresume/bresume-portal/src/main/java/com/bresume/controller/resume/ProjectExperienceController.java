@@ -45,6 +45,7 @@ public class ProjectExperienceController extends PortalController {
 			uptPE.setRespDesc(projectExperience.getRespDesc());
 			uptPE.setStartDate(projectExperience.getStartDate());
 			uptPE.setUpdatedTime(new Date());
+			uptPE.setCoverUrl(projectExperience.getCoverUrl());
 			projectExperienceService.update(uptPE);
 		} else {
 			

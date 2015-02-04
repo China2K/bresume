@@ -23,7 +23,7 @@ package com.bresume.core.common.constant.enums;
  */
 public enum SalaryType {
 
-	S_1(1, "2000以下"), S_2(2, "2000-3000"), S_3(3, "3000-4500"), S_4(4,
+	S_0(0, "面议"),S_1(1, "2000以下"), S_2(2, "2000-3000"), S_3(3, "3000-4500"), S_4(4,
 			"4500-6000"), S_5(5, "6000-8000"), S_6(6, "8k-10k"), S_7(7,
 			"10k-15k"), S_8(8, "15k-20k"), S_9(9, "20k-30k"), S_10(10, "10k以上"), ;
 	SalaryType(int code, String name) {

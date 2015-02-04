@@ -19,10 +19,10 @@ public class ProjectExperienceDto extends BaseDto<ProjectExperience> {
 	private String respDesc;
 	private String order;
 	private String siteUrl;
+	private String coverUrl;
 	private String createdTime;
 	private String updatedTime;
-	
-	
+
 	@Override
 	public ProjectExperienceDto convert(ProjectExperience experience) {
 		if (experience != null) {
@@ -43,7 +43,14 @@ public class ProjectExperienceDto extends BaseDto<ProjectExperience> {
 
 		return this;
 	}
-	
+
+	public String getCoverUrl() {
+		return coverUrl;
+	}
+
+	public void setCoverUrl(String coverUrl) {
+		this.coverUrl = coverUrl;
+	}
 
 	public String getStartDate() {
 		return startDate;
@@ -116,7 +123,5 @@ public class ProjectExperienceDto extends BaseDto<ProjectExperience> {
 	public void setUpdatedTime(String updatedTime) {
 		this.updatedTime = updatedTime;
 	}
-
-
 
 }
