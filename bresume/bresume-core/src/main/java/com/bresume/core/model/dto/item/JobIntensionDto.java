@@ -36,9 +36,30 @@ public class JobIntensionDto extends BaseDto<JobIntension> {
 
 			this.setExpertSalary(SalaryType.getName(ji.getExpertSalary()));
 
+			this.setReadyTime(getReadTime(ji.getReadyTime()));
+
 		}
 
 		return this;
+	}
+
+	private String getReadTime(Integer code) {
+		if (code == null) {
+			return "一月内";
+		}
+
+		switch (code) {
+		case 1:
+			return "一周内";
+		case 2:
+			return "一月内";
+		case 3:
+			return "1-3个月";
+
+		default:
+			return "一月内";
+		}
+
 	}
 
 	public String getJobType() {

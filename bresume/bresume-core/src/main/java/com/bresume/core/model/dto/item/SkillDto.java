@@ -1,5 +1,6 @@
 package com.bresume.core.model.dto.item;
 
+import com.bresume.core.common.constant.enums.SkillLevel;
 import com.bresume.core.common.utils.CommonUtils;
 import com.bresume.core.common.utils.DateUtils;
 import com.bresume.core.model.base.BaseDto;
@@ -11,6 +12,7 @@ public class SkillDto extends BaseDto<Skill> {
 
 	private String name;
 	private String level;
+	private Integer score;
 	private String masterTime;
 	private String TimeUnitCode;
 	private String order;
@@ -22,17 +24,20 @@ public class SkillDto extends BaseDto<Skill> {
 	private String updatedTime;
 
 	@Override
-	public SkillDto convert(Skill experience) {
-		if (experience != null) {
-			CommonUtils.copyPropBetweenBeans(experience, this);
+	public SkillDto convert(Skill skill) {
+		if (skill != null) {
+			CommonUtils.copyPropBetweenBeans(skill, this);
 
-			this.setCreatedTime(DateUtils.date2String(
-					experience.getCreatedTime(),
+			this.setCreatedTime(DateUtils.date2String(skill.getCreatedTime(),
 					DateUtils.YYYY_MM_DD_HH_MM_SS_PATTERN));
 
-			this.setUpdatedTime(DateUtils.date2String(
-					experience.getUpdatedTime(),
+			this.setUpdatedTime(DateUtils.date2String(skill.getUpdatedTime(),
 					DateUtils.YYYY_MM_DD_HH_MM_SS_PATTERN));
+
+			if ((skill.getScore() == null || skill.getScore().intValue() == 0)
+					&& skill.getLevel() != null) {
+				this.setScore(SkillLevel.getScore(skill.getLevel()));
+			}
 		}
 
 		return this;
@@ -108,6 +113,14 @@ public class SkillDto extends BaseDto<Skill> {
 
 	public void setUpdatedTime(String updatedTime) {
 		this.updatedTime = updatedTime;
+	}
+
+	public Integer getScore() {
+		return score;
+	}
+
+	public void setScore(Integer score) {
+		this.score = score;
 	}
 
 }

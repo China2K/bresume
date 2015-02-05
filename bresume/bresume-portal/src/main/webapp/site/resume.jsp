@@ -56,7 +56,7 @@
 		<div class="row">
 
 			<div class="col-md-8" id="pro-area">
-				<div class="progress" id="progress-bar-div">
+				<div class="progress" id="progress-bar-div" title=" ${resume.score}%">
 					<div class="progress-bar progress-bar-striped" role="progressbar"
 						aria-valuenow="${resume.score}" aria-valuemin="0"
 						aria-valuemax="100" style="width: ${resume.score}%">

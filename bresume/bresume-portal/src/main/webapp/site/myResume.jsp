@@ -369,7 +369,7 @@ section {
 				alert("您的简历尚未完成，不可进行此操作");
 				return ;
 			}
-			location.href="/resume/"+name;
+			location.href="/resumes/"+name;
 		}
 
 		function edit_resume(id) {

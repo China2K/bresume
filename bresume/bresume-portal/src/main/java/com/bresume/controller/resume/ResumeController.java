@@ -205,6 +205,7 @@ public class ResumeController extends PortalController {
 			}
 			oldResume.setName(resume.getName());
 			oldResume.setDesc(resume.getDesc());
+			oldResume.setTemplateSn(resume.getTemplateSn());
 			oldResume.setUpdatedTime(new Date());
 			resumeService.update(oldResume);
 		} else {

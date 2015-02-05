@@ -12,10 +12,8 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<title>resume-template-001</title>
+<title>${persionalInfo.name}-简历</title>
 <meta name="description" content="">
-<meta name="viewport" content="width=device-width">
-
 <link rel="stylesheet"
 	href="../resource/templates/template-bresume-001/css/normalize.min.css">
 <link rel="stylesheet"
@@ -32,6 +30,22 @@
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
       <script>window.html5 || document.write('<script src="../resource/templates/template-bresume-001/js/vendor/html5shiv.js"><\/script>')</script>
       <![endif]-->
+
+
+<style type="text/css">
+.info-base ul {
+	list-style: none;
+	float: left;
+	margin-right: 35px;
+}
+
+.jobI .g1 {
+	width: 23%;
+}
+body{
+font-family: Tahoma,Verdana,微软雅黑,新宋体; 
+}
+</style>
 </head>
 <body class="bg-fixed bg-1">
 	<div class="main-container">
@@ -50,35 +64,49 @@
 				<ul class='etabs'>
 					<li class='tab' id="tab-about"><a href="#about"><i
 							class="icon-user"></i><span> 关于我</span></a></li>
+					<li class='tab'><a href="#portfolio"><i class="icon-heart"></i><span>
+								求职意向</span></a></li>
 					<li class='tab'><a href="#resume"><i
 							class="icon-file-text"></i><span> 履历</span></a></li>
-					<li class='tab'><a href="#portfolio"><i class="icon-heart"></i><span>
-								个性</span></a></li>
+
 					<li class='tab'><a href="#contact"><i
 							class="icon-envelope"></i><span> 联系方式</span></a></li>
 				</ul>
 				<!-- End Tab List -->
-				<div id="tab-data-wrap">
+				<div id="tab-data-wrap" style="min-height: 400px;">
 					<!-- About Tab Data -->
 					<div id="about">
 						<section class="clearfix">
 							<div class="g2">
 								<div class="photo">
-									<img
-										src="../resource/templates/template-bresume-001/images/wukong.jpg"
-										alt="孙悟空">
+									<img src="${staticUrlPrefix}${resume.coverUrl}"
+										alt="${persionalInfo.name}">
 								</div>
 								<div class="info">
 									<h2>${persionalInfo.name}</h2>
 									<h4>${jobIntension.trade}/${jobIntension.profession}</h4>
-									<p>${jobIntension.selfEvaluation}</p>
+									<div class="info-base">
+										<ul class="">
+											<li>姓名：${persionalInfo.name}</li>
+											<li>性别：${persionalInfo.sex}</li>
+											<li>地址：${persionalInfo.address}</li>
+											<li>出生日期：${persionalInfo.birthday}</li>
+										</ul>
+										<ul class="">
+											<li>毕业院校：${eduExperience.schoolName}</li>
+											<li>学历：${eduExperience.degree}</li>
+											<li>专业：${eduExperience.majorName}</li>
+										</ul>
+									</div>
+
+
 								</div>
 							</div>
 							<div class="g1">
 								<div class="main-links sidebar">
 									<ul>
 										<li><a href="#resume">查看履历</a></li>
-										<li><a href="#portfolio">我的个性</a></li>
+										<li><a href="#portfolio">求职意向</a></li>
 										<li><a href="#contact">联系方式</a></li>
 										<!--  <li>
                                         <a href="#features">Features</a>
@@ -86,16 +114,22 @@
 									</ul>
 								</div>
 							</div>
+							<div class="g2 line">
+								<p>${jobIntension.selfEvaluation}</p>
+							</div>
+
 							<div class="break"></div>
 							<div class="contact-info">
 								<div class="g1">
 									<div class="item-box clearfix">
 										<i class="icon-envelope"></i>
 										<div class="item-data">
+
+											<p>邮箱</p>
+											<br />
 											<h3>
 												<a href="mailto:${persionalInfo.email}">${persionalInfo.email}</a>
 											</h3>
-											<p>Email Address</p>
 										</div>
 									</div>
 								</div>
@@ -103,10 +137,11 @@
 									<div class="item-box clearfix">
 										<i class="icon-weibo"></i>
 										<div class="item-data">
+											<p>微博</p>
+											<br />
 											<h3>
 												<a href="http://www.weibo.com/swk">${persionalInfo.name}</a>
 											</h3>
-											<p>微博</p>
 										</div>
 									</div>
 								</div>
@@ -119,7 +154,7 @@
 					<div id="resume">
 						<section class="clearfix">
 							<div class="g2">
-								<h3>Work Experience</h3>
+								<h3>工作经历</h3>
 								<ul class="no-list work">
 									<c:forEach items="${workExperiences}" var="workExperience">
 										<li>
@@ -148,52 +183,11 @@
 							<div class="g1">
 								<div class="sidebar">
 									<h3>技能</h3>
-									<h5>Software</h5>
-
 									<c:forEach items="${skills}" var="skill">
-										<div class="meter emerald">
-											<span style="width: ${skill.level}%"><span>${skill.name}</span></span>
+										<div class="meter skill-item">
+											<span style="width: ${skill.score}%"><span>${skill.name}</span></span>
 										</div>
 									</c:forEach>
-
-									<!-- <div class="meter emerald">
-										<span style="width: 95%"><span>棍术</span></span>
-									</div>
-									<div class="meter carrot">
-										<span style="width: 90%"><span>筋斗云</span></span>
-									</div>
-									<div class="meter wisteria">
-										<span style="width: 70%"><span>72般变化</span></span>
-									</div>
-									<div class="meter sunflower">
-										<span style="width: 40%"><span> 搬救兵</span></span>
-									</div>
-									<div class="meter midnight">
-										<span style="width: 70%"><span>金刚不坏</span></span>
-									</div>
-									<div class="meter pomengrate">
-										<span style="width: 60%"><span>火眼金睛</span></span>
-									</div>
-									<div class="meter asbestos">
-										<span style="width: 65%"><span>分身术</span></span>
-									</div>
-									<div class="break"></div>
-									<div class="meter emerald">
-										<span style="width: 33.3%"><span>金毫毛</span></span>
-									</div>
-									<div class="meter carrot">
-										<span style="width: 90%"><span>奇门异术</span></span>
-									</div>
-									<div class="meter wisteria">
-										<span style="width: 60%"><span>三头六臂</span></span>
-									</div>
-									<div class="break"></div>
-									<div class="meter emerald">
-										<span style="width: 53.3%"><span>金箍棒漫天飞</span></span>
-									</div>
-									<div class="meter carrot">
-										<span style="width: 80%"><span>灵魂出窍</span></span>
-									</div> -->
 								</div>
 							</div>
 						</section>
@@ -201,7 +195,7 @@
 					<!-- End Resume Tab Data -->
 					<!-- Portfolio Tab Data -->
 					<div id="portfolio">
-						<section class="clearfix">
+						<!-- <section class="clearfix">
 							<div class="g1">
 								<div class="image">
 									<img
@@ -264,6 +258,57 @@
 								</div>
 							</div>
 
+						</section> -->
+
+						<section class="clearfix">
+							<article id="" class="jobI">
+								<section>
+									<div class="g1">
+										<div class="item-box clearfix">
+											<i class="icon-envelope"></i>
+											<div class="item-data">
+
+												<p>期望薪水</p>
+												<h3>${jobIntension.expertSalary}</h3>
+											</div>
+										</div>
+									</div>
+									<div class="g1">
+										<div class="item-box clearfix">
+											<i class="icon-envelope"></i>
+											<div class="item-data">
+
+												<p>工作地点</p>
+												<h3>${jobIntension.address}</h3>
+											</div>
+										</div>
+									</div>
+									<div class="g1">
+										<div class="item-box clearfix">
+											<i class="icon-envelope"></i>
+											<div class="item-data">
+
+												<p>工作职位</p>
+												<h3>${jobIntension.profession}</h3>
+											</div>
+										</div>
+									</div>
+
+									<div class="g1">
+										<div class="item-box clearfix">
+											<i class="icon-envelope"></i>
+											<div class="item-data">
+
+												<p>到岗时间</p>
+												<h3>${jobIntension.readyTime}</h3>
+											</div>
+										</div>
+									</div>
+								</section>
+
+
+								<br class="clear">
+							</article>
 						</section>
 					</div>
 					<!-- End Portfolio Data -->
@@ -277,7 +322,7 @@
 									</div>
 									<div class="sny-icon-content">
 										<h4>地址</h4>
-										<p>${persionalInfo.address}花果山，水帘洞</p>
+										<p>${persionalInfo.address}</p>
 									</div>
 								</div>
 							</div>
@@ -299,7 +344,9 @@
 									</div>
 									<div class="sny-icon-content">
 										<h4>主页</h4>
-										<p>${persionalInfo.siteUrl }</p>
+										<p>
+											<a href="${persionalInfo.siteUrl }">${persionalInfo.siteUrl }</a>
+										</p>
 									</div>
 								</div>
 							</div>
@@ -322,6 +369,12 @@
 	<!-- #main-container -->
 
 
-
+	<script type="text/javascript">
+		var s_style = new Array("emerald", "carrot", "wisteria", "sunflower",
+				"midnight", "pomengrate", "asbestos");
+		$(".skill-item").each(function(i) {
+			$(this).addClass(s_style[i % s_style.length]);
+		});
+	</script>
 </body>
 </html>

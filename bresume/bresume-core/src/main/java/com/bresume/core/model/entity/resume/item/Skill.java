@@ -25,6 +25,7 @@ public class Skill extends BaseEntity {
 	private Integer masterTime;
 	private String TimeUnitCode;
 	private Integer order;
+	private Integer score;
 	private String desc;
 	
 	private Integer status;
@@ -122,6 +123,15 @@ public class Skill extends BaseEntity {
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+	@Column(name = "SCORE")
+	public Integer getScore() {
+		return score;
+	}
+
+	public void setScore(Integer score) {
+		this.score = score;
 	}
 	
 	
