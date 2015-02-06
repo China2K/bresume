@@ -2,10 +2,11 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!doctype html>
 <html>
 <head>
-<title>孙悟空 - 简历</title>
+<title>${persionalInfo.name}-简历</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -23,10 +24,14 @@
 	href="../resource/templates/template-bresume-004/css/owl.carousel.css"
 	rel="stylesheet">
 
-
+<style type="text/css">
+.group_2_img1 img{
+width: 600px !important;
+}
+</style>
 </head>
 <body>
-	<div class="content" id="home">
+	<div class="content" id="home" style="background: url('${staticUrlPrefix}${resume.coverUrl}') no-repeat center;background-size: cover;">
 		<div class="wrap">
 			<div class="header_style1">
 				<!-- start h_logo -->
@@ -97,7 +102,7 @@
 		</div>
 	</div>
 	<div class="group_2" id="Portfolio">
-		<h3 class="heading">Portfolio</h3>
+		<h3 class="heading">项目展示</h3>
 		<div class="group_2_items">
 			<div class="wrap">
 				<div id="owl-demo1" class="owl-carousel">
@@ -106,8 +111,8 @@
 							<div class="carousel">
 								<div class="group_2_img1">
 									<img
-										src="../resource/templates/template-bresume-004/images/5.jpg"
-										alt="" width="600px" height="450px">
+										src="${staticUrlPrefix}${project.coverUrl}"
+										alt="" width="600!important" height="450">
 								</div>
 								<div class="group_2_text2">
 									<div class="desc">
@@ -144,9 +149,9 @@
 			<div class="wrap">
 				<div class="row-content1">
 					<h3 class="heading">技能</h3>
-					<p class="para">我是一个技能强大的降魔师，所以你自己看着办吧。。。</p>
+					<p class="para">我是一个技能强大的手艺人！</p>
 					<c:forEach items="${skills}" var="skill">
-						<div class="chart" data-percent="${skill.level}"
+						<div class="chart" data-percent="${skill.score}"
 							data-bar-color="#35AFBA" data-animate="4000">
 							<div class="chart-content">
 								<div class="percent"></div>
@@ -156,33 +161,6 @@
 						</div>
 					</c:forEach>
 
-					<!--  
-					<div class="chart" data-percent="85" data-bar-color="#FF6060"
-						data-animate="2500">
-						<div class="chart-content">
-							<div class="percent"></div>
-							<div class="chart-title">72般变化</div>
-						</div>
-						chart-content
-					</div>
-					chart
-					<div class="chart" data-percent="70" data-bar-color="#3AD079"
-						data-animate="3000">
-						<div class="chart-content">
-							<div class="percent"></div>
-							<div class="chart-title">火眼金睛</div>
-						</div>
-						chart-content
-					</div>
-					chart
-					<div class="chart" data-percent="40" data-bar-color="#58C0E3"
-						data-animate="3500">
-						<div class="chart-content">
-							<div class="percent"></div>
-							<div class="chart-title">三头六臂</div>
-						</div>
-						chart-content
-					</div> -->
 					<!-- chart -->
 					<div class="clear"></div>
 				</div>
@@ -197,10 +175,10 @@
 				<div class="row-content2">
 					<div class="timeline-label column six">
 						<h4>工作经验</h4>
-						<p>俺工作很努力地。。。</p>
+						<!-- <p>俺工作很努力地。。。</p>
 						<div class="brows_button_4">
 							<a href="http://www.bresume.com">bresume.com</a>
-						</div>
+						</div> -->
 					</div>
 
 					<!-- timeline-label -->
@@ -208,11 +186,11 @@
 						<c:forEach items="${workExperiences}" var="workExperience">
 							<div class="experience">
 								<span class="circle"></span>
-								<div class="experience-img">
+								<!-- <div class="experience-img">
 									<img
 										src="../resource/templates/template-bresume-004/images/5.jpg"
 										alt="">
-								</div>
+								</div> -->
 								<div class="experience-info clear-after">
 									<h5>${workExperience.companyName}-
 										${workExperience.position}</h5>
@@ -222,85 +200,6 @@
 								<!-- experience-info -->
 							</div>
 						</c:forEach>
-						<!-- <div class="experience">
-							<span class="circle"></span>
-							<div class="experience-img">
-								<img
-									src="../resource/templates/template-bresume-004/images/5.jpg"
-									alt="">
-							</div>
-							<div class="experience-info clear-after">
-								<h5>美猴王</h5>
-								<div class="role">(公元前555年---公元前255年)</div>
-								<p>称美猴王。享乐天真，何期有三五百载。</p>
-							</div>
-							experience-info
-						</div>
-						experience
-						<div class="experience">
-							<span class="circle"></span>
-							<div class="experience-img">
-								<img
-									src="../resource/templates/template-bresume-004/images/3.jpg"
-									alt="">
-							</div>
-							<div class="experience-info clear-after">
-								<h5>弼马温</h5>
-								<div class="role">(公元前235年---公元前220年)</div>
-								<p>一受招安，授天界弼马温之职，掌管御马监</p>
-							</div>
-							experience-info
-						</div>
-						experience
-						year
-						<div class="experience">
-							<span class="circle"></span>
-							<div class="experience-img">
-								<img
-									src="../resource/templates/template-bresume-004/images/2.jpg"
-									alt="">
-							</div>
-							<div class="experience-info clear-after">
-								<h5>齐天大圣</h5>
-								<div class="role">(前220年---前40年)</div>
-								<p>二受招安，授天界齐天大圣之职，兼管皇家蟠桃园。 因偷桃盗丹，扰乱蟠桃会，二闹天宫，三犯天条，被捕入狱，受酷刑。
-									因狂吃金丹，修练铜头铁身不坏之躯。任职期间兼修园艺之果树栽培，以蟠桃为主。</p>
-
-							</div>
-							experience-info
-						</div>
-						experience
-						<div class="experience">
-							<span class="circle"></span>
-							<div class="experience-img">
-								<img
-									src="../resource/templates/template-bresume-004/images/1.jpg"
-									alt="">
-							</div>
-							<div class="experience-info clear-after">
-								<h5>五指山修行</h5>
-								<div class="role">(9年---639年)</div>
-								<p>被押两界山（五行山） 服刑</p>
-
-							</div>
-							experience-info
-						</div>
-						experience
-
-						<div class="experience">
-							<span class="circle"></span>
-							<div class="experience-img">
-								<img
-									src="../resource/templates/template-bresume-004/images/4.jpg"
-									alt="">
-							</div>
-							<div class="experience-info clear-after">
-								<h5>西天取经</h5>
-								<div class="role">(639年—653年)</div>
-							</div>
-							experience-info
-						</div> -->
-
 					</div>
 					<!-- timeline -->
 					<div class="clear"></div>
@@ -316,18 +215,19 @@
 						<div class="">
 							<div class="group_3_img" style="width: 100%">
 								<img
-									src="../resource/templates/template-bresume-004/images/2.jpg"
+									src="${staticUrlPrefix}${resume.coverUrl}"
 									alt="" width="300px" height="200px">
 
 								<div class="group_1_text group_3_text">
 									<h3>联系方式</h3>
 									<p>
-										手机号码：${persionalInfo.cellPhone }<br /> 电子邮箱：<a href="mailto:${persionalInfo.email}">${persionalInfo.email}</a>
+										手机号码：${persionalInfo.cellPhone }<br /> 电子邮箱：<a href="mailto:${persionalInfo.email}">${persionalInfo.email}</a><br/>
+										个人主页：<a href="mailto:${persionalInfo.siteUrl}">${persionalInfo.siteUrl}</a>
 									</p>
 								</div>
 							</div>
 							<div class="group_1_text group_3_text">
-								<h3>孙自我评价</h3>
+								<h3>自我评价</h3>
 								<p>${jobIntension.selfEvaluation}</p>
 							</div>
 

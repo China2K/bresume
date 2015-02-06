@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -42,8 +43,9 @@
 .jobI .g1 {
 	width: 23%;
 }
-body{
-font-family: Tahoma,Verdana,微软雅黑,新宋体; 
+
+body {
+	font-family: Tahoma, Verdana, 微软雅黑, 新宋体;
 }
 </style>
 </head>
@@ -154,16 +156,7 @@ font-family: Tahoma,Verdana,微软雅黑,新宋体;
 					<div id="resume">
 						<section class="clearfix">
 							<div class="g2">
-								<h3>工作经历</h3>
-								<ul class="no-list work">
-									<c:forEach items="${workExperiences}" var="workExperience">
-										<li>
-											<h5>${workExperience.companyName}-
-												${workExperience.position}</h5> <span class="label label-info">${workExperience.startDate}--${workExperience.endDate}</span>
-											<p>${workExperience.desc}</p>
-										</li>
-									</c:forEach>
-								</ul>
+
 								<h3>教育经历</h3>
 								<ul class="no-list work">
 
@@ -179,18 +172,87 @@ font-family: Tahoma,Verdana,微软雅黑,新宋体;
 
 
 								</ul>
+								<c:if test="${fn:length(workExperiences)>0}">
+									<h3>工作经历</h3>
+									<ul class="no-list work">
+										<c:forEach items="${workExperiences}" var="workExperience">
+											<li>
+												<h5>${workExperience.companyName}-
+													${workExperience.position}</h5> <span class="label label-info">${workExperience.startDate}--${workExperience.endDate}</span>
+												<p>${workExperience.desc}</p>
+											</li>
+										</c:forEach>
+									</ul>
+								</c:if>
+
+								<%-- 
+								<c:if test="${fn:length(projectExperiences)>0}">
+									<h3>项目经验</h3>
+									<ul class="no-list work">
+										<c:forEach items="${projectExperiences}" var="project">
+											<li>
+												<h5>${project.projectName}</h5> <span
+												class="label label-info">${project.startDate}--${project.endDate}</span>
+												<p>
+													<more>${project.projectDesc}<br />
+													<br />
+													<sm> <i class="icon-tag"></i> ${project.respDesc}</sm></more>
+												</p>
+											</li>
+										</c:forEach>
+									</ul>
+								</c:if> --%>
+
+
+
 							</div>
 							<div class="g1">
-								<div class="sidebar">
-									<h3>技能</h3>
-									<c:forEach items="${skills}" var="skill">
-										<div class="meter skill-item">
-											<span style="width: ${skill.score}%"><span>${skill.name}</span></span>
-										</div>
-									</c:forEach>
-								</div>
+								<c:if test="${fn:length(skills)>0}">
+									<div class="sidebar">
+										<h3>技能</h3>
+										<c:forEach items="${skills}" var="skill">
+											<div class="meter skill-item">
+												<span style="width: ${skill.score}%"><span>${skill.name}</span></span>
+											</div>
+										</c:forEach>
+									</div>
+								</c:if>
 							</div>
+
 						</section>
+
+
+
+						<c:if test="${fn:length(projectExperiences)>0}">
+							<section class="clearfix">
+								<div>
+									<h3>项目经验</h3>
+									<ul class="no-list work">
+										<c:forEach items="${projectExperiences}" var="project">
+											<li class="line" style="display: table; width: 100%;">
+												<div
+													style="width: 66%; min-height: 300px; display: block; float: left;">
+													<h5>${project.projectName}</h5>
+													<span class="label label-info">${project.startDate}--${project.endDate}</span>
+													<p>
+														<more>${project.projectDesc}<br />
+														<br />
+														<sm> <i class="icon-tag"></i> ${project.respDesc}</sm></more>
+													</p>
+												</div>
+												<div
+													style="width: 30%; height: 300px; position: relative; float: left; margin-left: 4%; cursor: pointer;"
+													onclick="window.open('${project.siteUrl}')">
+													<img class="img-responsive"
+														src="${staticUrlPrefix}${project.coverUrl}" alt=""
+														width="300" height="260" />
+												</div>
+											</li>
+										</c:forEach>
+									</ul>
+								</div>
+							</section>
+						</c:if>
 					</div>
 					<!-- End Resume Tab Data -->
 					<!-- Portfolio Tab Data -->
