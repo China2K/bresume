@@ -120,7 +120,7 @@ public class ResumeController extends PortalController {
 	@RequestMapping("/hot.do")
 	public String index(HttpServletRequest request, Model model) {
 
-		List<Resume> hotResumes = resumeService
+		List<ResumeDto> hotResumes = resumeService
 				.findHostResumes(CommonStatus.ACTIVE.getCode());
 		model.addAttribute("hotResumes", hotResumes);
 		return "/page/site/hotResumes.jsp";

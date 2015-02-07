@@ -33,7 +33,7 @@ public class Encrypt {
 
 	public static final String encryptSSOPlain(String plaintext, String key) {
 		try {
-			System.out.println(getEncoding(plaintext));
+//			System.out.println(getEncoding(plaintext));
 			plaintext = new String(plaintext.getBytes("UTF-8"), "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
@@ -44,6 +44,7 @@ public class Encrypt {
 
 	public static final String decryptSSO(String message, String key) {
 		try {
+			message = message.replaceAll("%2B", "+");
 			return new String(decrypt(message, odd(md5Hash(key)), key)
 					.getBytes("UTF-8"), "UTF-8");
 		} catch (Exception e) {
@@ -55,7 +56,9 @@ public class Encrypt {
 
 	public static final String encryptSSO(String message, String key) {
 		try {
-			return encrypt(message, odd(md5Hash(key)), key);
+			String result = encrypt(message, odd(md5Hash(key)), key);
+			result = result.replaceAll("\\+", "%2B") ;
+			return result;
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error("加密失败", e);

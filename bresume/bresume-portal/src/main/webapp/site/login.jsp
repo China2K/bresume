@@ -90,7 +90,7 @@
 											<label> <input checked="checked"
 												id="user_remember_me" name="remember_me" type="checkbox"
 												value="1">记住我
-											</label> &nbsp;&nbsp;&nbsp;&nbsp; <a href="/users/password/new">
+											</label> &nbsp;&nbsp;&nbsp;&nbsp; <a href="/user/forget">
 												<i class="fa fa-question-circle"></i>忘记密码？
 											</a>
 										</div>

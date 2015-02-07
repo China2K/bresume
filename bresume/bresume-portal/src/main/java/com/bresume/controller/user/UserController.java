@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -28,6 +29,8 @@ import com.bresume.core.common.exception.CoreException;
 import com.bresume.core.common.exception.PortalErrorCode;
 import com.bresume.core.common.exception.impl.PortalException;
 import com.bresume.core.common.utils.CommonUtils;
+import com.bresume.core.common.utils.EncryptionUtils;
+import com.bresume.core.common.utils.security.Encrypt;
 import com.bresume.core.model.dto.LoginUser;
 import com.bresume.core.model.entity.user.BAuth;
 import com.bresume.core.model.entity.user.User;
@@ -67,7 +70,7 @@ public class UserController extends AuthController {
 			user.setType(UserType.PERSIONAL.getCode());
 			user.setLevel(0);
 			user.setIcon(IConstants.DEFAULT_USER_ICON);
-			user.setNickName(email.substring(0,email.indexOf("@")));
+			user.setNickName(email.substring(0, email.indexOf("@")));
 			userService.register(user);
 			// 生成邮箱验证码
 			UserVerified uv = new UserVerified(user);
@@ -83,10 +86,83 @@ public class UserController extends AuthController {
 		}
 	}
 
+	@RequestMapping("/forget")
+	public String forget() {
+		return "site/forget.jsp";
+	}
+
+	@RequestMapping("/send_forget")
+	public @ResponseBody JSONObject login(
+			@RequestParam(value = "email", required = true) String email,
+			ModelMap model, HttpServletResponse response) {
+		User user = userService.findUniqueBy("email", email);
+		if (user == null || user.getId() == null) {
+			return this.toJSONResult(false, "该邮箱未注册!");
+		}
+		long time = System.currentTimeMillis();
+		String code = email + "_t_" + time;
+		String ucode = Encrypt.encryptSSO(code, IConstants.HELLO_WORD);
+		sendForgetMail(email, ucode);
+		return this.toJSONResult(true, "邮件已发送至您的邮箱，请确认");
+	}
+
+	@RequestMapping("/reset_forget")
+	public @ResponseBody JSONObject reset_forget(
+			@RequestParam(value = "id", required = true) String id,
+			@RequestParam(value = "psw", required = true) String psw,
+			ModelMap model, HttpServletResponse response) {
+		User user = userService.findOne(id);
+		if (user == null || user.getId() == null) {
+			return this.toJSONResult(false, "该邮箱未注册!");
+		}
+		user.setPassword(EncryptionUtils.encryptBasedMd5(psw));
+		user.setUpdatedTime(new Date());
+		userService.update(user);
+		return this.toJSONResult(true, "重置成功");
+	}
+
+	@RequestMapping("/confirm_forget")
+	public String ucode(
+			@RequestParam(value = "ucode", required = true) String ucode,
+			ModelMap model, HttpServletResponse response) {
+		String email = null;
+		try {
+			String res = Encrypt.decryptSSO(ucode, IConstants.HELLO_WORD);
+			res = new String(res.getBytes(), "UTF-8");
+			int index = res.lastIndexOf("_t_");
+			String t = res.substring(index + "_t_".length(), res.length());
+			long reqTime = Long.parseLong(t);
+			long interval = System.currentTimeMillis() - reqTime;
+			// 设置阀值15分钟
+			long threshold = 15 * 60 * 1000;
+			if (threshold >= interval) {
+				email = res.substring(0, index);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "404";
+		}
+		if (CommonUtils.isEmpty(email)) {
+			return "404";
+		}
+		User user = userService.findUniqueBy("email", email);
+		if (user == null || user.getId() == null) {
+			return "404";
+		}
+		User _user = new User();
+		_user.setId(user.getId());
+		_user.setEmail(email);
+		model.addAttribute("user", _user);
+		return "site/reset_psw.jsp";
+
+	}
+
 	@RequestMapping("/login")
 	public @ResponseBody JSONObject login(
 			@RequestParam(value = "loginName", required = true) String loginName,
 			@RequestParam(value = "password", required = true) String password,
+			@RequestParam(value = "remember_me", required = false, defaultValue = "0") int remember_me,
 			ModelMap model, HttpServletResponse response) {
 
 		try {
@@ -94,6 +170,9 @@ public class UserController extends AuthController {
 			User loginUser = userService.loginCheck(loginName, password);
 			// 记录session
 			setUser2Session(loginUser);
+			if (remember_me == 1) {
+				setUserCookie(loginName, password, response);
+			}
 
 			return this.toJSONResult(true);
 
@@ -143,6 +222,23 @@ public class UserController extends AuthController {
 		return "redirect:/index";
 	}
 
+	private void setUserCookie(String name, String psw,
+			HttpServletResponse response) {
+		String host = IPortalConstants.PORTAL_DOMAIN;
+		Cookie cookie = new Cookie(IPortalConstants.COOKIE_KEY_LOGIN_USER, name); // 保存用户名到Cookie
+		cookie.setPath("/");
+		cookie.setDomain(host);
+		cookie.setMaxAge(99999999);
+		response.addCookie(cookie);
+		// 保存密码到Cookie，注意需要加密一下
+		Cookie cookie_p = new Cookie(IPortalConstants.COOKIE_KEY_LOGIN_PSW,
+				Encrypt.encryptSSO(psw, IConstants.HELLO_WORD));
+		cookie_p.setPath("/");
+		cookie_p.setDomain(host);
+		cookie_p.setMaxAge(99999999);
+		response.addCookie(cookie_p);
+	}
+
 	/**
 	 * 修改邮箱接口只针对第三方登录，为注册账户的用户开放
 	 * */
@@ -190,17 +286,17 @@ public class UserController extends AuthController {
 		}
 		return "site/settings.jsp";
 	}
-	
-	
+
 	@RequestMapping("/updatePWD")
 	public @ResponseBody JSONObject uptPSW(
 			@RequestParam(value = "password", required = true) String password,
 			@RequestParam(value = "new_password", required = true) String new_password,
 			ModelMap model, HttpServletResponse response) {
 		LoginUser loginUser = this.getCurrentLoginUser();
-		
+
 		try {
-			userService.updatePasswordById(loginUser.getId(), password, new_password);
+			userService.updatePasswordById(loginUser.getId(), password,
+					new_password);
 		} catch (PortalException e) {
 			e.printStackTrace();
 			return this.toJSONResult(false, this.getMessage(e));
@@ -288,5 +384,4 @@ public class UserController extends AuthController {
 	 * return this.toJSONResult(true); } catch (CoreException e) { return
 	 * this.toJSONResult(false, this.getMessage(e)); } }
 	 */
-	
 }

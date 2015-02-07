@@ -96,6 +96,25 @@ public abstract class AuthController extends PortalController {
 		MailUtils.sendMailByAsynchronousMode(map, mailSender);
 
 	}
+	
+	protected void sendForgetMail(String emailAdd,String code) {
+		PropertiesLoader loader = new PropertiesLoader("mail.properties");
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		Email email = new Email();
+		email.setSender(loader.getProperty("mail.from"));
+		email.setAddress(emailAdd);
+
+		email.setSubject("密码重置确认通知");
+		// 从模板生成
+		HashMap<String, Object> param = new HashMap<String, Object>();
+		param.put("ucode", code);
+		email.setContent(MailUtils.getMailText(param,
+				loader.getProperty("mail.forget.content")));
+		map.put("email", email);
+		MailUtils.sendMailByAsynchronousMode(map, mailSender);
+
+	}
 
 	protected String callBack(Model model, BAuth newAuth) {
 		BAuth oldAuth = authService.findOne(newAuth.getOpenId(),

@@ -112,7 +112,6 @@ public class UserServiceImpl extends GenericService<User, String> implements
 		LogUtils.getInstance().debugSystem(LogUtils.MODULE_PORTAL,
 				"Execute Logining", "userName", userName);
 		User user;
-		System.out.println(userName.indexOf("@"));
 		if (userName.contains("@")) {
 			user = userDao.findUniqueBy("email", userName);
 		} else {

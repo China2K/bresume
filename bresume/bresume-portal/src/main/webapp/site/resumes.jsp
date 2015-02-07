@@ -35,13 +35,13 @@
 							data-toggle="modal">
 							<div class="portfolio-hover">
 								<div class="portfolio-hover-content">
-									<i class="fa fa-1x"> I am more than what you can see! </i>
+									<i class="fa fa-1x"> ${resume.desc}</i>
 								</div>
 							</div> <img src="${staticUrlPrefix}${resume.coverUrl}" class="img-responsive" alt="" width="360px" style="height: 260px;">
 						</a>
 						<div class="portfolio-caption">
 							<h4>${resume.name}</h4>
-							<p class="text-muted">${resume.name}</p>
+							<p class="text-muted">${resume.position}</p>
 						</div>
 					</div>
 				</c:forEach>
@@ -54,14 +54,6 @@
 		<div class="bttbg"></div>
 	</div>
 
-
-
-
-
-	<!-- jQuery -->
-	<script type="text/javascript"
-		src="<c:url value ='/resource/site/js/jquery.js'/>" charset="UTF-8"></script>
-
 	<script type="text/javascript"
 		src="<c:url value ='/resource/site/js/bootstrap.min.js'/>"></script>
 
@@ -73,8 +65,7 @@
 
 	<script src="<c:url value ='/resource/app/js/common.js'/>"></script>
 	<script type="text/javascript"
-		src="<c:url value ='/resource/site/js/jquery.form.js'/>"
-		charset="UTF-8"></script>
+		src="<c:url value ='/resource/site/js/jquery.form.js'/>"></script>
 
 	<script type="text/javascript">
 		

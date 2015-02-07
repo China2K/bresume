@@ -29,6 +29,7 @@ import com.bresume.core.common.constant.enums.ContactStatus;
 import com.bresume.core.common.constant.enums.ResumeItemType;
 import com.bresume.core.common.utils.CommonUtils;
 import com.bresume.core.common.utils.search.SearchBean;
+import com.bresume.core.model.dto.ResumeDto;
 import com.bresume.core.model.dto.item.EduExperienceDto;
 import com.bresume.core.model.entity.resume.Resume;
 import com.bresume.core.model.entity.resume.ResumeItemRef;
@@ -60,11 +61,10 @@ public class IndexController extends PortalController {
 
 	@RequestMapping("/index")
 	public String index(HttpServletRequest request, Model model) {
-
 		List<Template> hotTemplates = templateService
 				.findHostTemplates(CommonStatus.ACTIVE.getCode());
 
-		List<Resume> hotResumes = resumeService
+		List<ResumeDto> hotResumes = resumeService
 				.findHostResumes(CommonStatus.ACTIVE.getCode());
 
 		model.addAttribute("hotTemplates", hotTemplates);
@@ -117,7 +117,7 @@ public class IndexController extends PortalController {
 
 		Pageable pageable = new PageRequest(page, limit, new Sort(
 				Direction.ASC, "order"));
-		Page<Resume> result = resumeService.findPage(pageable, new SearchBean(
+		Page<ResumeDto> result = resumeService.find(pageable, new SearchBean(
 				"status", CommonStatus.ACTIVE.getCode() + "", "="),
 				new SearchBean("isPublic", "1", "="));
 
@@ -185,10 +185,6 @@ public class IndexController extends PortalController {
 
 		}
 
-		/*
-		 * Map<String, Object> map = model.asMap(); for (String key :
-		 * map.keySet()) { System.out.println(key + ":" + map.get(key)); }
-		 */
 		return page;
 	}
 

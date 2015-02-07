@@ -394,6 +394,8 @@ section {
 			if(score*1<50){
 				alert("您的简历尚未完成，不可进行此操作");
 				return ;
+			}else{
+				alert("此功能尚未开放！");
 			}
 		}
 		

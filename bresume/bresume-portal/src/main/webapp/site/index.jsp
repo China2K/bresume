@@ -111,7 +111,7 @@
 								
 								<div class="info">
 									<h3>${template.name}</h3>
-									<p>learn more</p>
+									<p>点击查看</p>
 								</div>
 							</div>
 						</div>
@@ -138,17 +138,26 @@
 							data-toggle="modal">
 							<div class="portfolio-hover">
 								<div class="portfolio-hover-content">
-									<i class="fa fa-1x"> I am more than what you can see! </i>
+									<i class="fa fa-1x"> 
+									${resume.desc}
+									</i>
 								</div>
 							</div> <img src="${staticUrlPrefix}${resume.coverUrl}" class="img-responsive" alt="" width="360px" style="height: 260px;">
 						</a>
 						<div class="portfolio-caption">
 							<h4>${resume.name}</h4>
-							<p class="text-muted">${resume.name}</p>
+							<p class="text-muted">${resume.position}</p>
 						</div>
 					</div>
 				</c:forEach>
 			</div>
+			
+			<div class="row">
+				<div class="col-lg-12 text-center">
+					<h3 class="section-subheading text-muted"><a href="/resumes">查看更多>></a></h3>
+				</div>
+			</div>
+			
 		</div>
 	</section>
 

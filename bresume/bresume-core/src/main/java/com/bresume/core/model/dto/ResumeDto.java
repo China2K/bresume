@@ -4,7 +4,7 @@ import com.bresume.core.common.utils.DateUtils;
 import com.bresume.core.model.base.BaseDto;
 import com.bresume.core.model.entity.resume.Resume;
 
-public class ResumeDto extends BaseDto <Resume>{
+public class ResumeDto extends BaseDto<Resume> {
 
 	/**
 	 * 
@@ -27,16 +27,18 @@ public class ResumeDto extends BaseDto <Resume>{
 	private String coverUrl;
 	private boolean recommended;
 
+	private String position;
+
 	private int order;
 
 	private String desc;
-	
+
 	@Override
 	public ResumeDto convert(Resume resume) {
-		if (resume != null&&resume.getId()!=null) {
+		if (resume != null && resume.getId() != null) {
 			this.setId(resume.getId());
 			this.setName(resume.getName());
-			this.setIsPublic(resume.getIsPublic());		
+			this.setIsPublic(resume.getIsPublic());
 			this.setStatus(resume.getStatus());
 			this.setCreatedTime(DateUtils.date2String(resume.getCreatedTime(),
 					DateUtils.YYYY_MM_DD_HH_MM_SS_PATTERN));
@@ -44,7 +46,7 @@ public class ResumeDto extends BaseDto <Resume>{
 			this.setUpdatedTime(DateUtils.date2String(resume.getUpdatedTime(),
 					DateUtils.YYYY_MM_DD_HH_MM_SS_PATTERN));
 			this.setUser(UserDto.convert2Dto(resume.getUser()));
-			
+
 			this.setTemplateSn(resume.getTemplateSn());
 			this.setCoverUrl(resume.getCoverUrl());
 			this.setRecommended(resume.getRecommended());
@@ -52,14 +54,13 @@ public class ResumeDto extends BaseDto <Resume>{
 		return this;
 	}
 
-
 	public static ResumeDto convert2Dto(Resume resume) {
 
 		ResumeDto dto = new ResumeDto();
-		if (resume != null&&resume.getId()!=null) {
+		if (resume != null && resume.getId() != null) {
 			dto.setId(resume.getId());
 			dto.setName(resume.getName());
-			dto.setIsPublic(resume.getIsPublic());		
+			dto.setIsPublic(resume.getIsPublic());
 			dto.setStatus(resume.getStatus());
 			dto.setCreatedTime(DateUtils.date2String(resume.getCreatedTime(),
 					DateUtils.YYYY_MM_DD_HH_MM_SS_PATTERN));
@@ -67,7 +68,7 @@ public class ResumeDto extends BaseDto <Resume>{
 			dto.setUpdatedTime(DateUtils.date2String(resume.getUpdatedTime(),
 					DateUtils.YYYY_MM_DD_HH_MM_SS_PATTERN));
 			dto.setUser(UserDto.convert2Dto(resume.getUser()));
-			
+
 			dto.setTemplateSn(resume.getTemplateSn());
 			dto.setCoverUrl(resume.getCoverUrl());
 			dto.setRecommended(resume.getRecommended());
@@ -162,6 +163,14 @@ public class ResumeDto extends BaseDto <Resume>{
 
 	public void setDesc(String desc) {
 		this.desc = desc;
+	}
+
+	public String getPosition() {
+		return position;
+	}
+
+	public void setPosition(String position) {
+		this.position = position;
 	}
 
 }

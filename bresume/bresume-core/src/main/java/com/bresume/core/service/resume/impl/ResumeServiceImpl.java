@@ -22,6 +22,8 @@ import com.bresume.core.dao.resume.IResumeDao;
 import com.bresume.core.model.dto.ResumeDto;
 import com.bresume.core.model.entity.resume.Resume;
 import com.bresume.core.model.entity.resume.ResumeItemRef;
+import com.bresume.core.model.entity.resume.item.JobIntension;
+import com.bresume.core.service.resume.IJobIntenService;
 import com.bresume.core.service.resume.IResumeItemService;
 import com.bresume.core.service.resume.IResumeService;
 
@@ -36,22 +38,38 @@ public class ResumeServiceImpl extends GenericService<Resume, String> implements
 	@Resource
 	private IResumeItemService resumeItemService;
 
+	@Resource
+	private IJobIntenService jobIntenService;
+
 	@Override
 	public IGenericDao<Resume, String> getDao() {
 		return resumeDao;
 	}
 
 	@Override
-	public List<Resume> findHostResumes(Integer status) {
+	public List<ResumeDto> findHostResumes(Integer status) {
+		List<Resume> list = null;
 		if (status != null) {
-			return resumeDao.findAll(new Sort(Direction.ASC, "order"),
+			list = resumeDao.findAll(new Sort(Direction.ASC, "order"),
 					new SearchBean("recommended", "1", "="), new SearchBean(
 							"status", status.toString(), "="), new SearchBean(
 							"isPublic", "1", "="));
 		}
-		return resumeDao.findAll(new Sort(Direction.ASC, "order"),
+		list = resumeDao.findAll(new Sort(Direction.ASC, "order"),
 				new SearchBean("recommended", "1", "="), new SearchBean(
 						"isPublic", "1", "="));
+		List<ResumeDto> result = new ArrayList<ResumeDto>();
+		for (Resume resume : list) {
+			ResumeDto dto = ResumeDto.convert2Dto(resume);
+			JobIntension ji = jobIntenService.findUniqueBy("resume.id",
+					resume.getId());
+			if (ji != null) {
+				dto.setPosition(ji.getProfession());
+			}
+			result.add(dto);
+		}
+
+		return result;
 
 	}
 
@@ -59,8 +77,14 @@ public class ResumeServiceImpl extends GenericService<Resume, String> implements
 	public Page<ResumeDto> find(Pageable pageable, SearchBean... searchBeans) {
 		Page<Resume> list = resumeDao.findAll(pageable, searchBeans);
 		List<ResumeDto> content = new ArrayList<ResumeDto>();
-		for (Resume Resume : list.getContent()) {
-			content.add(ResumeDto.convert2Dto(Resume));
+		for (Resume resume : list.getContent()) {
+			ResumeDto dto = ResumeDto.convert2Dto(resume);
+			JobIntension ji = jobIntenService.findUniqueBy("resume.id",
+					resume.getId());
+			if (ji != null) {
+				dto.setPosition(ji.getProfession());
+			}
+			content.add(dto);
 		}
 		return new PageImpl<ResumeDto>(content, pageable,
 				list.getTotalElements());

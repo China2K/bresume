@@ -42,8 +42,7 @@
 								<li><a href="<c:url value='/user/settings'/>">账户设置</a></li>
 								<li class="divider"></li>
 								<li><a href="<c:url value='/user/logout'/>">安全退出</a></li>
-							</ul>
-						</li>
+							</ul></li>
 					</c:when>
 					<c:otherwise>
 						<li><a id="loginBtn" href="javascript:void(0);">登陆</a></li>

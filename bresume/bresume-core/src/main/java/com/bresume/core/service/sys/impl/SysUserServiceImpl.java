@@ -95,7 +95,7 @@ public class SysUserServiceImpl extends GenericService<SysUser, String>
 		LogUtils.getInstance().debugSystem(LogUtils.MODULE_PORTAL,
 				"Execute Logining", "userName", userName);
 		SysUser user;
-		System.out.println(userName.indexOf("@"));
+//		System.out.println(userName.indexOf("@"));
 		if (userName.contains("@")) {
 			user = sysUserDao.findUniqueBy("email", userName);
 		} else {

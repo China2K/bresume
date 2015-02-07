@@ -64,7 +64,7 @@ public class ResumeItemServiceImpl extends GenericService<ResumeItem, String>
 		try {
 			Class<? extends BaseDto> dtoClass = rit.getDtoClazz();
 			Class<? extends BaseEntity> entityClass = rit.getClazz();
-			System.out.println(dtoClass+"------"+entityClass);
+//			System.out.println(dtoClass+"------"+entityClass);
 			Method m_convert = dtoClass.getDeclaredMethod("convert", entityClass);
 			for(Object obj:eList){
 				

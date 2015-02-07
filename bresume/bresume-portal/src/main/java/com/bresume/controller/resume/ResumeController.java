@@ -102,7 +102,6 @@ public class ResumeController extends PortalController {
 			@RequestParam(value = "id", required = false) String id,
 			@RequestParam(value = "template", required = false) String sn,
 			Model model) {
-		System.out.println(id);
 		Resume resume = null;
 		int step = 1;
 
