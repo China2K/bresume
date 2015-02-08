@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.bresume</groupId>
 	<artifactId>bresume</artifactId>
@@ -15,20 +16,20 @@
 		<module>bresume-static</module>
 	</modules>
 
-	
+
 	<properties>
-		<!--set Encoding-->
+		<!--set Encoding -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		
+
 		<!-- Our Own -->
 		<bresume-core.version>1.0.1-SNAPSHOT</bresume-core.version>
 		<bresume-portal.version>1.0.1-SNAPSHOT</bresume-portal.version>
 		<bresume-admin.version>1.0.1-SNAPSHOT</bresume-admin.version>
 		<bresume-static.version>1.0.1-SNAPSHOT</bresume-static.version>
-	
+
 		<!-- 3rd Party -->
-	
+
 		<mysql.version>5.1.31</mysql.version>
 		<spring.version>3.2.9.RELEASE</spring.version>
 		<hibernate.version>4.2.14.Final</hibernate.version>
@@ -46,12 +47,11 @@
 					<server>tomcat7</server>
 					<port>${tomcat.port}</port>
 					<path>/${tomcat.contextroot}</path>
-					<!-- <staticContextPath>/upload</staticContextPath>
-    				<staticContextDocbase>D:/upload</staticContextDocbase> -->
+					<!-- <staticContextPath>/upload</staticContextPath> <staticContextDocbase>D:/upload</staticContextDocbase> -->
 				</configuration>
 			</plugin>
-			
-			
+
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -62,65 +62,26 @@
 					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
-			
-			<!-- <plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.16</version>
-				<configuration>
-					<includes>
-						<include>**/*Tester.java</include>
-					</includes>
-					<excludes>
-						<exclude>**/*Common*Tester.java</exclude>
-						<exclude>**/*RSTester.java</exclude>
-						<exclude>**/*ControllerTester.java</exclude>
-					</excludes>
-				</configuration>
-				<dependencies>
-					<dependency>
-						<groupId>org.apache.maven.surefire</groupId>
-						<artifactId>surefire-junit47</artifactId>
-						<version>2.16</version>
-					</dependency>
-				</dependencies>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-release-plugin</artifactId>
-				<version>2.4.2</version>
-				<configuration>
-					<username>${svn.username}</username>
-					<password>${svn.password}</password>
-				</configuration>
-				<dependencies>
-					<dependency>
-						<groupId>jdom</groupId>
-						<artifactId>jdom</artifactId>
-						<version>1.1</version>
-					</dependency>
-				</dependencies>
-			</plugin> -->
+
+			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-surefire-plugin</artifactId> 
+				<version>2.16</version> <configuration> <includes> <include>**/*Tester.java</include> 
+				</includes> <excludes> <exclude>**/*Common*Tester.java</exclude> <exclude>**/*RSTester.java</exclude> 
+				<exclude>**/*ControllerTester.java</exclude> </excludes> </configuration> 
+				<dependencies> <dependency> <groupId>org.apache.maven.surefire</groupId> 
+				<artifactId>surefire-junit47</artifactId> <version>2.16</version> </dependency> 
+				</dependencies> </plugin> <plugin> <groupId>org.apache.maven.plugins</groupId> 
+				<artifactId>maven-release-plugin</artifactId> <version>2.4.2</version> <configuration> 
+				<username>${svn.username}</username> <password>${svn.password}</password> 
+				</configuration> <dependencies> <dependency> <groupId>jdom</groupId> <artifactId>jdom</artifactId> 
+				<version>1.1</version> </dependency> </dependencies> </plugin> -->
 		</plugins>
 	</build>
 
-	<!-- <reporting>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-checkstyle-plugin</artifactId>
-				<version>2.11</version>
-				<reportSets>
-					<reportSet>
-						<reports>
-							<report>checkstyle</report>
-						</reports>
-					</reportSet>
-				</reportSets>
-			</plugin>
-		</plugins>
-	</reporting> -->
-	
+	<!-- <reporting> <plugins> <plugin> <groupId>org.apache.maven.plugins</groupId> 
+		<artifactId>maven-checkstyle-plugin</artifactId> <version>2.11</version> 
+		<reportSets> <reportSet> <reports> <report>checkstyle</report> </reports> 
+		</reportSet> </reportSets> </plugin> </plugins> </reporting> -->
+
 	<dependencies>
 		<dependency>
 			<groupId>mysql</groupId>
@@ -152,6 +113,13 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+			<version>${spring.version}</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
 			<artifactId>spring-context-support</artifactId>
 			<version>${spring.version}</version>
 			<type>jar</type>
@@ -164,6 +132,15 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
+		
+	<!-- 	<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-asm</artifactId>
+			<version>3.1.4.RELEASE</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency> -->
+		
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
@@ -178,6 +155,12 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.10</version>
+		</dependency>
+
 		<dependency>
 			<groupId>com.belerweb</groupId>
 			<artifactId>pinyin4j</artifactId>
@@ -255,6 +238,12 @@
 			<version>3.0.8</version>
 			<type>jar</type>
 			<scope>compile</scope>
+			<exclusions>
+				<exclusion>
+					<artifactId>javassist</artifactId>
+					<groupId>javassist</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>commons-beanutils</groupId>
@@ -299,14 +288,14 @@
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
-	  		<groupId>javax.servlet</groupId>
-	  		<artifactId>servlet-api</artifactId>
-	  		<version>2.5</version>
-	  		<type>jar</type>
-	  		<scope>provided</scope>
-	  	</dependency>
-	  	
-	  	<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<type>jar</type>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
 			<groupId>c3p0</groupId>
 			<artifactId>c3p0</artifactId>
 			<version>0.9.1.2</version>
@@ -321,20 +310,19 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>commons-httpclient</groupId>
 			<artifactId>commons-httpclient</artifactId>
 			<version>3.1</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-core-asl</artifactId>
 			<version>1.8.5</version>
 		</dependency>
-		
 	</dependencies>
-	
+
 
 </project>

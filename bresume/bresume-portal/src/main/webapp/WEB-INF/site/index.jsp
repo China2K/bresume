@@ -7,6 +7,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
+<link rel="shortcut icon" href="/resource/icon/1.ico"/>
+<link rel="bookmark" href="/resource/icon/1.ico"/>
 <meta name="description" content="">
 <meta name="author" content="">
 

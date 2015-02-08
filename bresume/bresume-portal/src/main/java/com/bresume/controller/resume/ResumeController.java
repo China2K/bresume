@@ -25,6 +25,7 @@ import com.bresume.core.common.base.controller.PortalController;
 import com.bresume.core.common.constant.IConstants;
 import com.bresume.core.common.constant.enums.CommonStatus;
 import com.bresume.core.common.constant.enums.ResumeItemType;
+import com.bresume.core.common.constant.enums.UserStatus;
 import com.bresume.core.common.utils.CommonUtils;
 import com.bresume.core.common.utils.search.SearchBean;
 import com.bresume.core.model.dto.LoginUser;
@@ -37,6 +38,7 @@ import com.bresume.core.service.resume.IResumeItemRefService;
 import com.bresume.core.service.resume.IResumeItemService;
 import com.bresume.core.service.resume.IResumeService;
 import com.bresume.core.service.resume.ITemplateService;
+import com.bresume.core.service.user.IUserService;
 
 @RequestMapping("/resume")
 @Controller
@@ -52,6 +54,9 @@ public class ResumeController extends PortalController {
 
 	@Resource
 	private IResumeItemRefService resumeItemRefService;
+	
+	@Resource
+	private IUserService userService;
 
 	@RequestMapping("/changeResumeCover")
 	public @ResponseBody JSONObject changeResumeCover(
@@ -102,6 +107,13 @@ public class ResumeController extends PortalController {
 			@RequestParam(value = "id", required = false) String id,
 			@RequestParam(value = "template", required = false) String sn,
 			Model model) {
+		String uid = this.getCurrentUserId();
+		User user = userService.findOne(uid);
+		if(user.getStatus().intValue()!=UserStatus.ACTIVE.getCode()){
+			model.addAttribute("message", "您的账户未激活，请检查邮箱，如原邮件收到请到用户设置中重新发送激活邮件");
+			return "site/error.jsp";
+		}
+		
 		Resume resume = null;
 		int step = 1;
 
@@ -112,6 +124,10 @@ public class ResumeController extends PortalController {
 			step = 3;
 		} else {
 			resume = new Resume();
+			if (CommonUtils.isNotEmpty(sn)) {
+				step = 2;
+				resume.setTemplateSn(sn);
+			}
 		}
 
 		Template template = templateService.findUniqueBy("sn", sn);
@@ -288,17 +304,14 @@ public class ResumeController extends PortalController {
 		return this.toJSONResult(true, "保存成功");
 	}
 
-	
-
 	@RequestMapping(value = "/getScore")
 	public @ResponseBody JSONObject getScore(
 			@RequestParam(value = "id", required = true) String id) {
 		Resume resume = resumeService.findOne(id);
 		if (resume == null)
 			return this.toJSONResult(false, "未找到");
-		int proc =resumeService.getScore(resume);
+		int proc = resumeService.getScore(resume);
 		return this.toJSONResult(true, proc);
 	}
-
 
 }

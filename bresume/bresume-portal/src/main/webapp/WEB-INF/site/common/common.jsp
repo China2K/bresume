@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE HTML>
+<link rel="shortcut icon" href="/resource/icon/1.ico"/>
+<link rel="bookmark" href="/resource/icon/1.ico"/>
 <!-- Bootstrap Core CSS -->
 <link href="<c:url value='/resource/site/css/bootstrap.min.css'/>"
 	rel="stylesheet">

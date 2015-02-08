@@ -92,6 +92,4 @@
 		<property name="order" value="1" />
 	</bean>
 	
-	
-	 <import resource="spring-cxf.xml"/>
 </beans>

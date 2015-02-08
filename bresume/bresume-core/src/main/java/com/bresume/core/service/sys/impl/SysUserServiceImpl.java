@@ -22,6 +22,7 @@ import com.bresume.core.dao.sys.ISysUserDao;
 import com.bresume.core.model.entity.sys.SysUser;
 import com.bresume.core.service.sys.ISysUserService;
 
+
 @Service
 @Transactional
 public class SysUserServiceImpl extends GenericService<SysUser, String>

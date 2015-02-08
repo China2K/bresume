@@ -84,13 +84,25 @@
 								<label class="col-md-3 control-label" for="user_email">邮箱
 									<abbr title="required">*</abbr>
 								</label>
-								<div class="input-group col-md-5">
-									<span class="input-group-addon"><i
-										class="fa fa-envelope"></i></span><input autofocus="autofocus"
-										value="${email}" disabled="disabled" class="form-control"
-										id="email_" name="email" placeholder="邮箱地址"
-										required="required">
+								<div class=" col-md-5">
+									<div class="input-group">
+										<span class="input-group-addon"><i
+											class="fa fa-envelope"></i></span><input autofocus="autofocus"
+											value="${email}" disabled="disabled" class="form-control"
+											id="email_" name="email" placeholder="邮箱地址"
+											required="required">
+									</div>
 								</div>
+								<c:if test="${ reActive=='true'}">
+									<div class="col-md-2 text-center">
+										<span style="color: #999999">未激活</span>
+									</div>
+									<div class="col-md-2">
+										<button id="reEmail" class="btn btn-info">重发激活邮件</button>
+									</div>
+								</c:if>
+
+
 							</div>
 						</c:otherwise>
 					</c:choose>
@@ -102,9 +114,10 @@
 				<h3 class="section_title">
 					<i class="fa fa-key"></i>修改密码
 				</h3>
-				<form accept-charset="UTF-8" action="/user/updatePWD" onsubmit="return false;"
-					id="upt_pwd_form" class="simple_form form-horizontal"
-					id="setting-password" method="post">
+				<form accept-charset="UTF-8" action="/user/updatePWD"
+					onsubmit="return false;" id="upt_pwd_form"
+					class="simple_form form-horizontal" id="setting-password"
+					method="post">
 					<div class="form-group">
 						<label class="col-md-3 control-label" for="user_current_password">当前密码
 							<abbr title="required">*</abbr>
@@ -123,9 +136,9 @@
 
 						<div class="input-group col-md-5">
 							<span class="input-group-addon"><i class="fa fa-key"></i></span><input
-								class="form-control validate[required,minSize[6],maxSize[30]]" id="new_password"
-								name="new_password" placeholder="密码至少 6 位以上" required="required"
-								type="password">
+								class="form-control validate[required,minSize[6],maxSize[30]]"
+								id="new_password" name="new_password" placeholder="密码至少 6 位以上"
+								required="required" type="password">
 						</div>
 					</div>
 					<div class="form-group">
@@ -261,8 +274,8 @@
 
 			var a = $("#new_password").val();
 			var b = $("#user_password_confirmation").val();
-			
-			if (a === b==false) {
+
+			if (a === b == false) {
 				$('#user_password_confirmation').validationEngine('showPrompt',
 						"两次密码输入不一致", 'error');
 				return false;
@@ -279,6 +292,21 @@
 						}
 					});
 		}
+
+		$("#reEmail").click(function() {
+			$.ajax({
+				url : "/user/reEmail",
+				type : "POST",
+				dataType : "json",
+				success : function(resp) {
+					alert(resp.message);
+					$("#reEmail").attr("disabled", true);
+					setTimeout(function() {
+						$("#reEmail").removeAttr("disabled");
+					}, 60000);
+				}
+			});
+		});
 	</script>
 
 

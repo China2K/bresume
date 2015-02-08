@@ -39,13 +39,13 @@
 								</div>
 								<div class="info">
 									<h3>${template.name}</h3>
-									<p><</p>
+									<p>以此创建简历</p>
 								</div>
 							</a>
 						</div>
 
 						<div>
-							<a href=""
+							<a href="${template.siteUrl}"
 								class="btn btn-default btn btn-primary btn-lg btn-block">查看详细</a>
 						</div>
 					</div>
@@ -59,15 +59,6 @@
 		<div class="bttbg"></div>
 	</div>
 
-
-
-
-
-
-
-	<!-- jQuery -->
-	<script type="text/javascript"
-		src="<c:url value ='/resource/site/js/jquery.js'/>" charset="UTF-8"></script>
 
 	<script type="text/javascript"
 		src="<c:url value ='/resource/site/js/bootstrap.min.js'/>"></script>

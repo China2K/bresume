@@ -50,13 +50,13 @@
 			<artifactId>bresume-core</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-		<dependency>
+<!-- 		<dependency>
 			<groupId>jstl</groupId>
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 			<type>jar</type>
 			<scope>compile</scope>
-		</dependency>
+		</dependency> -->
 		<!-- <dependency>
 			<groupId>org.sitemesh</groupId>
 			<artifactId>sitemesh</artifactId>

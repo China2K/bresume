@@ -272,6 +272,11 @@ public class UserController extends AuthController {
 	public String settings(ModelMap model) {
 		LoginUser loginUser = this.getCurrentLoginUser();
 		User user = userService.findOne(loginUser.getId());
+		if (user.getStatus().intValue() == UserStatus.INTITAL.getCode()) {
+			model.addAttribute("reActive", true);
+		}else{
+			model.addAttribute("reActive", false);
+		}
 		List<BAuth> auths = user.getAuths();
 
 		model.addAttribute("email", user.getEmail());
@@ -285,6 +290,29 @@ public class UserController extends AuthController {
 			}
 		}
 		return "site/settings.jsp";
+	}
+
+	@RequestMapping("/reEmail")
+	public @ResponseBody JSONObject reActiveEmail(ModelMap model) {
+		LoginUser loginUser = this.getCurrentLoginUser();
+		if (loginUser == null)
+			return this.toJSONResult(false, "非法操作");
+		User user = userService.findOne(loginUser.getId());
+		if (user.getStatus().intValue() != UserStatus.INTITAL.getCode()) {
+			return this.toJSONResult(false, "该账户已被管理员禁用，请联系管理员");
+		}
+		UserVerified uv = verifiedService.findUniqueBy("user.id", user.getId());
+		if (uv == null) {
+			uv = new UserVerified(user);
+			verifiedService.save(uv);
+		}
+		// 发送注册成功的邮件
+		if (CommonUtils.isNotEmpty(user.getEmail())) {
+			sendRegisterMail(user, uv.getCode());
+		}else{
+			return this.toJSONResult(false, "请先完善您的邮箱信息！");
+		}
+		return this.toJSONResult(true, "激活邮件已经重新发送，请查阅");
 	}
 
 	@RequestMapping("/updatePWD")
