@@ -65,7 +65,6 @@
 					<s:option value="4">博士</s:option>
 					<s:option value="0">技能培训</s:option>
 				</s:select>
-
 			</div>
 
 		</div>

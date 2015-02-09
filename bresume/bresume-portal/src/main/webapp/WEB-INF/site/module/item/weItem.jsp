@@ -43,7 +43,7 @@
 			<div class="form-group col-md-6">
 				<label for="desc" class="col-md-3 control-label">公司</label>
 				<div class="col-md-9">
-					<s:input path="companyName" id="companyName" class="form-control"
+					<s:input path="companyName" id="companyName" class="form-control validate[required,maxSize[20]]"
 						placeholder="不超过20个字符" />
 				</div>
 			</div>
@@ -71,7 +71,7 @@
 			<div class="form-group col-md-6">
 				<label for="desc" class="col-md-3 control-label">职位</label>
 				<div class="col-md-9">
-					<s:input path="position" id="position" class="form-control"
+					<s:input path="position" id="position" class="form-control validate[required,maxSize[20]]"
 						placeholder="不超过20个字符" />
 				</div>
 			</div>

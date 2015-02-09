@@ -14,11 +14,13 @@
 		<div class="row item-skill" id="item_${status.index}"
 			data-index="${status.index}">
 			<input type="hidden" name="items[${status.index}].id"
-				id="form_skill_id_${status.index}" value="${skill.id}" />
+				id="form_skill_id_${status.index}" value="${skill.id}" /> <input
+				type="hidden" name="items[${status.index}].status"
+				id="form_skill_status_${status.index}" />
 			<div class="form-group col-md-4">
 				<label for="name" class="col-md-3 control-label">技能</label>
 				<div class="col-md-9">
-					<input name="items[${status.index}].name" class="form-control"
+					<input name="items[${status.index}].name" class="form-control validate[required,maxSize[20]]"
 						value="${skill.name}" />
 				</div>
 			</div>
@@ -26,7 +28,7 @@
 				<label for="desc" class="col-md-5 control-label">使用时间</label>
 				<div class="col-md-7">
 					<input name="items[${status.index}].masterTime"
-						class="form-control" style="width: 65px; display: inline-block;"
+						class="form-control validate[required,custom[integer],maxSize[500]]" style="width: 65px; display: inline-block;"
 						value="${skill.masterTime}" /> 月
 				</div>
 			</div>
@@ -44,6 +46,11 @@
 				</div>
 			</div>
 
+			<a href="javascript:remove_skill_item(${status.index});"
+				class="btn btn-warning btn-sm ladda-button linkbutton skill-item-min"
+				data-style="expand-right" title="" data-libid="38"
+				data-original-title="去除此栏目"><span
+				class="glyphicon glyphicon-minus"></span></a>
 		</div>
 
 
@@ -69,16 +76,18 @@
 <div class="row item-skill" id="item_copy" data-index="copy"
 	hidden="hidden">
 	<input type="hidden" name="items[copy].id" id="form_skill_id_copy" />
+	<input type="hidden" name="items[copy].status"
+		id="form_skill_status_copy" />
 	<div class="form-group col-md-4">
 		<label for="name" class="col-md-3 control-label">技能</label>
 		<div class="col-md-9">
-			<input name="items[copy].name" class="form-control" />
+			<input name="items[copy].name" class="form-control validate[required,maxSize[20]]" />
 		</div>
 	</div>
 	<div class="form-group col-md-4">
 		<label for="desc" class="col-md-5 control-label">使用时间</label>
 		<div class="col-md-7">
-			<input name="items[copy].masterTime" class="form-control"
+			<input name="items[copy].masterTime" class="form-control validate[required,custom[integer],maxSize[500]]"
 				style="width: 65px; display: inline-block;" /> 月
 		</div>
 	</div>
@@ -94,18 +103,32 @@
 			</select>
 		</div>
 	</div>
-
+	<a href="javascript:remove_skill_item(copy);"
+		class="btn btn-warning btn-sm ladda-button linkbutton skill-item-min"
+		data-style="expand-right" title="" data-libid="38"
+		data-original-title="去除此栏目"><span
+		class="glyphicon glyphicon-minus"></span></a>
 </div>
 
 <script type="text/javascript">
+	function remove_skill_item(key) {
+		var id=$("#form_skill_id_"+ key).val();
+		if(id==null||id==""||id=='undefined'){
+			$("#item_" + key).remove();
+		}else{
+			$("#form_skill_status_" + key).val(4);
+			$("#item_" + key).css('display', 'none');
+		}
+		
+	}
 	function add_skill_item(key) {
 		var new_item = document.getElementById('item_copy').outerHTML;//$("#item_copy").clone().html();
 		new_item = new_item.replaceAll("copy", key, true);
 		console.log(new_item);
-		if(key==1){
+		if (key == 1) {
 			$("#skills_form #form_skill_resumeId").after(new_item);
-		}else{
-		$("#skills_form .item-skill").last().after(new_item);
+		} else {
+			$("#skills_form .item-skill").last().after(new_item);
 		}
 		$("#item_" + key).show();
 	}

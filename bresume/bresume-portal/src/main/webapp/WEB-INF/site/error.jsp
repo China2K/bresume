@@ -29,6 +29,13 @@
 .right-dashed {
 	border-right: 1px dashed #ccc;
 }
+
+.message-container{
+font-family: Tahoma, Verdana, 微软雅黑, 新宋体;
+font-size: 18px;
+min-height: 450px;
+line-height: 300px;
+}
 </style>
 
 
@@ -37,9 +44,7 @@
 <body id="page-top" class="index">
 	<%@include file="common/header.jsp"%>
 
-	<div class="container wrap">
-		<div class="modal-content col-md-8 col-md-offset-2"
-			style="margin-top: 100px;"></div>
+	<div class="container text-center message-container">
 			${message}
 	</div>
 

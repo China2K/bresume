@@ -41,7 +41,7 @@
 
 			<label for="projectName" class="col-md-3 control-label">项目名称</label>
 			<div class="col-md-9">
-				<s:input class="form-control" id="projectName"
+				<s:input class="form-control validate[required,maxSize[20]]" id="projectName"
 					placeholder="不超过20个字符" path="projectName" />
 			</div>
 		</div>
