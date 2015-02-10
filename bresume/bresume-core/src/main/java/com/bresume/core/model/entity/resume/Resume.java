@@ -56,6 +56,8 @@ public class Resume extends BaseEntity {
 
 	@Column(name = "SCORE")
 	public Integer getScore() {
+		if(score==null)
+			return 0;
 		return score;
 	}
 

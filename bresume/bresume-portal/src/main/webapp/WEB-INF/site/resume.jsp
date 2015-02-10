@@ -55,14 +55,16 @@
 
 		<div class="row">
 
-			<div class="col-md-8" id="pro-area">
+			<div class="col-md-7" id="pro-area">
 				<div class="progress" id="progress-bar-div" title=" ${resume.score}%">
 					<div class="progress-bar progress-bar-striped" role="progressbar"
 						aria-valuenow="${resume.score}" aria-valuemin="0"
 						aria-valuemax="100" style="width: ${resume.score}%">
-						<span class="sr-only">100% Complete</span>
 					</div>
 				</div>
+			</div>
+			<div class="col-md-1">
+				<span class="text-center" id="score-text" style="line-height:50px;">${resume.score}%</span>
 			</div>
 
 			<div class="col-md-4" id="step-control">
@@ -504,6 +506,8 @@
 					proportion);
 
 			$("#progress-bar-div .progress-bar").css("width", proportion + "%");
+			
+			$("#score-text").text(proportion + "%");
 		}
 	</script>
 

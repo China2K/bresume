@@ -54,7 +54,7 @@ public class ResumeController extends PortalController {
 
 	@Resource
 	private IResumeItemRefService resumeItemRefService;
-	
+
 	@Resource
 	private IUserService userService;
 
@@ -71,8 +71,14 @@ public class ResumeController extends PortalController {
 
 	@RequestMapping("/delete")
 	public @ResponseBody JSONObject changeResumeCover(
+			HttpServletRequest request,
 			@RequestParam(value = "id", required = true) String id) {
 		Resume resume = resumeService.findOne(id);
+		if (!this.getCurrentUserId().equals(resume.getUser().getId())) {
+			LOGGER.error(getIpAddress(request) + " - " + getCurrentUserId()
+					+ ":正在进行非法操作！");
+			return this.toJSONResult(false, "非法操作");
+		}
 		resume.setStatus(CommonStatus.DELETED.getCode());
 		resume.setUpdatedTime(new Date());
 		resumeService.update(resume);
@@ -109,16 +115,24 @@ public class ResumeController extends PortalController {
 			Model model) {
 		String uid = this.getCurrentUserId();
 		User user = userService.findOne(uid);
-		if(user.getStatus().intValue()!=UserStatus.ACTIVE.getCode()){
+		if (user.getStatus().intValue() != UserStatus.ACTIVE.getCode()) {
 			model.addAttribute("message", "您的账户未激活，请检查邮箱，如原邮件收到请到用户设置中重新发送激活邮件");
 			return "site/error.jsp";
 		}
-		
+
 		Resume resume = null;
 		int step = 1;
 
 		if (CommonUtils.isNotEmpty(id)) {
 			resume = resumeService.findOne(id);
+
+			if (!this.getCurrentUserId().equals(resume.getUser().getId())) {
+				LOGGER.error(getIpAddress(request) + " - " + getCurrentUserId()
+						+ ":正在进行非法操作！");
+				model.addAttribute("message", "您正在进行非法操作！");
+				return "site/error.jsp";
+			}
+
 			sn = resume.getTemplateSn();
 			resume.setScore(resumeService.getScore(resume));
 			step = 3;

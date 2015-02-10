@@ -137,6 +137,13 @@ public class IndexController extends PortalController {
 		if (score < 51) {
 			return "404";
 		}
+		int status = resume.getStatus();
+		boolean isPub = resume.getIsPublic();
+		// 逻辑判断，在非激活状态，或者非公开状态下，只有本人可以查看
+		if ((status != CommonStatus.ACTIVE.getCode() || !isPub)
+				&& !this.getCurrentUserId().equals(resume.getUser().getId())) {
+			return "404";
+		}
 		model.addAttribute("resume", resume);
 
 		String resumeId = resume.getId();
