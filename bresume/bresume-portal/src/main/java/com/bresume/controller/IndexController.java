@@ -1,11 +1,18 @@
 package com.bresume.controller;
 
+import java.io.BufferedOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONObject;
 
@@ -141,7 +148,8 @@ public class IndexController extends PortalController {
 		boolean isPub = resume.getIsPublic();
 		// 逻辑判断，在非激活状态，或者非公开状态下，只有本人可以查看
 		if ((status != CommonStatus.ACTIVE.getCode() || !isPub)
-				&& !this.getCurrentUserId().equals(resume.getUser().getId())) {
+				&& (this.getCurrentUserId() == null || !this.getCurrentUserId()
+						.equals(resume.getUser().getId()))) {
 			return "404";
 		}
 		model.addAttribute("resume", resume);
@@ -193,6 +201,49 @@ public class IndexController extends PortalController {
 		}
 
 		return page;
+	}
+
+	@RequestMapping(value = "/resumes/{resumeName}/download")
+	public void download(HttpServletRequest request, HttpServletResponse resp,
+			@PathVariable String resumeName) {
+		String url = "http://www.bresume.com/resumes/" + resumeName;
+
+		URL u;
+		InputStream is = null;
+		OutputStream os = null;
+
+		try {
+			u = new URL(url);
+			is = u.openStream();
+			byte[] buffer = new byte[is.available()];
+			is.read(buffer);
+			// 清空response
+			resp.reset();
+			resp.setContentType("application/octet-stream");
+			resp.setCharacterEncoding("UTF-8");
+			// 设置response的Header
+			resp.addHeader("Content-Disposition", "attachment;filename="
+					+ URLEncoder.encode(resumeName + ".html", "UTF-8")); // 处理中文文件名
+			resp.addHeader("Content-Length", "" + buffer.length);
+			os = new BufferedOutputStream(resp.getOutputStream());
+			os.write(buffer);
+			os.flush();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (is != null) {
+					is.close();
+				}
+				if (os != null) {
+					os.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+		}
 	}
 
 	private EduExperienceDto getMixDegree(List<EduExperienceDto> list) {

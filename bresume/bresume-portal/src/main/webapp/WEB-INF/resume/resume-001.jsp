@@ -8,7 +8,7 @@
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!-->
-<html class="no-js">
+<html>
 <!--<![endif]-->
 <head>
 <meta charset="utf-8">
@@ -16,20 +16,20 @@
 <title>${persionalInfo.name}-简历</title>
 <meta name="description" content="">
 <link rel="stylesheet"
-	href="../resource/templates/template-bresume-001/css/normalize.min.css">
+	href="http://www.bresume.com/resource/templates/template-bresume-001/css/normalize.min.css">
 <link rel="stylesheet"
-	href="../resource/templates/template-bresume-001/css/main.css">
+	href="http://www.bresume.com/resource/templates/template-bresume-001/css/main.css">
 <script
-	src="../resource/templates/template-bresume-001/js/vendor/jquery.min.js"></script>
+	src="http://www.bresume.com/resource/templates/template-bresume-001/js/vendor/jquery.min.js"></script>
 <script
-	src="../resource/templates/template-bresume-001/js/vendor/jquery.hashchange.min.js"></script>
+	src="http://www.bresume.com/resource/templates/template-bresume-001/js/vendor/jquery.hashchange.min.js"></script>
 <script
-	src="../resource/templates/template-bresume-001/js/vendor/jquery.easytabs.min.js"></script>
-<script src="../resource/templates/template-bresume-001/js/main.js"></script>
+	src="http://www.bresume.com/resource/templates/template-bresume-001/js/vendor/jquery.easytabs.min.js"></script>
+<script src="http://www.bresume.com/resource/templates/template-bresume-001/js/main.js"></script>
 
 <!--[if lt IE 9]>
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-      <script>window.html5 || document.write('<script src="../resource/templates/template-bresume-001/js/vendor/html5shiv.js"><\/script>')</script>
+      <script>window.html5 || document.write('<script src="http://www.bresume.com/resource/templates/template-bresume-001/js/vendor/html5shiv.js"><\/script>')</script>
       <![endif]-->
 
 
@@ -261,7 +261,7 @@ body {
 							<div class="g1">
 								<div class="image">
 									<img
-										src="../resource/templates/template-bresume-001/images/1.jpg"
+										src="http://www.bresume.com/resource/templates/template-bresume-001/images/1.jpg"
 										width="310px;" height="260px;" alt="">
 									<div class="image-overlay">
 										<div class="image-link"></div>
@@ -271,7 +271,7 @@ body {
 							<div class="g1">
 								<div class="image">
 									<img
-										src="../resource/templates/template-bresume-001/images/2.jpg"
+										src="http://www.bresume.com/resource/templates/template-bresume-001/images/2.jpg"
 										width="310px;" height="260px;" alt="">
 									<div class="image-overlay">
 										<div class="image-link"></div>
@@ -281,7 +281,7 @@ body {
 							<div class="g1">
 								<div class="image">
 									<img
-										src="../resource/templates/template-bresume-001/images/3.jpg"
+										src="http://www.bresume.com/resource/templates/template-bresume-001/images/3.jpg"
 										width="310px;" height="260px;" alt="">
 									<div class="image-overlay">
 										<div class="image-link"></div>
@@ -292,7 +292,7 @@ body {
 							<div class="g1">
 								<div class="image">
 									<img
-										src="../resource/templates/template-bresume-001/images/4.jpg"
+										src="http://www.bresume.com/resource/templates/template-bresume-001/images/4.jpg"
 										width="310px;" height="260px;" alt="">
 									<div class="image-overlay">
 										<div class="image-link"></div>
@@ -302,7 +302,7 @@ body {
 							<div class="g1">
 								<div class="image">
 									<img
-										src="../resource/templates/template-bresume-001/images/5.jpg"
+										src="http://www.bresume.com/resource/templates/template-bresume-001/images/5.jpg"
 										width="310px;" height="260px;" alt="">
 									<div class="image-overlay">
 										<div class="image-link"></div>
@@ -312,7 +312,7 @@ body {
 							<div class="g1">
 								<div class="image">
 									<img
-										src="../resource/templates/template-bresume-001/images/6.jpg"
+										src="http://www.bresume.com/resource/templates/template-bresume-001/images/6.jpg"
 										width="310px;" height="260px;" alt="">
 									<div class="image-overlay">
 										<div class="image-link"></div>
