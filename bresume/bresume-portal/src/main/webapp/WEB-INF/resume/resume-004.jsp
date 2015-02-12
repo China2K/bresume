@@ -12,16 +12,16 @@
 	content="width=device-width, initial-scale=1, maximum-scale=1">
 <link href='http://fonts.useso.com/css?family=Open+Sans:400,600'
 	rel='stylesheet' type='text/css'>
-<link href="../resource/templates/template-bresume-004/css/style.css"
+<link href="http://www.bresume.com/resource/templates/template-bresume-004/css/style.css"
 	rel="stylesheet" type="text/css" media="all" />
 <link
-	href="../resource/templates/template-bresume-004/css/header_style1.css"
+	href="http://www.bresume.com/resource/templates/template-bresume-004/css/header_style1.css"
 	rel="stylesheet" type="text/css" media="all" />
 <link rel="stylesheet" type="text/css"
-	href="../resource/templates/template-bresume-004/css/slider.css" />
+	href="http://www.bresume.com/resource/templates/template-bresume-004/css/slider.css" />
 <!-- Owl Carousel Assets -->
 <link
-	href="../resource/templates/template-bresume-004/css/owl.carousel.css"
+	href="http://www.bresume.com/resource/templates/template-bresume-004/css/owl.carousel.css"
 	rel="stylesheet">
 
 <style type="text/css">
@@ -188,7 +188,7 @@ width: 600px !important;
 								<span class="circle"></span>
 								<!-- <div class="experience-img">
 									<img
-										src="../resource/templates/template-bresume-004/images/5.jpg"
+										src="http://www.bresume.com/resource/templates/template-bresume-004/images/5.jpg"
 										alt="">
 								</div> -->
 								<div class="experience-info clear-after">
@@ -248,9 +248,9 @@ width: 600px !important;
 
 
 		<script
-			src="../resource/templates/template-bresume-004/js/jquery.min.js"></script>
+			src="http://www.bresume.com/resource/templates/template-bresume-004/js/jquery.min.js"></script>
 		<script type="text/javascript"
-			src="../resource/templates/template-bresume-004/js/flexy-menu.js"></script>
+			src="http://www.bresume.com/resource/templates/template-bresume-004/js/flexy-menu.js"></script>
 		<script type="text/javascript">
 			$(document).ready(function() {
 				$(".flexy-menu").flexymenu({
@@ -262,9 +262,9 @@ width: 600px !important;
 		</script>
 
 		<script type="text/javascript"
-			src="../resource/templates/template-bresume-004/js/modernizr.custom.28468.js"></script>
+			src="http://www.bresume.com/resource/templates/template-bresume-004/js/modernizr.custom.28468.js"></script>
 		<script type="text/javascript"
-			src="../resource/templates/template-bresume-004/js/jquery.cslider.js"></script>
+			src="http://www.bresume.com/resource/templates/template-bresume-004/js/jquery.cslider.js"></script>
 		<script type="text/javascript">
 			$(function() {
 
@@ -277,7 +277,7 @@ width: 600px !important;
 		</script>
 		<!-- Prettify -->
 		<script
-			src="../resource/templates/template-bresume-004/js/owl.carousel.js"></script>
+			src="http://www.bresume.com/resource/templates/template-bresume-004/js/owl.carousel.js"></script>
 		<script>
 			$(document).ready(function() {
 
@@ -325,13 +325,13 @@ width: 600px !important;
 
 			});
 		</script>
-		<script src="../resource/templates/template-bresume-004/js/plugins.js"></script>
-		<script src="../resource/templates/template-bresume-004/js/script.js"></script>
+		<script src="http://www.bresume.com/resource/templates/template-bresume-004/js/plugins.js"></script>
+		<script src="http://www.bresume.com/resource/templates/template-bresume-004/js/script.js"></script>
 		<!-- scroll_top_btn -->
 		<script type="text/javascript"
-			src="../resource/templates/template-bresume-004/js/move-top.js"></script>
+			src="http://www.bresume.com/resource/templates/template-bresume-004/js/move-top.js"></script>
 		<script type="text/javascript"
-			src="../resource/templates/template-bresume-004/js/easing.js"></script>
+			src="http://www.bresume.com/resource/templates/template-bresume-004/js/easing.js"></script>
 		<script type="text/javascript">
 			$(document).ready(function() {
 

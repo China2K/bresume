@@ -128,7 +128,7 @@
 		var pager_selector = "#grid-pager";
 
 		//resize to fit page size
-		$(window).on(
+/* 		$(window).on(
 				'resize.jqGrid',
 				function() {
 					$(grid_selector).jqGrid('setGridWidth',
@@ -147,7 +147,7 @@
 									parent_column.width());
 						}, 0);
 					}
-				})
+				}) */
 
 		jQuery(grid_selector).jqGrid({
 			url : "/tem/list.do",

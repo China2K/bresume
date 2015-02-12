@@ -9,12 +9,12 @@
 <meta charset="UTF-8">
 <title>${persionalInfo.name}-简历</title>
 <link rel="stylesheet" type="text/css"
-	href="../resource/templates/template-bresume-002/styles/d.css">
+	href="http://www.bresume.com/resource/templates/template-bresume-002/styles/d.css">
 <link rel="stylesheet" type="text/css"
-	href="../resource/templates/template-bresume-002/styles/index.css">
+	href="http://www.bresume.com/resource/templates/template-bresume-002/styles/index.css">
 <script
-	data-main="../resource/templates/template-bresume-002/scripts/config"
-	src="../resource/templates/template-bresume-002/vendors/requirejs/require.js"></script>
+	data-main="http://www.bresume.com/resource/templates/template-bresume-002/scripts/config"
+	src="http://www.bresume.com/resource/templates/template-bresume-002/vendors/requirejs/require.js"></script>
 
 <!--[if lt IE 9]>
         <script>
@@ -79,7 +79,7 @@
 
 		<div class="circle">
 			<div class="js-picture"
-				js-source="../resource/templates/template-bresume-002/images/circle.png"></div>
+				js-source="http://www.bresume.com/resource/templates/template-bresume-002/images/circle.png"></div>
 		</div>
 
 		<div class="home-block">
@@ -277,6 +277,6 @@
 	</div>
 
 	<div class="js-picture backhome"
-		js-source="../resource/templates/template-bresume-002/images/backhome.png"></div>
+		js-source="http://www.bresume.com/resource/templates/template-bresume-002/images/backhome.png"></div>
 </body>
 </html>

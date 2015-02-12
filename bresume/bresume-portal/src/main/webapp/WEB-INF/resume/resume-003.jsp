@@ -9,21 +9,21 @@
 <meta charset="utf-8">
 <meta name="description" content="">
 <link rel="shortcut icon"
-	href="../resource/templates/template-bresume-003/ico/favicon.png">
+	href="http://www.bresume.com/resource/templates/template-bresume-003/ico/favicon.png">
 
 <title>${persionalInfo.name}-简历</title>
 
 <!-- Bootstrap core CSS -->
 <link
-	href="../resource/templates/template-bresume-003/css/bootstrap.css"
+	href="http://www.bresume.com/resource/templates/template-bresume-003/css/bootstrap.css"
 	rel="stylesheet">
 
 <!-- Custom styles for this template -->
-<link href="../resource/templates/template-bresume-003/css/main.css"
+<link href="http://www.bresume.com/resource/templates/template-bresume-003/css/main.css"
 	rel="stylesheet">
 
 <link rel="stylesheet"
-	href="../resource/templates/template-bresume-003/css/font-awesome.min.css">
+	href="http://www.bresume.com/resource/templates/template-bresume-003/css/font-awesome.min.css">
 
 <link
 	href='http://fonts.useso.com/css?family=Lato:300,400,700,300italic,400italic'
@@ -32,15 +32,15 @@
 	rel='stylesheet' type='text/css'>
 
 <script
-	src="../resource/templates/template-bresume-003/js/jquery.min.js"></script>
+	src="http://www.bresume.com/resource/templates/template-bresume-003/js/jquery.min.js"></script>
 <script type="text/javascript"
-	src="../resource/templates/template-bresume-003/js/smoothscroll.js"></script>
-<script src="../resource/templates/template-bresume-003/js/Chart.js"></script>
+	src="http://www.bresume.com/resource/templates/template-bresume-003/js/smoothscroll.js"></script>
+<script src="http://www.bresume.com/resource/templates/template-bresume-003/js/Chart.js"></script>
 
 <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
-      <script src="../resource/templates/template-bresume-003/js/html5shiv.js"></script>
-      <script src="../resource/templates/template-bresume-003/js/respond.min.js"></script>
+      <script src="http://www.bresume.com/resource/templates/template-bresume-003/js/html5shiv.js"></script>
+      <script src="http://www.bresume.com/resource/templates/template-bresume-003/js/respond.min.js"></script>
     <![endif]-->
 
 <style type="text/css">
@@ -377,6 +377,6 @@ body {
     ================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
 	<script
-		src="../resource/templates/template-bresume-003/js/bootstrap.js"></script>
+		src="http://www.bresume.com/resource/templates/template-bresume-003/js/bootstrap.js"></script>
 </body>
 </html>
