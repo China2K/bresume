@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONObject;
 
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
 import com.bresume.core.common.constant.IConstants;
+import com.bresume.core.common.constant.IPortalConstants;
 import com.bresume.core.common.exception.CoreException;
 import com.bresume.core.common.msg.MsgDescription;
 import com.bresume.core.common.utils.CommonUtils;
@@ -207,6 +210,27 @@ public abstract class BaseController extends SimpleFormController {
 			ip = request.getRemoteAddr();
 		}
 		return ip;
+	}
+	
+	
+	/**
+	 * 根据cookie名称，获取cookie的值
+	 * 
+	 * @param
+	 * @return
+	 * @throws
+	 */
+	protected String getFromCookie(String cookieName, HttpServletRequest request) {
+		String cookieStr = null;
+		Cookie[] cookies = request.getCookies();
+		if (cookies != null) {
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals(cookieName)) {
+					cookieStr = cookie.getValue();
+				}
+			}
+		}
+		return cookieStr;
 	}
 	
 }

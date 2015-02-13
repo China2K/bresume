@@ -30,23 +30,30 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bresume.core.common.base.controller.PortalController;
+import com.bresume.core.common.base.sys.SessionContextHolder;
 import com.bresume.core.common.constant.IConstants;
+import com.bresume.core.common.constant.IPortalConstants;
 import com.bresume.core.common.constant.enums.CommonStatus;
 import com.bresume.core.common.constant.enums.ContactStatus;
 import com.bresume.core.common.constant.enums.ResumeItemType;
+import com.bresume.core.common.exception.CoreException;
 import com.bresume.core.common.utils.CommonUtils;
 import com.bresume.core.common.utils.search.SearchBean;
+import com.bresume.core.common.utils.security.Encrypt;
+import com.bresume.core.model.dto.LoginUser;
 import com.bresume.core.model.dto.ResumeDto;
 import com.bresume.core.model.dto.item.EduExperienceDto;
 import com.bresume.core.model.entity.resume.Resume;
 import com.bresume.core.model.entity.resume.ResumeItemRef;
 import com.bresume.core.model.entity.resume.Template;
 import com.bresume.core.model.entity.user.Contact;
+import com.bresume.core.model.entity.user.User;
 import com.bresume.core.service.resume.IResumeItemRefService;
 import com.bresume.core.service.resume.IResumeItemService;
 import com.bresume.core.service.resume.IResumeService;
 import com.bresume.core.service.resume.ITemplateService;
 import com.bresume.core.service.user.IContactService;
+import com.bresume.core.service.user.IUserService;
 
 @RequestMapping("/")
 @Controller
@@ -76,6 +83,8 @@ public class IndexController extends PortalController {
 
 		model.addAttribute("hotTemplates", hotTemplates);
 		model.addAttribute("hotResumes", hotResumes);
+		
+//		setUserFromCookie(request);
 		return "/site/index.jsp";
 	}
 
@@ -261,5 +270,5 @@ public class IndexController extends PortalController {
 		}
 		return list.get(index);
 	}
-
+	
 }
