@@ -266,20 +266,19 @@
 					<li class="light-blue"><a data-toggle="dropdown" href="#"
 						class="dropdown-toggle"> <img class="nav-user-photo"
 							src="/resource/site/avatars/user.jpg" alt="Jason's Photo" /> <span
-							class="user-info"> <small>超级管理员</small> 
+							class="user-info"> <small>超级管理员</small>
 						</span> <i class="ace-icon fa fa-caret-down"></i>
 					</a>
 
 						<ul
 							class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
-							<li><a href="#"> <i class="ace-icon fa fa-cog"></i>
-									设置
+							<li><a href="#"> <i class="ace-icon fa fa-cog"></i> 设置
 							</a></li>
 
 							<li class="divider"></li>
 
-							<li><a href="/sys/user/logout.do"> <i class="ace-icon fa fa-power-off"></i>
-									退出
+							<li><a href="/sys/user/logout.do"> <i
+									class="ace-icon fa fa-power-off"></i> 退出
 							</a></li>
 						</ul></li>
 				</ul>
@@ -382,16 +381,16 @@
 						</a> <b class="arrow"></b></li>
 					</ul></li>
 
-				
+
 				<li class="hsub"><a href="#" class="dropdown-toggle"> <i
 						class="menu-icon fa fa-list"></i> <span class="menu-text">
-							简历管理  </span> <b class="arrow fa fa-angle-down"></b>
+							简历管理 </span> <b class="arrow fa fa-angle-down"></b>
 				</a> <b class="arrow"></b>
 
 					<ul class="submenu">
 						<li class="sub-nav-bar"><a href="javasrcipt:void(0);"
 							data-href="/page/resume/resumes.jsp" class="ajaxPage"> <i
-								class="menu-icon fa fa-caret-right"></i> 用户简历 
+								class="menu-icon fa fa-caret-right"></i> 用户简历
 						</a> <b class="arrow"></b></li>
 
 						<li class="sub-nav-bar"><a href="javasrcipt:void(0);"
@@ -531,34 +530,66 @@
 			event.preventDefault();
 			event.stopPropagation();
 			var url = a.attr("data-href");
-			$.ajax({
-				type : "GET",
-				url : url,
-				async : false,
-				cache : false,
-				dataType : "html",
-				error : function(request) {
-					if (request.status == "747") {
-						window.location.href = "/login.do";
-					} else {
-						alert("跳转页面出现错误");
+			if (url.endWith('.jsp')) {
+				$.ajax({
+					type : "post",
+					url : "/jsptransit.do?url=" + url,
+					async : false,
+					cache : false,
+					dataType : "html",
+					error : function(request) {
+						if (request.status == "747") {
+							window.location.href = "/login.do";
+						} else {
+							alert("跳转页面出现错误");
+						}
+					},
+					success : function(data) {
+						// 会寻找返回的HTML中是否
+						// 存在fullpage:true的注释，如果存在则整张页面改变（body里面内容替换为响应返回的html）
+						// 不想整张页面变化，则不需要别的操作
+						if (data.indexOf("<!--fullpage:true-->") >= 0) {
+							// 整个页面改变
+							$("body").html(data);
+						} else {
+							// 局部页面填充，改变 class=mainCont的内部
+							_mainContent.html(data);
+							// 改变面包屑
+							// changeCrumb(generateCrumbArray(a));
+						}
 					}
-				},
-				success : function(data) {
-					// 会寻找返回的HTML中是否
-					// 存在fullpage:true的注释，如果存在则整张页面改变（body里面内容替换为响应返回的html）
-					// 不想整张页面变化，则不需要别的操作
-					if (data.indexOf("<!--fullpage:true-->") >= 0) {
-						// 整个页面改变
-						$("body").html(data);
-					} else {
-						// 局部页面填充，改变 class=mainCont的内部
-						_mainContent.html(data);
-						// 改变面包屑
-						// changeCrumb(generateCrumbArray(a));
+				});
+			} else {
+
+				$.ajax({
+					type : "POST",
+					url : url,
+					async : false,
+					cache : false,
+					dataType : "html",
+					error : function(request) {
+						if (request.status == "747") {
+							window.location.href = "/login.do";
+						} else {
+							alert("跳转页面出现错误");
+						}
+					},
+					success : function(data) {
+						// 会寻找返回的HTML中是否
+						// 存在fullpage:true的注释，如果存在则整张页面改变（body里面内容替换为响应返回的html）
+						// 不想整张页面变化，则不需要别的操作
+						if (data.indexOf("<!--fullpage:true-->") >= 0) {
+							// 整个页面改变
+							$("body").html(data);
+						} else {
+							// 局部页面填充，改变 class=mainCont的内部
+							_mainContent.html(data);
+							// 改变面包屑
+							// changeCrumb(generateCrumbArray(a));
+						}
 					}
-				}
-			});
+				});
+			}
 
 			$(".index-nav-list li").removeClass("active");
 			//$(".index-nav-list li").removeClass("open");

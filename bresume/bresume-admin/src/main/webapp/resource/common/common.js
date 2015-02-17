@@ -1,3 +1,31 @@
+String.prototype.endWith = function(s) {
+	if (s == null || s == "" || this.length == 0 || s.length > this.length) {
+		return false;
+	}
+
+	if (this.substring(this.length - s.length) == s) {
+		return true;
+	} else {
+		return false;
+	}
+	return true;
+};
+
+String.prototype.startWith = function(s) {
+	if (s == null || s == "" || this.length == 0 || s.length > this.length) {
+		return false;
+	}
+	if (this.substr(0, s.length) == s) {
+		return true;
+	} else {
+		return false;
+	}
+	return true;
+};
+
+String.prototype.trim = function() {
+	return this.replace(/(^\s*)|(\s*$)/g, '');
+};
 function style_edit_form(form) {
 	// enable datepicker on "sdate" field and switches for "stock" field
 	form.find('input[name=sdate]').datepicker({
@@ -345,7 +373,7 @@ var _mainContent = $("div#page-container");
 
 /* for inside url forward */
 var subUrl = function(url) {
-	$(".tooltip").css("display","none");
+	$(".tooltip").css("display", "none");
 	// 主要内容部分，要来局部刷新不同模块的主要部分
 	$.ajax({
 		type : "GET",
@@ -377,34 +405,33 @@ var subUrl = function(url) {
 	});
 };
 
-function makeFileUpload(fileEle, imgEle, valueEle,upload_info) {
-	fileEle
-			.uploadify({
-				'uploader' : 'http://static.bresume.com/upload/uploadImg',
-				'swf' : '/resource/plugin/uploadify/uploadify.swf',
-				'cancelImage' : '/resource/plugin/uploadify/cancel.png',
-				'queueID' : 'imgFile',
-				'fileObjName' : 'imgFile',
-				'auto' : true,
-				'width' : 120,
-				'height' : 40,
-				'multi' : false,
-				'buttonText' : '上传图片',
-				'formData' : {
-					'upload_info' : upload_info,
-					'source' : 'ADMIN'
-				},
-				'onUploadSuccess' : function(file, data, response) {
-					data = JSON.parse(data);
-					console.log(data);
-					var res = data.success;
-					if (res === true) {
-						valueEle.val(data.message);
-						imgEle.attr("src", "http://static.bresume.com"+ data.message);
-					}else{
-						alert(data.message);
-					}
-				},
-			});
+function makeFileUpload(fileEle, imgEle, valueEle, upload_info) {
+	fileEle.uploadify({
+		'uploader' : 'http://static.bresume.com/upload/uploadImg',
+		'swf' : '/resource/plugin/uploadify/uploadify.swf',
+		'cancelImage' : '/resource/plugin/uploadify/cancel.png',
+		'queueID' : 'imgFile',
+		'fileObjName' : 'imgFile',
+		'auto' : true,
+		'width' : 120,
+		'height' : 40,
+		'multi' : false,
+		'buttonText' : '上传图片',
+		'formData' : {
+			'upload_info' : upload_info,
+			'source' : 'ADMIN'
+		},
+		'onUploadSuccess' : function(file, data, response) {
+			data = JSON.parse(data);
+			console.log(data);
+			var res = data.success;
+			if (res === true) {
+				valueEle.val(data.message);
+				imgEle.attr("src", "http://static.bresume.com" + data.message);
+			} else {
+				alert(data.message);
+			}
+		},
+	});
 
 }

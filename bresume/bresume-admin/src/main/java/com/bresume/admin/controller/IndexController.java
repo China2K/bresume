@@ -23,6 +23,14 @@ public class IndexController extends AdminController {
 
 	@Resource
 	private IContactService constactService;
+	
+	@RequestMapping("/jsptransit.do")
+	public String jspTransfer(HttpServletRequest request)
+	{
+		String url = request.getParameter("url");
+		return url;
+	}
+	
 
 	@RequestMapping("/index.do")
 	public String index(HttpServletRequest request, Model model) {
