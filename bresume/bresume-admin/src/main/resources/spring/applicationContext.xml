@@ -17,9 +17,10 @@
 	<!--默认的注解映射的支持 -->
 	<mvc:annotation-driven />
 	<context:component-scan base-package="com.bresume" />
-	
-	<!--加载配置文件-->
-	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+
+	<!--加载配置文件 -->
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<list>
 				<value>classpath*:jdbc.properties</value>
@@ -27,7 +28,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
 		<property name="driverClass" value="${jdbc.driverClassName}"></property>
 		<property name="jdbcUrl" value="${jdbc.url}"></property>
@@ -70,7 +71,7 @@
 		</property>
 	</bean>
 
-	<!-- 事务管理-->
+	<!-- 事务管理 -->
 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
@@ -87,17 +88,17 @@
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass"
 			value="org.springframework.web.servlet.view.JstlView" />
-	<!-- 	<property name="prefix" value="/page/" />
-		<property name="order" value="1" /> -->
+		<property name="prefix" value="/WEB-INF/" />
+		<property name="order" value="1" />
 	</bean>
-	
-	<!--①邮件服务器-->
+
+	<!--①邮件服务器 -->
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-		<property name="protocol" value="${mail.protocol}"/>
-		<property name="host" value="${mail.host}"/>
+		<property name="protocol" value="${mail.protocol}" />
+		<property name="host" value="${mail.host}" />
 		<property name="port" value="${mail.port}" />
-		<property name="username" value="${mail.username}"/>
-		<property name="password" value="${mail.password}"/>
+		<property name="username" value="${mail.username}" />
+		<property name="password" value="${mail.password}" />
 		<property name="javaMailProperties">
 			<props>
 				<prop key="mail.smtp.auth">true</prop>
