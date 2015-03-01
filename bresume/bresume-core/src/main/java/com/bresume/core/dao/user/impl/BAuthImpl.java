@@ -14,7 +14,7 @@ public class BAuthImpl extends SimpleHibernateDao<BAuth, String> implements
 	@Override
 	public boolean delete(String userId, int type) {
 		Query query = this.createQuery(
-				"detete from BAuth where user.id=? and type=?", userId, type);
+				"delete from BAuth where user.id=? and type=?", userId, type);
 		return query.executeUpdate() > 0;
 	}
 

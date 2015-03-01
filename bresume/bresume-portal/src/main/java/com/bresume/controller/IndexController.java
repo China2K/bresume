@@ -4,6 +4,7 @@ import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -67,7 +68,7 @@ public class IndexController extends PortalController {
 	private IResumeItemRefService resumeItemRefService;
 
 	@RequestMapping("/index")
-	public String index(HttpServletRequest request, Model model) {
+	public String index(HttpServletRequest request, Model model,@RequestParam(value = "from", required = false,defaultValue="") String from) {
 		List<Template> hotTemplates = templateService
 				.findHostTemplates(CommonStatus.ACTIVE.getCode());
 
@@ -76,8 +77,9 @@ public class IndexController extends PortalController {
 
 		model.addAttribute("hotTemplates", hotTemplates);
 		model.addAttribute("hotResumes", hotResumes);
-		
-//		setUserFromCookie(request);
+		if(!from.equalsIgnoreCase("logout")){
+			setUserFromCookie(request);
+		}
 		return "/site/index.jsp";
 	}
 
@@ -137,16 +139,22 @@ public class IndexController extends PortalController {
 
 	@RequestMapping(value = "/resumes/{resumeName}", method = RequestMethod.GET)
 	public String view(@PathVariable String resumeName, Model model) {
-
+		try {
+			resumeName=new String(resumeName.getBytes("iso8859-1"),"UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
 		Resume resume = resumeService.findUniqueBy("name", resumeName);
 		if (resume == null) {
 			LOGGER.error(resumeName+":简历未找到！");
-			return "404";
+			model.addAttribute("message", resumeName+":简历尚未允许公布！");
+			return "site/error.jsp";
 		}
 		int score = resumeService.getScore(resume);
 		if (score < 51) {
 			LOGGER.error(resumeName+":简历未完成！");
-			return "404";
+			model.addAttribute("message", resumeName+":简历尚未允许公布！");
+			return "site/error.jsp";
 		}
 		int status = resume.getStatus();
 		boolean isPub = resume.getIsPublic();
@@ -154,8 +162,9 @@ public class IndexController extends PortalController {
 		if ((status != CommonStatus.ACTIVE.getCode() || !isPub)
 				&& (this.getCurrentUserId() == null || !this.getCurrentUserId()
 						.equals(resume.getUser().getId()))) {
-			LOGGER.error(resumeName+":简历尚未允许公布！");
-			return "404";
+			LOGGER.error(this.getCurrentUserId()+"-"+resume.getUser().getId()+"-"+resumeName+":简历尚未允许公布！");
+			model.addAttribute("message", resumeName+":简历尚未允许公布！");
+			return "site/error.jsp";
 		}
 		model.addAttribute("resume", resume);
 
@@ -211,6 +220,11 @@ public class IndexController extends PortalController {
 	@RequestMapping(value = "/resumes/{resumeName}/download")
 	public void download(HttpServletRequest request, HttpServletResponse resp,
 			@PathVariable String resumeName) {
+		try {
+			resumeName=new String(resumeName.getBytes("iso8859-1"),"UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
 		String url = "http://www.bresume.com/resumes/" + resumeName;
 
 		URL u;

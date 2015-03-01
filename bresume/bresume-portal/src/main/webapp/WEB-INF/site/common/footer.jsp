@@ -22,11 +22,20 @@
 
 
 
-					<li><a href="#"><i class="fa fa-weibo"><wb:share-button appkey="xxxxxx" addition="simple" type="icon"></wb:share-button></i></a></li>
+						<li><a href="javascript:void(0);" id="wbA"><i class="fa fa-weibo"></i>
+						<div id="WBIframe" style="margin-top:-39px;filter:alpha(opacity=0);-moz-opacity:0;-khtml-opacity:0;opacity:0;">
+						<wb:share-button appkey="xxxxxx" addition="simple" type="button"  language="zh_cn"></wb:share-button></div>
+						</a>
+						
+						</li>
+				
 				</ul>
 			</div>
 			<div class="col-md-4"></div>
 		</div>
 	</div>
+<script type="text/javascript">
+
+</script>
 </footer>
 </html>

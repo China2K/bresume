@@ -12,7 +12,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>bresume - 简历创建</title>
+<title>bresume - 比简历</title>
 
 
 <style type="text/css">

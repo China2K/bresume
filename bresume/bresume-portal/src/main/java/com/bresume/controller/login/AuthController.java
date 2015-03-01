@@ -10,17 +10,14 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.ui.Model;
 
 import com.bresume.core.common.base.controller.PortalController;
-import com.bresume.core.common.base.sys.SessionContextHolder;
-import com.bresume.core.common.constant.IAdminConstants;
-import com.bresume.core.common.constant.IPortalConstants;
-import com.bresume.core.common.constant.enums.AuthType;
+import com.bresume.core.common.utils.CommonUtils;
 import com.bresume.core.common.utils.PropertiesLoader;
 import com.bresume.core.common.utils.mail.Email;
 import com.bresume.core.common.utils.mail.MailUtils;
-import com.bresume.core.model.dto.LoginUser;
 import com.bresume.core.model.entity.user.BAuth;
 import com.bresume.core.model.entity.user.User;
 import com.bresume.core.service.user.IBAuthService;
+import com.bresume.core.service.user.IUserService;
 
 public abstract class AuthController extends PortalController {
 	@Resource
@@ -28,6 +25,9 @@ public abstract class AuthController extends PortalController {
 
 	@Resource
 	private IBAuthService authService;
+	
+	@Resource
+	private IUserService userService;
 
 	protected void sendRegisterMail(User user, String code) {
 		PropertiesLoader loader = new PropertiesLoader("mail.properties");
@@ -72,7 +72,31 @@ public abstract class AuthController extends PortalController {
 	protected String callBack(Model model, BAuth newAuth) {
 		BAuth oldAuth = authService.findOne(newAuth.getOpenId(),
 				newAuth.getType());
-		if (oldAuth != null && oldAuth.getUser() != null) {
+		
+		String uid = getCurrentUserId();
+		if(CommonUtils.isNotEmpty(uid)){
+		//判定为用户绑定行为
+			if (oldAuth != null && oldAuth.getUser() != null) {
+				//判定已被其他账户绑定
+				model.addAttribute("errorMsg", "该账户已被其他用户绑定！");
+				return "redirect:/user/settings";
+			}else{
+				User user = userService.findOne(uid);
+				oldAuth = new BAuth();
+				oldAuth.setUser(user);
+				oldAuth.setAccessToken(newAuth.getAccessToken());
+				oldAuth.setExpiresIn(newAuth.getExpiresIn());
+				oldAuth.setCreatedTime(new Date());
+				oldAuth.setIcon(newAuth.getIcon());
+				oldAuth.setNickName(newAuth.getNickName());
+				oldAuth.setOpenId(newAuth.getOpenId());
+				oldAuth.setRefreshAccessTime(new Date());
+				oldAuth.setType(newAuth.getType());
+				authService.save(oldAuth);
+//				this.setUser2Session(oldAuth);
+				return "redirect:/user/settings";
+			}
+		}else if (oldAuth != null && oldAuth.getUser() != null) {
 			// 判定有登录记录
 			// 刷新accessToken
 			oldAuth.setAccessToken(newAuth.getAccessToken());
@@ -100,7 +124,7 @@ public abstract class AuthController extends PortalController {
 			model.addAttribute("loginFrom", newAuth.getType());
 			return "site/bindAuth.jsp";
 		} else {
-			// 登录过但因某种原因为绑定账户
+			// 登录过但因某种原因未绑定账户
 			oldAuth.setAccessToken(newAuth.getAccessToken());
 			oldAuth.setExpiresIn(newAuth.getExpiresIn());
 			oldAuth.setIcon(newAuth.getIcon());

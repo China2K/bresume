@@ -141,16 +141,19 @@ public class UserController extends AuthController {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			return "404";
+			model.addAttribute("message", "系统错误");
+			return "site/error.jsp";
 		}
 		if (CommonUtils.isEmpty(email)) {
 			LOGGER.error("email为空！");
-			return "404";
+			model.addAttribute("message", "email为空！");
+			return "site/error.jsp";
 		}
 		User user = userService.findUniqueBy("email", email);
 		if (user == null || user.getId() == null) {
 			LOGGER.error("用户未找到！");
-			return "404";
+			model.addAttribute("message", "用户未找到！");
+			return "site/error.jsp";
 		}
 		User _user = new User();
 		_user.setId(user.getId());
@@ -195,7 +198,7 @@ public class UserController extends AuthController {
 		// 删除session
 		SessionContextHolder.getSession().removeAttribute(
 				IPortalConstants.SESSION_KEY_LOGIN_USER);
-		return "redirect:/index";
+		return "redirect:/index?from=logout";
 	}
 
 	@RequestMapping("/verified")
@@ -271,7 +274,7 @@ public class UserController extends AuthController {
 	}
 
 	@RequestMapping("/settings")
-	public String settings(ModelMap model) {
+	public String settings(ModelMap model,@RequestParam(value = "errorMsg", required = false) String errorMsg) {
 		LoginUser loginUser = this.getCurrentLoginUser();
 		User user = userService.findOne(loginUser.getId());
 		if (user.getStatus().intValue() == UserStatus.INTITAL.getCode()) {
@@ -291,6 +294,7 @@ public class UserController extends AuthController {
 				model.addAttribute("sina", true);
 			}
 		}
+		model.addAttribute("errorMsg", errorMsg);
 		return "site/settings.jsp";
 	}
 

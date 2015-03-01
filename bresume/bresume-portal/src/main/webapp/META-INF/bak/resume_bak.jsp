@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>bresume - 简历创建</title>
+<title>bresume - 比简历</title>
 
 
 <link href="/portal/resource/site/css/bootstrap.min.css"

@@ -9,7 +9,7 @@
 <meta
 	Access-Control-Allow-Headers=" Content-Type, Content-Range, Content-Disposition, Content-Description">
 
-<title>bresume - 简历创建</title>
+<title>bresume - 比简历</title>
 
 <!-- Bootstrap Core CSS -->
 <link href="<c:url value='/resource/site/css/bootstrap.min.css'/>"

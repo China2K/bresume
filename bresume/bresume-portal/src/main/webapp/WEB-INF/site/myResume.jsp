@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE HTML>
 <html>
@@ -10,7 +11,7 @@
 <meta
 	Access-Control-Allow-Headers=" Content-Type, Content-Range, Content-Disposition, Content-Description">
 
-<title>bresume - 简历创建</title>
+<title>bresume - 比简历</title>
 
 <!-- Bootstrap Core CSS -->
 <link href="<c:url value='/resource/site/css/bootstrap.min.css'/>"
@@ -186,7 +187,9 @@ section {
 								</div>
 								<div class="row text-left">
 									<span class="glyphicon glyphicon-time"
-										style="margin-right: 50px;">&nbsp;&nbsp;${resume.createdTime}</span>
+										style="margin-right: 50px;">&nbsp;&nbsp;
+										<fmt:formatDate value="${resume.createdTime}" pattern="yyyy-MM-dd HH:mm:ss" /> 
+										</span>
 								</div>
 								<%-- <div class="row text-center">
 							<div class="col-md-4 text-left">

@@ -91,7 +91,7 @@ public class LoginFilter extends HttpServlet implements Filter {
 		HttpServletResponse res = (HttpServletResponse) response;
 		HttpSession session = req.getSession();
 
-		if (CommonUtils.isEmpty(session
+		/*if (CommonUtils.isEmpty(session
 				.getAttribute(IPortalConstants.SESSION_KEY_LOGIN_USER))) {
 			String uname = getFromCookie(
 					IPortalConstants.COOKIE_KEY_LOGIN_USER,
@@ -116,7 +116,7 @@ public class LoginFilter extends HttpServlet implements Filter {
 				}
 			}
 		}
-
+*/
 		// 把session放到上下文中
 		SessionContextHolder.setSession(session);
 

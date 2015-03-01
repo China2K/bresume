@@ -58,7 +58,8 @@ public class QQController extends AuthController {
 
 			if (accessTokenObj.getAccessToken().equals("")) {
 				LOGGER.error("QQ Login failed,caused by 没有获取到响应参数");
-				return "404";
+				model.addAttribute("message", "QQ 登录失败,由于没有获取到响应参数");
+				return "site/error.jsp";
 			}
 
 			accessToken = accessTokenObj.getAccessToken();

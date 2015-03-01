@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -19,7 +18,6 @@ import com.bresume.core.common.constant.enums.RegisterType;
 import com.bresume.core.common.constant.enums.UserType;
 import com.bresume.core.common.exception.CoreException;
 import com.bresume.core.common.exception.PortalErrorCode;
-import com.bresume.core.common.exception.impl.PortalException;
 import com.bresume.core.common.utils.CommonUtils;
 import com.bresume.core.model.dto.LoginUser;
 import com.bresume.core.model.entity.user.BAuth;
@@ -52,7 +50,8 @@ public class BindController extends AuthController {
 			ModelMap model, HttpServletResponse response) {
 		BAuth auth = authService.findOne(openId, loginFrom);
 		if (auth == null) {
-			return "404";
+			model.addAttribute("message", "未找到第三方绑定账户");
+			return "site/error.jsp";
 		}
 		if (auth.getUser() == null) {
 			User user = new User();
@@ -151,11 +150,12 @@ public class BindController extends AuthController {
 		return this.toJSONResult(true);
 	}
 
-	@RequestMapping(value="/remove-bind/{authType}")
-	public void removeBind(@PathVariable Integer authType,
+	@RequestMapping(value="/settings/remove-bind/{authType}")
+	public String removeBind(@PathVariable Integer authType,
 			ModelMap model, HttpServletResponse response) {
 		LoginUser user = this.getCurrentLoginUser();
 		authService.removeBind(user.getId(), authType);
+		return "redirect:/user/settings";
 	}
 
 }
