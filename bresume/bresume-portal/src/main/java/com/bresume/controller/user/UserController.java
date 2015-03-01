@@ -144,10 +144,12 @@ public class UserController extends AuthController {
 			return "404";
 		}
 		if (CommonUtils.isEmpty(email)) {
+			LOGGER.error("email为空！");
 			return "404";
 		}
 		User user = userService.findUniqueBy("email", email);
 		if (user == null || user.getId() == null) {
+			LOGGER.error("用户未找到！");
 			return "404";
 		}
 		User _user = new User();
