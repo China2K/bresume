@@ -8,13 +8,16 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-<title>bresume管理系统</title>
+<title>比简历-管理平台</title>
 <!-- bootstrap & fontawesome -->
 <link rel="stylesheet" href="/resource/site/css/bootstrap.min.css" />
 <link rel="stylesheet"
 	href="/resource/site/font-awesome/4.1.0/css/font-awesome.min.css" />
 
 <!-- page specific plugin styles -->
+<link rel="stylesheet" href="/resource/site/css/jquery-ui.min.css" />
+<link rel="stylesheet" href="/resource/site/css/datepicker.css" />
+<link rel="stylesheet" href="/resource/site/css/ui.jqgrid.css" />
 
 <!-- text fonts -->
 <link rel="stylesheet"
@@ -30,14 +33,17 @@
 <link rel="stylesheet" href="/resource/site/css/ace-skins.min.css" />
 <link rel="stylesheet" href="/resource/site/css/ace-rtl.min.css" />
 
+<!-- common styles -->
+<link rel="stylesheet" href="/resource/common/common.css" />
+
+<link rel="stylesheet" href="/resource/plugin/uploadify/uploadify.css" />
+
 <!--[if lte IE 9]>
 		  <link rel="stylesheet" href="/resource/site/css/ace-ie.min.css" />
 		<![endif]-->
 
 <!-- inline styles related to this page -->
 
-<!-- ace settings handler -->
-<script src="/resource/site/js/ace-extra.min.js"></script>
 
 <!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
 
@@ -266,7 +272,7 @@
 					<li class="light-blue"><a data-toggle="dropdown" href="#"
 						class="dropdown-toggle"> <img class="nav-user-photo"
 							src="/resource/site/avatars/user.jpg" alt="Jason's Photo" /> <span
-							class="user-info"> <small>超级管理员</small>
+							class="user-info"> <small>${sessionScope.loginUser.realName }</small>
 						</span> <i class="ace-icon fa fa-caret-down"></i>
 					</a>
 
@@ -474,6 +480,8 @@
 	</div>
 	<!-- /.main-container -->
 
+	
+	
 	<!-- basic scripts -->
 
 	<!--[if !IE]> -->
@@ -486,10 +494,7 @@
 
 	<!--[if !IE]> -->
 	<script type="text/javascript">
-		window.jQuery
-				|| document
-						.write("<script src='/resource/site/js/jquery.min.js'>"
-								+ "<"+"/script>");
+	window.jQuery || document.write("<script src='/resource/site/js/jquery.min.js'>"+"<"+"/script>");
 	</script>
 	<!-- <![endif]-->
 
@@ -508,12 +513,37 @@
 	<script src="/resource/site/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
 	<!-- page specific plugin scripts -->
+	<script src="/resource/site/js/date-time/bootstrap-datepicker.min.js"></script>
+	<script src="/resource/site/js/jqGrid/jquery.jqGrid.min.js"></script>
+	<script src="/resource/site/js/jqGrid/i18n/grid.locale-en.js"></script>
+	
+	<!-- ace settings handler -->
+	<script src="/resource/site/js/ace-extra.min.js"></script>
 
 	<!-- ace scripts -->
 	<script src="/resource/site/js/ace-elements.min.js"></script>
 	<script src="/resource/site/js/ace.min.js"></script>
 	<script src="/resource/site/js/jquery.livequery.js"></script>
+	
+	<script src="/resource/site/js/bootbox.min.js"></script>
+
+	<script type="text/javascript"
+		src="<c:url value ='/resource/site/js/jquery.form.js'/>"
+		charset="UTF-8"></script>
+		
+	<script
+		src="<c:url value ='/resource/plugin/uploadify/jquery.uploadify.js'/>"></script>
+
 	<script src="/resource/common/common.js"></script>
+
+	<!-- jQuery-Validation-Engine -->
+	<link rel="stylesheet"
+	href="<c:url value ='/resource/plugin/jQuery-Validation-Engine/css/validationEngine.jquery.css'/>">
+	<script
+	src="<c:url value ='/resource/plugin/jQuery-Validation-Engine/js/jquery.validationEngine-zh_CN.js'/>"></script>
+	<script
+	src="<c:url value ='/resource/plugin/jQuery-Validation-Engine/js/jquery.validationEngine.min.js'/>"></script>
+	
 
 	<!-- inline scripts related to this page -->
 

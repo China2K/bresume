@@ -1,8 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix='spring' uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE HTML>
+
+
+
 
 <!-- bootstrap & fontawesome -->
 <link rel="stylesheet" href="/resource/site/css/bootstrap.min.css" />
@@ -29,17 +34,16 @@
 <link rel="stylesheet" href="/resource/site/css/ace-rtl.min.css" />
 
 <!-- common styles -->
-<!-- common styles -->
 <link rel="stylesheet" href="/resource/common/common.css" />
 
 <link rel="stylesheet" href="/resource/plugin/uploadify/uploadify.css" />
-
 
 <!--[if lte IE 9]>
 		  <link rel="stylesheet" href="/resource/site/css/ace-ie.min.css" />
 		<![endif]-->
 
 <!-- inline styles related to this page -->
+
 
 <!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
 

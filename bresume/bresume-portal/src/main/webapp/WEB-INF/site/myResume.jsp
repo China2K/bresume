@@ -380,17 +380,20 @@ section {
 		}
 
 		function delete_resume(id) {
-			$.ajax({
-				type:"POST",
-				url:"/resume/delete",
-				data:{id:id},
-				dataType:"json",
-				success:function(resp){
-					alert(resp.message);
-					 location.reload();
-				}
-				
-			});
+			if(confirm("确定要删除此简历吗？")) {
+				$.ajax({
+					type:"POST",
+					url:"/resume/delete",
+					data:{id:id},
+					dataType:"json",
+					success:function(resp){
+						alert(resp.message);
+						 location.reload();
+					}
+					
+				});
+			}
+			
 		}
 
 		function download_resume(id,score) {

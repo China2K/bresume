@@ -9,13 +9,11 @@
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-<title>jqGrid - Ace Admin</title>
+<title>jqGrid - bresume</title>
 
 <meta name="description" content="简历" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-
-<%@ include file="../../common/common.jsp"%>
 
 <style type="text/css">
 </style>
