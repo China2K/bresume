@@ -120,7 +120,7 @@ public class ResumeController extends PortalController {
 		String uid = this.getCurrentUserId();
 		User user = userService.findOne(uid);
 		if (user.getStatus().intValue() != UserStatus.ACTIVE.getCode()) {
-			model.addAttribute("message", "您的账户未激活，请检查邮箱，如原邮件收到请到用户设置中重新发送激活邮件");
+			model.addAttribute("message", "您的账户未激活!注册用户请检查邮箱，如原邮件未收到请到用户设置中重新发送激活邮件;第三方登录用户，请确保在用户设置中输入邮箱后，重新发送激活邮件以激活。");
 			return "site/error.jsp";
 		}
 

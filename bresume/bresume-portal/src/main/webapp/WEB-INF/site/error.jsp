@@ -64,6 +64,7 @@ line-height: 300px;
 	<script type="text/javascript"
 		src="<c:url value ='/resource/site/js/bootstrap.min.js'/>"></script>
 	<script src="<c:url value ='/resource/site/js/jquery.form.js'/>"></script>
+	<script src="<c:url value ='/resource/app/js/common.js'/>"></script>
 	<script
 		src="<c:url value ='/resource/plugin/jQuery-Validation-Engine/js/jquery.validationEngine-zh_CN.js'/>"></script>
 	<script

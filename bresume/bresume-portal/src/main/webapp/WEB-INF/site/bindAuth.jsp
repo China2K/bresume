@@ -45,7 +45,12 @@
 				<input type="hidden" name="openId" value="${openId}" /> <input
 					type="hidden" name="loginFrom" value="${loginFrom}" />
 				<div class="modal-header">
-					<p>正将您的bresume账号同${login_from}账号绑定。请您将下列表单填写完毕。</p>
+					<p>正将您的bresume账号同&nbsp;
+					<c:choose>
+						<c:when test="${loginFrom==1}"><i class="fa fa-qq"></i></c:when>
+						<c:when test="${loginFrom==2}"><i class="fa fa-weibo"></i></c:when>
+					</c:choose>
+					&nbsp;<span style="color:#B2B2B2;">${nickName}</span>&nbsp;绑定。请您将下列表单填写完毕。</p>
 				</div>
 				<div class="modal-body row">
 					<div class="col-md-5 right-dashed">
@@ -108,6 +113,7 @@
 	<script type="text/javascript"
 		src="<c:url value ='/resource/site/js/bootstrap.min.js'/>"></script>
 	<script src="<c:url value ='/resource/site/js/jquery.form.js'/>"></script>
+	<script src="<c:url value ='/resource/app/js/common.js'/>"></script>
 	<script
 		src="<c:url value ='/resource/plugin/jQuery-Validation-Engine/js/jquery.validationEngine-zh_CN.js'/>"></script>
 	<script

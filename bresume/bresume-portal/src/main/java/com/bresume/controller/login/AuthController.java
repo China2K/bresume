@@ -122,6 +122,7 @@ public abstract class AuthController extends PortalController {
 			// 用户绑定,跳转页面
 			model.addAttribute("openId", newAuth.getOpenId());
 			model.addAttribute("loginFrom", newAuth.getType());
+			model.addAttribute("nickName",newAuth.getNickName());
 			return "site/bindAuth.jsp";
 		} else {
 			// 登录过但因某种原因未绑定账户
@@ -134,6 +135,7 @@ public abstract class AuthController extends PortalController {
 			// 用户绑定,跳转页面
 			model.addAttribute("openId", newAuth.getOpenId());
 			model.addAttribute("loginFrom", newAuth.getType());
+			model.addAttribute("nickName",newAuth.getNickName());
 			return "site/bindAuth.jsp";
 		}
 
