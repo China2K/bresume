@@ -5,11 +5,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Random;
-import java.util.UUID;
 
 import org.apache.log4j.Logger;
 import org.apache.lucene.queryparser.classic.ParseException;
@@ -46,10 +42,10 @@ public class Startup
 		 File dataFile=new File("E://data.txt");
 		 FileWriter fileWriter=new FileWriter(dataFile);  
 		 BufferedWriter bw=new BufferedWriter(fileWriter);  
-		for(int i=0;i<10000;i++){
+		for(int i=0;i<2;i++){
 			String id=UUID.randomUUID().toString();
 			String name="test"+i+ran.nextInt(5000);
-			String sn="sn-"+i;
+			String sn="sn-"+333;
 			String keywords="just test-"+UUID.randomUUID().toString().replace("-", "");
 			products.add(new Product(id, name, keywords, null, sn));
 			bw.write(id); 
@@ -67,12 +63,12 @@ public class Startup
 		System.out.println(products.size());
 		try {
 			System.out.println("start build index "+new Date());
-			IndexUtils.rebuildOrUpdateIndex(products, true);
+			IndexUtils.rebuildOrUpdateIndex(products, false);
 			System.out.println("end build index"+new Date());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}*/
-		String keywords="test1 3239"	;
+		String keywords=" 333"	;
 		List<Product> search = SearchUtils.search(keywords);
 		File resFile=new File("E://resFile.txt");
 		 FileWriter fileWriter=new FileWriter(resFile);  

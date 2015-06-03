@@ -33,7 +33,7 @@
 			<bean class="com.demo.test.config.ConfigBean.Field">
 				<property name="name"><value>id</value></property>
 				<property name="stored"><value>true</value></property>
-				<property name="indexed"><value>true</value></property>
+				<property name="indexOption"><value>1</value></property>
 				<property name="tokenized"><value>false</value></property>
 			</bean>
 		</property>
@@ -42,19 +42,19 @@
 				<bean class="com.demo.test.config.ConfigBean.Field">
 					<property name="name"><value>name</value></property>
 					<property name="stored"><value>true</value></property>
-					<property name="indexed"><value>true</value></property>
+					<property name="indexOption"><value>1</value></property>
 					<property name="tokenized"><value>false</value></property>
 				</bean> 
 				<bean class="com.demo.test.config.ConfigBean.Field">
 					<property name="name"><value>keywords</value></property>
 					<property name="stored"><value>true</value></property>
-					<property name="indexed"><value>true</value></property>
+					<property name="indexOption"><value>1</value></property>
 					<property name="tokenized"><value>true</value></property>
 				</bean>
 				<bean class="com.demo.test.config.ConfigBean.Field">
 					<property name="name"><value>sn</value></property>
 					<property name="stored"><value>true</value></property>
-					<property name="indexed"><value>true</value></property>
+					<property name="indexOption"><value>1</value></property>
 					<property name="tokenized"><value>true</value></property>
 				</bean>
 			</list>

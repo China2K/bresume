@@ -1,7 +1,5 @@
 package com.demo.test.config;
 
-
-
 import java.util.List;
 
 public class ConfigBean {
@@ -16,7 +14,7 @@ public class ConfigBean {
 	public static class Field {
 		private String name;
 		private boolean stored;
-		private boolean indexed;
+		private int indexOption;
 		private boolean tokenized;
 
 		public String getName() {
@@ -35,12 +33,12 @@ public class ConfigBean {
 			this.stored = stored;
 		}
 
-		public boolean isIndexed() {
-			return indexed;
+		public int getIndexOption() {
+			return indexOption;
 		}
 
-		public void setIndexed(boolean indexed) {
-			this.indexed = indexed;
+		public void setIndexOption(int indexOption) {
+			this.indexOption = indexOption;
 		}
 
 		public boolean isTokenized() {
@@ -51,7 +49,6 @@ public class ConfigBean {
 			this.tokenized = tokenized;
 		}
 
-		
 	}
 
 	public String getIndexName() {
@@ -101,6 +98,5 @@ public class ConfigBean {
 	public void setTempPath(String tempPath) {
 		this.tempPath = tempPath;
 	}
-
 
 }

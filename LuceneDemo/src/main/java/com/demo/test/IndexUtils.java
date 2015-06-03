@@ -13,7 +13,6 @@ import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.FieldType;
-import org.apache.lucene.index.IndexOptions;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.index.IndexWriterConfig.OpenMode;
@@ -23,9 +22,56 @@ import org.apache.lucene.store.FSDirectory;
 
 import com.demo.test.config.ConfigBean;
 import com.demo.test.config.ConfigurationLoader;
+import com.demo.test.config.IndexTypeOptions;
 
 public class IndexUtils {
 	protected static Logger logger = Logger.getLogger(IndexUtils.class);
+
+	public static void rebuildOrUpdateIndex(Iterable<Product> products,
+			boolean create) throws IOException {
+		ConfigBean config = ConfigurationLoader.getProductConf();
+		if (create) {
+			FileUtils.cleanDirectiory(config.getTempPath());
+		}
+		IndexWriter writer = getIndexWriter(config, create);
+
+		try {
+			for (Product product : products) {
+				if (!create) {
+					ConfigBean.Field key = config.getKey();
+					writer.deleteDocuments(new Term(key.getName(), product
+							.getId()));
+				}
+				writer.addDocument(createProductDoc(product, config));
+			}
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			throw e;
+		} finally {
+			if (writer != null) {
+
+				try {
+					writer.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
+				writer = null;
+			}
+		}
+
+		if (create) {
+			try {
+				FileUtils.copyDirectiory(config.getTempPath(),
+						config.getStorePath());
+				logger.info("index files is copied from "
+						+ config.getTempPath() + " to " + config.getStorePath());
+			} catch (IOException e) {
+				logger.error("error with copy index files: ", e);
+				throw e;
+			}
+		}
+	}
 
 	private static IndexWriter getIndexWriter(ConfigBean config, boolean create)
 			throws IOException {
@@ -36,13 +82,13 @@ public class IndexUtils {
 			// Create a new index in the directory, removing any
 			// previously indexed documents:
 			iwc.setOpenMode(OpenMode.CREATE);
-			indexPath=config.getTempPath();
+			indexPath = config.getTempPath();
 		} else {
 			// Add new documents to an existing index:
 			iwc.setOpenMode(OpenMode.CREATE_OR_APPEND);
-			indexPath=config.getStorePath();
+			indexPath = config.getStorePath();
 		}
-		System.out.println("indexPath:"+indexPath);
+		System.out.println("indexPath:" + indexPath);
 		File file = new File(indexPath);
 		if (!file.exists()) {
 			file.mkdir();
@@ -60,56 +106,14 @@ public class IndexUtils {
 		return writer;
 	}
 
-	public static void rebuildOrUpdateIndex(Iterable<Product> products,
-			boolean create) throws IOException {
-		ConfigBean config = ConfigurationLoader.getProductConf();
-		if (create) {
-			FileUtils.cleanDirectiory(config.getTempPath());
-		}
-		IndexWriter writer = getIndexWriter(config, create);
-		
-		try {
-			for (Product product : products) {
-				if (!create) {
-					ConfigBean.Field key = config.getKey();
-					writer.deleteDocuments(new Term(key.getName(), product.getId()));
-				}
-				writer.addDocument(createProductDoc(product, config));
-			}
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-			throw e;
-		} finally {
-			if (writer != null) {
-				
-				try {
-					writer.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				
-				writer = null;
-			}
-		}
-		
-		if (create) {
-			try {
-				FileUtils.copyDirectiory(config.getTempPath(), config.getStorePath());
-				logger.info("index files is copied from " + config.getTempPath() + " to " + config.getStorePath());
-			} catch (IOException e) {
-				logger.error("error with copy index files: ", e);
-				throw e;
-			}
-		}
-	}
-
 	private static Document createProductDoc(Product product, ConfigBean config) {
 
 		ConfigBean.Field key = config.getKey();
 		Document doc = new Document();
 		FieldType fieldType = new FieldType();
 		fieldType.setStored(key.isStored());
-		fieldType.setIndexOptions(IndexOptions.DOCS);
+		fieldType.setIndexOptions(IndexTypeOptions.fromType(key
+				.getIndexOption()));
 		fieldType.setTokenized(key.isTokenized());
 		doc.add(new Field(key.getName(), product.getId(), fieldType));
 		for (ConfigBean.Field field : config.getFields()) {
@@ -117,7 +121,8 @@ public class IndexUtils {
 			if (StringUtils.isNotEmpty(value)) {
 				FieldType field_type = new FieldType();
 				field_type.setStored(field.isStored());
-				field_type.setIndexOptions(IndexOptions.DOCS);
+				field_type.setIndexOptions(IndexTypeOptions.fromType(field
+						.getIndexOption()));
 				field_type.setTokenized(field.isTokenized());
 				doc.add(new Field(field.getName(), value, field_type));
 			}

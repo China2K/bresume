@@ -49,22 +49,17 @@ public class FileUtils {
 		BufferedOutputStream outBuff = null;
 
 		try {
-			// �½��ļ���������������л���
 			inBuff = new BufferedInputStream(new FileInputStream(source));
 
-			// �½��ļ��������������л���
 			outBuff = new BufferedOutputStream(new FileOutputStream(target));
 
-			// ��������
 			byte[] b = new byte[1024 * 5];
 			int len;
 			while ((len = inBuff.read(b)) != -1) {
 				outBuff.write(b, 0, len);
 			}
-			// ˢ�´˻���������
 			outBuff.flush();
 		} finally {
-			// �ر���
 			if (inBuff != null) {
 				try {
 					inBuff.close();
