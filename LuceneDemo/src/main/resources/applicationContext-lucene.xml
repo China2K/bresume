@@ -41,7 +41,7 @@
 			<list>
 				<bean class="com.demo.test.config.ConfigBean.Field">
 					<property name="name"><value>name</value></property>
-					<property name="stored"><value>false</value></property>
+					<property name="stored"><value>true</value></property>
 					<property name="indexed"><value>true</value></property>
 					<property name="tokenized"><value>false</value></property>
 				</bean> 

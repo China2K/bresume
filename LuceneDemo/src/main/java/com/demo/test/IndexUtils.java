@@ -67,12 +67,39 @@ public class IndexUtils {
 			FileUtils.cleanDirectiory(config.getTempPath());
 		}
 		IndexWriter writer = getIndexWriter(config, create);
-		for (Product product : products) {
-			if (!create) {
-				ConfigBean.Field key = config.getKey();
-				writer.deleteDocuments(new Term(key.getName(), product.getId()));
+		
+		try {
+			for (Product product : products) {
+				if (!create) {
+					ConfigBean.Field key = config.getKey();
+					writer.deleteDocuments(new Term(key.getName(), product.getId()));
+				}
+				writer.addDocument(createProductDoc(product, config));
 			}
-			writer.addDocument(createProductDoc(product, config));
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			throw e;
+		} finally {
+			if (writer != null) {
+				
+				try {
+					writer.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				
+				writer = null;
+			}
+		}
+		
+		if (create) {
+			try {
+				FileUtils.copyDirectiory(config.getTempPath(), config.getStorePath());
+				logger.info("index files is copied from " + config.getTempPath() + " to " + config.getStorePath());
+			} catch (IOException e) {
+				logger.error("error with copy index files: ", e);
+				throw e;
+			}
 		}
 	}
 
