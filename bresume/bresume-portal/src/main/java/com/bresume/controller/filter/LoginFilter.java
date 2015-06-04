@@ -99,7 +99,7 @@ public class LoginFilter extends HttpServlet implements Filter {
 			String upsw = getFromCookie(IPortalConstants.COOKIE_KEY_LOGIN_PSW,
 					(HttpServletRequest) request);
 			if (CommonUtils.isNotEmpty(upsw) && CommonUtils.isNotEmpty(uname)) {
-				// 登陆校验
+				// 登录校验
 				IUserService userService = (IUserService) wac.getBean("userServiceImpl");
 				try {
 					User _loginUser = userService.loginCheck(uname,
@@ -126,7 +126,7 @@ public class LoginFilter extends HttpServlet implements Filter {
 		String requestPath = req.getServletPath();
 
 		boolean flag = false;
-		// 不用登陆的URL 开头
+		// 不用登录的URL 开头
 		String excludeStr = filterConfig.getInitParameter("excludePrefix");
 		if (excludeStr != null && !"".equals(excludeStr)) {
 			String[] excludeUrlBeginnings = excludeStr.split(",");
@@ -151,7 +151,7 @@ public class LoginFilter extends HttpServlet implements Filter {
 				filterChain.doFilter(request, response);
 				return;
 			} else {
-				// 跳转到登陆页
+				// 跳转到登录页
 				res.sendRedirect(basePath + "login");
 				return;
 			}
