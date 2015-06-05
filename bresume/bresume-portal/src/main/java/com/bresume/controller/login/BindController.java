@@ -89,7 +89,7 @@ public class BindController extends AuthController {
 
 		if (auth.getUser() == null) {
 			try {
-				// 登陆校验
+				// 登录校验
 				User user = userService.loginCheck(email, password);
 				auth.setUser(user);
 				authService.update(auth);

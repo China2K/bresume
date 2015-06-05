@@ -67,7 +67,7 @@
 
 						</c:when>
 						<c:otherwise>
-							<li><a id="loginBtn" href="javascript:void(0);">登陆</a></li>
+							<li><a id="loginBtn" href="javascript:void(0);">登录</a></li>
 							<li><a id="signupBtn" href="javascript:void(0);">注册</a></li>
 						</c:otherwise>
 					</c:choose>

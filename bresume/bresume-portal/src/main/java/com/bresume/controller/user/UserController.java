@@ -171,7 +171,7 @@ public class UserController extends AuthController {
 			ModelMap model, HttpServletResponse response) {
 
 		try {
-			// 登陆校验
+			// 登录校验
 			User loginUser = userService.loginCheck(loginName, password);
 			// 记录session
 			setUser2Session(loginUser);

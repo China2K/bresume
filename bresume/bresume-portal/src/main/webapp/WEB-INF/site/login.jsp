@@ -170,7 +170,7 @@
 						<div class="social_sign_in row">
 
 							<div class="col-md-4">
-								<span style="line-height: 40px;">社交网络账号直接登陆<i
+								<span style="line-height: 40px;">社交网络账号直接登录<i
 									class="fa fa-caret-right"></i></span>
 							</div>
 							<div class="col-md-4">
