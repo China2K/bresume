@@ -34,6 +34,7 @@
 		<spring.version>3.2.9.RELEASE</spring.version>
 		<hibernate.version>4.2.14.Final</hibernate.version>
 		<jta.version>1.1</jta.version>
+		<lucene.version>5.1.0</lucene.version>
 	</properties>
 
 	<build>
@@ -116,7 +117,7 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
@@ -298,6 +299,31 @@
 			<artifactId>jackson-core-asl</artifactId>
 			<version>1.8.5</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-core</artifactId>
+			<version>${lucene.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-analyzers-common</artifactId>
+			<version>${lucene.version}</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-queryparser</artifactId>
+			<version>${lucene.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-queries</artifactId>
+			<version>${lucene.version}</version>
+		</dependency>
+
 	</dependencies>
 
 
