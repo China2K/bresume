@@ -5,15 +5,13 @@ import java.io.Serializable;
 
 import javax.persistence.MappedSuperclass;
 
-import com.bresume.core.common.lucene.model.BaseIndexBean;
-
 /**
  *
  * @author 2k
  */
 @SuppressWarnings("serial")
 @MappedSuperclass
-public abstract class BaseDto<T extends BaseEntity> extends BaseIndexBean implements Serializable 
+public abstract class BaseDto<T extends BaseEntity>implements Serializable 
 {
 	protected String id;
 	public String getId()
