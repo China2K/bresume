@@ -1,31 +1,33 @@
 package com.bresume.core.common.lucene.config;
 
+import java.util.List;
 
-
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 public class ConfigurationLoader {
 
 	static Logger logger = Logger.getLogger(ConfigurationLoader.class);
 
-	private static ConfigBean productConf;
+	private static List<ConfigBean> confs;
 
-	public void initialize() {
-		logger.info("initialize method");
+	public static List<ConfigBean> getConfs() {
+		return confs;
 	}
 
-	public static ConfigBean getProductConf() {
-		return productConf;
+	public static void setConfs(List<ConfigBean> confs) {
+		ConfigurationLoader.confs = confs;
 	}
 
-	public void setProductConf(ConfigBean productConf) {
-		this.productConf = productConf;
-	}
-
-	@Override
-	protected void finalize() throws Throwable {
-		super.finalize();
-
+	public static ConfigBean getConf(String name) {
+		if (StringUtils.isEmpty(name))
+			return null;
+		for (ConfigBean configBean : confs) {
+			if (name.equals(configBean.getIndexName())) {
+				return configBean;
+			}
+		}
+		return null;
 	}
 
 }

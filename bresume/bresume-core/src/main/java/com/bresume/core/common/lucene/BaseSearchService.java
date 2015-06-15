@@ -28,14 +28,16 @@ import com.bresume.core.common.lucene.config.ConfigurationLoader;
 import com.bresume.core.common.lucene.model.BaseIndexBean;
 
 public abstract class BaseSearchService<T extends BaseIndexBean> {
-	public abstract ConfigBean getConf();
+	public  ConfigBean getConf(){
+		return ConfigurationLoader.getConf(this.getClass().getName());
+	}
 
 	public List<T> search(String keywords) throws IOException, ParseException {
 		ConfigBean config = this.getConf();
 		List<Field> fields = config.getFields();
 
 		List<T> result = new ArrayList<T>();
-		String index = ConfigurationLoader.getProductConf().getStorePath();
+		String index = getConf().getStorePath();
 		IndexReader reader = DirectoryReader.open(FSDirectory.open(Paths
 				.get(index)));
 		IndexSearcher searcher = new IndexSearcher(reader);
